@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: www-nginx-org-endpoint
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: www-nginx-org-endpoint
+subsets:
+  - addresses:
+      - ip: 52.58.199.22
+    ports:
+      - port: 80

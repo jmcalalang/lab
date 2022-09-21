@@ -1,0 +1,154 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: kubernetes.calalang.net
+spec:
+  host: kubernetes.calalang.net
+  tls:
+    secret: kubernetes-calalang-net-tls-secret
+    redirect:
+      enable: true
+  upstreams:
+  - name: http-bin
+    service: http-bin
+    port: 80
+    healthCheck:
+      enable: true
+      path: /
+      port: 80
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500"
+  - name: tea-svc
+    service: tea-svc
+    port: 80
+    healthCheck:
+      enable: true
+      path: /
+      port: 80
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500" 
+  - name: coffee-svc
+    service: coffee-svc
+    port: 80
+    healthCheck:
+      enable: true
+      path: /
+      port: 80
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500"
+  - name: www-nginx-org-externalname
+    service: www-nginx-org-externalname
+    port: 80
+    healthCheck:
+      enable: true
+      path: /
+      port: 80
+      tls:
+        enable: false
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500"
+  - name: www-nginx-org-endpoint
+    service: www-nginx-org-endpoint
+    port: 80
+    healthCheck:
+      enable: true
+      path: /
+      port: 80
+      tls:
+        enable: false
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500"
+  routes:
+  - path: /
+    location-snippets: |
+      status_zone root;
+    policies:
+    - name: oidc-policy
+    action:
+      proxy:
+        upstream: http-bin
+        responseHeaders:
+          add:
+            - name: IC-Nginx-Version
+              value: ${nginx_version}
+              always: true
+            - name: IC-Nginx-Host
+              value: ${host}
+              always: true
+            - name: IC-Nginx-URI
+              value: ${request_uri}
+              always: true
+            - name: IC-Nginx-Server-Address
+              value: ${server_addr}
+              always: true
+  - path: /tea
+    location-snippets: |
+      status_zone tea-svc;
+      set $custom_variable $remote_addr; 
+    action:
+      pass: tea-svc
+  - path: /coffee
+    location-snippets: |
+      status_zone coffee-svc;
+      set $custom_variable $remote_addr; 
+    action:
+      pass: coffee-svc
+  - path: /externalname
+    location-snippets: |
+      status_zone externalname;
+      set $custom_variable $remote_addr; 
+    action:
+      proxy:
+        upstream: www-nginx-org-externalname
+        rewritePath: /
+        requestHeaders:
+          set:
+            - name: Host
+              value: nginx.org
+  - path: /endpoint
+    location-snippets: |
+      status_zone endpoint;
+      set $custom_variable $remote_addr; 
+    action:
+      proxy:
+        upstream: www-nginx-org-endpoint
+        rewritePath: /
+        requestHeaders:
+          set:
+            - name: Host
+              value: nginx.org
+  - path: /status
+    location-snippets: |
+      status_zone status;
+      set $custom_variable $remote_addr; 
+    action:
+      return:
+        code: 200
+        type: text/plain
+        body: "Hello from ${server_addr}\n"
+  - path: /waf
+    location-snippets: |
+      status_zone waf;
+      set $custom_variable $remote_addr; 
+    policies:
+    - name: waf-policy
+    action:
+      return:
+        code: 200
+        type: text/plain
+        body: "This is the WAF endpoint"

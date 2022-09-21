@@ -1,0 +1,3 @@
+when CLIENT_ACCEPTED {
+    virtual /nginxCalalangNet/nginx.calalang.net/nginxCalalangNet_vs
+}

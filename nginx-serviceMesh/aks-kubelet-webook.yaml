@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    component: custom-kubelet-webhook
+  name: custom-kubelet-webhook
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      component: custom-kubelet-webhook
+      tier: node
+  template:
+    metadata:
+      labels:
+        component: custom-kubelet-webhook
+        tier: node
+    spec:
+      containers:
+      - name: custom-kubelet-webhook
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        command:
+          - nsenter
+          - --target
+          - "1"
+          - --mount
+          - --uts
+          - --ipc
+          - --net
+          - --pid
+          - --
+          - sh
+          - -c
+          - |
+            if ! $(grep -q authentication-token-webhook=true /etc/default/kubelet); then sed -i 's/--authorization-mode=Webhook/--authorization-mode=Webhook --authentication-token-webhook=true/g' /etc/default/kubelet; systemctl restart kubelet; fi
+            sleep infinity            
+        resources:
+          requests:
+            cpu: 50m
+        securityContext:
+          privileged: true
+      dnsPolicy: ClusterFirst
+      hostPID: true
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      restartPolicy: Always
+  updateStrategy:
+    type: OnDelete

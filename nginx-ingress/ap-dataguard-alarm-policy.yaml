@@ -1,0 +1,55 @@
+apiVersion: appprotect.f5.com/v1beta1
+kind: APPolicy
+metadata:
+  name: dataguard-alarm
+spec:
+  policy:
+    bot-defense:
+      mitigations:
+        anomalies:
+          - name: Invalid HTTP Headers
+            action: "ignore"
+    signature-requirements:
+    - tag: Fruits
+    signature-sets: 
+    - name: apple_sigs
+      block: true
+      signatureSet: 
+        filter:
+          tagValue: Fruits
+          tagFilter: eq
+    applicationLanguage: utf-8
+    blocking-settings:
+      violations:
+      - alarm: true
+        block: false
+        name: VIOL_DATA_GUARD
+    data-guard:
+      creditCardNumbers: true
+      enabled: true
+      enforcementMode: ignore-urls-in-list
+      enforcementUrls: []
+      lastCcnDigitsToExpose: 4
+      lastSsnDigitsToExpose: 4
+      maskData: true
+      usSocialSecurityNumbers: true
+    general:
+        customXffHeaders:
+            - x-envoy-external-address
+            - x-forwarded-for
+        trustXff: true    
+    headers:
+        -
+            name: user-agent
+            type: explicit
+            decodeValueAsBase64: enabled
+            htmlNormalization: false
+            mandatory: false
+            allowRepeatedOccurrences: true
+            checkSignatures: false
+            signatureOverrides: 
+              - signatureId: 300000000
+    enforcementMode: blocking
+    name: dataguard-alarm
+    template:
+      name: POLICY_TEMPLATE_NGINX_BASE

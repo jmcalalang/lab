@@ -1,0 +1,12 @@
+apiVersion: cis.f5.com/v1
+kind: TLSProfile
+metadata:
+  name: bigip-calalang-net-tls
+  namespace: nginx-ingress
+  labels:
+    f5cr: "true"
+spec:
+  tls:
+    termination: edge
+    clientSSL: /Common/bigip-ssl-profile-client
+    reference: bigip

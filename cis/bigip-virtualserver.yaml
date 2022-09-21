@@ -1,0 +1,22 @@
+apiVersion: cis.f5.com/v1
+kind: VirtualServer
+metadata:
+  name: bigip-virtualserver-nginx
+  namespace: nginx-ingress
+  labels:
+    f5cr: "true"
+spec:
+  virtualServerAddress: "10.0.2.50"
+  virtualServerHTTPSPort: 443
+  tlsProfileName: bigip-calalang-net-tls
+  httpTraffic: redirect
+  pools:
+    - monitor:
+        interval: 20
+        recv: ""
+        send: "GET /\r\n"
+        timeout: 10
+        type: http
+      path: /
+      service: nginx-ingress
+      servicePort: 80
