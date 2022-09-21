@@ -1,0 +1,32 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: argo.calalang.net
+  namespace: nginx-ingress
+spec:
+  host: argo.calalang.net
+  tls:
+    secret: kubernetes-calalang-net-tls-secret
+    redirect:
+      enable: true
+  upstreams:
+  - name: argocd-server
+    service: argocd-server
+    port: 8080
+    healthCheck:
+      enable: true
+      path: /
+      port: 8080
+      interval: 20s
+      jitter: 3s
+      fails: 5
+      passes: 5
+      statusMatch: "! 500"
+  routes:
+  - path: /
+    location-snippets: |
+      status_zone argocd-server;
+    policies:
+    - name: oidc-policy
+    action:
+      pass: argocd-server

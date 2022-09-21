@@ -17,7 +17,7 @@ spec:
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.0
+      - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.1
         imagePullPolicy: Always       
         name: nginx-plus-ingress
         ports:
