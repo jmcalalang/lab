@@ -4,7 +4,7 @@ metadata:
   name: tea
   namespace: default
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: tea 
