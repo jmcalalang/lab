@@ -1,0 +1,22 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: grpc.argo.calalang.net
+  namespace: argocd
+spec:
+  host: grpc.argo.calalang.net
+  tls:
+    secret: argo-calalang-net-tls-secret
+  upstreams:
+  - name: argocd-server
+    service: argocd-server
+    port: 443
+    type: grpc
+    tls:
+      enable: true
+  routes:
+  - path: /
+    location-snippets: |
+      status_zone argocd-server;
+    action:
+      pass: argocd-server

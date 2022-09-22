@@ -1,10 +1,13 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: bigip.calalang.net
-  namespace: nginx-ingress
+  name: kubernetes.calalang.net
 spec:
-  host: bigip.calalang.net
+  host: kubernetes.calalang.net
+  tls:
+    secret: kubernetes-calalang-net-tls-secret
+    redirect:
+      enable: true
   upstreams:
   - name: http-bin
     service: http-bin
@@ -46,11 +49,11 @@ spec:
     service: www-nginx-org-externalname
     port: 80
     healthCheck:
-      enable: false
+      enable: true
       path: /
       port: 80
       tls:
-        enable: true
+        enable: false
       interval: 20s
       jitter: 3s
       fails: 5
@@ -60,11 +63,11 @@ spec:
     service: www-nginx-org-endpoint
     port: 80
     healthCheck:
-      enable: false
+      enable: true
       path: /
       port: 80
       tls:
-        enable: true
+        enable: false
       interval: 20s
       jitter: 3s
       fails: 5
@@ -72,6 +75,10 @@ spec:
       statusMatch: "! 500"
   routes:
   - path: /
+    location-snippets: |
+      status_zone root;
+    policies:
+    - name: oidc-policy
     action:
       proxy:
         upstream: http-bin
@@ -90,12 +97,21 @@ spec:
               value: ${server_addr}
               always: true
   - path: /tea
+    location-snippets: |
+      status_zone tea-svc;
+      set $custom_variable $remote_addr; 
     action:
       pass: tea-svc
   - path: /coffee
+    location-snippets: |
+      status_zone coffee-svc;
+      set $custom_variable $remote_addr; 
     action:
       pass: coffee-svc
   - path: /externalname
+    location-snippets: |
+      status_zone externalname;
+      set $custom_variable $remote_addr; 
     action:
       proxy:
         upstream: www-nginx-org-externalname
@@ -105,6 +121,9 @@ spec:
             - name: Host
               value: nginx.org
   - path: /endpoint
+    location-snippets: |
+      status_zone endpoint;
+      set $custom_variable $remote_addr; 
     action:
       proxy:
         upstream: www-nginx-org-endpoint
@@ -114,12 +133,18 @@ spec:
             - name: Host
               value: nginx.org
   - path: /status
+    location-snippets: |
+      status_zone status;
+      set $custom_variable $remote_addr; 
     action:
       return:
         code: 200
         type: text/plain
         body: "Hello from ${server_addr}\n"
   - path: /waf
+    location-snippets: |
+      status_zone waf;
+      set $custom_variable $remote_addr; 
     policies:
     - name: waf-policy
     action:

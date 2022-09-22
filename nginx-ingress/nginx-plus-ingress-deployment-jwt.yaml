@@ -59,7 +59,7 @@ spec:
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
           - -enable-prometheus-metrics
           - -enable-latency-metrics
-          - -enable-preview-policies
+          - -enable-oidc
           - -enable-app-protect
           - -enable-snippets
           - -enable-tls-passthrough
