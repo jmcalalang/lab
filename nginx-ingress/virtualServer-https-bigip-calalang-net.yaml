@@ -2,6 +2,7 @@ apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
   name: bigip.calalang.net
+  namespace: default
 spec:
   host: bigip.calalang.net
   upstreams:
