@@ -42,6 +42,12 @@ AKS-RG
             NGINX Ingress Security (Landing Zone, Volterra)
             NGINX Service Mesh (Landing Zone, Volterra, NGINX Ingress)
             Volterra Site for Kubernetes
+            Argo CD
+            coffee
+            http-bin
+            secure-app
+            syslog
+            tea
 
 Volterra-RG (Phase 2)
     1 CE (Stack) (Landing Zone, Cloud Credentials)
