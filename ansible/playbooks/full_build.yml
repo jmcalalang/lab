@@ -1,0 +1,8 @@
+---
+-
+  hosts: localhost
+  roles:
+    - install_atc
+    - declarative_onboarding
+    - application_services_3
+    - telemetry_streaming

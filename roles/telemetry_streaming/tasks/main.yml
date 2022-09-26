@@ -1,0 +1,75 @@
+# Create or update BIG-IP Forwarder; Base Declaration - Kafka
+
+# Device 1
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider:
+      password: "{{BIGIPadminPassword}}"
+      server: "{{deviceName1}}"
+      user: "{{BIGIPadminUsername}}"
+      validate_certs: no
+  delegate_to: localhost
+
+- name: Get BIG-IP Authentication Token from {{deviceName1}}
+  delegate_to: localhost
+  uri:
+    body: '{"username":"{{BIGIPadminUsername}}","password":"{{BIGIPadminPassword}}","loginProviderName":"tmos"}'
+    body_format: json
+    method: POST
+    url: "https://{{deviceName1}}/mgmt/shared/authn/login"
+    status_code: "200"
+    validate_certs: no
+  register: bigip1_auth_response
+  retries: 30
+  delay: 5
+  until: "(bigip1_auth_response is successful) and (bigip1_auth_response.status == 200)"
+
+- name: Assign Auth Token to Variable
+  set_fact:
+    bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
+
+- name: Validate {{deviceName1}} TS Rest Worker is ready
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: GET
+    url: "https://{{deviceName1}}/mgmt/shared/telemetry/available"
+    validate_certs: no
+  retries: 30
+  delay: 5
+  register: result
+  until: "(result is successful) and (result.status == 200)"
+
+- name: Prepare the TS declaration
+  template: src="{{ role_path }}/files/ts_beacon.json" dest="{{ role_path }}/files/{{ forwarderName }}_declaration.json"
+  delegate_to: localhost
+
+- name: Create or update {{ forwarderName }}; TS Declaration
+  delegate_to: localhost
+  uri:
+    body: "{{ lookup('file','{{ role_path }}/files/' + '{{ forwarderName }}_declaration.json') }}"
+    body_format: json
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: POST
+    status_code: "200"
+    url: "https://{{deviceName1}}/mgmt/shared/telemetry/declare"
+    validate_certs: no
+    timeout: "60"
+
+- name: Delete BIG-IP Authentication Token from {{deviceName1}}
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: DELETE
+    url: "https://{{deviceName1}}/mgmt/shared/authz/tokens/{{ bigip1_auth_token }}"
+    status_code: "200"
+    validate_certs: no
+  register: bigip1_token_delete
+  retries: 30
+  delay: 5
+  until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"

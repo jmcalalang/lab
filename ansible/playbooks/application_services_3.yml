@@ -1,0 +1,5 @@
+---
+-
+  hosts: localhost
+  roles:
+    - application_services_3

@@ -1,0 +1,154 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/src/schema/1.9.0/base.schema.json",
+    "schemaVersion": "1.9.0",
+    "class": "Device",
+    "async": true,
+    "label": "Onboard BIG-IP into an HA Pair",
+    "Common": {
+        "class": "Tenant",
+        "hostname": "bigip1.example.com",
+        "myLicense": {
+            "class": "License",
+            "licenseType": "licensePool",
+            "bigIqHost": "10.1.1.4",
+            "bigIqUsername": "admin",
+            "bigIqPassword": "MasterPassphrase123!",
+            "licensePool": "ve-pool",
+            "reachable": true,
+            "bigIpUsername": "admin",
+            "bigIpPassword": "Agility2020!",
+            "overwrite": true
+        },
+        "myDns": {
+            "class": "DNS",
+            "nameServers": [
+                "10.1.1.1"
+            ],
+            "search": [
+                "example.com"
+            ]
+        },
+        "myNtp": {
+            "class": "NTP",
+            "servers": [
+                "0.pool.ntp.org",
+                "1.pool.ntp.org",
+                "2.pool.ntp.org"
+            ],
+            "timezone": "UTC"
+        },
+        "root": {
+            "class": "User",
+            "userType": "root",
+            "oldPassword": "Agility2020!",
+            "newPassword": "Agility2020!"
+        },
+        "admin": {
+            "class": "User",
+            "userType": "regular",
+            "password": "Agility2020!",
+            "shell": "bash"
+        },
+        "anotherUser": {
+            "class": "User",
+            "userType": "regular",
+            "password": "Agility2020!",
+            "partitionAccess": {
+                "Common": {
+                    "role": "guest"
+                }
+            }
+        },
+        "myProvisioning": {
+            "class": "Provision",
+            "ltm": "nominal",
+            "asm": "nominal"
+        },
+        "internal": {
+            "class": "VLAN",
+            "tag": 4093,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.2",
+                    "tagged": false
+                }
+            ]
+        },
+        "internal-localself": {
+            "class": "SelfIp",
+            "address": "10.1.20.7/24",
+            "vlan": "internal",
+            "allowService": "default",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "internal-self": {
+            "class": "SelfIp",
+            "address": "10.1.20.100/24",
+            "vlan": "internal",
+            "allowService": "default",
+            "trafficGroup": "traffic-group-1"
+        },
+        "external": {
+            "class": "VLAN",
+            "tag": 4094,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.1",
+                    "tagged": false
+                }
+            ]
+        },
+        "external-localself": {
+            "class": "SelfIp",
+            "address": "10.1.10.7/24",
+            "vlan": "external",
+            "allowService": "none",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "external-self": {
+            "class": "SelfIp",
+            "address": "10.1.10.100/24",
+            "vlan": "external",
+            "allowService": "none",
+            "trafficGroup": "traffic-group-1"
+        },
+        "default": {
+            "class": "Route",
+            "gw": "10.1.10.1",
+            "network": "default",
+            "mtu": 1500
+        },
+        "configsync": {
+            "class": "ConfigSync",
+            "configsyncIp": "/Common/internal-localself/address"
+        },
+        "failoverAddress": {
+            "class": "FailoverUnicast",
+            "address": "/Common/internal-localself/address"
+        },
+        "failoverGroup": {
+            "class": "DeviceGroup",
+            "type": "sync-failover",
+            "members": [
+                "bigip1.example.com",
+                "bigip2.example.com"
+            ],
+            "owner": "/Common/failoverGroup/members/0",
+            "autoSync": true,
+            "saveOnAutoSync": false,
+            "networkFailover": true,
+            "fullLoadOnSync": false,
+            "asmSync": false
+        },
+        "trust": {
+            "class": "DeviceTrust",
+            "localUsername": "admin",
+            "localPassword": "Agility2020!",
+            "remoteHost": "10.1.20.6",
+            "remoteUsername": "admin",
+            "remotePassword": "Agility2020!"
+        }
+    }
+}

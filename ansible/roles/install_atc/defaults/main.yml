@@ -1,0 +1,24 @@
+# automation toolchain specific parameters
+
+#module parameters
+bigips: ["{{deviceName1}}", "{{deviceName2}}"]
+bigip_provider:
+  server: "{{ item }}"
+  user: "{{BIGIPadminUsername}}"
+  password: "{{BIGIPadminPassword}}"
+  validate_certs: false
+#Leave below vars unchanged
+tmp_dir: "~/"
+f5_networks_github_base_url: "https://api.github.com/repos/F5Networks"
+as3_file: "as3.rpm"
+as3_file_sha256: "{{as3_file}}.sha256"
+as3_use_latest: false
+as3_requested_tag: "v3.16.0" # a default value that is used if not overidden and if as3_use_latest = false
+do_file: "do.rpm"
+do_file_sha256: "{{do_file}}.sha256"
+do_use_latest: false
+do_requested_tag: "v1.9.0" # a default value that is used if not overidden and if do_use_latest = false
+ts_file: "ts.rpm"
+ts_file_sha256: "{{ts_file}}.sha256"
+ts_use_latest: false
+ts_requested_tag: "v1.8.0" # a default value that is used if not overidden and if ts_use_latest = false

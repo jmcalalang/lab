@@ -1,0 +1,165 @@
+---
+# Modules Used
+
+# https://docs.ansible.com/ansible/latest/modules/set_fact_module.html
+# https://docs.ansible.com/ansible/latest/modules/uri_module.html
+# https://docs.ansible.com/ansible/latest/modules/debug_module.html
+# https://docs.ansible.com/ansible/latest/modules/get_url_module.html
+# https://docs.ansible.com/ansible/latest/modules/bigip_lx_package_module.html
+
+# This Role uses defaults main.yml for variables
+
+# Install the Automation Toolchain
+- name: Set AS3 release url
+  set_fact:
+    package_release_url: "{{ f5_networks_github_base_url }}/f5-appsvcs-extension/releases/{{ 'latest' if as3_use_latest == true else 'tags/' + as3_requested_tag }}"
+
+- name: Get specific or latest AS3 version and checksum file download urls
+  uri:
+    url: "{{ package_release_url }}"
+    return_content: true
+    status_code: 200
+  register: as3_github_releases
+  check_mode: false
+
+- name: Set fact for AS3 release
+  set_fact:
+    # weird workaround below: https://github.com/ansible/ansible/issues/27299
+    as3_release_url: "{{ as3_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
+    as3_release_checksum_url: "{{ as3_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256`)] | [0] | browser_download_url') }}"
+
+- name: debug AS3 url
+  debug:
+    var: as3_release_url
+    verbosity: 2
+
+- name: Download AS3 checksum file (sha256)
+  get_url:
+    url: "{{ as3_release_checksum_url }}"
+    dest: "{{ tmp_dir }}/{{ as3_file_sha256 }}"
+    force: true
+  check_mode: false
+
+- name: Set AS3 checksum var
+  set_fact:
+    as3_checksum: "{{ lookup('file', '{{ tmp_dir }}/{{ as3_file_sha256 }}') | regex_search('^(\\S*)') }}"
+
+- name: Download AS3 RPM file with check (sha256)
+  get_url:
+    url: "{{ as3_release_url }}"
+    dest: "{{ tmp_dir }}/{{ as3_file }}"
+    checksum: "sha256:{{ as3_checksum }}"
+    force: true
+  check_mode: false
+
+- name: Add an iAppLX Package for Application Services 3
+  bigip_lx_package:
+    package: "{{ tmp_dir }}/{{ as3_file }}"
+    provider: "{{ bigip_provider }}"
+    state: present
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+
+- name: Set DO release url
+  set_fact:
+    package_release_url: "{{ f5_networks_github_base_url }}/f5-declarative-onboarding/releases/{{ 'latest' if do_use_latest == true else 'tags/' + do_requested_tag }}"
+
+- name: Get specific or latest DO version and checksum file download urls
+  uri:
+    url: "{{ package_release_url }}"
+    return_content: true
+    status_code: 200
+  register: do_github_releases
+  check_mode: false
+
+- name: Set fact for DO release
+  set_fact:
+    # weird workaround below: https://github.com/ansible/ansible/issues/27299
+    do_release_url: "{{ do_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
+    do_release_checksum_url: "{{ do_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256`)] | [0] | browser_download_url') }}"
+
+- name: debug DO url
+  debug:
+    var: do_release_url
+    verbosity: 2
+
+- name: Download DO checksum file (sha256)
+  get_url:
+    url: "{{ do_release_checksum_url }}"
+    dest: "{{ tmp_dir }}/{{ do_file_sha256 }}"
+    force: true
+  check_mode: false
+
+- name: Set DO checksum var
+  set_fact:
+    do_checksum: "{{ lookup('file', '{{ tmp_dir }}/{{ do_file_sha256 }}') | regex_search('^(\\S*)') }}"
+
+- name: Download DO RPM file with check (sha256)
+  get_url:
+    url: "{{ do_release_url }}"
+    dest: "{{ tmp_dir }}/{{ do_file }}"
+    checksum: "sha256:{{ do_checksum }}"
+    force: true
+  check_mode: false
+
+
+- name: Add an iAppLX Package for Declarative Onboarding
+  bigip_lx_package:
+    package: "{{ tmp_dir }}/{{ do_file }}"
+    provider: "{{ bigip_provider }}"
+    state: present
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+
+- name: Set TS release url
+  set_fact:
+    package_release_url: "{{ f5_networks_github_base_url }}/f5-telemetry-streaming/releases/{{ 'latest' if ts_use_latest == true else 'tags/' + ts_requested_tag }}"
+
+- name: Get specific or latest TS version and checksum file download urls
+  uri:
+    url: "{{ package_release_url }}"
+    return_content: true
+    status_code: 200
+  register: ts_github_releases
+  check_mode: false
+
+- name: Set fact for TS release
+  set_fact:
+    # weird workaround below: https://github.com/ansible/ansible/issues/27299
+    ts_release_url: "{{ ts_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
+    ts_release_checksum_url: "{{ ts_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256`)] | [0] | browser_download_url') }}"
+
+- name: debug TS url
+  debug:
+    var: ts_release_url
+    verbosity: 2
+
+- name: Download TS checksum file (sha256)
+  get_url:
+    url: "{{ ts_release_checksum_url }}"
+    dest: "{{ tmp_dir }}/{{ ts_file_sha256 }}"
+    force: true
+  check_mode: false
+
+- name: Set TS checksum var
+  set_fact:
+    ts_checksum: "{{ lookup('file', '{{ tmp_dir }}/{{ ts_file_sha256 }}') | regex_search('^(\\S*)') }}"
+
+- name: Download TS RPM file with check (sha256)
+  get_url:
+    url: "{{ ts_release_url }}"
+    dest: "{{ tmp_dir }}/{{ ts_file }}"
+    checksum: "sha256:{{ ts_checksum }}"
+    force: true
+  check_mode: false
+
+- name: Add an iAppLX Package for Telemetry Streaming
+  bigip_lx_package:
+    package: "{{ tmp_dir }}/{{ ts_file }}"
+    provider: "{{ bigip_provider }}"
+    state: present
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
