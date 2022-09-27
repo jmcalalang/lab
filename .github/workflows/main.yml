@@ -34,7 +34,7 @@ jobs:
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
-            --extra-vars "./ansible/defaults/main.yml"
+            --extra-vars "@./ansible/defaults/"
           # Required, playbook filepath
           playbook: "full_build.yml"
           # Optional, directory where playbooks live
