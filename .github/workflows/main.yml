@@ -25,4 +25,4 @@ jobs:
           # Required, playbook filepath
           playbook: "full_build.yml"
           # Optional, directory where playbooks live
-          directory: "../ansible/playbooks"
+          directory: "./ansible/playbooks"
