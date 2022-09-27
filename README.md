@@ -1,6 +1,8 @@
 Lab
 ===
 
+[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yml)
+
 Core-RG
     Networking
     Container Registry
