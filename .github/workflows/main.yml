@@ -22,17 +22,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Run ansible-lint
-        # replace `main` with any valid ref, or tags like `v6`
-        uses: ansible-community/ansible-lint-action@main
-        # optional:
-        with:
-          path: "./ansible/playbooks/"  # <-- only one value is allowed      
+#      - name: Run ansible-lint
+#        # replace `main` with any valid ref, or tags like `v6`
+#        uses: ansible-community/ansible-lint-action@main
+#        # optional:
+#        with:
+#          path: "./ansible/playbooks/"  # <-- only one value is allowed      
 
-      - name: Ansible Playbook
+      - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
           playbook: "full_build.yml"
           # Optional, directory where playbooks live
-          directory: "./ansible/playbooks"
+          directory: "/"
