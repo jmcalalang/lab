@@ -17,13 +17,12 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
-          playbook: full_build.yml
+          playbook: "full_build.yml"
           # Optional, directory where playbooks live
-          directory: "/ansible/playbooks"
+          directory: "/lab/ansible/playbooks"
