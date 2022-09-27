@@ -59,6 +59,7 @@ Volterra-RG (Phase 2)
       - WAF to Kubernetes w/Service Discovery
       - Bound to Azure Container Registry
 
-Azure Active Directory
-LetsEncrypt
-Godaddy Domain
+External Services
+  - Azure Active Directory
+  - LetsEncrypt
+  - Godaddy Domain
