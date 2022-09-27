@@ -103,7 +103,6 @@
     force: true
   check_mode: false
 
-
 - name: Add an iAppLX Package for Declarative Onboarding
   bigip_lx_package:
     package: "{{ tmp_dir }}/{{ do_file }}"
