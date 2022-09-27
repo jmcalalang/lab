@@ -27,7 +27,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/ansible/playbooks/"  # <-- only one value is allowed      
+          path: "/"  # <-- only one value is allowed      
 
       - name: Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v2
