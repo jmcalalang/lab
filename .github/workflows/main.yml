@@ -35,6 +35,11 @@ jobs:
       - name: Install apt-get dependencies
         run: sudo pip3 install jmespath
 
+      - name: Setup ansible
+        run: |
+          ansible --version
+          pipx inject ansible-core jmespath
+
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
