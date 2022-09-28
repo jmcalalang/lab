@@ -69,7 +69,7 @@
 - name: Print return information of result
   ansible.builtin.debug:
     var: result
-    verbosity: 2
+    verbosity: 3
 
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
