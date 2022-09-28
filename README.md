@@ -1,7 +1,7 @@
 Lab
 ===
 
-[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yml)
+[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
 Core-RG
   - Networking
