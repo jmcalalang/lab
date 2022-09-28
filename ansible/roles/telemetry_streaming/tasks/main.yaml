@@ -63,7 +63,7 @@
     timeout: "60"
   retries: 30
   delay: 5
-  until: "_result.status == (200 or 202)"
+  until: "result.status == (200 or 202)"
 
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
