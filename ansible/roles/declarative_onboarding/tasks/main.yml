@@ -2,6 +2,10 @@
 
 # BIG-IP BIGIPhost01
 
+- name: Set timezone to US/Pacific
+  community.general.timezone:
+    name: US/Pacific
+
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
     timeout: 300
@@ -28,9 +32,9 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
-- name: Pause for 5 seconds for DO
+- name: Pause for 10 seconds for DO
   ansible.builtin.pause:
-    seconds: 5
+    seconds: 10
 
 - name: Validate {{BIGIPhost01}} DO Rest Worker is ready
   delegate_to: localhost

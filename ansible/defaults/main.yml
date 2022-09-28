@@ -1,3 +1,5 @@
+# Ansible Variables
+
 # BIG-IP Credentials
 BIGIPhost01: "calalang-azure-0.westus2.cloudapp.azure.com"
 BIGIPadminUsername: "admin"

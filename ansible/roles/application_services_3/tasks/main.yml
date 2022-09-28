@@ -58,9 +58,9 @@
     validate_certs: no
     timeout: "60"
 
-- name: Pause for 5 seconds for AS3
+- name: Pause for 10 seconds for AS3
   ansible.builtin.pause:
-    seconds: 5
+    seconds: 10
 
 - name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
   delegate_to: localhost
@@ -92,9 +92,9 @@
     validate_certs: no
     timeout: "60"
 
-- name: Pause for 5 seconds for AS3
+- name: Pause for 10 seconds for AS3
   ansible.builtin.pause:
-    seconds: 5
+    seconds: 10
 
 - name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
   delegate_to: localhost
