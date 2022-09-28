@@ -57,12 +57,13 @@
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: POST
-#    status_code: 200,202
+    status_code: [200, 202]
     url: "https://{{BIGIPhost01}}/mgmt/shared/declarative-onboarding"
     validate_certs: no
     timeout: "60"
   retries: 30
   delay: 5
+  until: "(result is successful) and (result.status == [200, 202])"
 
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
