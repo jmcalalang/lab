@@ -1,6 +1,6 @@
-# Create or update BIG-IP Device; Clustered declaration
+# Create or update BIG-IP Device Declarative Onboarding
 
-# Device 1
+# BIG-IP BIGIPhost01
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -28,6 +28,10 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
+# - name: Prepare the DO declaration
+#   template: src="{{ role_path }}/files/do_cluster_bigip1.json" dest="{{ role_path }}/files/{{ BIGIPhost01 }}_declaration.json"
+#   delegate_to: localhost
+
 - name: Validate {{BIGIPhost01}} DO Rest Worker is ready
   delegate_to: localhost
   uri:
@@ -41,14 +45,10 @@
   register: result
   until: "(result is successful) and (result.status == 200)"
 
-- name: Prepare the DO declaration 1
-  template: src="{{ role_path }}/files/do_cluster_bigip1.json" dest="{{ role_path }}/files/{{ BIGIPhost01 }}_declaration.json"
-  delegate_to: localhost
-
 - name: Create or update {{ BIGIPhost01 }}; DO Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','{{ role_path }}/files/' + '{{ BIGIPhost01 }}_declaration.json') }}"
+    body: "{{ lookup('file','../../do/' + 'declarativeOnboarding.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
@@ -71,7 +71,3 @@
   retries: 30
   delay: 5
   until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
-
-- name: Wait for Sync to happen or race condition will occur
-  pause:
-    seconds: 200

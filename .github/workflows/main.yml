@@ -47,6 +47,6 @@ jobs:
           options: |
             --extra-vars "@../defaults/main.yml"
           # Required, playbook filepath
-          playbook: "application_services_3.yml"
+          playbook: "toolchain_declarations.yml"
           # Optional, directory where playbooks live
           directory: "./ansible/playbooks"

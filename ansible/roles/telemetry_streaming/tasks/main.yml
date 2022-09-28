@@ -1,6 +1,6 @@
 # Create or update BIG-IP Forwarder; Base Declaration - Kafka
 
-# Device 1
+# BIG-IP BIGIPhost01
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -28,6 +28,10 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
+# - name: Prepare the TS declaration
+#   template: src="{{ role_path }}/files/ts_beacon.json" dest="{{ role_path }}/files/{{ forwarderName }}_declaration.json"
+#   delegate_to: localhost
+
 - name: Validate {{BIGIPhost01}} TS Rest Worker is ready
   delegate_to: localhost
   uri:
@@ -41,14 +45,10 @@
   register: result
   until: "(result is successful) and (result.status == 200)"
 
-# - name: Prepare the TS declaration
-#   template: src="{{ role_path }}/files/ts_beacon.json" dest="{{ role_path }}/files/{{ forwarderName }}_declaration.json"
-#   delegate_to: localhost
-
-- name: Create or update {{ forwarderName }}; TS Declaration
+- name: Create or update {{ BIGIPhost01 }}; TS Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../ts/' + 'telemetryStreaming.json') }}"
+    body: "{{ lookup('file','../../ts/' + 'telemetryStreaming.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"

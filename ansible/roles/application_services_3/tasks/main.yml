@@ -1,6 +1,6 @@
-# Create or update Application Service; HTTP and HTTPS virtual services in one declaration
+# Create or update Application Services
 
-# Device 1
+# BIG-IP BIGIPhost01
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -45,7 +45,7 @@
   register: result
   until: "(result is successful) and (result.status == 200)"
 
-- name: Create or update Common; AS3 Declaration
+- name: Create or update {{ BIGIPhost01 }}; Common AS3 Declaration
   delegate_to: localhost
   uri:
     body: "{{ lookup('file','../../as3/' + 'bigip-common.json') }}"
