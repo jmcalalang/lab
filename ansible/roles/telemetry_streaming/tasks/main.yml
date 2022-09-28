@@ -28,9 +28,9 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
-# - name: Prepare the TS declaration
-#   template: src="{{ role_path }}/files/ts_beacon.json" dest="{{ role_path }}/files/{{ forwarderName }}_declaration.json"
-#   delegate_to: localhost
+- name: Prepare the TS declaration
+  template: src="../../ts/telemetryStreaming.template" dest="../../ts/telemetryStreaming.json"
+  delegate_to: localhost
 
 - name: Validate {{BIGIPhost01}} TS Rest Worker is ready
   delegate_to: localhost
