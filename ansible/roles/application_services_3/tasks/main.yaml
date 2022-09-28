@@ -53,7 +53,7 @@
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: POST
-    status_code: 200,202
+#    status_code: 200,202
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
@@ -89,7 +89,7 @@
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: POST
-    status_code: 200,202
+#    status_code: 200,202
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
@@ -125,7 +125,7 @@
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: POST
-    status_code: 200,202
+#    status_code: 200,202
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
