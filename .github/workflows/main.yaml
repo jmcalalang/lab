@@ -46,7 +46,7 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml"
-            --verbose vvvv
+            --verbose -vvvv
           # Required, playbook filepath
           playbook: "toolchain_declarations.yaml"
           # Optional, directory where playbooks live
