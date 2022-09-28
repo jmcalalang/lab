@@ -66,6 +66,11 @@
   delay: 5
 #  until: "(result.status == 202)"
 
+- name: Print return information of result
+  ansible.builtin.debug:
+    var: result
+    verbosity: 2
+
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
   uri:
