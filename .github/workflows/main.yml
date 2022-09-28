@@ -29,6 +29,9 @@ jobs:
       #   with:
       #     path: "./ansible/playbooks/"  # <-- only one value is allowed      
 
+      - name: Install Dependencies
+        run: sudo apt-get install -y jmespath
+
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
