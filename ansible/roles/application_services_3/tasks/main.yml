@@ -58,6 +58,19 @@
     validate_certs: no
     timeout: "60"
 
+- name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: GET
+    url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/available"
+    validate_certs: no
+  retries: 30
+  delay: 5
+  register: result
+  until: "(result is successful) and (result.status == 200)"
+
 - name: Create or update nginx service; AS3 Declaration
   delegate_to: localhost
   uri:
@@ -70,6 +83,19 @@
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
+
+- name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: GET
+    url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/available"
+    validate_certs: no
+  retries: 30
+  delay: 5
+  register: result
+  until: "(result is successful) and (result.status == 200)"
 
 - name: Create or update nginx gslb; AS3 Declaration
   delegate_to: localhost
