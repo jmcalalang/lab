@@ -28,9 +28,9 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
-# - name: Prepare the DO declaration
-#   template: src="{{ role_path }}/files/do_cluster_bigip1.json" dest="{{ role_path }}/files/{{ BIGIPhost01 }}_declaration.json"
-#   delegate_to: localhost
+- name: Prepare the DO declaration
+  template: src="../../do/declarativeOnboarding.template" dest="../../do/declarativeOnboarding.json"
+  delegate_to: localhost
 
 - name: Validate {{BIGIPhost01}} DO Rest Worker is ready
   delegate_to: localhost
