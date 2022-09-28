@@ -2,6 +2,6 @@
 -
   hosts: localhost
   roles:
-    - ../roles/declarative_onboarding
-    - ../roles/application_services_3
     - ../roles/telemetry_streaming
+    - ../roles/application_services_3
+    - ../roles/declarative_onboarding

@@ -28,9 +28,9 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
-- name: Pause for 10 seconds for DO
-  ansible.builtin.pause:
-    seconds: 10
+#- name: Pause for 10 seconds for DO
+#  ansible.builtin.pause:
+#    seconds: 10
 
 - name: Validate {{BIGIPhost01}} DO Rest Worker is ready
   delegate_to: localhost
