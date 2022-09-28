@@ -9,7 +9,7 @@
             "class": "DbVariables",
             "ui.advisory.enabled": true,
             "ui.advisory.color": "green",
-            "ui.advisory.text": "Last Build - {{ ansible_date_time }}"
+            "ui.advisory.text": "Last Build - {{ ansible_date_time.date }}"
         }
     }
 }
