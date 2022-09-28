@@ -8,8 +8,8 @@
         "dbvars": {
             "class": "DbVariables",
             "ui.advisory.enabled": true,
-            "ui.advisory.color": "green",
-            "ui.advisory.text": "Last Build - {{ ansible_date_time.iso8601 }}"
+            "ui.advisory.color": "yellow",
+            "ui.advisory.text": "Hey Awesome, the last build was - {{ ansible_date_time.iso8601 }}"
         }
     }
 }

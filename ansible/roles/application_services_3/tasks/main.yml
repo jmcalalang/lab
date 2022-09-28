@@ -109,7 +109,7 @@
   register: result
   until: "(result is successful) and (result.status == 200)"
 
-- name: Prepare the NGINX AS3 Declaration
+- name: Prepare the NGINX GSLB AS3 Declaration
   template: src="../../as3/bigip-nginx-calalang-net-wip.template" dest="../../as3/bigip-nginx-calalang-net-wip.json"
   delegate_to: localhost
 
