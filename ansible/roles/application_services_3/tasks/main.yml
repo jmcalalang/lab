@@ -48,7 +48,7 @@
 - name: Create or update Common; AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../as3/' + 'bigip-common.json') }}"
+    body: "{{ lookup('file','../../as3/' + 'bigip-common.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
@@ -61,7 +61,7 @@
 - name: Create or update nginx service; AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../as3/' + 'bigip-nginx-calalang-net.json') }}"
+    body: "{{ lookup('file','../../as3/' + 'bigip-nginx-calalang-net.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
@@ -74,7 +74,7 @@
 - name: Create or update nginx gslb; AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../as3/' + 'bigip-nginx-calalang-net-wip.json') }}"
+    body: "{{ lookup('file','../../as3/' + 'bigip-nginx-calalang-net-wip.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
