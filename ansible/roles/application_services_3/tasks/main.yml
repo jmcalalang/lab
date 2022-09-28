@@ -32,6 +32,10 @@
 #   template: src="{{ role_path }}/files/as3_ssl_redirect.json" dest="{{ role_path }}/files/{{ serviceName }}_declaration.json"
 #   delegate_to: localhost
 
+- name: Pause for 5 seconds for AS3
+  ansible.builtin.pause:
+    seconds: 5
+
 - name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
   delegate_to: localhost
   uri:
@@ -58,6 +62,10 @@
     validate_certs: no
     timeout: "60"
 
+- name: Pause for 5 seconds for AS3
+  ansible.builtin.pause:
+    seconds: 5
+
 - name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
   delegate_to: localhost
   uri:
@@ -83,6 +91,10 @@
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
+
+- name: Pause for 5 seconds for AS3
+  ansible.builtin.pause:
+    seconds: 5
 
 - name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
   delegate_to: localhost
