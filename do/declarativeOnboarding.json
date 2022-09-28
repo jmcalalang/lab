@@ -1,0 +1,15 @@
+{
+    "schemaVersion": "1.32.0",
+    "class": "Device",
+    "async": true,
+    "label": "calalang-azure-0.westus2.cloudapp.azure.com",
+    "Common": {
+        "class": "Tenant",
+        "dbvars": {
+            "class": "DbVariables",
+            "ui.advisory.enabled": true,
+            "ui.advisory.color": "green",
+            "ui.advisory.text": "Last Update - {{ ansible_date_time.date }}"
+        }
+    }
+}
