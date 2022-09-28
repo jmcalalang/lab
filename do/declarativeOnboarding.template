@@ -9,7 +9,12 @@
             "class": "DbVariables",
             "ui.advisory.enabled": true,
             "ui.advisory.color": "yellow",
-            "ui.advisory.text": "Hey Awesome, the last build was - {{ ansible_date_time.iso8601 }}"
+            "ui.advisory.text": "Hey Awesome, the last build was - {{ ansible_date_time.iso8601 }}",
+            "provision.extramb": 2048,
+            "restjavad.useextramb": true,
+            "icrd.timeout": 180,
+            "restjavad.timeout": 180,
+            "restnoded.timeout": 180
         }
     }
 }
