@@ -64,7 +64,7 @@
   register: result
   retries: 30
   delay: 5
-  until: "result.status == RUNNING"
+  until: "(result.status == 202) or (result.status == 200)"
 
 - name: Print return information of result
   ansible.builtin.debug:
