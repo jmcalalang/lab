@@ -57,6 +57,8 @@
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
+  retries: 30
+  delay: 5
 
 #- name: Pause for 10 seconds for AS3
 #  ansible.builtin.pause:
@@ -91,6 +93,8 @@
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
+  retries: 30
+  delay: 5
 
 #- name: Pause for 10 seconds for AS3
 #  ansible.builtin.pause:
@@ -125,6 +129,8 @@
     url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
     validate_certs: no
     timeout: "60"
+  retries: 30
+  delay: 5
 
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
