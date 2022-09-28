@@ -2,10 +2,6 @@
 
 # BIG-IP BIGIPhost01
 
-- name: Set timezone to US/Pacific
-  community.general.timezone:
-    name: US/Pacific
-
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
     timeout: 300
