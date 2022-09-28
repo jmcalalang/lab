@@ -2,4 +2,4 @@
 -
   hosts: localhost
   roles:
-    - declarative_onboarding
+    - ../roles/declarative_onboarding

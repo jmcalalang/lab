@@ -2,4 +2,4 @@
 -
   hosts: localhost
   roles:
-    - install_atc
+    - ../roles/install_atc

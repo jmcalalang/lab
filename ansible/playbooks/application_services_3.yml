@@ -2,4 +2,4 @@
 -
   hosts: localhost
   roles:
-    - application_services_3
+    - ../roles/application_services_3
