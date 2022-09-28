@@ -45,8 +45,8 @@ jobs:
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
-            --extra-vars "@../defaults/main.yml"
+            --extra-vars "@../defaults/main.yaml"
           # Required, playbook filepath
-          playbook: "toolchain_declarations.yml"
+          playbook: "toolchain_declarations.yaml"
           # Optional, directory where playbooks live
           directory: "./ansible/playbooks"

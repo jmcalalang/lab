@@ -1,7 +1,7 @@
 Openshift:
     oc create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=Harrison123!
     oc apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/ingress/networkingV1/example-default-ingress-class.yaml
-    oc apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/customResourceDefinitions/customresourcedefinitions.yml
+    oc apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/customResourceDefinitions/customresourcedefinitions.yaml
     oc apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/rbac/clusterrole.yaml
     oc create serviceaccount bigip-ctlr -n kube-system
     oc adm policy add-cluster-role-to-user cluster-admin -z bigip-ctlr -n kube-system
