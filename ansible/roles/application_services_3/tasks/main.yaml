@@ -59,7 +59,7 @@
     timeout: "60"
   retries: 30
   delay: 5
-  until: "(result is successful) and (result.status == [200, 202])"
+  until: "result.status == (200 or 202)"
 
 #- name: Pause for 10 seconds for AS3
 #  ansible.builtin.pause:
