@@ -28,9 +28,9 @@
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
 
-- name: Prepare the DO declaration
-  template: src="../../do/declarativeOnboarding.template" dest="../../do/declarativeOnboarding.json"
-  delegate_to: localhost
+- name: Pause for 5 seconds for DO
+  ansible.builtin.pause:
+    seconds: 5
 
 - name: Validate {{BIGIPhost01}} DO Rest Worker is ready
   delegate_to: localhost
@@ -44,6 +44,10 @@
   delay: 5
   register: result
   until: "(result is successful) and (result.status == 200)"
+
+- name: Prepare the DO declaration
+  template: src="../../do/declarativeOnboarding.template" dest="../../do/declarativeOnboarding.json"
+  delegate_to: localhost
 
 - name: Create or update {{ BIGIPhost01 }}; DO Declaration
   delegate_to: localhost
