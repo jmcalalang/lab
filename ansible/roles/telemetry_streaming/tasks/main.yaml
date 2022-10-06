@@ -31,11 +31,6 @@
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
   when: state == "present"
 
-#- name: Pause for 10 seconds for AS3
-#  ansible.builtin.pause:
-#    seconds: 10
-#  when: state == "present"
-
 - name: Validate {{BIGIPhost01}} TS Rest Worker is ready
   delegate_to: localhost
   uri:
