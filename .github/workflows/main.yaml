@@ -88,3 +88,7 @@ jobs:
       id: plan
       run: terraform plan -no-color
       continue-on-error: false
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply --auto-approve
