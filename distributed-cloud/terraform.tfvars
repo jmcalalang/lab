@@ -1,5 +1,13 @@
 # Variables
 
 # F5XC Environment
-variable "namespace" { default = "j-calalang" }
-variable "owner" { default = "j.calalang@f5.com" }
+
+variable "namespace" {
+  type    = list(string)
+  default = ["j-calalang"]
+}
+
+variable "owner" {
+  type    = list(string)
+  default = ["j.calalang@f5.com"]
+}
