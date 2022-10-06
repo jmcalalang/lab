@@ -1,6 +1,6 @@
-# Create or update BIG-IP Forwarder; Base Declaration - Kafka
+# BIG-IP Telemetry Streaming
 
-# BIG-IP BIGIPhost01
+# Create BIG-IP {{BIGIPhost01}} Resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -9,6 +9,7 @@
   delegate_to: localhost
   with_items:
     - "{{ bigips }}"
+  when: state == "present"
 
 - name: Get BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
@@ -23,14 +24,17 @@
   retries: 30
   delay: 5
   until: "(bigip1_auth_response is successful) and (bigip1_auth_response.status == 200)"
+  when: state == "present"
 
 - name: Assign Auth Token to Variable
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
+  when: state == "present"
 
 #- name: Pause for 10 seconds for AS3
 #  ansible.builtin.pause:
 #    seconds: 10
+#  when: state == "present"
 
 - name: Validate {{BIGIPhost01}} TS Rest Worker is ready
   delegate_to: localhost
@@ -44,10 +48,12 @@
   delay: 5
   register: result
   until: "(result is successful) and (result.status == 200)"
+  when: state == "present"
 
 - name: Prepare the TS declaration
   template: src="../../ts/telemetryStreaming.template" dest="../../ts/telemetryStreaming.json"
   delegate_to: localhost
+  when: state == "present"
 
 - name: Create or update {{ BIGIPhost01 }}; TS Declaration
   delegate_to: localhost
@@ -65,6 +71,7 @@
   retries: 30
   delay: 5
   until: "(result.status == 200) or (result.status == 202)"
+  when: state == "present"
 
 - name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
@@ -79,3 +86,4 @@
   retries: 30
   delay: 5
   until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
+  when: state == "present"

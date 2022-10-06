@@ -12,3 +12,6 @@ bigip_provider:
   user: "{{ BIGIPadminUsername }}"
   password: "{{ BIGIPadminPassword }}"
   validate_certs: false
+
+# State
+state: 'present'
