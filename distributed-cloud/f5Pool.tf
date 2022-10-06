@@ -12,7 +12,7 @@ resource "volterra_origin_pool" "f5Pool" {
     }
 
     labels = {
-      "owner" = "${var.owner}"
+      "owner" = var.owner
     }
   }
 
