@@ -1,0 +1,24 @@
+resource "volterra_origin_pool" "f5-pool" {
+  name                   = "f5-pool"
+  namespace              = "[var.f5_ami_search_name]"
+  endpoint_selection     = ["endpoint_selection"]
+  loadbalancer_algorithm = ["loadbalancer_algorithm"]
+
+  origin_servers {
+    // One of the arguments from this list "custom_endpoint_object private_name k8s_service private_ip consul_service vn_private_ip vn_private_name public_ip public_name" must be set
+
+    public_name {
+      dns_name = "f5.com"
+    }
+
+    labels = {
+      "owner" = "[var.owner]"
+    }
+  }
+
+  // One of the arguments from this list "port automatic_port" must be set
+  port = "443"
+
+  // One of the arguments from this list "no_tls use_tls" must be set
+  no_tls = true
+}
