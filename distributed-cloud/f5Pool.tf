@@ -1,5 +1,5 @@
 resource "volterra_origin_pool" "f5Pool" {
-  name                   = "f5Pool"
+  name                   = "f5-pool"
   namespace              = var.namespace
   endpoint_selection     = "DISTRIBUTED"
   loadbalancer_algorithm = "ROUND_ROBIN"
