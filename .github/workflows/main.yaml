@@ -77,7 +77,7 @@ jobs:
       with:
         name: f5xc-terraform-state
         # Optional, a directory where to extract artifact(s), defaults to the current directory
-        path: ./
+        path: distributed-cloud/
         # Optional, defaults to current repo
         check_artifacts:  false
         # Optional, search for the last workflow run whose stored an artifact named as in `name` input
@@ -99,7 +99,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init -force-copy
+      run: terraform init 
 
     - name: Terraform Validate
       id: validate

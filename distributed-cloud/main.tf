@@ -3,6 +3,9 @@
 # F5XC Provider
 
 terraform {
+  backend "local" {
+    path = "distributed-cloud/terraform.tfstate"
+  }
   required_providers {
     volterra = {
       source  = "volterraedge/volterra"
