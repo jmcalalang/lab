@@ -99,7 +99,7 @@ jobs:
 
     - name: Terraform Import
       id: import
-      run: terraform import
+      run: terraform import -state
 
     - name: Terraform Init
       id: init
