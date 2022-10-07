@@ -98,7 +98,7 @@ jobs:
 
     - name: cat Terraform State
       id: cat
-      run: cat distributed-cloud/terraform.tfstate
+      run: cat terraform.tfstate
 
     - name: Terraform fmt
       id: fmt
@@ -126,5 +126,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: f5xc-terraform-state
-        path: distributed-cloud/terraform.tfstate
+        path: terraform.tfstate
         retention-days: 30
