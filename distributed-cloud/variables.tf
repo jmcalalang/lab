@@ -7,5 +7,5 @@ variable "namespace" {
 }
 
 variable "owner" {
-  default = "j.calalang@f5.com"
+  default = "j.calalang-f5.com"
 }
