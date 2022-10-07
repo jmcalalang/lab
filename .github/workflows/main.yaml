@@ -92,14 +92,6 @@ jobs:
         # default fail
         if_no_artifact_found: fail
 
-    - name: pwd 
-      id: pwd
-      run: pwd
-
-    - name: ls
-      id: ls
-      run: ls -lah
-
     - name: Terraform fmt
       id: fmt
       run: terraform fmt -check
