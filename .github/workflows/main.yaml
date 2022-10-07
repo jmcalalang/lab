@@ -96,9 +96,9 @@ jobs:
       id: pwd
       run: pwd
 
-    - name: cat Terraform State
-      id: cat
-      run: cat terraform.tfstate
+    - name: ls
+      id: ls
+      run: ls -lah
 
     - name: Terraform fmt
       id: fmt
