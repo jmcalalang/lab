@@ -97,6 +97,10 @@ jobs:
       run: terraform fmt -check
       continue-on-error: false
 
+    - name: Terraform Import
+      id: import
+      run: terraform import
+
     - name: Terraform Init
       id: init
       run: terraform init
