@@ -114,25 +114,9 @@ jobs:
       id: apply
       run: terraform apply --auto-approve
 
-#    - name: Terraform Destroy
-#      id: destroy
-#      run: terraform destroy --auto-approve
-
-    - name: pwd
-      id: pwd
-      run: pwd
-
-    - name: ls
-      id: ls
-      run: ls -lah
-
-    - name: cat
-      id: cat
-      run: cat distributed-cloud/terraform.tfstate
-
     - name: Upload Terraform State
       uses: actions/upload-artifact@v3
       with:
         name: f5xc-terraform-state
-        path: terraform.tfstate
+        path: distributed-cloud/terraform.tfstate
         retention-days: 30
