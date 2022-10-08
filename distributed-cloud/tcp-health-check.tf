@@ -7,5 +7,6 @@ resource "volterra_healthcheck" "tcp-health-check" {
   healthy_threshold   = 3
   interval            = 15
   timeout             = 3
-  unhealthy_threshold = 3
+  unhealthy_threshold = 1
+  jitter_percent      = 30
 }
