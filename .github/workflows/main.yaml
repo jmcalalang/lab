@@ -111,7 +111,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init -force-copy
+      run: terraform init
 
     - name: Terraform Validate
       id: validate
