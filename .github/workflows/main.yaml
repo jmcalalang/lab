@@ -114,17 +114,13 @@ jobs:
       id: apply
       run: terraform apply --auto-approve
 
-    - name: cat
-      id: cat
-      run: "cat distributed-cloud/terraform.tfstate"
-
-    - name: ls
-      id: ls
-      run: ls -lah distributed-cloud/
+    - name: pwd
+      id: pwd
+      run: pwd
 
     - name: Upload Terraform State
       uses: actions/upload-artifact@v3
       with:
         name: f5xc-terraform-state
-        path: "distributed-cloud/terraform.tfstate"
+        path: distributed-cloud/terraform.tfstate
         retention-days: 30
