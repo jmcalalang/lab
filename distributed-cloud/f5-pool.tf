@@ -1,4 +1,4 @@
-resource "volterra_origin_pool" "f5Pool" {
+resource "volterra_origin_pool" "f5-pool" {
   name                   = "f5-pool"
   namespace              = var.namespace
   endpoint_selection     = "DISTRIBUTED"
