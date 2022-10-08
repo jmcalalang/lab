@@ -39,5 +39,4 @@ resource "volterra_origin_pool" "oidc-bigip-calalang-net-pool" {
   }
   // One of the arguments from this list "port automatic_port" must be set
   port = "443"
-  same_as_endpoint_port = true
 }
