@@ -34,11 +34,6 @@ jobs:
           ansible --version
           pipx inject ansible-core jmespath
 
-      - name: locate path
-        run: |
-          pwd
-          ls -lah
-
       - name: Run ansible-lint
         # replace `main` with any valid ref, or tags like `v6`
         uses: ansible-community/ansible-lint-action@main
