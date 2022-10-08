@@ -14,44 +14,44 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "BIG-IP Automation Toolchain"
-  BIG-IP:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2   
-
-      - name: Install PIP
-        run: sudo apt-get install -y python3-pip
-
-      - name: Install apt-get dependencies
-        run: sudo pip3 install jmespath
-
-      - name: Setup ansible
-        run: |
-          ansible --version
-          pipx inject ansible-core jmespath
-
-      # - name: Run ansible-lint
-      #   # replace `main` with any valid ref, or tags like `v6`
-      #   uses: ansible-community/ansible-lint-action@main
-      #   # optional:
-      #   with:
-      #     path: "./ansible/playbooks/"  # <-- only one value is allowed   
-
-      - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          # Optional, additional flags to pass to ansible-playbook
-          options: |
-            --extra-vars "@../defaults/main.yaml"
-          #  --verbose -vvvv
-          # Required, playbook filepath
-          playbook: "toolchain_declarations.yaml"
-          # Optional, directory where playbooks live
-          directory: "./ansible/playbooks"
+#  BIG-IP:
+#    # The type of runner that the job will run on
+#    runs-on: ubuntu-latest
+#
+#    # Steps represent a sequence of tasks that will be executed as part of the job
+#    steps:
+#      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#      - uses: actions/checkout@v2   
+#
+#      - name: Install PIP
+#        run: sudo apt-get install -y python3-pip
+#
+#      - name: Install apt-get dependencies
+#        run: sudo pip3 install jmespath
+#
+#      - name: Setup ansible
+#        run: |
+#          ansible --version
+#          pipx inject ansible-core jmespath
+#
+#      # - name: Run ansible-lint
+#      #   # replace `main` with any valid ref, or tags like `v6`
+#      #   uses: ansible-community/ansible-lint-action@main
+#      #   # optional:
+#      #   with:
+#      #     path: "./ansible/playbooks/"  # <-- only one value is allowed   
+#
+#      - name: Run Ansible Playbooks
+#        uses: dawidd6/action-ansible-playbook@v2
+#        with:
+#          # Optional, additional flags to pass to ansible-playbook
+#          options: |
+#            --extra-vars "@../defaults/main.yaml"
+#          #  --verbose -vvvv
+#          # Required, playbook filepath
+#          playbook: "toolchain_declarations.yaml"
+#          # Optional, directory where playbooks live
+#          directory: "./ansible/playbooks"
 
   F5XC:
     # The type of runner that the job will run on
@@ -99,6 +99,10 @@ jobs:
     - name: ls
       id: ls
       run: ls -lah
+
+    - name: cat
+      id: cat
+      run: cat terraform.tfstate
 
     - name: Terraform fmt
       id: fmt
