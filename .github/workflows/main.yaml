@@ -122,6 +122,10 @@ jobs:
       run: terraform plan -no-color
       continue-on-error: false
 
+    - name: cat
+      id: cat
+      run: cat terraform.tfstate
+
     - name: Terraform Apply
       id: apply
       run: terraform apply --auto-approve
