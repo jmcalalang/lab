@@ -118,6 +118,10 @@ jobs:
       id: cat
       run: "cat distributed-cloud/terraform.tfstate"
 
+    - name: ls
+      id: ls
+      run: ls -lah
+
     - name: Upload Terraform State
       uses: actions/upload-artifact@v3
       with:
