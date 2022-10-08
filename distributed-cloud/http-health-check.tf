@@ -1,3 +1,5 @@
+# Health Check for Generic HTTP
+
 resource "volterra_healthcheck" "http-health-check" {
   name      = "http-health-check"
   namespace = var.namespace
