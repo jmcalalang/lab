@@ -100,9 +100,9 @@ jobs:
       id: ls
       run: ls -lah
 
-    - name: cat
-      id: cat
-      run: cat terraform.tfstate
+#    - name: cat
+#      id: cat
+#      run: cat terraform.tfstate
 
     - name: Terraform fmt
       id: fmt
