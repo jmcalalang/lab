@@ -138,5 +138,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: f5xc-terraform-state
-        path: distributed-cloud/terraform.tfstate
+        path: terraform.tfstate
         retention-days: 30
