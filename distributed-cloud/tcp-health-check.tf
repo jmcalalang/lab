@@ -1,7 +1,8 @@
 resource "volterra_healthcheck" "tcp-health-check" {
-  name      = tcp-health-check
+  name      = "tcp-health-check"
   namespace = var.namespace
-  http_health_check {
+  
+  tcp_health_check {
   }
   healthy_threshold   = 3
   interval            = 15
