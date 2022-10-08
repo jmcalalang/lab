@@ -92,18 +92,6 @@ jobs:
 #        # default fail
 #        if_no_artifact_found: fail
 
-    - name: pwd
-      id: pwd
-      run: pwd
-
-    - name: ls
-      id: ls
-      run: ls -lah
-
-#    - name: cat
-#      id: cat
-#      run: cat terraform.tfstate
-
     - name: Terraform fmt
       id: fmt
       run: terraform fmt -check
@@ -122,9 +110,17 @@ jobs:
       run: terraform plan -no-color
       continue-on-error: false
 
-    - name: cat2
-      id: cat2
-      run: cat terraform.tfstate
+    - name: pwd
+      id: pwd
+      run: pwd
+
+    - name: ls
+      id: ls
+      run: ls -lah
+
+    - name: cat
+      id: cat
+      run: cat distributed-cloud/terraform.tfstate
 
     - name: Terraform Apply
       id: apply
