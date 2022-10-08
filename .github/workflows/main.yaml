@@ -99,7 +99,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: terraform init -force-copy
 
     - name: Terraform Validate
       id: validate
@@ -109,6 +109,14 @@ jobs:
       id: plan
       run: terraform plan -no-color
       continue-on-error: false
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply --auto-approve
+
+#    - name: Terraform Destroy
+#      id: destroy
+#      run: terraform destroy --auto-approve
 
     - name: pwd
       id: pwd
@@ -121,14 +129,6 @@ jobs:
     - name: cat
       id: cat
       run: cat distributed-cloud/terraform.tfstate
-
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply --auto-approve
-
-#    - name: Terraform Destroy
-#      id: destroy
-#      run: terraform destroy --auto-approve
 
     - name: Upload Terraform State
       uses: actions/upload-artifact@v3
