@@ -1,5 +1,5 @@
 resource "volterra_healthcheck" "http-health-check" {
-  name      = format("%s-health-check", http)
+  name      = http-health-check
   namespace = var.namespace
   http_health_check {
     use_origin_server_name = false

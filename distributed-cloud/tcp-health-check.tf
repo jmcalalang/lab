@@ -1,5 +1,5 @@
 resource "volterra_healthcheck" "tcp-health-check" {
-  name      = format("%s-health-check", tcp)
+  name      = tcp-health-check
   namespace = var.namespace
   http_health_check {
   }
