@@ -120,7 +120,7 @@ jobs:
 
     - name: ls
       id: ls
-      run: ls -lah
+      run: ls -lah distributed-cloud/
 
     - name: Upload Terraform State
       uses: actions/upload-artifact@v3
