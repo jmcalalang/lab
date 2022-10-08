@@ -8,7 +8,7 @@ terraform {
   }
   required_providers {
     volterra = {
-      source  = "volterraedge/volterra"
+      source  = "volterraedge/terraform-provider-volterra"
       version = "0.11.14"
     }
   }
