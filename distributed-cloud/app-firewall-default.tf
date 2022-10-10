@@ -17,10 +17,9 @@ resource "volterra_app_firewall" "example" {
     enable_suppression         = true
     default_violation_settings = true
   }
-  monitoring                 = true
-  allow_all_response_codes   = true
-  default_anonymization      = true
-  default_bot_setting        = true
-  default_detection_settings = true
-  blocking                   = true
+  monitoring               = true
+  allow_all_response_codes = true
+  default_anonymization    = true
+  default_bot_setting      = true
+  blocking                 = true
 }
