@@ -1,5 +1,5 @@
 resource "volterra_app_firewall" "example" {
-  name      = "application-firewall-default"
+  name      = "application-firewall-calalang"
   namespace = var.namespace
   labels = {
     "owner" = var.owner
