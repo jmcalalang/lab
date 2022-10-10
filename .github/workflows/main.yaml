@@ -29,6 +29,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v3
       - name: cURL F5XC
         run: curl https://f5-sa.console.ves.volterra.io/api/web/namespaces --cert-type P12 --cert certs/f5-sa.console.ves.volterra.io.api-creds.p12:${{ secrets.VES_P12_PASSWORD }}
 
