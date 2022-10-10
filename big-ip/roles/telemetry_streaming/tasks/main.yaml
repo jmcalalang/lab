@@ -1,4 +1,4 @@
-# BIG-IP Declarative Onboarding
+# BIG-IP Telemetry Streaming
 
 # Create BIG-IP {{BIGIPhost01}} Resources
 
@@ -14,7 +14,7 @@
 - name: Get BIG-IP Authentication Token from {{BIGIPhost01}}
   delegate_to: localhost
   uri:
-    body: '{"username":"{{BIGIPadminUsername}}","password":"{{BIGIPadminPassword}}","loginProvidername":"tmos"}'
+    body: '{"username":"{{BIGIPadminUsername}}","password":"{{BIGIPadminPassword}}","loginProviderName":"tmos"}'
     body_format: json
     method: POST
     url: "https://{{BIGIPhost01}}/mgmt/shared/authn/login"
@@ -29,14 +29,15 @@
 - name: Assign Auth Token to Variable
   set_fact:
     bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
+  when: state == "present"
 
-- name: Validate {{BIGIPhost01}} DO Rest Worker is ready
+- name: Validate {{BIGIPhost01}} TS Rest Worker is ready
   delegate_to: localhost
   uri:
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: GET
-    url: "https://{{BIGIPhost01}}/mgmt/shared/declarative-onboarding/available"
+    url: "https://{{BIGIPhost01}}/mgmt/shared/telemetry/available"
     validate_certs: no
   retries: 30
   delay: 5
@@ -44,21 +45,21 @@
   until: "(result is successful) and (result.status == 200)"
   when: state == "present"
 
-- name: Prepare the DO declaration
-  template: src="../../do/declarativeOnboarding.template" dest="../../do/declarativeOnboarding.json"
+- name: Prepare the TS declaration
+  template: src="../../f5-automation-toolchain/ts/telemetryStreaming.template" dest="../../f5-automation-toolchain/ts/telemetryStreaming.json"
   delegate_to: localhost
   when: state == "present"
 
-- name: Create or update {{ BIGIPhost01 }}; DO Declaration
+- name: Create or update {{ BIGIPhost01 }}; TS Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../../do/' + 'declarativeOnboarding.json') }}"
+    body: "{{ lookup('file','../../f5-automation-toolchain/ts/' + 'telemetryStreaming.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
     method: POST
     status_code: [200, 202]
-    url: "https://{{BIGIPhost01}}/mgmt/shared/declarative-onboarding"
+    url: "https://{{BIGIPhost01}}/mgmt/shared/telemetry/declare"
     validate_certs: no
     timeout: "60"
   register: result
@@ -80,3 +81,4 @@
   retries: 30
   delay: 5
   until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
+  when: state == "present"

@@ -23,16 +23,6 @@ jobs:
       - name: cURL BIG-IP
         run: curl -u ${{ secrets.BIG_IP_USERNAME }}:${{ secrets.BIG_IP_PASSWORD }} -X GET -k https://${{ secrets.BIG_IP_HOSTNAME }}/mgmt/tm/sys/ready/
 
-  F5XC-Resources-Available:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v3
-      - name: cURL F5XC
-        run: curl https://f5-sa.console.ves.volterra.io/api/web/namespaces/j-calalang --cert-type P12 --cert certs/f5-sa.console.ves.volterra.io.api-creds.p12:${{ secrets.VES_P12_PASSWORD }}
-
   BIG-IP-Ansible:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -59,7 +49,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/home/runner/work/lab/lab/ansible/playbooks/" # <-- only one value is allowed
+          path: "/home/runner/work/lab/lab/big-ip/playbooks/" # <-- only one value is allowed
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -71,7 +61,17 @@ jobs:
           # Required, playbook filepath
           playbook: "toolchain_declarations.yaml"
           # Optional, directory where playbooks live
-          directory: "./ansible/playbooks"
+          directory: "./big-ip/playbooks"
+
+  F5XC-Resources-Available:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+      - name: cURL F5XC
+        run: curl https://f5-sa.console.ves.volterra.io/api/web/namespaces/j-calalang --cert-type P12 --cert certs/f5-sa.console.ves.volterra.io.api-creds.p12:${{ secrets.VES_P12_PASSWORD }}
 
   F5XC-Terraform:
     # The type of runner that the job will run on

@@ -46,14 +46,14 @@
   when: state == "present"
 
 - name: Prepare the Common AS3 Declaration
-  template: src="../../as3/bigip-common.template" dest="../../as3/bigip-common.json"
+  template: src="../../f5-automation-toolchain/as3/bigip-common.template" dest="../../f5-automation-toolchain/as3/bigip-common.json"
   delegate_to: localhost
   when: state == "present"
 
 - name: Create or update {{BIGIPhost01}}; Common AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../../as3/' + 'bigip-common.json') }}"
+    body: "{{ lookup('file','../../f5-automation-toolchain/as3/' + 'bigip-common.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
@@ -83,14 +83,14 @@
   when: state == "present"
 
 - name: Prepare the NGINX AS3 Declaration
-  template: src="../../as3/bigip-nginx-calalang-net.template" dest="../../as3/bigip-nginx-calalang-net.json"
+  template: src="../../f5-automation-toolchain/as3/bigip-nginx-calalang-net.template" dest="../../f5-automation-toolchain/as3/bigip-nginx-calalang-net.json"
   delegate_to: localhost
   when: state == "present"
 
 - name: Create or update {{BIGIPhost01}}; NGINX AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../../as3/' + 'bigip-nginx-calalang-net.json') }}"
+    body: "{{ lookup('file','../../f5-automation-toolchain/as3/' + 'bigip-nginx-calalang-net.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
@@ -120,14 +120,14 @@
   when: state == "present"
 
 - name: Prepare the NGINX GSLB AS3 Declaration
-  template: src="../../as3/bigip-nginx-calalang-net-wip.template" dest="../../as3/bigip-nginx-calalang-net-wip.json"
+  template: src="../../f5-automation-toolchain/as3/bigip-nginx-calalang-net-wip.template" dest="../../f5-automation-toolchain/as3/bigip-nginx-calalang-net-wip.json"
   delegate_to: localhost
   when: state == "present"
 
 - name: Create or update {{BIGIPhost01}}; NGINX GSLB AS3 Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../../as3/' + 'bigip-nginx-calalang-net-wip.json') }}"
+    body: "{{ lookup('file','../../f5-automation-toolchain/as3/' + 'bigip-nginx-calalang-net-wip.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"
