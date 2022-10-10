@@ -14,14 +14,33 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "BIG-IP Automation Toolchain"
-  BIG-IP:
+  BIG-IP-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: cURL BIG-IP
+        run: curl -u ${{ secrets.BIG_IP_USERNAME }}:${{ secrets.BIG_IP_PASSWORD }} -X GET -k https://${{ secrets.BIG_IP_HOSTNAME }}/mgmt/tm/sys/ready/
+
+  F5XC-Resources-Available:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: cURL F5XC
+        run: curl https://f5-sa.console.ves.volterra.io/api/web/namespaces --cert-type P12 --cert certs/f5-sa.console.ves.volterra.io.api-creds.p12:${{ secrets.VES_P12_PASSWORD }}
+
+  BIG-IP:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    needs: [BIG-IP-Available]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+
+    steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2   
+      - uses: actions/checkout@v2
 
       - name: Install PIP
         run: sudo apt-get install -y python3-pip
@@ -39,7 +58,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/home/runner/work/lab/lab/ansible/playbooks/"  # <-- only one value is allowed   
+          path: "/home/runner/work/lab/lab/ansible/playbooks/" # <-- only one value is allowed
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -56,7 +75,7 @@ jobs:
   F5XC:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    needs: [F5XC-Resources-Available]
     # Environment Variables
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
@@ -68,57 +87,57 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v3
-    - uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.3.2
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.2
 
-    - name: Download Terraform State
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2
-      with:
-        name: f5xc-terraform-state
-        # Optional, a directory where to extract artifact(s), defaults to the current directory
-        path: distributed-cloud/
-        # Optional, defaults to current repo
-        check_artifacts:  false
-        # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-        # default false
-        search_artifacts: false
-        # Optional, choose to skip unpacking the downloaded artifact(s)
-        # default false
-        # skip_unpack: false
-        # Optional, choose how to exit the action if no artifact is found
-        # can be one of:
-        #  "fail", "warn", "ignore"
-        # default fail
-        if_no_artifact_found: fail
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: f5xc-terraform-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: distributed-cloud/
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: false
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
 
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -check
-      continue-on-error: false
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
 
-    - name: Terraform Init
-      id: init
-      run: terraform init -force-copy
+      - name: Terraform Init
+        id: init
+        run: terraform init -force-copy
 
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
 
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-      continue-on-error: false
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: false
 
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply --auto-approve
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
 
-    - name: Upload Terraform State
-      uses: actions/upload-artifact@v3
-      with:
-        name: f5xc-terraform-state
-        path: /home/runner/work/lab/lab/distributed-cloud/distributed-cloud/terraform.tfstate
-        retention-days: 30
+      - name: Upload Terraform State
+        uses: actions/upload-artifact@v3
+        with:
+          name: f5xc-terraform-state
+          path: /home/runner/work/lab/lab/distributed-cloud/distributed-cloud/terraform.tfstate
+          retention-days: 30
