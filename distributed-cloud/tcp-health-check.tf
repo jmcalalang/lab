@@ -3,7 +3,9 @@
 resource "volterra_healthcheck" "tcp-health-check" {
   name      = "tcp-health-check"
   namespace = var.namespace
-
+  labels = {
+    "owner" = var.owner
+  }
   tcp_health_check {
   }
   healthy_threshold   = 3

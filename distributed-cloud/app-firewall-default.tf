@@ -1,3 +1,5 @@
+# Application firewall with Threat Campainns and Custom Block Page
+
 resource "volterra_app_firewall" "example" {
   name      = "application-firewall-calalang"
   namespace = var.namespace
