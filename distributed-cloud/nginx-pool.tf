@@ -12,10 +12,10 @@ resource "volterra_origin_pool" "nginx-pool" {
       outside_network = true
       site_locator {
         site {
-          tenant    = f5-sa
-          namespace = j-calalang
-          name      = calalang-volt-rg
-          kind      = site
+          tenant    = "f5-sa"
+          namespace = "j-calalang"
+          name      = "calalang-volt-rg"
+          kind      = "site"
         }
       }
     }
@@ -24,10 +24,10 @@ resource "volterra_origin_pool" "nginx-pool" {
       outside_network = true
       site_locator {
         site {
-          tenant    = f5-sa
-          namespace = j-calalang
-          name      = calalang-volt-rg
-          kind      = site
+          tenant    = "f5-sa"
+          namespace = "j-calalang"
+          name      = "calalang-volt-rg"
+          kind      = "site"
         }
       }
     }
