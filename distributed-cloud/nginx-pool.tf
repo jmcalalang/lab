@@ -6,11 +6,6 @@ resource "volterra_origin_pool" "nginx-pool" {
   labels = {
     "owner" = var.owner
   }
-  endpoint_selection     = "LOCAL_PREFERRED"
-  loadbalancer_algorithm = "LB_OVERRIDE"
-  port                   = "80"
-  same_as_endpoint_port  = true
-  no_tls                 = true
   origin_servers {
     private_ip {
       ip              = "10.0.2.7"
@@ -43,4 +38,9 @@ resource "volterra_origin_pool" "nginx-pool" {
     name      = http-health-check
     kind      = healthcheck
   }
+  endpoint_selection     = "LOCAL_PREFERRED"
+  loadbalancer_algorithm = "LB_OVERRIDE"
+  port                   = "80"
+  same_as_endpoint_port  = true
+  no_tls                 = true
 }
