@@ -1,7 +1,7 @@
 # Origin Pool for F5.com
 
-resource "volterra_origin_pool" "f5-pool" {
-  name      = "f5-dns-pool"
+resource "volterra_origin_pool" "f5pool" {
+  name      = "f5pool"
   namespace = var.namespace
   labels = {
     "owner" = var.owner
