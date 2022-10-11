@@ -146,9 +146,9 @@ data:
     Config: /etc/vpm/config.yaml
     DisableModules: ["dictator", "recruiter"]
     # CHANGE ME
-    Latitude: 44.09133447175062
+    Latitude: 44.09133
     # CHANGE ME
-    Longitude: -121.3114457017687
+    Longitude: -121.31144
     MauriceEndpoint: https://register.ves.volterra.io
     MauricePrivateEndpoint: https://register-tls.ves.volterra.io
     PrivateNIC: eth0
