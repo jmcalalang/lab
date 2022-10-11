@@ -6,13 +6,13 @@ resource "volterra_origin_pool" "f5-pool" {
   labels = {
     "owner" = var.owner
   }
-  endpoint_selection     = "DISTRIBUTED"
-  loadbalancer_algorithm = "ROUND_ROBIN"
   origin_servers {
     public_name {
       dns_name = "f5.com"
     }
   }
-  port   = "443"
-  no_tls = true
+  port                   = "443"
+  no_tls                 = true
+  endpoint_selection     = "DISTRIBUTED"
+  loadbalancer_algorithm = "ROUND_ROBIN"
 }

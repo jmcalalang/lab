@@ -10,8 +10,8 @@ resource "volterra_origin_pool" "nginx-pool" {
     private_ip {
       ip              = "10.0.2.7"
       outside_network = true
-      site_locator = {
-        site = {
+      site_locator {
+        site {
           tenant    = f5-sa-rnxeudss
           namespace = system
           name      = calalang-volt-rg
@@ -22,8 +22,8 @@ resource "volterra_origin_pool" "nginx-pool" {
     private_ip {
       ip              = "10.0.2.6"
       outside_network = true
-      site_locator = {
-        site = {
+      site_locator {
+        site {
           tenant    = f5-sa-rnxeudss
           namespace = system
           name      = calalang-volt-rg
