@@ -104,7 +104,9 @@ jobs:
           check_artifacts: false
           # Optional, search for the last workflow run whose stored an artifact named as in `name` input
           # default false
-          search_artifacts: true
+          search_artifacts: false
+          # Optional, run number from the workflow
+          run_number: 187
           # Optional, choose to skip unpacking the downloaded artifact(s)
           # default false
           # skip_unpack: false
