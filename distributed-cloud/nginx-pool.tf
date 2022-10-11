@@ -32,11 +32,11 @@ resource "volterra_origin_pool" "nginx-pool" {
       }
     }
   }
-  healthcheck = {
-    tenant    = f5-sa-rnxeudss
-    namespace = j-calalang
-    name      = http-health-check
-    kind      = healthcheck
+  healthcheck {
+    tenant    = "f5-sa"
+    namespace = "j-calalang"
+    name      = "http-health-check"
+    kind      = "healthcheck"
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
