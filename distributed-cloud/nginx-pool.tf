@@ -1,6 +1,6 @@
 # Origin Pool for local NGINX Servers
 
-resource "volterra_origin_pool" "nginx-pool" {
+resource "volterra_origin_pool" "nginx-ip-pool" {
   name      = "nginx-ip-pool"
   namespace = var.namespace
   labels = {
