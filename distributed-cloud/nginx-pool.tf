@@ -12,8 +12,8 @@ resource "volterra_origin_pool" "nginx-pool" {
       outside_network = true
       site_locator {
         site {
-          tenant    = f5-sa-rnxeudss
-          namespace = system
+          tenant    = f5-sa
+          namespace = j-calalang
           name      = calalang-volt-rg
           kind      = site
         }
@@ -24,8 +24,8 @@ resource "volterra_origin_pool" "nginx-pool" {
       outside_network = true
       site_locator {
         site {
-          tenant    = f5-sa-rnxeudss
-          namespace = system
+          tenant    = f5-sa
+          namespace = j-calalang
           name      = calalang-volt-rg
           kind      = site
         }
@@ -40,7 +40,7 @@ resource "volterra_origin_pool" "nginx-pool" {
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
-  port                   = "80"
+  port                   = 80
   same_as_endpoint_port  = true
   no_tls                 = true
 }
