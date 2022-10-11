@@ -1,20 +1,20 @@
 # Origin Pool for BIG-IP APM
 
-resource "volterra_origin_pool" "apm-ip-pool" {
-  name        = "apm-ip-pool"
+resource "volterra_origin_pool" "kubernetes-service-pool" {
+  name        = "kubernetes-service-pool"
   namespace   = var.namespace
-  description = "APM BIG-IP Virtual"
+  description = "NGINX Ingress Controller Service"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
-    private_ip {
-      ip              = "10.0.2.12"
+    k8s_service {
+      service_name    = "nginx-ingress.nginx-ingress"
       outside_network = true
       site_locator {
         site {
           namespace = var.namespace
-          name      = "calalang-volt-rg"
+          name      = "calalang-aks-cluster"
         }
       }
     }

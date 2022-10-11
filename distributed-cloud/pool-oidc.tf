@@ -1,15 +1,15 @@
 # Origin Pool for BIG-IP APM
 
-resource "volterra_origin_pool" "apm-ip-pool" {
-  name        = "apm-ip-pool"
+resource "volterra_origin_pool" "oidc-ip-pool" {
+  name        = "oidc-ip-pool"
   namespace   = var.namespace
-  description = "APM BIG-IP Virtual"
+  description = "OIDC BIG-IP Virtual"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
     private_ip {
-      ip              = "10.0.2.12"
+      ip              = "10.0.2.51"
       outside_network = true
       site_locator {
         site {
