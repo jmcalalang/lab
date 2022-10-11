@@ -12,7 +12,7 @@ resource "volterra_origin_pool" "nginx-ip-pool" {
       outside_network = true
       site_locator {
         site {
-          namespace = "j-calalang"
+          namespace = var.namespace
           name      = "calalang-volt-rg"
         }
       }
@@ -24,14 +24,14 @@ resource "volterra_origin_pool" "nginx-ip-pool" {
       outside_network = true
       site_locator {
         site {
-          namespace = "j-calalang"
+          namespace = var.namespace
           name      = "calalang-volt-rg"
         }
       }
     }
   }
   healthcheck {
-    namespace = "j-calalang"
+    namespace = var.namespace
     name      = "http-health-check"
   }
   endpoint_selection     = "LOCAL_PREFERRED"

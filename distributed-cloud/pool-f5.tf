@@ -37,7 +37,7 @@ resource "volterra_origin_pool" "f5-dns-pool" {
     }
   }
   healthcheck {
-    namespace = "j-calalang"
+    namespace = var.namespace
     name      = "tcp-health-check"
   }
   port                   = "443"
