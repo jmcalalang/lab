@@ -36,7 +36,6 @@ resource "volterra_origin_pool" "nginx-pool" {
     tenant    = "f5-sa"
     namespace = "j-calalang"
     name      = "http-health-check"
-    kind      = "healthcheck"
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
