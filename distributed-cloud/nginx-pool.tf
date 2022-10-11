@@ -17,6 +17,8 @@ resource "volterra_origin_pool" "nginx-ip-pool" {
         }
       }
     }
+  }
+  origin_servers {
     private_ip {
       ip              = "10.0.2.7"
       outside_network = true
