@@ -8,7 +8,17 @@ resource "volterra_origin_pool" "nginx-pool" {
   }
   origin_servers {
     private_ip {
-      ip              = "[10.0.2.7, 10.0.2.6]"
+      ip              = "10.0.2.7"
+      outside_network = true
+      site_locator {
+        site {
+          namespace = "j-calalang"
+          name      = "calalang-volt-rg"
+        }
+      }
+    }
+    public_ip {
+      ip              = "10.0.2.6"
       outside_network = true
       site_locator {
         site {
