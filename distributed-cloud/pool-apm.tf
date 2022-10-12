@@ -12,9 +12,10 @@ resource "volterra_origin_pool" "apm-ip-pool" {
       ip              = "10.0.2.12"
       outside_network = true
       site_locator {
-        site = {
+        site {
           namespace = var.namespace
           name      = "calalang-volt-rg"
+          tenant    = "system"
         }
       }
     }
