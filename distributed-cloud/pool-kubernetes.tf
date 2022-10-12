@@ -1,4 +1,4 @@
-# Origin Pool for BIG-IP APM
+# Origin Pool for NGINX Ingress Controller
 
 resource "volterra_origin_pool" "kubernetes-service-pool" {
   name        = "kubernetes-service-pool"

@@ -1,4 +1,4 @@
-# Origin Pool for local NGINX Servers
+# Origin Pool for BIG-IP NGINX Virtual Servers
 
 resource "volterra_origin_pool" "bigip-nginx-ip-pool" {
   name        = "bigip-nginx-ip-pool"

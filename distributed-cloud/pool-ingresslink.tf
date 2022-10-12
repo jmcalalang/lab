@@ -1,4 +1,4 @@
-# Origin Pool for BIG-IP APM
+# Origin Pool for BIG-IP IngressLink
 
 resource "volterra_origin_pool" "ingresslink-ip-pool" {
   name        = "ingresslink-ip-pool"

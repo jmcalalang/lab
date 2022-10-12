@@ -1,4 +1,4 @@
-# Origin Pool for BIG-IP APM
+# Origin Pool for BIG-IP OIDC Virtual
 
 resource "volterra_origin_pool" "oidc-ip-pool" {
   name        = "oidc-ip-pool"
