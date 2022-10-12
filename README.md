@@ -1,65 +1,100 @@
-Lab
-===
+# Jon's Lab
 
 [![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
-Core-RG
-  - Networking
-  - Container Registry
-  - Log Analytics and Workspaces
-  - Azure Key-Vault
-  - Sec Groups
-  - 1 Windows Domain Controller
+Congratulations you made it to Jon's lab. Below is an outline of the folder structure, in it are the working parts of Jon's lab. This lab is maintained through GitOps (Argo) and CI with GitHub Actions.
 
-BIGIP-RG
-  - 1 BIG-IP
-    - Solutions:
-      - WAF (AS3) (Volterra, Landing Zone)
-      - APM (Volterra, Landing Zone)
-      - LTM (AS3) (Volterra, Landing Zone)
-      - CIS / IngressLink (VirtualServer, Transport, IPAM) (Volterra, Landing Zone, NGINX Ingress)
-      - Telemetry Streaming / App Insights (Landing Zone)
-      - OIDC (Volterra, Landing Zone)
-      - GTM (AS3) (Datacenter, Servers, Pools, WIPs)
+## Folder Structure
 
-NGINX-RG
-  - 2 NGINX (1vcpu 1GB)(managed by Controller)
-  - 1 NGINX (1vcpu 1GB)(managed by NIM)
-  - 1 Controller
-  - 1 NIM
-    - Solutions:
-      - Controller
-      - NIM
-      - Load Balancing
-      - API Management
-      - OIDC
-      - JWT Validation
-      - Custom Status Zones
-      - Custom keyval variables
+### github
 
-AKS-RG
-  - 2 Nodes
-    - Solutions:
-      - NGINX Ingress (Landing Zone, Volterra)
-      - NGINX Ingress Security (Landing Zone, Volterra)
-      - NGINX Service Mesh (Landing Zone, Volterra, NGINX Ingress)
-      - Volterra Site for Kubernetes
-      - Argo CD
-      - coffee
-      - http-bin
-      - secure-app
-      - syslog
-      - tea
+GitHub Actions for Ansible and Terraform
 
-Volterra-RG (Phase 2)
-  - 1 CE (Stack) (Landing Zone, Cloud Credentials)
-    - Solutions:
-      - WAF to NGINX
-      - HTTPS to APM
-      - WAF to Kubernetes w/Service Discovery
-      - Bound to Azure Container Registry
+- github action for BIG-IP F5 automation toolchain with ansible
+- github action for F5XC with terraform
+  
+### argo
 
-External Services
-  - Azure Active Directory
-  - LetsEncrypt
-  - Godaddy Domain
+Agro installation manifest
+
+- argo mainifest for installation into kubernetes
+
+### big-ip
+
+Ansible configuration management for BIG-IP. AS3, DO, and TS. Managed by Ansible in Github Action
+
+- default main for Ansible Roles variables
+- as3 role with templates
+  - common objects
+  - partition objects
+  - gslb objects
+- do role with templates
+  - best practices for f5 automation toolchain
+- ts role with templates
+  - azure log analytics and pull consumer
+
+### certs
+
+Certs for F5XC and how to create letsencrypt certs
+
+- f5xc certification for authentication
+  - password is a GitHub repository secret
+- how to create certs needed for lab resources
+
+### cis
+
+CIS configuration for BIG-IP. Managed by Argo
+
+- CIS deployment
+- virtual server with tls for NGINX ingress (IngressLink)
+
+### distributed-cloud
+
+Terraform configuration for F5XC. Managed by Terraform in Github Action
+
+- f5xc application firewall
+- f5xc pools (dns,ip,kubernetes)
+- f5xc health checks
+  
+### f5-automation-toolchain
+
+Automation toolchain templates that Ansible uses for BIG-IP. Managed by Ansible in Github Action
+
+- as3 templates used by ansible
+- do templates used by ansible
+- ts templates used by ansible
+
+### nginx-ingress
+
+NGINX ingress configuration. Managed by Argo
+
+- virtual servers (grpc,https)
+- oidc policy
+- nap policy
+
+### nginx-service-mesh
+
+NGINX Service Mesh installation scratch
+
+- installation scratch
+
+### openshift
+
+Openshift configuration examples
+
+- installation scratch/examples
+
+### services
+
+Kubernetes services used for examples. Managed by Argo
+
+- coffee kubernetes service
+- tea kubernetes service
+- http-bin kubernetes service
+  - oidc policy
+- secure-app kubernetes service
+- syslog kubernetes service
+
+### Lab.pdf
+
+PDF of my lab diagram and services in each part
