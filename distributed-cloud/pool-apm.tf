@@ -12,15 +12,15 @@ resource "volterra_origin_pool" "apm-ip-pool" {
       ip              = "10.0.2.12"
       outside_network = true
       site_locator {
-        site {
-          namespace = "var.namespace"
+        site = {
+          namespace = var.namespace
           name      = "calalang-volt-rg"
         }
       }
     }
   }
   healthcheck {
-    namespace = "var.namespace"
+    namespace = var.namespace
     name      = "tcp-health-check"
   }
   endpoint_selection     = "LOCAL_PREFERRED"
