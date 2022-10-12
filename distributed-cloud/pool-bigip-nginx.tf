@@ -13,7 +13,7 @@ resource "volterra_origin_pool" "bigip-nginx-ip-pool" {
       outside_network = true
       site_locator {
         site {
-          namespace = var.namespace
+          namespace = "system"
           name      = "calalang-volt-rg"
         }
       }

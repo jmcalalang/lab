@@ -13,7 +13,7 @@ resource "volterra_origin_pool" "kubernetes-service-pool" {
       outside_network = true
       site_locator {
         site {
-          namespace = var.namespace
+          namespace = "system"
           name      = "calalang-aks-cluster"
         }
       }
