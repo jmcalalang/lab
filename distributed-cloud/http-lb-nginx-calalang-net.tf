@@ -53,14 +53,14 @@ resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
   record {
     name = "nginx"
     type = "CNAME"
-    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
+    data = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.nginx"
     type = "CNAME"
-    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
+    data = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
     ttl  = 3600
   }
 }
