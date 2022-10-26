@@ -45,16 +45,22 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   add_location                     = true
 }
 
-## GoDaddy Acme Challenge for auto certificates in F5XC
-#
-#resource "acme_certificate" "certificate" {
-##  GODADDY_API_KEY            = STORED AS ENVIRONMENT VARIABLE
-##  GODADDY_API_SECRET         = STORED AS ENVIRONMENT VARIABLE
-#  GODADDY_HTTP_TIMEOUT        = 1
-#  GODADDY_POLLING_INTERVAL    = 1
-#  GODADDY_PROPAGATION_TIMEOUT = 1
-#  GODADDY_TTL                 = 1
-#  dns_challenge {
-#    provider = "godaddy"
-#  }
-#}
+# GoDaddy F5XC Challenge and Redirect
+
+resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
+  domain = "calalang.net"
+
+  record {
+    name = "nginx"
+    type = "CNAME"
+    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
+    ttl  = 3600
+  }
+
+  record {
+    name = "_acme-challenge.nginx"
+    type = "CNAME"
+    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
+    ttl  = 3600
+  }
+}
