@@ -7,11 +7,9 @@ terraform {
   required_providers {
     volterra = {
       source  = "volterraedge/volterra"
-      version = "latest"
     }
     acme = {
       source  = "vancluever/acme"
-      version = "latest"
     }
   }
 }
