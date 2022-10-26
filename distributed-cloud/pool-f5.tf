@@ -39,7 +39,7 @@ resource "volterra_origin_pool" "f5-dns-pool" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = "tcp-health-check"
+    name      = volterra_healthcheck.tcp-health-check.name
   }
   port                   = "443"
   no_tls                 = true

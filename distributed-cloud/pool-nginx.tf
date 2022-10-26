@@ -33,7 +33,7 @@ resource "volterra_origin_pool" "nginx-ip-pool" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = "http-health-check"
+    name      = volterra_healthcheck.http-health-check.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
