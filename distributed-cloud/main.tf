@@ -7,7 +7,11 @@ terraform {
   required_providers {
     volterra = {
       source  = "volterraedge/volterra"
-      version = "0.11.14"
+      version = "latest"
+    }
+    acme = {
+      source = "vancluever/acme"
+      version = "latest"
     }
   }
 }
@@ -17,4 +21,10 @@ terraform {
 provider "volterra" {
   api_p12_file = "../certs/f5-sa.console.ves.volterra.io.api-creds.p12"
   url          = "https://f5-sa.console.ves.volterra.io/api"
+}
+
+# Acme Challenge Provider
+
+provider "acme" {
+  server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
 }

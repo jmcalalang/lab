@@ -80,6 +80,8 @@ jobs:
     # Environment Variables
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
+      GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
+      GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
 
     # Where are the Terraform files
     defaults:
