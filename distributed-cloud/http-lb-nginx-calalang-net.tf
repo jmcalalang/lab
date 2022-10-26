@@ -7,7 +7,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     "owner" = var.owner
   }
   description                     = "Global HTTPS Load Balancer for nginx.calalang.net"
-  domains                         = [test.nginx.calalang.net]
+  domains                         = ["test.nginx.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
   default_route_pools {
