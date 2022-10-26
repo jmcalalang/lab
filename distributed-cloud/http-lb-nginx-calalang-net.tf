@@ -45,22 +45,34 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   add_location                     = true
 }
 
+# HTTP Load Balancer for NGINX Servers Outputs
+
+output "cname_challenge" {
+  description = "Acme Challenge for domain"
+  value       = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
+}
+
+output "cname" {
+  description = "Redirect to F5XC"
+  value       = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
+}
+
 # GoDaddy F5XC Challenge and Redirect
 
 resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
   domain = "calalang.net"
 
   record {
-    name = "nginx"
+    name = "_acme-challenge.nginx"
     type = "CNAME"
-    data = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
+    data = cname_challenge.value
     ttl  = 3600
   }
 
   record {
-    name = "_acme-challenge.nginx"
+    name = "nginx"
     type = "CNAME"
-    data = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
+    data = cname.value
     ttl  = 3600
   }
 }
