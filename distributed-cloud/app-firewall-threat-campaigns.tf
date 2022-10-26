@@ -1,7 +1,7 @@
 # Application firewall with Threat Campaigns and Custom Block Page
 
-resource "volterra_app_firewall" "application-firewall-calalang" {
-  name      = "application-firewall-calalang"
+resource "volterra_app_firewall" "app-firewall-threat-campaigns" {
+  name      = "app-firewall-threat-campaigns"
   namespace = var.namespace
   labels = {
     "owner" = var.owner
