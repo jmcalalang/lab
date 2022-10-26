@@ -65,6 +65,4 @@ resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
     ttl  = 3600
   }
 
-  depends_on = [volterra_http_loadbalancer.http-lb-nginx-calalang-net]
-
 }
