@@ -49,12 +49,12 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
 
 output "cname_challenge" {
   description = "Acme Challenge for domain"
-  value       = var.volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
+  value       = module.volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info.dns_records.value
 }
 
 output "cname" {
   description = "Redirect to F5XC"
-  value       = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
+  value       = module.volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name
 }
 
 # GoDaddy F5XC Challenge and Redirect
