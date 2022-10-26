@@ -7,7 +7,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     "owner" = var.owner
   }
   description                     = "Global HTTPS Load Balancer for nginx.calalang.net"
-  domains                         = "test.nginx.calalang.net"
+  domains                         = [test.nginx.calalang.net]
   advertise_on_public_default_vip = true
   round_robin                     = true
   default_route_pools {
@@ -28,10 +28,12 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     name      = volterra_app_firewall.application-firewall-calalang.name
     namespace = var.namespace
   }
-  user_id_client_ip                = true
-  disable_rate_limit               = true
-  service_policies_from_namespace  = true
-  cookie_stickiness                = [NGINXStickiness]
+  user_id_client_ip               = true
+  disable_rate_limit              = true
+  service_policies_from_namespace = true
+  cookie_stickiness = {
+    name = NGINXStickiness
+  }
   disable_trust_client_ip_headers  = true
   disable_ddos_detection           = true
   disable_malicious_user_detection = true
