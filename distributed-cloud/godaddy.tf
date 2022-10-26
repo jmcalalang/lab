@@ -29,7 +29,7 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   record {
     name = "_acme-challenge.nginx"
     type = "CNAME"
-#    data = "ae0fdf7d254743afa2cd2519a18b3fb1.autocerts.ves.volterra.io"
+    #    data = "ae0fdf7d254743afa2cd2519a18b3fb1.autocerts.ves.volterra.io"
     data = [volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info["dns_records"].value.id]
     ttl  = 3600
   }
@@ -37,7 +37,7 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   record {
     name = "nginx"
     type = "CNAME"
-#    data = "ves-io-b29d0700-76fb-4999-9967-b5f34e6f4ea7.ac.vh.ves.io"
+    #    data = "ves-io-b29d0700-76fb-4999-9967-b5f34e6f4ea7.ac.vh.ves.io"
     data = [volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name.id]
     ttl  = 3600
   }
