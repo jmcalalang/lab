@@ -61,7 +61,7 @@ resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
   record {
     name = "nginx"
     type = "CNAME"
-    data = 	"ves-io-b29d0700-76fb-4999-9967-b5f34e6f4ea7.ac.vh.ves.io."
+    data = "ves-io-b29d0700-76fb-4999-9967-b5f34e6f4ea7.ac.vh.ves.io."
     ttl  = 3600
   }
 
