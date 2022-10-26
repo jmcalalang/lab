@@ -46,7 +46,6 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
 
 }
 
-
 # GoDaddy F5XC Challenge and Redirect
 
 resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
@@ -55,14 +54,14 @@ resource "godaddy_domain_record" "http-lb-nginx-calalang-net" {
   record {
     name = "_acme-challenge.nginx"
     type = "CNAME"
-    data = nginx_cname_challenge.value
+    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info["dns_records"].value.id
     ttl  = 3600
   }
 
   record {
     name = "nginx"
     type = "CNAME"
-    data = nginx_cname.value
+    data = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name.id
     ttl  = 3600
   }
 
