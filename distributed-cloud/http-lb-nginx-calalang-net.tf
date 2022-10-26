@@ -31,8 +31,8 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   user_id_client_ip               = true
   disable_rate_limit              = true
   service_policies_from_namespace = true
-  cookie_stickiness = {
-    name = NGINXStickiness
+  cookie_stickiness {
+    name = "NGINXStickiness"
   }
   disable_trust_client_ip_headers  = true
   disable_ddos_detection           = true
