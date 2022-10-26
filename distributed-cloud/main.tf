@@ -6,10 +6,10 @@ terraform {
   }
   required_providers {
     volterra = {
-      source  = "volterraedge/volterra"
+      source = "volterraedge/volterra"
     }
     acme = {
-      source  = "vancluever/acme"
+      source = "vancluever/acme"
     }
   }
 }
