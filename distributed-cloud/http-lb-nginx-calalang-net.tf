@@ -6,7 +6,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   labels = {
     "owner" = var.owner
   }
-  description                     = format("HTTPS loadbalancer object for %s origin server", var.base)
+  description                     = "Global HTTPS Load Balancer for nginx.calalang.net"
   domains                         = "test.nginx.calalang.net"
   advertise_on_public_default_vip = true
   round_robin                     = true
