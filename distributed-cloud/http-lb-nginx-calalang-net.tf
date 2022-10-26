@@ -43,6 +43,17 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   disable_ip_reputation            = true
   no_challenge                     = true
   add_location                     = true
+
+  output "cname_challenge" {
+    description = "Acme Challenge for domain"
+    value       = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info["dns_records"].value.id
+  }
+
+  output "cname" {
+    description = "Redirect to F5XC"
+    value       = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name.id
+  }
+
 }
 
 ## HTTP Load Balancer for NGINX Servers Outputs
