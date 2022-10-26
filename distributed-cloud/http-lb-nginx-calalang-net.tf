@@ -46,12 +46,12 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
 
 }
 
-# Output of the nginx cname
-
-output "http-lb-nginx-calalang-net-auto_cert_info" {
-  value = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info["dns_records"].value.id
-}
-
-output "http-lb-nginx-calalang-net-host_name" {
-  value = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name.id
-}
+# # Output of the nginx cname
+# 
+# output "http-lb-nginx-calalang-net-auto_cert_info" {
+#   value = volterra_http_loadbalancer.http-lb-nginx-calalang-net.auto_cert_info["dns_records"].value.id
+# }
+# 
+# output "http-lb-nginx-calalang-net-host_name" {
+#   value = volterra_http_loadbalancer.http-lb-nginx-calalang-net.host_name.id
+# }
