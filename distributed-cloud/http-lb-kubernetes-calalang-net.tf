@@ -18,16 +18,16 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       origin_pools {
         pool {
-          namespace = j-calalang
+          namespace = var.namespace
           name      = volterra_origin_pool.kubernetes-service-pool
-          kind      = origin_pool
+          kind      = "origin_pool"
         }
         weight           = 1
         priority         = 1
         endpoint_subsets = {}
       }
       headers {
-        name         = HOST
+        name         = "HOST"
         exact        = "test-kubernetes.calalang.net"
         invert_match = false
       }
