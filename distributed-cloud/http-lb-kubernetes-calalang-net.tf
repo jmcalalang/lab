@@ -12,7 +12,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   round_robin                     = true
   routes {
     simple_route {
-      http_method = ANY
+      http_method = "ANY"
       path = {
         regex = ".*"
       }
