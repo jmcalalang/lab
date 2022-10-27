@@ -13,7 +13,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   routes {
     simple_route {
       http_method = "ANY"
-      path = {
+      path {
         regex = ".*"
       }
       origin_pools {
