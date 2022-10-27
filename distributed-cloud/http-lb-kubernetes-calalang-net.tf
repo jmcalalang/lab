@@ -1,23 +1,43 @@
 # HTTP Load Balancer for kubernetes Servers
 
 resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
-  name      = "http-lb-kubernetes-calalang-net-test"
+  name      = "test-http-lb-kubernetes-calalang-net"
   namespace = var.namespace
   labels = {
     "owner" = var.owner
   }
-  description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
+  description                     = "Global HTTPS Load Balancer for test-kubernetes.calalang.net"
   domains                         = ["test-kubernetes.calalang.net", "test-argo.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
-  default_route_pools {
-    pool {
-      name      = volterra_origin_pool.kubernetes-service-pool.name
-      namespace = var.namespace
+  routes = [{
+    simple_route = {
+      http_method = ANY
+      path = {
+        regex = ".*"
+      }
+      origin_pools = [
+        {
+          pool = {
+            namespace = j-calalang
+            name      = kubernetes-service-pool
+            kind      = origin_pool
+          }
+          weight           = 1
+          priority         = 1
+          endpoint_subsets = {}
+        }
+      ]
+      headers = [
+        {
+          name         = HOST
+          exact        = test-kubernetes.calalang.net
+          invert_match = false
+        }
+      ]
+      host_rewrite = test-kubernetes.calalang.net
     }
-    weight   = 1
-    priority = 1
-  }
+  }]
   https_auto_cert {
     add_hsts              = true
     http_redirect         = true

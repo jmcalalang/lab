@@ -11,6 +11,13 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   }
 
   record {
+    name = "_acme-challenge.argo"
+    type = "CNAME"
+    data = "tbd.autocerts.ves.volterra.io."
+    ttl  = 3600
+  }
+
+  record {
     name = "kubernetes"
     type = "CNAME"
     data = "ves-io-c296fefe-3200-4d90-8388-6f27391aa62f.ac.vh.ves.io"
@@ -44,6 +51,13 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
 
   record {
     name = "_acme-challenge.bigip"
+    type = "CNAME"
+    data = "tbd.autocerts.ves.volterra.io."
+    ttl  = 3600
+  }
+
+  record {
+    name = "_acme-challenge.apm"
     type = "CNAME"
     data = "tbd.autocerts.ves.volterra.io."
     ttl  = 3600
