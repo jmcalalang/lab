@@ -1,13 +1,13 @@
 # HTTP Load Balancer for kubernetes Servers
 
 resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
-  name      = "test-http-lb-kubernetes-calalang-net"
+  name      = "http-lb-kubernetes-calalang-net"
   namespace = var.namespace
   labels = {
     "owner" = var.owner
   }
-  description                     = "Global HTTPS Load Balancer for test-kubernetes.calalang.net"
-  domains                         = ["test-kubernetes.calalang.net", "test-argo.calalang.net"]
+  description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
+  domains                         = ["kubernetes.calalang.net", "argo.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
   routes {
@@ -27,10 +27,10 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       headers {
         name         = "HOST"
-        exact        = "test-kubernetes.calalang.net"
+        exact        = volterra_http_loadbalancer.http-lb-kubernetes-calalang-net.domains[0]
         invert_match = false
       }
-      host_rewrite = "test-kubernetes.calalang.net"
+      host_rewrite = volterra_http_loadbalancer.http-lb-kubernetes-calalang-net.domains[0]
     }
   }
   routes {
@@ -50,10 +50,10 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       headers {
         name         = "HOST"
-        exact        = "test-argo.calalang.net"
+        exact        = "argo.calalang.net"
         invert_match = false
       }
-      host_rewrite = "test-argo.calalang.net"
+      host_rewrite = "argo.calalang.net"
     }
   }
   https_auto_cert {
