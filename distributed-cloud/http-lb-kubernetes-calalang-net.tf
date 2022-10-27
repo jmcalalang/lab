@@ -10,7 +10,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   domains                         = ["test-kubernetes.calalang.net", "test-argo.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
-  routes = {
+  routes {
     simple_route = {
       http_method = ANY
       path = {
@@ -31,11 +31,11 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       headers = [
         {
           name         = HOST
-          exact        = test-kubernetes.calalang.net
+          exact        = "test-kubernetes.calalang.net"
           invert_match = false
         }
       ]
-      host_rewrite = test-kubernetes.calalang.net
+      host_rewrite = "test-kubernetes.calalang.net"
     }
   }
   https_auto_cert {
