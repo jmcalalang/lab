@@ -33,6 +33,29 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       host_rewrite = "test-kubernetes.calalang.net"
     }
   }
+  routes {
+    simple_route {
+      http_method = "ANY"
+      path {
+        regex = ".*"
+      }
+      origin_pools {
+        pool {
+          namespace = var.namespace
+          name      = volterra_origin_pool.kubernetes-service-pool.name
+        }
+        weight           = 1
+        priority         = 1
+        endpoint_subsets = {}
+      }
+      headers {
+        name         = "HOST"
+        exact        = "test-argo.calalang.net"
+        invert_match = false
+      }
+      host_rewrite = "test-argo.calalang.net"
+    }
+  }
   https_auto_cert {
     add_hsts              = true
     http_redirect         = true
