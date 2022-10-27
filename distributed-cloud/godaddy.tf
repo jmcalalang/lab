@@ -6,28 +6,28 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   record {
     name = "_acme-challenge.kubernetes"
     type = "CNAME"
-    data = "tbd.autocerts.ves.volterra.io."
+    data = "4fcf0be6e9824222b2a440597d212e00.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.argo"
     type = "CNAME"
-    data = "tbd.autocerts.ves.volterra.io."
+    data = "62454f842d6b4e629f0f718e0ead6d6c.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "kubernetes"
     type = "CNAME"
-    data = "ves-io-c296fefe-3200-4d90-8388-6f27391aa62f.ac.vh.ves.io"
+    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "argo"
     type = "CNAME"
-    data = "ves-io-c296fefe-3200-4d90-8388-6f27391aa62f.ac.vh.ves.io"
+    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
     ttl  = 3600
   }
 
