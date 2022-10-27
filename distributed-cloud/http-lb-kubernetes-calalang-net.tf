@@ -27,10 +27,10 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       headers {
         name         = "HOST"
-        exact        = volterra_http_loadbalancer.http-lb-kubernetes-calalang-net.domains[0]
+        exact        = "kubernetes.calalang.net"
         invert_match = false
       }
-      host_rewrite = volterra_http_loadbalancer.http-lb-kubernetes-calalang-net.domains[0]
+      host_rewrite = "kubernetes.calalang.net"
     }
   }
   routes {
