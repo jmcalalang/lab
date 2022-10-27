@@ -52,28 +52,28 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   record {
     name = "_acme-challenge.bigip"
     type = "CNAME"
-    data = "tbd.autocerts.ves.volterra.io."
+    data = "8eb8b5ee4d2047c69cf036644b5f425f.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.apm"
     type = "CNAME"
-    data = "tbd.autocerts.ves.volterra.io."
+    data = "5ffb1b7e9d764bf9a4cf9e12848f4607.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "bigip"
     type = "CNAME"
-    data = "ves-io-6b73677d-741b-4545-8189-2b982980a8da.ac.vh.ves.io"
+    data = "ves-io-b3274562-7ff0-4f49-bdb8-088d5efc1ff1.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "apm"
     type = "CNAME"
-    data = "ves-io-6b73677d-741b-4545-8189-2b982980a8da.ac.vh.ves.io"
+    data = "ves-io-b3274562-7ff0-4f49-bdb8-088d5efc1ff1.ac.vh.ves.io"
     ttl  = 3600
   }
 
