@@ -7,7 +7,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
     "owner" = var.owner
   }
   description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
-  domains                         = ["kubernetes.calalang.net", "argo.calalang.net"]
+  domains                         = ["test-kubernetes.calalang.net", "test-argo.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
   default_route_pools {
