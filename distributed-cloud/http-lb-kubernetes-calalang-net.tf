@@ -19,7 +19,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       origin_pools {
         pool {
           namespace = var.namespace
-          name      = volterra_origin_pool.kubernetes-service-pool
+          name      = volterra_origin_pool.kubernetes-service-pool.name
           kind      = "origin_pool"
         }
         weight           = 1
