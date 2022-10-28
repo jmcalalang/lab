@@ -156,3 +156,79 @@
   delay: 5
   until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
   when: state == "present"
+
+# Destroy BIG-IP {{BIGIPhost01}} Resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Get BIG-IP Authentication Token from {{BIGIPhost01}}
+  delegate_to: localhost
+  uri:
+    body: '{"username":"{{BIGIPadminUsername}}","password":"{{BIGIPadminPassword}}","loginProviderName":"tmos"}'
+    body_format: json
+    method: POST
+    url: "https://{{BIGIPhost01}}/mgmt/shared/authn/login"
+    status_code: "200"
+    validate_certs: no
+  register: bigip1_auth_response
+  retries: 30
+  delay: 5
+  until: "(bigip1_auth_response is successful) and (bigip1_auth_response.status == 200)"
+  when: state == "absent"
+
+- name: Assign Auth Token to Variable
+  set_fact:
+    bigip1_auth_token: "{{ bigip1_auth_response.json.token.token }}"
+  when: state == "absent"
+
+- name: Validate {{BIGIPhost01}} AS3 Rest Worker is ready
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: GET
+    url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/available"
+    validate_certs: no
+  retries: 30
+  delay: 5
+  register: result
+  until: "(result is successful) and (result.status == 200)"
+  when: state == "absent"
+
+- name: Remove AS3 configuration on {{BIGIPhost01}}; All Partitions
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: DELETE
+    status_code: [200, 202]
+    url: "https://{{BIGIPhost01}}/mgmt/shared/appsvcs/declare"
+    validate_certs: no
+    timeout: "60"
+  register: result
+  retries: 30
+  delay: 5
+  until: "(result.status == 200) or (result.status == 202)"
+  when: state == "absent"
+
+- name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: DELETE
+    url: "https://{{BIGIPhost01}}/mgmt/shared/authz/tokens/{{ bigip1_auth_token }}"
+    status_code: "200"
+    validate_certs: no
+  register: bigip1_token_delete
+  retries: 30
+  delay: 5
+  until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
+  when: state == "absent"
