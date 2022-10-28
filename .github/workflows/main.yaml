@@ -57,9 +57,9 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "=${{ BIGIPhost01=secrets.BIG_IP_HOSTNAME }}" 
-            --extra-vars "=${{ BIGIPadminUsername=secrets.BIG_IP_USERNAME }}" 
-            --extra-vars "=${{ BIGIPadminPassword=secrets.BIG_IP_PASSWORD }}" 
+            --extra-vars "BIGIPhost01=${{ secrets.BIG_IP_HOSTNAME }}" 
+            --extra-vars "BIGIPadminUsername=${{ secrets.BIG_IP_USERNAME }}" 
+            --extra-vars "BIGIPadminPassword=${{ secrets.BIG_IP_PASSWORD }}" 
           #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "toolchain_declarations.yaml"
