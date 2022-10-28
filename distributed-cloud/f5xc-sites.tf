@@ -5,4 +5,5 @@ resource "volterra_registration_approval" "calalang-aks-cluster" {
   wait_time    = 60
   latitude     = 44.09133
   longitude    = -121.31144
+  hostname     = "vp-manager-0"
 }
