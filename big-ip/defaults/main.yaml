@@ -9,4 +9,4 @@ bigip_provider:
   validate_certs: false
 
 # State
-state: 'absent'
+state: 'present'
