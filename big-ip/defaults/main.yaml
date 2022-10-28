@@ -8,7 +8,7 @@ bigip_provider:
   password: "{{ BIGIPadminPassword }}"
   validate_certs: false
 
-# State
+# Use Ansible module or skip
 state: 'present'
 #state: 'absent'
 
