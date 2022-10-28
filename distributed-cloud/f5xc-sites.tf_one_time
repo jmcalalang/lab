@@ -6,5 +6,4 @@ resource "volterra_registration_approval" "calalang-aks-cluster" {
   latitude     = 44.09133
   longitude    = -121.31144
   hostname     = "vp-manager-0"
-  state        = "ONLINE"
 }
