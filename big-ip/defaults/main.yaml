@@ -10,3 +10,8 @@ bigip_provider:
 
 # State
 state: 'present'
+#state: 'absent'
+
+# AS3 Action
+action: 'deploy'
+#action: 'delete'
