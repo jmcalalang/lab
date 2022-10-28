@@ -12,6 +12,6 @@ bigip_provider:
 state: 'present'
 #state: 'absent'
 
-# AS3 Action
-#action: 'deploy'
-action: 'delete'
+# Remove AS3 application tenants; NOT common
+action: 'deploy'
+#action: 'delete'
