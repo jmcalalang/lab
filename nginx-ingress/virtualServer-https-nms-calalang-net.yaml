@@ -14,18 +14,8 @@ spec:
     service: apigw
     port: 443
     type: http
-    tls:
-      enable: true
   routes:
   - path: /
-    location-snippets: |
-      status_zone nms-server;
-    policies:
-    - name: oidc-policy
-    action:
-      proxy:
-        upstream: apigw
-  - path: /ui
     location-snippets: |
       status_zone nms-server;
     policies:
