@@ -80,7 +80,7 @@ metadata:
   labels:
     {{- include "nms.labels" . | nindent 4 }}
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: {{ .Values.apigw.service.httpsPort | default 443 }}
       name: https
