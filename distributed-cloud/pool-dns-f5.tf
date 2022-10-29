@@ -1,7 +1,7 @@
 # Origin Pool for F5 Entities
 
-resource "volterra_origin_pool" "pool-dns-f5." {
-  name        = "pool-dns-f5."
+resource "volterra_origin_pool" "pool-dns-f5" {
+  name        = "pool-dns-f5"
   namespace   = var.namespace
   description = "F5 Entities Origin Pools"
   labels = {
