@@ -94,33 +94,33 @@ serviceAccount:
 
 ##
 # All properties used by API-GW
-##
-# apigw:
-#   name: apigw
-#   # To bring your own NGINX API Gateway certificates for hosting HTTPS NMS server,
-#   # set "tlsSecret" to an existing kubernetes secret name in the same namespace as the chart.
-#   # We recommend to set "tlsSecret" for production use case to manage certs.
-#   # By default, this helm chart creates it's own CA to self-sign HTTPS server cert key pair. These are not managed.
-#   # Follow our installation guide to get an example of a "tlsSecret" resource.
-#   tlsSecret: ""
-#   image:
-#     # if the image is on a private registry, provide imagePullSecrets
-#     # For using NGINX Plus, update the repository name to your NGINX Plus docker image
-#     repository: calalangacr.azurecr.io/apigw
-#     tag: 2.5.1
-#     pullPolicy: IfNotPresent
-#   container:
-#     port:
-#       https: 443
-#   service:
-#     name: apigw
-#     httpsPort: 443
-#   resources:
-#     requests:
-#       # These are minimum requirements on node to run NGINX api-gw
-#       # There are no limits in place, so vertically scale as per data needs
-#       cpu: 250m
-#       memory: 256Mi
+
+apigw:
+  name: apigw
+  # To bring your own NGINX API Gateway certificates for hosting HTTPS NMS server,
+  # set "tlsSecret" to an existing kubernetes secret name in the same namespace as the chart.
+  # We recommend to set "tlsSecret" for production use case to manage certs.
+  # By default, this helm chart creates it's own CA to self-sign HTTPS server cert key pair. These are not managed.
+  # Follow our installation guide to get an example of a "tlsSecret" resource.
+  tlsSecret: ""
+  image:
+    # if the image is on a private registry, provide imagePullSecrets
+    # For using NGINX Plus, update the repository name to your NGINX Plus docker image
+    repository: calalangacr.azurecr.io/apigw
+    tag: 2.5.1
+    pullPolicy: IfNotPresent
+  container:
+    port:
+      https: 443
+  service:
+    name: apigw
+    httpsPort: 443
+  resources:
+    requests:
+      # These are minimum requirements on node to run NGINX api-gw
+      # There are no limits in place, so vertically scale as per data needs
+      cpu: 250m
+      memory: 256Mi
 
 # All properties used by Core process
 core:
