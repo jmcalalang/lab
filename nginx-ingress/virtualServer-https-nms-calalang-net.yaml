@@ -14,6 +14,8 @@ spec:
     service: apigw
     port: 443
     type: http
+    tls:
+      enable: true
   routes:
   - path: /
     location-snippets: |
