@@ -1,15 +1,27 @@
-# Origin Pool for BIG-IP NGINX Virtual Servers
+# Origin Pool for local NGINX Servers
 
-resource "volterra_origin_pool" "bigip-nginx-ip-pool" {
-  name        = "bigip-nginx-ip-pool"
+resource "volterra_origin_pool" "pool-ip-nginx" {
+  name        = "pool-ip-nginx"
   namespace   = var.namespace
-  description = "BIG-IP NGINX Virtual Server"
+  description = "NGINX Servers"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
     private_ip {
-      ip              = "10.0.2.14"
+      ip              = "10.0.2.6"
+      outside_network = true
+      site_locator {
+        site {
+          namespace = "system"
+          name      = "calalang-volt-rg"
+        }
+      }
+    }
+  }
+  origin_servers {
+    private_ip {
+      ip              = "10.0.2.7"
       outside_network = true
       site_locator {
         site {
@@ -21,7 +33,7 @@ resource "volterra_origin_pool" "bigip-nginx-ip-pool" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.tcp-health-check.name
+    name      = volterra_healthcheck.health-check-http.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"

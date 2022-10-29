@@ -19,7 +19,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       origin_pools {
         pool {
           namespace = var.namespace
-          name      = volterra_origin_pool.kubernetes-service-pool.name
+          name      = volterra_origin_pool.pool-svc-nginx-ingress.name
         }
         weight           = 1
         priority         = 1
@@ -42,7 +42,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       origin_pools {
         pool {
           namespace = var.namespace
-          name      = volterra_origin_pool.kubernetes-service-pool.name
+          name      = volterra_origin_pool.pool-svc-nginx-ingress.name
         }
         weight           = 1
         priority         = 1
@@ -65,7 +65,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       origin_pools {
         pool {
           namespace = var.namespace
-          name      = volterra_origin_pool.kubernetes-service-pool.name
+          name      = volterra_origin_pool.pool-svc-nginx-ingress.name
         }
         weight           = 1
         priority         = 1

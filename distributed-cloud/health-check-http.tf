@@ -1,7 +1,7 @@
 # Health Check for Generic HTTP
 
-resource "volterra_healthcheck" "http-health-check" {
-  name      = "http-health-check"
+resource "volterra_healthcheck" "health-check-http" {
+  name      = "health-check-http"
   namespace = var.namespace
   labels = {
     "owner" = var.owner

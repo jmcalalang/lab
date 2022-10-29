@@ -1,15 +1,15 @@
-# Origin Pool for BIG-IP IngressLink
+# Origin Pool for BIG-IP APM
 
-resource "volterra_origin_pool" "ingresslink-ip-pool" {
-  name        = "ingresslink-ip-pool"
+resource "volterra_origin_pool" "pool-ip-apm" {
+  name        = "pool-ip-apm"
   namespace   = var.namespace
-  description = "IngressLink BIG-IP Virtual"
+  description = "APM BIG-IP Virtual"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
     private_ip {
-      ip              = "10.0.2.50"
+      ip              = "10.0.2.12"
       outside_network = true
       site_locator {
         site {
@@ -21,7 +21,7 @@ resource "volterra_origin_pool" "ingresslink-ip-pool" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.tcp-health-check.name
+    name      = volterra_healthcheck.health-check-tcp.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"

@@ -12,7 +12,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   round_robin                     = true
   default_route_pools {
     pool {
-      name      = volterra_origin_pool.nginx-ip-pool.name
+      name      = volterra_origin_pool.pool-ip-nginx.name
       namespace = var.namespace
     }
     weight   = 1

@@ -1,4 +1,4 @@
-resource "godaddy_domain_record" "calalang-net-domain-records" {
+resource "godaddy_domain_record" "domain-records-calalang-net" {
   domain = "calalang.net"
 
   # Records for Kubernetes
@@ -34,14 +34,14 @@ resource "godaddy_domain_record" "calalang-net-domain-records" {
   record {
     name = "_acme-challenge.nms"
     type = "CNAME"
-    data = "tbd.autocerts.ves.volterra.io"
+    data = "d2868eebc01940c4a082998f67053d5d.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "nms"
     type = "CNAME"
-    data = "tbd.ac.vh.ves.io"
+    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
     ttl  = 3600
   }
 

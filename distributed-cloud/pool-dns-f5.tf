@@ -1,7 +1,7 @@
 # Origin Pool for F5 Entities
 
-resource "volterra_origin_pool" "f5-dns-pool" {
-  name        = "f5-dns-pool"
+resource "volterra_origin_pool" "pool-dns-f5." {
+  name        = "pool-dns-f5."
   namespace   = var.namespace
   description = "F5 Entities Origin Pools"
   labels = {
@@ -39,7 +39,7 @@ resource "volterra_origin_pool" "f5-dns-pool" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.tcp-health-check.name
+    name      = volterra_healthcheck.health-check-tcp.name
   }
   port                   = "443"
   no_tls                 = true

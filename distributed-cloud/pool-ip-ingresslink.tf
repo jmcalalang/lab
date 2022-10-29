@@ -1,27 +1,27 @@
-# Origin Pool for NGINX Ingress Controller
+# Origin Pool for BIG-IP IngressLink
 
-resource "volterra_origin_pool" "kubernetes-service-pool" {
-  name        = "kubernetes-service-pool"
+resource "volterra_origin_pool" "pool-ip-ingresslink" {
+  name        = "pool-ip-ingresslink"
   namespace   = var.namespace
-  description = "NGINX Ingress Controller Service"
+  description = "IngressLink BIG-IP Virtual"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
-    k8s_service {
-      service_name    = "nginx-ingress.nginx-ingress"
+    private_ip {
+      ip              = "10.0.2.50"
       outside_network = true
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-aks-cluster"
+          name      = "calalang-volt-rg"
         }
       }
     }
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.tcp-health-check.name
+    name      = volterra_healthcheck.health-check-tcp.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"

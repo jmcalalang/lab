@@ -1,4 +1,4 @@
-resource "volterra_registration_approval" "calalang-aks-cluster" {
+resource "volterra_registration_approval" "reg-approval-calalang-aks-cluster" {
   cluster_name = "calalang-aks-cluster"
   cluster_size = 1
   retry        = 5

@@ -1,27 +1,27 @@
-# Origin Pool for BIG-IP OIDC Virtual
+# Origin Pool for NGINX Ingress Controller
 
-resource "volterra_origin_pool" "oidc-ip-pool" {
-  name        = "oidc-ip-pool"
+resource "volterra_origin_pool" "pool-svc-nginx-ingress" {
+  name        = "pool-svc-nginx-ingress"
   namespace   = var.namespace
-  description = "OIDC BIG-IP Virtual"
+  description = "NGINX Ingress Controller Service"
   labels = {
     "owner" = var.owner
   }
   origin_servers {
-    private_ip {
-      ip              = "10.0.2.51"
+    k8s_service {
+      service_name    = "nginx-ingress.nginx-ingress"
       outside_network = true
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-volt-rg"
+          name      = "calalang-aks-cluster"
         }
       }
     }
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.tcp-health-check.name
+    name      = volterra_healthcheck.health-check-tcp.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
