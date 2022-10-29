@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "nms.apigw.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "nms.apigw.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nms.apigw.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      containers:
+        - name: apigw
+          image: "{{ .Values.apigw.image.repository }}:{{ .Values.apigw.image.tag }}"
+          imagePullPolicy: {{ .Values.apigw.image.pullPolicy }}
+          ports:
+            - name: https
+              containerPort: {{ .Values.apigw.container.port.https }}
+          volumeMounts:
+            - name: nms-http-conf-volume
+              mountPath: /etc/nginx/conf.d/nms-http.conf
+              subPath: nms-http.conf
+            - name: nms-nginx-conf-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nms-modules-volume
+              mountPath: /var/lib/nms/modules.json
+              subPath: modules.json
+            - name: openid-config-volume
+              mountPath: /etc/nms/nginx/oidc/openid_configuration.conf
+              subPath: openid_configuration.conf
+            - name: openid-config-volume
+              mountPath: /etc/nms/nginx/oidc/openid_connect.conf
+              subPath: openid_connect.conf
+            - name: nms-auth
+              mountPath: /etc/nms/nginx/.htpasswd
+              subPath: .htpasswd
+            - name: internal-certs
+              mountPath: {{ template "nms.secret.internal-certs.dir" . }}
+              readOnly: true
+            - name: apigw-certs
+              mountPath: {{ template "nms.apigw.secrets.mountPath" }}
+              readOnly: true
+      volumes:
+        - name: nms-http-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.nginx.http.config.name" . }}
+        - name: nms-nginx-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.nginx.config.name" . }}
+        - name: nms-modules-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.modules.name" . }}
+        - name: openid-config-volume
+          configMap:
+              defaultMode: 0644
+              name: {{ template "nms.openid.config.name" . }}
+        - name: nms-auth
+          secret:
+            secretName: {{ template "nms.secret.auth.name" . }}
+            defaultMode: 0644
+            items:
+              - key: auth
+                path: .htpasswd
+        - name: internal-certs
+          projected:
+            sources:
+              - secret:
+                  name: {{ template "nms.secret.internal-certs.name" . }}
+        - name: apigw-certs
+          projected:
+            sources:
+              - secret:
+                  name: {{ template "nms.apigw.secret-name" . }}

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nms.ingestion.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.ingestion.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "nms.ingestion.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nms.ingestion.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      containers:
+        - name: ingestion
+          image: "{{ .Values.ingestion.image.repository }}:{{ .Values.ingestion.image.tag }}"
+          imagePullPolicy: {{ .Values.ingestion.image.pullPolicy }}
+          ports:
+            - name: grpc
+              containerPort: {{ .Values.ingestion.container.port.grpc }}
+              protocol: TCP
+          env:
+            # Clickhouse env variable
+            {{- include "nms.clickhouse.env" . | nindent 12 }}
+            # Ingestion specific env variable
+            {{- include "nms.ingestion.env" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.ingestion.resources | nindent 12 }}
+          volumeMounts:
+            - name: nms-conf-volume
+              mountPath: /etc/nms/nms.conf
+              subPath: nms.conf
+            - name: certs
+              mountPath: /etc/nms/certs
+              readOnly: true
+      volumes:
+        - name: nms-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.config.name" . }}
+        - name: certs
+          projected:
+            sources:
+            - secret:
+                name: {{ template "nms.secret.internal-certs.name" . }}
+                items:
+                  - key: ca.pem
+                    path: services/ca.pem
+                  - key: ingestion-server.pem
+                    path: services/ingestion-server.pem
+                  - key: ingestion-server.key
+                    path: services/ingestion-server.key

@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nms.dpm.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "nms.dpm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nms.dpm.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      initContainers:
+        {{- include "nms.dpm.initContainers" . | nindent 8 }}
+      containers:
+        - name: dpm
+          image: "{{ .Values.dpm.image.repository }}:{{ .Values.dpm.image.tag }}"
+          imagePullPolicy: {{ .Values.dpm.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.dpm.container.port.http }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ .Values.dpm.container.port.grpc }}
+              protocol: TCP
+            - name: nats-streaming
+              containerPort: {{ .Values.dpm.container.port.nats }}
+              protocol: TCP
+          env:
+            # Clickhouse env variable
+            {{- include "nms.clickhouse.env" . | nindent 12 }}
+            # DPM specific env variable
+            {{- include "nms.dpm.env" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.dpm.resources | nindent 12 }}
+          volumeMounts:
+            - name: nms-conf-volume
+              mountPath: /etc/nms/nms.conf
+              subPath: nms.conf
+            - name: certs
+              mountPath: /etc/nms/certs
+              readOnly: true
+            {{- include "nms.dpm.userVolumeMounts" . | nindent 12 }}
+      volumes:
+        - name: nms-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.config.name" . }}
+        - name: certs
+          projected:
+            sources:
+            - secret:
+                name: {{ template "nms.secret.internal-certs.name" . }}
+                items:
+                  - key: ca.pem
+                    path: services/ca.pem
+                  - key: dpm-server.pem
+                    path: services/dpm-server.pem
+                  - key: dpm-server.key
+                    path: services/dpm-server.key
+                  - key: dpm-client.pem
+                    path: services/dpm-client.pem
+                  - key: dpm-client.key
+                    path: services/dpm-client.key
+        {{- include "nms.dpm.userVolumes" . | nindent 8 }}

@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nms.integrations.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "nms.integrations.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nms.integrations.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      initContainers:
+        {{- include "nms.integrations.initContainers" . | nindent 8 }}
+      containers:
+        - name: integrations
+          image: "{{ .Values.integrations.image.repository }}:{{ .Values.integrations.image.tag }}"
+          imagePullPolicy: {{ .Values.integrations.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.integrations.container.port.http }}
+              protocol: TCP
+          env:
+            # Integrations specific env variable
+            {{- include "nms.integrations.env" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.integrations.resources | nindent 12 }}
+          volumeMounts:
+            - name: nms-conf-volume
+              mountPath: /etc/nms/nms.conf
+              subPath: nms.conf
+            - name: certs
+              mountPath: /etc/nms/certs
+              readOnly: true
+            {{- include "nms.integrations.userVolumeMounts" . | nindent 12 }}
+      volumes:
+        - name: nms-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.config.name" . }}
+        - name: certs
+          projected:
+            sources:
+            - secret:
+                name: {{ template "nms.secret.internal-certs.name" . }}
+                items:
+                  - key: ca.pem
+                    path: services/ca.pem
+                  - key: integrations-server.pem
+                    path: services/integrations-server.pem
+                  - key: integrations-server.key
+                    path: services/integrations-server.key
+                  - key: integrations-client.pem
+                    path: services/integrations-client.pem
+                  - key: integrations-client.key
+                    path: services/integrations-client.key
+                  - key: dpm-client.pem
+                    path: services/dpm-client.pem
+                  - key: dpm-client.key
+                    path: services/dpm-client.key
+        {{- include "nms.integrations.userVolumes" . | nindent 8 }}
