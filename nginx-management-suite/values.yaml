@@ -9,7 +9,7 @@
 
 # Set admin password for NMS using --set flag with helm install
 # For example, with openssl LibreSSL 2.8.3, helm install --set adminPasswordHash=$(openssl passwd -1 "YouPassword123#")
-adminPasswordHash: "Harrison123!"
+adminPasswordHash: 
 
 # Use imagePullSecret to pass secret resources to pull all docker images from private registry.
 # https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/:
