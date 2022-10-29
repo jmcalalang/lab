@@ -13,7 +13,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "kubernetes"
     type = "CNAME"
-    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
+    data = "ves-io-25df1b5c-b4b2-4cec-9032-c770713a792d.ac.vh.ves.io"
     ttl  = 3600
   }
 
@@ -27,21 +27,21 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "argo"
     type = "CNAME"
-    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
+    data = "ves-io-25df1b5c-b4b2-4cec-9032-c770713a792d.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.nms"
     type = "CNAME"
-    data = "d2868eebc01940c4a082998f67053d5d.autocerts.ves.volterra.io"
+    data = "3cec1a0623c34897bbd743e9c67144bb.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "nms"
     type = "CNAME"
-    data = "ves-io-68b8812f-df40-4984-bbe1-acf34195e4c3.ac.vh.ves.io"
+    data = "ves-io-25df1b5c-b4b2-4cec-9032-c770713a792d.ac.vh.ves.io"
     ttl  = 3600
   }
 
