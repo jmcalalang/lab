@@ -57,7 +57,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "nginx"
     type = "CNAME"
-    data = "ves-io-b29d0700-76fb-4999-9967-b5f34e6f4ea7.ac.vh.ves.io"
+    data = "ves-io-35db3d1d-359f-4c11-994d-04bfce9746be.ac.vh.ves.io"
     ttl  = 3600
   }
 
@@ -73,7 +73,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "bigip"
     type = "CNAME"
-    data = "ves-io-b3274562-7ff0-4f49-bdb8-088d5efc1ff1.ac.vh.ves.io"
+    data = "ves-io-086b7aaa-673e-46c8-8181-3580e0ff066e.ac.vh.ves.io"
     ttl  = 3600
   }
 
@@ -87,7 +87,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "apm"
     type = "CNAME"
-    data = "ves-io-b3274562-7ff0-4f49-bdb8-088d5efc1ff1.ac.vh.ves.io"
+    data = "ves-io-086b7aaa-673e-46c8-8181-3580e0ff066e.ac.vh.ves.io"
     ttl  = 3600
   }
 
