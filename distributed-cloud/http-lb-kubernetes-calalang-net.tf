@@ -78,7 +78,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       host_rewrite = "nms.calalang.net"
     }
-  }  
+  }
   https_auto_cert {
     add_hsts              = true
     http_redirect         = true
