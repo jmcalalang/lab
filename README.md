@@ -78,6 +78,12 @@ NGINX Service Mesh installation scratch
 
 - installation scratch
 
+### nginx-management-suite
+
+NGINX Management-suite
+
+- Management Suite for NGINX instances, runs in AKS
+
 ### openshift
 
 Openshift configuration examples
