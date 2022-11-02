@@ -91,7 +91,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "nms.apigw.name" . }}
+  name: {{ template "nms.apigw.name" . }}-internal-lb
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "nms.labels" . | nindent 4 }}
