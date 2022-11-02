@@ -79,26 +79,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "nms.labels" . | nindent 4 }}
-spec:
-  type: ClusterIP
-  ports:
-    - port: {{ .Values.apigw.service.httpsPort | default 443 }}
-      name: https
-  selector:
-    {{- include "nms.apigw.selectorLabels" . | nindent 4 }}
----
-{{/* api-gw service ... */}}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ template "nms.apigw.name" . }}-internal-lb
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "nms.labels" . | nindent 4 }}
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: {{ .Values.apigw.service.httpsPort | default 443 }}
       name: https
