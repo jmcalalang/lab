@@ -82,7 +82,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: {{ .Values.apigw.service.httpsPort | default 443 }}
       name: https
