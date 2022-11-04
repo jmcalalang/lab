@@ -1,8 +1,5 @@
 # Ansible Variables
 
-# NGINX Instance Manager Hosts
-nmss: ["{{ NMShost01 }}"]
-
 # Use Ansible module or skip
 state: 'present'
 #state: 'absent'

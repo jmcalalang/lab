@@ -6,21 +6,19 @@
   delegate_to: localhost
   uri:
     headers:
-      token: "{{ NMSadminToken }}"
+      token: "{{ NMSToken }}"
     force_basic_auth: yes
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
     method: GET
-    url: "https://{{ NMSadminHostname }}/api/platform/v1/instances"
+    url: "https://{{ NMShost01 }}/api/platform/v1/instances"
     status_code: 200
     validate_certs: yes
   register: nms_instance_response
   retries: 30
   delay: 5
-#  until: "(nginx_auth_response is successful) and (nginx_auth_response.status == 200)"
+  until: "(nms_instance_response is successful) and (nms_instance_response.status == 200)"
   when: state == "present"
-#  with_items:
-#    - "{{ nmss }}"
 
 - name: Debug nms_instance_response
   ansible.builtin.debug:
