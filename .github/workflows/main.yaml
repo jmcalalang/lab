@@ -204,7 +204,7 @@ jobs:
             --extra-vars "NMSadminUsername=${{ secrets.NMS_USERNAME }}" 
             --extra-vars "NMSadminPassword=${{ secrets.NMS_PASSWORD }}" 
             --extra-vars "NMSadminToken=${{ secrets.NMS_TOKEN }}"
-          #  --verbose -vvvv
+            --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx-calalang-net.yaml"
           # Optional, directory where playbooks live
