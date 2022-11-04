@@ -12,7 +12,6 @@
     url_username: "{{ NMSadminUsername }}"
     method: GET
     url: "https://{{ nmss }}/api/platform/v1/instances"
-    status_code: "200"
     validate_certs: yes
   register: nginx_auth_response
   retries: 30
