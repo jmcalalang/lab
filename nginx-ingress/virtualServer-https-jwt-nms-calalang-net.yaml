@@ -1,0 +1,27 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: jwt.nms.calalang.net
+  namespace: nms
+spec:
+  host: jwt.nms.calalang.net
+  tls:
+    secret: nms-apigw-certs
+    redirect:
+      enable: true
+  upstreams:
+  - name: apigw
+    service: apigw
+    port: 443
+    type: http
+    tls:
+      enable: true
+  routes:
+  - path: /
+    location-snippets: |
+      status_zone nms-server;
+    policies:
+    - name: jwt-policy
+    action:
+      proxy:
+        upstream: apigw
