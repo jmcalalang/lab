@@ -17,7 +17,7 @@
   register: nginx_auth_response
   retries: 30
   delay: 5
-  until: "(nginx_auth_response is successful) and (nginx_auth_response.status == 200)"
+  until: nginx_auth_response.status == 200
   when: state == "present"
   with_items:
     - "{{ nmss }}"
