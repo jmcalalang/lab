@@ -16,7 +16,7 @@ jobs:
 
 ########################################################################################################
 
-  BIG-IP-Available:
+  BIG-IP-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
