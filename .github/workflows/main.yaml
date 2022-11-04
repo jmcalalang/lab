@@ -163,7 +163,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      - name: cURL F5XC
+      - name: cURL NMS
         run: curl --max-time 10 -u ${{ secrets.NMS_USERNAME }}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/instances
 
   NMS-Ansible:
@@ -204,7 +204,7 @@ jobs:
             --extra-vars "NMSadminUsername=${{ secrets.NMS_USERNAME }}" 
             --extra-vars "NMSadminPassword=${{ secrets.NMS_PASSWORD }}" 
             --extra-vars "NMSToken=${{ secrets.NMS_TOKEN }}"
-            --verbose -vvvv
+          #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx-calalang-net.yaml"
           # Optional, directory where playbooks live
