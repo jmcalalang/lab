@@ -45,6 +45,20 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
     ttl  = 3600
   }
 
+  record {
+    name = "_acme-challenge.nms"
+    type = "CNAME"
+    data = "fca747fe48e94d12b0b9082976e03e0a.autocerts.ves.volterra.io"
+    ttl  = 3600
+  }
+
+  record {
+    name = "nms"
+    type = "CNAME"
+    data = "ves-io-25df1b5c-b4b2-4cec-9032-c770713a792d.ac.vh.ves.io"
+    ttl  = 3600
+  }
+
   # Records for NGINX
 
   record {
