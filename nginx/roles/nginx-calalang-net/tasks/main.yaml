@@ -22,6 +22,10 @@
   with_items:
     - "{{ nmss }}"
 
+- name: Debug nginx_auth_response
+  var: "{{ nginx_auth_response }}"
+  verbosity: 4
+
 # - name: Prepare the Common AS3 Declaration
 #   template: src="../../f5-automation-toolchain/as3/bigip-common.template" dest="../../f5-automation-toolchain/as3/bigip-common.json"
 #   delegate_to: localhost
