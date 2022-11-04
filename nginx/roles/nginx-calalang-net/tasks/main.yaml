@@ -7,6 +7,7 @@
   uri:
     headers:
       token: "{{ NMSadminToken }}"
+    force_basic_auth: yes
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
     method: GET
