@@ -11,9 +11,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs for BIG-IP, F5XC, and NMS
 jobs:
-  # This workflow contains a single job called "BIG-IP Automation Toolchain"
+
+########################################################################################################
+
   BIG-IP-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -66,6 +68,8 @@ jobs:
           # Optional, directory where playbooks live
           directory: "./big-ip/playbooks"
 
+########################################################################################################
+
   F5XC-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -74,7 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: cURL F5XC
-        run: curl --max-time 10 https://f5-sa.console.ves.volterra.io/api/web/namespaces/j-calalang --cert-type P12 --cert certs/f5-sa.console.ves.volterra.io.api-creds.p12:${{ secrets.VES_P12_PASSWORD }}
+        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_HOSTNAME }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_HOSTNAME }}/api/web/namespaces/j-calalang 
 
   F5XC-Terraform:
     # The type of runner that the job will run on
@@ -149,3 +153,15 @@ jobs:
           name: f5xc-terraform-state
           path: /home/runner/work/lab/lab/distributed-cloud/distributed-cloud/terraform.tfstate
           retention-days: 30
+
+########################################################################################################
+
+  NMS-Resources-Available:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+      - name: cURL F5XC
+        run: curl --max-time 10 -u ${{ secrets.NMS_USERNAME }}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/instances
