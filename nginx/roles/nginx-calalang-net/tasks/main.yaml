@@ -14,18 +14,14 @@
     url: "https://{{ nmss }}/api/platform/v1/instances"
     status_code: "200"
     validate_certs: yes
-  register: nginx_auth_response
+  register: _result
   retries: 30
   delay: 5
-  until: nginx_auth_response.status == 200
+  until: _result is successful
   when: state == "present"
   with_items:
     - "{{ nmss }}"
 
-- name: Debug nginx_auth_response
-  ansible.builtin.debug:
-    var: "{{ nginx_auth_response }}"
-    verbosity: 4
 
 # - name: Prepare the Common AS3 Declaration
 #   template: src="../../f5-automation-toolchain/as3/bigip-common.template" dest="../../f5-automation-toolchain/as3/bigip-common.json"
