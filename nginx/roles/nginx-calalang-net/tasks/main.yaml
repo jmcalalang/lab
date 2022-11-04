@@ -11,20 +11,20 @@
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
     method: GET
-    url: "https://{{ nmss }}/api/platform/v1/instances"
-    status_code: "-1"
+    url: "https://{{ NMSadminUsername }}/api/platform/v1/instances"
+#    status_code: "-1"
     validate_certs: yes
-  register: nginx_auth_response
+  register: nms_instance_response
   retries: 30
   delay: 5
 #  until: "(nginx_auth_response is successful) and (nginx_auth_response.status == 200)"
   when: state == "present"
-  with_items:
-    - "{{ nmss }}"
+#  with_items:
+#    - "{{ nmss }}"
 
-- name: Debug nginx_auth_response
+- name: Debug nms_instance_response
   ansible.builtin.debug:
-    var: "{{ nginx_auth_response }}"
+    var: "{{ nms_instance_response }}"
     verbosity: 4
 
 # - name: Prepare the Common AS3 Declaration
