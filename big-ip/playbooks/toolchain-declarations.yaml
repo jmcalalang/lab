@@ -3,5 +3,5 @@
   hosts: localhost
   roles:
     - ../roles/telemetry-streaming
-    - ../roles/application-services_3
+    - ../roles/application-services-3
     - ../roles/declarative-onboarding
