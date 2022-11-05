@@ -1,8 +1,12 @@
-# F5XC Variables Environment
+# F5XC Variables
 
 variable "namespace" {
-  default = "j-calalang"
+  type        = string
+  description = "Namespace for deployed objects in F5XC"
+  default     = ""
 }
 variable "owner" {
-  default = "j-calalang"
+  type        = string
+  description = "Creator of resource"
+  default     = ""
 }
