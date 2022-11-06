@@ -2,12 +2,6 @@
 
 [![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
-![GitHub issues](https://img.shields.io/github/issues/jmcalalang/lab)
-
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/jmcalalang/lab)
-
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/jmcalalang/lab)
-
 Congratulations you made it to Jon's lab. Below is an outline of the folder structure, in it are the working parts of Jon's lab. This lab is maintained through GitOps (Argo) and CI with GitHub Actions.
 
 ## Folder Structure
