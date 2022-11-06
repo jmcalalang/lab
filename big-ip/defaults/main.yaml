@@ -1,5 +1,17 @@
 # Ansible Variables
 
+# BIG-IP Provider for BIG-IP Modules
+bigips: ["{{ BIGIPhost01 }}"]
+bigip_provider:
+  server: "{{ item }}"
+  user: "{{ BIGIPadminUsername }}"
+  password: "{{ BIGIPadminPassword }}"
+  validate_certs: false
+
 # Use Ansible module or skip
 state: 'present'
 #state: 'absent'
+
+# Remove AS3 application tenants; NOT common
+action: 'deploy'
+#action: 'delete'

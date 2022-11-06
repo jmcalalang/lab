@@ -1,12 +1,7 @@
 # Ansible Variables
 
-# BIG-IP Provider for BIG-IP Modules
-bigips: ["{{ BIGIPhost01 }}"]
-bigip_provider:
-  server: "{{ item }}"
-  user: "{{ BIGIPadminUsername }}"
-  password: "{{ BIGIPadminPassword }}"
-  validate_certs: false
+# NMS Instance UID
+"instanceGroup": 3fa85f64-5717-4562-b3fc-2c963f66afa6
 
 # Use Ansible module or skip
 state: 'present'
