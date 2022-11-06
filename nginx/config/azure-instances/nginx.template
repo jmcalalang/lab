@@ -29,5 +29,6 @@
     "rootDir": "/etc/nginx"
   },
   "ignoreConflict": true,
-  "validateConfig": true
+  "validateConfig": true,
+  "updateTime": "{{ ansible_date_time.iso8601 }}"
 }
