@@ -28,7 +28,7 @@
 - name: Create or update {{ NMShost01 }} NGINX azure-instances Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../config/azure-instances' + 'nginx.json') }}"
+    body: "{{ lookup('file','../config/azure-instances/' + 'nginx.json') }}"
     body_format: json
     headers:
       token: "{{ NMSToken }}"
