@@ -35,12 +35,12 @@
     force_basic_auth: yes
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
-    method: GET
+    method: POST
     url: "https://{{ NMShost01 }}/api/platform/v1/instances/{{ instanceGroup }}/config"
-    status_code: 200
+    status_code: 202
     validate_certs: yes
   register: nms_instance_post_response
   retries: 30
   delay: 5
-  until: "(nms_instance_post_response is successful) and (nms_instance_post_response.status == 200)"
+  until: "(nms_instance_post_response is successful) and (nms_instance_post_response.status == 202)"
   when: state == "present"
