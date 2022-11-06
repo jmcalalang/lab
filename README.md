@@ -2,6 +2,12 @@
 
 [![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
+![GitHub issues](https://img.shields.io/github/issues/jmcalalang/lab)
+
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/jmcalalang/lab)
+
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/jmcalalang/lab)
+
 Congratulations you made it to Jon's lab. Below is an outline of the folder structure, in it are the working parts of Jon's lab. This lab is maintained through GitOps (Argo) and CI with GitHub Actions.
 
 ## Folder Structure
@@ -11,7 +17,8 @@ Congratulations you made it to Jon's lab. Below is an outline of the folder stru
 GitHub Actions for Ansible and Terraform
 
 - github action for BIG-IP F5 automation toolchain with ansible
-- github action for F5XC with terraform
+- github action for F5XC/ GoDaddy with terraform
+- github action for NGINX Instance Manager with ansible
   
 ### argo
 
@@ -40,6 +47,7 @@ Certs for F5XC and how to create letsencrypt certs
 - f5xc certification for authentication
   - password is a GitHub repository secret
 - how to create certs needed for lab resources
+  - f5xc certs are auto generated
 
 ### cis
 
@@ -55,14 +63,15 @@ Terraform configuration for F5XC. Managed by Terraform in Github Action
 - f5xc application firewall
 - f5xc pools (dns,ip,kubernetes)
 - f5xc health checks
-  
-### f5-automation-toolchain
+- f5xc http load balancers
 
-Automation toolchain templates that Ansible uses for BIG-IP. Managed by Ansible in Github Action
+### nginx
 
-- as3 templates used by ansible
-- do templates used by ansible
-- ts templates used by ansible
+NGINX configuration done in NIM declarative json templates. Managed by Ansible in Github Action
+
+- nginx role with nginx instance manager templates
+  - proxy of nginx.org
+- NGINX Management Suite Agent
 
 ### nginx-ingress
 
@@ -70,25 +79,16 @@ NGINX ingress configuration. Managed by Argo
 
 - virtual servers (grpc,https)
 - oidc policy
+- jwt policy
 - nap policy
-
-### nginx-service-mesh
-
-NGINX Service Mesh installation scratch
-
-- installation scratch
+- custom zones
 
 ### nginx-management-suite
 
-NGINX Management-suite
+NGINX Management-suite with Instance Manager persona. Managed by Argo
 
-- Management Suite for NGINX instances, runs in AKS
-
-### openshift
-
-Openshift configuration examples
-
-- installation scratch/examples
+- NIM for NGINX instances
+  - azure-instance group
 
 ### services
 

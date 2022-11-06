@@ -1,3 +1,5 @@
+# certificate scratch
+
 No longer needed with auto certificates
 
 sudo certbot -d bigip.calalang.net -d apm.calalang.net --manual --preferred-challenges dns certonly

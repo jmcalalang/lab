@@ -1,3 +1,5 @@
+# argo scratch
+
 Docs: https://argo-cd.readthedocs.io/en/stable/getting_started/
 
 kubectl create namespace argocd

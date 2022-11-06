@@ -1,3 +1,5 @@
+# nginx instance management scratch
+
 docker load -i nms-apigw-2.5.1.tar.gz
 docker load -i nms-core-2.5.1.tar.gz  
 docker load -i nms-ingestion-2.5.1.tar.gz
