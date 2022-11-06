@@ -20,6 +20,10 @@
       {
         "contents": "cmVzb2x2ZXIgMS4xLjEuMSB2YWxpZD0xMHM7CnVwc3RyZWFtIG5naW54LW9yZyB7CiAgICB6b25lIG5naW54LW9yZyA2NGs7CiAgICBzZXJ2ZXIgd3d3Lm5naW54Lm9yZyBtYXhfZmFpbHM9MzsKfQoKc2VydmVyIHsKICAgIGxpc3RlbiAgICAgIDgwOwogICAgc2VydmVyX25hbWUgbmdpbnguY2FsYWxhbmcubmV0OwogICAgbG9jYXRpb24gLyB7CiAgICAgICAgcHJveHlfcGFzcyBodHRwOi8vbmdpbngtb3JnOwogICAgICAgIHByb3h5X3NldF9oZWFkZXIgSG9zdCB3d3cubmdpbngub3JnOwogICAgfQp9",
         "name": "/etc/nginx/sites/nginx-calalang-net/nginx-calalang-net.conf"
+      },
+      {
+        "contents": "cmVzb2x2ZXIgMS4xLjEuMSB2YWxpZD0xMHM7CnVwc3RyZWFtIG5naW54LW9yZyB7CiAgICB6b25lIG5naW54LW9yZyA2NGs7CiAgICBzZXJ2ZXIgd3d3Lm5naW54Lm9yZyBtYXhfZmFpbHM9MzsKfQoKc2VydmVyIHsKICAgIGxpc3RlbiAgICAgIDgwOwogICAgc2VydmVyX25hbWUgbmdpbnguY2FsYWxhbmcubmV0OwogICAgbG9jYXRpb24gLyB7CiAgICAgICAgcHJveHlfcGFzcyBodHRwOi8vbmdpbngtb3JnOwogICAgICAgIHByb3h5X3NldF9oZWFkZXIgSG9zdCB3d3cubmdpbngub3JnOwogICAgfQp9",
+        "name": "/etc/nginx/test.json"
       }
     ],
     "rootDir": "/etc/nginx"
