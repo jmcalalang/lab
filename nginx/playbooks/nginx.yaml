@@ -2,4 +2,4 @@
 -
   hosts: localhost
   roles:
-    - ../roles/nginx-calalang-net
+    - ../roles/nginx

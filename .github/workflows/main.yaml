@@ -206,6 +206,6 @@ jobs:
             --extra-vars "NMSToken=${{ secrets.NMS_TOKEN }}"
           #  --verbose -vvvv
           # Required, playbook filepath
-          playbook: "nginx-calalang-net.yaml"
+          playbook: "nginx.yaml"
           # Optional, directory where playbooks live
           directory: "./nginx/playbooks"

@@ -1,0 +1,46 @@
+# NGINX Application Services
+
+# Create NGINX Resources through {{ NMShost01 }}
+
+- name: Verify NGINX Instance Manager {{ NMShost01 }} is Available
+  delegate_to: localhost
+  uri:
+    headers:
+      token: "{{ NMSToken }}"
+    force_basic_auth: yes
+    url_password: "{{ NMSadminPassword }}"
+    url_username: "{{ NMSadminUsername }}"
+    method: GET
+    url: "https://{{ NMShost01 }}/api/platform/v1/instances"
+    status_code: 200
+    validate_certs: yes
+  register: nms_instance_alive_response
+  retries: 30
+  delay: 5
+  until: "(nms_instance_alive_response is successful) and (nms_instance_alive_response.status == 200)"
+  when: state == "present"
+
+- name: Prepare the {{ NMShost01 }} NGINX azure-instances Declaration
+  template: src="../config/azure-instances/nginx.template" dest="../config/azure-instances/nginx.json"
+  delegate_to: localhost
+  when: state == "present"
+
+- name: Create or update {{ NMShost01 }} NGINX azure-instances Declaration
+  delegate_to: localhost
+  uri:
+    body: "{{ lookup('file','..config/azure-instances' + 'nginx.json') }}"
+    body_format: json
+    headers:
+      token: "{{ NMSToken }}"
+    force_basic_auth: yes
+    url_password: "{{ NMSadminPassword }}"
+    url_username: "{{ NMSadminUsername }}"
+    method: GET
+    url: "https://{{ NMShost01 }}/api/platform/v1/instances"
+    status_code: 200
+    validate_certs: yes
+  register: nms_instance_post_response
+  retries: 30
+  delay: 5
+  until: "(nms_instance_post_response is successful) and (nms_instance_post_response.status == 200)"
+  when: state == "present"
