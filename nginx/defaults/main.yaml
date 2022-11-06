@@ -1,12 +1,8 @@
 # Ansible Variables
 
 # NMS Instance UID
-"instanceGroup": 3fa85f64-5717-4562-b3fc-2c963f66afa6
+"instanceGroupUID": 3fa85f64-5717-4562-b3fc-2c963f66afa6
 
 # Use Ansible module or skip
 state: 'present'
 #state: 'absent'
-
-# Remove AS3 application tenants; NOT common
-action: 'deploy'
-#action: 'delete'
