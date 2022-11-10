@@ -9,9 +9,6 @@ terraform {
       source  = "volterraedge/volterra"
       version = "0.11.16"
     }
-    godaddy = {
-      source = "n3integration/godaddy"
-    }
   }
 }
 
