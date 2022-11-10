@@ -59,6 +59,12 @@ Terraform configuration for F5XC. Managed by Terraform in Github Action
 - f5xc health checks
 - f5xc http load balancers
 
+### godaddy
+
+GoDaddy configuration. Managed by Terraform in Github Action
+
+- godaddy zone configuration
+
 ### nginx
 
 NGINX configuration done in NIM declarative json templates. Managed by Ansible in Github Action
