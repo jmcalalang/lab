@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'calalang-aks-k8-customer-edge'
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/jmcalalang/lab'
+    path: distributed-cloud
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true
