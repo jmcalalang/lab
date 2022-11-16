@@ -10,6 +10,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
+    namespace: ves-system
   syncPolicy:
     automated:
       prune: true
