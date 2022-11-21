@@ -13,8 +13,7 @@
                 "nginxCalalangNet_vs": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "10.0.2.14",
-                        "10.0.2.15"
+                        "10.0.2.14"
                     ],
                     "securityLogProfiles": [
                         {
