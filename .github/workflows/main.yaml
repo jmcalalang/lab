@@ -111,9 +111,9 @@ jobs:
           check_artifacts: false
           # Optional, search for the last workflow run whose stored an artifact named as in `name` input
           # default false
-          # search_artifacts: true
+          search_artifacts: true
           # Optional, run number from the workflow
-          run_number: 3598306214
+          #vrun_number: 3598306214
           # Optional, choose to skip unpacking the downloaded artifact(s)
           # default false
           # skip_unpack: false
@@ -242,9 +242,9 @@ jobs:
           check_artifacts: false
           # Optional, search for the last workflow run whose stored an artifact named as in `name` input
           # default false
-          # search_artifacts: true
+          search_artifacts: true
           # Optional, run number from the workflow
-          run_number: 3598306214
+          # run_number: 3598306214
           # Optional, choose to skip unpacking the downloaded artifact(s)
           # default false
           # skip_unpack: false
