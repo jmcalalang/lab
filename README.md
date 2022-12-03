@@ -89,6 +89,10 @@ NGINX Management-suite with Instance Manager persona. Managed by Argo
 
 - NIM for NGINX instances
   - azure-instance group
+    - jwt policy
+    - api key
+    - sensitive uri match
+    - proxy_pass
 
 ### services
 
