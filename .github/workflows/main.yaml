@@ -18,7 +18,7 @@ jobs:
 
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,7 +27,7 @@ jobs:
 
   BIG-IP-Ansible:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [BIG-IP-Resources-Available]
     # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -72,7 +72,7 @@ jobs:
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -82,7 +82,7 @@ jobs:
 
   F5XC-Terraform:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [F5XC-Resources-Available]
     # Environment Variables
     env:
@@ -156,7 +156,7 @@ jobs:
 
   NMS-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -166,7 +166,7 @@ jobs:
 
   NMS-Ansible:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [NMS-Resources-Available]
     # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -212,7 +212,7 @@ jobs:
 
   GoDaddy-Terraform:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [F5XC-Terraform]
     # Environment Variables
     env:
