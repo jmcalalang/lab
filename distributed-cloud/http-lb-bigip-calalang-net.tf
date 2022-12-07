@@ -7,7 +7,7 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
     "owner" = var.owner
   }
   description                     = "Global HTTPS Load Balancer for bigip.calalang.net"
-  domains                         = ["bigip.calalang.net", "apm.calalang.net"]
+  domains                         = ["bigip.calalang.net", "apm.calalang.net", "ingresslink.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
   routes {
@@ -54,6 +54,29 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
         invert_match = false
       }
       host_rewrite = "apm.calalang.net"
+    }
+  }
+  routes {
+    simple_route {
+      http_method = "ANY"
+      path {
+        regex = ".*"
+      }
+      origin_pools {
+        pool {
+          namespace = var.namespace
+          name      = volterra_origin_pool.pool-ip-ingresslink.name
+        }
+        weight           = 1
+        priority         = 1
+        endpoint_subsets = {}
+      }
+      headers {
+        name         = "HOST"
+        exact        = "ingresslink.calalang.net"
+        invert_match = false
+      }
+      host_rewrite = "ingresslink.calalang.net"
     }
   }
   https_auto_cert {
