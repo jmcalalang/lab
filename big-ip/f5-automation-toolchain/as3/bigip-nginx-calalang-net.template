@@ -83,7 +83,7 @@
                         }
                     ]
                 },
-                "nginxCalalangNet_OWASP_Auto_Tune": {
+                "nginxCalalangNet-OWASP-Auto-Tune": {
                     "class": "WAF_Policy",
                     "url": "https://raw.githubusercontent.com/f5devcentral/f5-asm-policy-templates/master/owasp_ready_template/owasp-auto-tune-v1.1.xml",
                     "ignoreChanges": true
