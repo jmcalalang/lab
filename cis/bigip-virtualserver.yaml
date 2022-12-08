@@ -7,7 +7,7 @@ metadata:
     f5cr: "true"
 spec:
   virtualServerName: "ingresslink-calalang-net"
-  serviceAddress: [{10.0.2.50, 10.0.2.51}]
+  virtualServerAddress: "10.0.2.50/30"
   virtualServerHTTPSPort: 443
   tlsProfileName: bigip-calalang-net-tls
   httpTraffic: redirect
