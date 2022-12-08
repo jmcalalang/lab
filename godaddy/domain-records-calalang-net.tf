@@ -108,7 +108,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.ingresslink"
     type = "CNAME"
-    data = "6414e82c6d984524872321145c2953a6.autocerts.ves.volterra.io"
+    data = "b0431c75cfa14c6387a40d7bc60369c5.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
