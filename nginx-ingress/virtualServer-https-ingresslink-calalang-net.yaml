@@ -1,10 +1,10 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: bigip.calalang.net
+  name: ingresslink.calalang.net
   namespace: default
 spec:
-  host: bigip.calalang.net
+  host: ingresslink.calalang.net
   upstreams:
   - name: http-bin
     service: http-bin
