@@ -22,7 +22,7 @@
                     ],
                     "policyEndpoint": "nginxOrgForwardPolicy",
                     "policyWAF": {
-                        "use": "nginxCalalangNet_OWASP_Auto_Tune"
+                        "use": "nginxCalalangNet-OWASP-Auto-Tune"
                     },
                     "persistenceMethods": [
                         "cookie"
