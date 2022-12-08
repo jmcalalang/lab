@@ -2,7 +2,6 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: bigip-ctlr-clusterrole
-  namespace: kube-system
 rules:
   - apiGroups: ["", "extensions", "networking.k8s.io", "route.openshift.io"]
     resources: ["nodes", "services", "endpoints", "namespaces", "ingresses", "pods", "ingressclasses", "policies", "routes"]
