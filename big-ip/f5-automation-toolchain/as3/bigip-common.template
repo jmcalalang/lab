@@ -1,6 +1,6 @@
 {
     "class": "AS3",
-    "action": "deploy",
+    "action": "{{ action }}",
     "persist": true,
     "declaration": {
         "class": "ADC",
