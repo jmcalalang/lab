@@ -18,13 +18,6 @@
                         "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQge25vZGUgMTI3LjAuMC4xIDY1MTR9"
                     }
                 },
-                "OIDC_v2v_local_rule": {
-                    "remark": "VIP to VIP for ODIC to NGINX",
-                    "class": "iRule",
-                    "iRule": {
-                        "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQgewogICAgdmlydHVhbCAvbmdpbnhDYWxhbGFuZ05ldC9uZ2lueC5jYWxhbGFuZy5uZXQvbmdpbnhDYWxhbGFuZ05ldF92cwp9"
-                    }
-                },
                 "BIG-IP_Health_rule": {
                     "remark": "BIG-IP health status page",
                     "class": "iRule",
