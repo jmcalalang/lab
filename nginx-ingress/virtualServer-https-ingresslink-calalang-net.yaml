@@ -72,6 +72,8 @@ spec:
       statusMatch: "! 500"
   routes:
   - path: /
+    policies:
+    - name: oidc-policy
     action:
       proxy:
         upstream: http-bin
