@@ -5,10 +5,6 @@ metadata:
   namespace: default
 spec:
   host: ingresslink.calalang.net
-  tls:
-    secret: kubernetes-calalang-net-tls-secret
-    redirect:
-      enable: true
   upstreams:
   - name: http-bin
     service: http-bin
@@ -76,8 +72,6 @@ spec:
       statusMatch: "! 500"
   routes:
   - path: /
-    policies:
-    - name: oidc-policy
     action:
       proxy:
         upstream: http-bin
