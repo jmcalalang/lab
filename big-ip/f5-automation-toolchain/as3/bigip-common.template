@@ -18,6 +18,13 @@
                         "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQge25vZGUgMTI3LjAuMC4xIDY1MTR9"
                     }
                 },
+                "Proxy_Protocol_iRule": {
+                    "remark": "Used for F5 IngressLink",
+                    "class": "iRule",
+                    "iRule": {
+                        "base64": "d2hlbiBTRVJWRVJfQ09OTkVDVEVEIHsgVENQOjpyZXNwb25kICJQUk9YWSBUQ1BbSVA6OnZlcnNpb25dIFtJUDo6Y2xpZW50X2FkZHJdIFtjbGllbnRzaWRlIHtJUDo6bG9jYWxfYWRkcn1dIFtUQ1A6OmNsaWVudF9wb3J0XSBbY2xpZW50c2lkZSB7VENQOjpsb2NhbF9wb3J0fV1cclxuIiB9"
+                    }
+                },
                 "OIDC_v2v_local_rule": {
                     "remark": "VIP to VIP for ODIC to NGINX",
                     "class": "iRule",

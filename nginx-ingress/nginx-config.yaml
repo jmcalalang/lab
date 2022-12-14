@@ -17,3 +17,6 @@ data:
   resolver-addresses: 10.0.6.10
   resolver-valid: 5s
   http2: "True"
+  proxy-protocol: "True"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: "10.0.3.0/24"

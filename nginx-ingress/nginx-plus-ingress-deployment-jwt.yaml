@@ -64,6 +64,8 @@ spec:
           - -enable-snippets
           - -enable-tls-passthrough
           - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
+          - -ingresslink=nginx-ingress
+          - -report-ingress-status
           #- -enable-internal-routes
       imagePullSecrets:
         - name: regcred
