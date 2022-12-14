@@ -19,4 +19,4 @@ data:
   http2: "True"
   proxy-protocol: "True"
   real-ip-header: "proxy_protocol"
-  set-real-ip-from: "10.0.3.0/24"
+  set-real-ip-from: "0.0.0.0/0"
