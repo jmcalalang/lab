@@ -14,8 +14,6 @@ data:
         zone_sync;
         zone_sync_server nginx-ingress-headless.nginx-ingress.svc.cluster.local:12345 resolve;
     }
-  resolver-addresses: 10.0.6.10
-  resolver-valid: 5s
   http2: "True"
   proxy-protocol: "True"
   real-ip-header: "proxy_protocol"
