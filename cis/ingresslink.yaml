@@ -7,7 +7,7 @@ spec:
   virtualServerAddress: "10.0.2.50"
   host: ingresslink.calalang.net
   iRules:
-    - /Common/Proxy_Protocol_iRule
+    - /Common/Shared/Proxy_Protocol_iRule
   selector:
     matchLabels:
       app: ingresslink
