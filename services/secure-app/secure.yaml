@@ -57,7 +57,7 @@ data:
     server {
       listen 8443 ssl;
 
-      server_name netskope.calalang.net;
+      server_name ingresslink.calalang.net;
 
       ssl_certificate /etc/nginx/ssl/tls.crt;
       ssl_certificate_key /etc/nginx/ssl/tls.key;
@@ -65,7 +65,7 @@ data:
       default_type text/plain;
 
       location / {
-        return 200 "Welcome to TLS server name $ssl_server_name, you reached pod $hostname. You got here at $date_local!\n" ;
+        return 200 "Welcome through Ingresslink you are at TLS server name $ssl_server_name, you reached pod $hostname. You got here at $date_local!\n" ;
       }
     }
 ---

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-ingress
+  name: ingresslink-nginx-ingress
   namespace: nginx-ingress
 spec:
   selector:
     matchLabels:
-      app: nginx-ingress
+      app: ingresslink-nginx-ingress
   template:
     metadata:
       labels:
-        app: nginx-ingress
+        app: ingresslink-nginx-ingress
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9113"
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.1
+      - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.4.2
         imagePullPolicy: Always       
         name: nginx-plus-ingress
         ports:
@@ -55,17 +55,17 @@ spec:
               fieldPath: metadata.name
         args:
           - -nginx-plus
-          - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
+          - -nginx-configmaps=$(POD_NAMESPACE)/ingresslink-nginx-config
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
+          - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
           - -enable-prometheus-metrics
           - -enable-latency-metrics
-          - -enable-oidc
-          - -enable-app-protect
-          - -enable-snippets
-          - -enable-tls-passthrough
-          - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
-          - -ingresslink=nginx-ingress
+          - -ingresslink=ingresslink-nginx-ingress
           - -report-ingress-status
+          - -enable-tls-passthrough
+          - -enable-oidc
+          - -enable-custom-resources
+          - -ingress-class=ingresslink-nginx
           #- -enable-internal-routes
       imagePullSecrets:
         - name: regcred

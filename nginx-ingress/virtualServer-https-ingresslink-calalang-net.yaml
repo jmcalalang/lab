@@ -4,74 +4,22 @@ metadata:
   name: ingresslink.calalang.net
   namespace: default
 spec:
+  ingressClassName: ingresslink-nginx
   host: ingresslink.calalang.net
+  tls:
+    secret: kubernetes-calalang-net-tls-secret
+    redirect:
+      enable: true
   upstreams:
   - name: http-bin
     service: http-bin
     port: 80
-    healthCheck:
-      enable: true
-      path: /
-      port: 80
-      interval: 20s
-      jitter: 3s
-      fails: 5
-      passes: 5
-      statusMatch: "! 500"
-  - name: tea-svc
-    service: tea-svc
-    port: 80
-    healthCheck:
-      enable: true
-      path: /
-      port: 80
-      interval: 20s
-      jitter: 3s
-      fails: 5
-      passes: 5
-      statusMatch: "! 500" 
-  - name: coffee-svc
-    service: coffee-svc
-    port: 80
-    healthCheck:
-      enable: true
-      path: /
-      port: 80
-      interval: 20s
-      jitter: 3s
-      fails: 5
-      passes: 5
-      statusMatch: "! 500"
-  - name: www-nginx-org-externalname
-    service: www-nginx-org-externalname
-    port: 80
-    healthCheck:
-      enable: false
-      path: /
-      port: 80
-      tls:
-        enable: true
-      interval: 20s
-      jitter: 3s
-      fails: 5
-      passes: 5
-      statusMatch: "! 500"
-  - name: www-nginx-org-endpoint
-    service: www-nginx-org-endpoint
-    port: 80
-    healthCheck:
-      enable: false
-      path: /
-      port: 80
-      tls:
-        enable: true
-      interval: 20s
-      jitter: 3s
-      fails: 5
-      passes: 5
-      statusMatch: "! 500"
   routes:
   - path: /
+    location-snippets: |
+      status_zone root;
+    policies:
+    - name: oidc-policy
     action:
       proxy:
         upstream: http-bin
@@ -89,41 +37,3 @@ spec:
             - name: IC-Nginx-Server-Address
               value: ${server_addr}
               always: true
-  - path: /tea
-    action:
-      pass: tea-svc
-  - path: /coffee
-    action:
-      pass: coffee-svc
-  - path: /externalname
-    action:
-      proxy:
-        upstream: www-nginx-org-externalname
-        rewritePath: /
-        requestHeaders:
-          set:
-            - name: Host
-              value: nginx.org
-  - path: /endpoint
-    action:
-      proxy:
-        upstream: www-nginx-org-endpoint
-        rewritePath: /
-        requestHeaders:
-          set:
-            - name: Host
-              value: nginx.org
-  - path: /status
-    action:
-      return:
-        code: 200
-        type: text/plain
-        body: "Hello from ${server_addr}\n"
-  - path: /waf
-    policies:
-    - name: waf-policy
-    action:
-      return:
-        code: 200
-        type: text/plain
-        body: "This is the WAF endpoint"

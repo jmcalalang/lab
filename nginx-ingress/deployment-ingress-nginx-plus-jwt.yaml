@@ -4,6 +4,7 @@ metadata:
   name: nginx-ingress
   namespace: nginx-ingress
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: nginx-ingress
@@ -11,17 +12,13 @@ spec:
     metadata:
       labels:
         app: nginx-ingress
-        nsm.nginx.com/deployment: nginx-ingress
-        spiffe.io/spiffeid: "true"
       annotations:
-        nsm.nginx.com/enable-ingress: "true"
-        #nsm.nginx.com/enable-egress: "true"
         prometheus.io/scrape: "true"
         prometheus.io/port: "9113"
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - image: calalangacr.azurecr.io/nginx-plus-ingress:2.1.0-SNAPSHOT-2665e33
+      - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.4.2
         imagePullPolicy: Always       
         name: nginx-plus-ingress
         ports:
@@ -48,9 +45,6 @@ spec:
             - ALL
             add:
             - NET_BIND_SERVICE
-        volumeMounts:
-        - mountPath: /run/spire/sockets
-          name: spire-agent-socket
         env:
         - name: POD_NAMESPACE
           valueFrom:
@@ -64,17 +58,14 @@ spec:
           - -nginx-plus
           - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
-          - -spire-agent-address=/run/spire/sockets/agent.sock
+          - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
           - -enable-prometheus-metrics
           - -enable-latency-metrics
-          - -enable-preview-policies
+          - -enable-oidc
           - -enable-app-protect
           - -enable-snippets
-          - -enable-tls-passthrough
-          - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
+          - -enable-leader-election
+          - -ingress-class=nginx
           #- -enable-internal-routes
-      volumes:
-      - hostPath:
-          path: /run/spire/sockets
-          type: DirectoryOrCreate
-        name: spire-agent-socket
+      imagePullSecrets:
+        - name: regcred

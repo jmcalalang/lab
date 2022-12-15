@@ -4,6 +4,7 @@ metadata:
   name: kubernetes.calalang.net
   namespace: default
 spec:
+  ingressClassName: nginx
   host: kubernetes.calalang.net
   tls:
     secret: kubernetes-calalang-net-tls-secret

@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ingresslink-nginx-config
+  namespace: nginx-ingress
+data:
+  stream-snippets: |
+    server {
+        listen 12345;
+        listen [::]:12345;
+        zone_sync;
+        zone_sync_server ingresslink-nginx-ingress-headless.nginx-ingress.svc.cluster.local:12345 resolve;
+    }
+  proxy-protocol: "True"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: "10.0.0.0/16"
+  resolver-addresses: 10.0.6.10
+  resolver-valid: 5s

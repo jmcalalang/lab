@@ -4,6 +4,7 @@ metadata:
   name: jwt.nms.calalang.net
   namespace: nms
 spec:
+  ingressClassName: nginx
   host: jwt.nms.calalang.net
   tls:
     secret: nms-apigw-certs

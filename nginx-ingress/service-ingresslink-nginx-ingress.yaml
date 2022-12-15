@@ -4,7 +4,7 @@ metadata:
   name: nginx-ingress-ingresslink
   namespace: nginx-ingress
   labels:
-    app: ingresslink
+    app: ingresslink-nginx-ingress
 spec:
   ports:
   - port: 80
@@ -16,4 +16,4 @@ spec:
     protocol: TCP
     name: https
   selector:
-    app: nginx-ingress
+    app: ingresslink-nginx-ingress

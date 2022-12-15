@@ -8,13 +8,12 @@ data:
     keyval_zone zone=custom-zone:10m timeout=5m; # Maintain recent client info for 5m
     keyval $request_uri $custom_variable zone=custom-zone; # Key=requested uri, Value=custom variable
   stream-snippets: |
-    resolver 10.0.6.10 valid=5s;
     server {
         listen 12345;
+        listen [::]:12345;
         zone_sync;
         zone_sync_server nginx-ingress-headless.nginx-ingress.svc.cluster.local:12345 resolve;
     }
-  http2: "True"
-  proxy-protocol: "True"
-  real-ip-header: "proxy_protocol"
-  set-real-ip-from: "0.0.0.0/0"
+  resolver-addresses: 10.0.6.10
+  resolver-valid: 5s
+  http2: "true"

@@ -4,6 +4,7 @@ metadata:
   name: grpc.argo.calalang.net
   namespace: argocd
 spec:
+  ingressClassName: nginx
   host: grpc.argo.calalang.net
   tls:
     secret: argo-calalang-net-tls-secret
