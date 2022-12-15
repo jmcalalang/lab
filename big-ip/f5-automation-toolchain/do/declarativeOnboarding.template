@@ -1,5 +1,5 @@
 {
-    "schemaVersion": "1.34.0",
+    "schemaVersion": "1.33.0",
     "class": "Device",
     "async": true,
     "Common": {
