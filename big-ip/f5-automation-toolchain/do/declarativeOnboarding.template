@@ -2,16 +2,15 @@
     "schemaVersion": "1.34.0",
     "class": "Device",
     "async": true,
-    "label": "calalang-azure-0.westus2.cloudapp.azure.com",
     "Common": {
         "class": "Tenant",
         "dbvars": {
             "class": "DbVariables",
-            "ui.advisory.enabled": true,
+            "ui.advisory.enabled": "true",
             "ui.advisory.color": "yellow",
             "ui.advisory.text": "Hey Awesome, the last build was - {{ ansible_date_time.iso8601 }}",
             "provision.extramb": 2048,
-            "restjavad.useextramb": true,
+            "restjavad.useextramb": "true",
             "icrd.timeout": 180,
             "restjavad.timeout": 180,
             "restnoded.timeout": 180
