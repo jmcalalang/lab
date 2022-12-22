@@ -26,3 +26,9 @@ spec:
     action:
       proxy:
         upstream: apigw
+  - path: /
+    location-snippets: |
+      status_zone nms-server;
+    action:
+      proxy:
+        upstream: apigw
