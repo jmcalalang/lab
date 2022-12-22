@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-plus-container
+  namespace: nginx-plus
+  labels:
+    app: nginx-plus-container
+spec:
+  selector:
+    matchLabels:
+      app: nginx-plus-container
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-plus-container
+    spec:
+      containers:
+      - name: nginx-plus-container
+        image: calalangacr.azurecr.io/nginx-with-nim2-agent:2.20.1
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: nginx-default-conf
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+        env:
+          - name: NIM_HOST
+            value: "apigw-clusterip.nms.svc.cluster.local"
+          - name: NIM_GRPC_PORT
+            value: "443"
+          - name: NIM_INSTANCEGROUP
+            value: "aks-instances"
+          - name: NIM_TAGS
+            value: "aks,containers"
+      volumes:
+      - name: nginx-default-conf
+        configMap:
+          name: nginx-default-conf
