@@ -21,8 +21,8 @@ spec:
   - path: /
     location-snippets: |
       status_zone nms-server;
-    policies:
-    - name: oidc-policy
+#    policies:
+#    - name: oidc-policy
     action:
       proxy:
         upstream: apigw
