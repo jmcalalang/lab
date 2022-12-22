@@ -28,7 +28,7 @@ spec:
           subPath: default.conf
         env:
           - name: NIM_HOST
-            value: "apigw-clusterip.nms.svc.cluster.local"
+            value: "nms.calalang.net"
           - name: NIM_GRPC_PORT
             value: "443"
           - name: NIM_INSTANCEGROUP
