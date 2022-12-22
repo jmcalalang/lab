@@ -18,7 +18,7 @@ spec:
     tls:
       enable: true
   routes:
-  - path: /
+  - path: /ui
     location-snippets: |
       status_zone nms-server;
     policies:
