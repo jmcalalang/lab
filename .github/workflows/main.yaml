@@ -66,7 +66,7 @@ jobs:
           # Required, playbook filepath
           playbook: "toolchain-declarations.yaml"
           # Optional, directory where playbooks live
-          directory: "./big-ip/playbooks"
+          directory: "./big-ip/ansible/playbooks"
 
 ########################################################################################################
 
