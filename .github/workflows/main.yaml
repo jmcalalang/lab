@@ -224,7 +224,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: f5xc-terraform-state
-          path: /home/runner/work/lab/lab/distributed-cloud/terraform/terraform.tfstate
+          path: /home/runner/work/lab/lab/distributed-cloud/distributed-cloud/terraform/terraform.tfstate
           retention-days: 30
 
 ########################################################################################################
@@ -355,5 +355,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: godaddy-terraform-state
-          path: /home/runner/work/lab/lab/godaddy/terraform/terraform.tfstate
+          path: /home/runner/work/lab/lab/godaddy/godaddy/terraform/terraform.tfstate
           retention-days: 30
