@@ -139,7 +139,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: big-ip-terraform-state
-          path: /home/runner/work/lab/lab/big-ip/big-ip/terraform/terraform.tfstate
+          path: /home/runner/work/lab/lab/big-ip/terraform/terraform.tfstate
           retention-days: 30
 
 
