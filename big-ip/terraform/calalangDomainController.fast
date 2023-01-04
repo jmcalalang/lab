@@ -1,5 +1,7 @@
 {
     "parameters": {
+        "tenant_name": "ldap",
+        "app_name": "calalangDomainController",
         "virtual_address": "10.0.2.15",
         "virtual_port": 389,
         "enable_snat": true,
