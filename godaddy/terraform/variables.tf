@@ -1,0 +1,1 @@
+# GoDaddy Terraform Variable Definitions

@@ -1,1 +1,1 @@
-# GoDaddy Terraform Variables
+# GoDaddy Terraform Variable Values

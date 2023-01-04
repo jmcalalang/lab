@@ -1,4 +1,4 @@
-# F5XC Variables
+# F5XC Terraform Variable Definitions
 
 variable "namespace" {
   type        = string
