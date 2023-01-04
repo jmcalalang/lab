@@ -1,4 +1,5 @@
 {
+    "name": "bigip-fast-templates/ldap",
     "parameters": {
         "tenant_name": "ldap",
         "app_name": "calalangDomainController",
