@@ -135,6 +135,10 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
+      - name: LS terraform folder
+        run: |
+          ls -lah /home/runner/work/lab/lab/big-ip/terraform/
+
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
         with:
