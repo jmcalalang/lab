@@ -351,13 +351,9 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: LS terraform folder
-        run: |
-          ls -lah /home/runner/work/lab/lab/godaddy/terraform/godaddy/
-
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
         with:
           name: godaddy-terraform-state
-          path: /home/runner/work/lab/lab/godaddy/terraform/terraform.tfstate
+          path: /home/runner/work/lab/lab/godaddy/terraform/godaddy/terraform.tfstate
           retention-days: 30
