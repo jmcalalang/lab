@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: cURL BIG-IP
-        run: curl --max-time 10 -u ${{ secrets.BIG_IP_USERNAME }}:${{ secrets.BIG_IP_PASSWORD }} -X GET -k https://${{ secrets.BIG_IP_HOSTNAME }}/mgmt/tm/sys/ready/
+        run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} -X GET -k https://${{ secrets.BIGIP_HOST }}/mgmt/tm/sys/ready/
 
   BIG-IP-Ansible:
     # The type of runner that the job will run on
@@ -59,14 +59,89 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "BIGIPhost01=${{ secrets.BIG_IP_HOSTNAME }}" 
-            --extra-vars "BIGIPadminUsername=${{ secrets.BIG_IP_USERNAME }}" 
-            --extra-vars "BIGIPadminPassword=${{ secrets.BIG_IP_PASSWORD }}" 
+            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}" 
+            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}" 
+            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}" 
           #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "toolchain-declarations.yaml"
           # Optional, directory where playbooks live
           directory: "./big-ip/ansible/playbooks"
+
+  BIG-IP-Terraform:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [BIG-IP-Resources-Available]
+    # Environment Variables
+    env:
+      BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
+      BIGIP_USER: ${{ secrets.BIGIP_USER }}
+      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: big-ip
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.2
+
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: godaddy-terraform-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: terraform/
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: false
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+      - name: Upload Terraform State
+        uses: actions/upload-artifact@v3
+        with:
+          name: big-ip-terraform-state
+          path: /home/runner/work/lab/lab/big-ip/big-ip/terraform/terraform.tfstate
+          retention-days: 30
+
 
 ########################################################################################################
 
