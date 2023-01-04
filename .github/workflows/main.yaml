@@ -281,7 +281,7 @@ jobs:
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
-          directory: "./nginx/playbooks"
+          directory: "./nginx/ansible/playbooks"
 
 ########################################################################################################
 
