@@ -5,5 +5,5 @@ data "bigip_ltm_irule" "_sys_https_redirect" {
 
 
 output "_sys_https_redirect" {
-  value = "${data.bigip_ltm_irule._sys_https_redirect.irule}"
+  value = data.bigip_ltm_irule._sys_https_redirect.irule
 }

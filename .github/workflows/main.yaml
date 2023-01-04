@@ -81,7 +81,7 @@ jobs:
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: big-ip
+        working-directory: big-ip/terraform/
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -94,7 +94,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          name: godaddy-terraform-state
+          name: big-ip-terraform-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: terraform/
           # Optional, defaults to current repo
