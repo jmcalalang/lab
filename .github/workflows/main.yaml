@@ -353,7 +353,6 @@ jobs:
 
       - name: LS terraform folder
         run: |
-          ls -lah /home/runner/work/lab/lab/godaddy/
           ls -lah /home/runner/work/lab/lab/godaddy/terraform/
 
       - name: Upload Terraform State
