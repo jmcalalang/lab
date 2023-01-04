@@ -2,5 +2,5 @@
 
 resource "bigip_fast_application" "calalangDomainController" {
   template  = "bigip-fast-templates/ldap"
-  fast_json = file("applications/app_calalangDomainController.fast")
+  fast_json = ("${path.module}/applications/app_calalangDomainController.fast")
 }
