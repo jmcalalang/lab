@@ -1,4 +1,4 @@
-# F5XC Variables
+# BIG-IP Variables
 
 variable "hostname" {
   type        = string

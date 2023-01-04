@@ -10,10 +10,7 @@ terraform {
 }
 
 # BIG-IP Provider
-# Set via GitHub Action Secrets
 
-# provider "bigip" {
-#   address  = var.hostname
-#   username = var.username
-#   password = var.password
-# }
+provider "bigip" {
+  # Configuration options
+}
