@@ -2,5 +2,5 @@
 
 resource "bigip_fast_application" "ldap_10_0_2_15_fast" {
   template  = "bigip-fast-templates/ldap"
-  fast_json = ("${path.module}/applications/ldap_10_0_2_15_fast.json")
+  fast_json = file("${path.module}/applications/ldap_10_0_2_15_fast.json")
 }
