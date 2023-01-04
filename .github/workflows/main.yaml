@@ -297,7 +297,7 @@ jobs:
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: godaddy
+        working-directory: godaddy/terraform/
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -312,7 +312,7 @@ jobs:
         with:
           name: godaddy-terraform-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: godaddy/
+          path: godaddy/terraform/
           # Optional, defaults to current repo
           check_artifacts: false
           # Optional, search for the last workflow run whose stored an artifact named as in `name` input
@@ -355,5 +355,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: godaddy-terraform-state
-          path: /home/runner/work/lab/lab/godaddy/godaddy/terraform.tfstate
+          path: /home/runner/work/lab/lab/godaddy/terraform/terraform.tfstate
           retention-days: 30
