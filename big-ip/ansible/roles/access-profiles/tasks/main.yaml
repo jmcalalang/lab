@@ -23,7 +23,7 @@
 
 - name: Import Webtop APM policy
   bigip_apm_policy_import:
-    name: calalang-oidc
+    name: calalang-webtop
     source: ../files/calalang-webtop.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
@@ -33,7 +33,7 @@
 
 - name: Import System Auth APM policy
   bigip_apm_policy_import:
-    name: calalang-oidc
+    name: system-auth
     source: ../files/system-auth.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
