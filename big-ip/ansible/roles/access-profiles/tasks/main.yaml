@@ -11,10 +11,30 @@
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Import APM policy
+- name: Import OIDC APM policy
   bigip_apm_policy_import:
     name: calalang-oidc
     source: ../files/calalang-odic.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Import Webtop APM policy
+  bigip_apm_policy_import:
+    name: calalang-oidc
+    source: ../files/calalang-webtop.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Import System Auth APM policy
+  bigip_apm_policy_import:
+    name: calalang-oidc
+    source: ../files/system-auth.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
