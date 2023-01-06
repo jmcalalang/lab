@@ -64,7 +64,7 @@ jobs:
             --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}" 
           #  --verbose -vvvv
           # Required, playbook filepath
-          playbook: "toolchain-declarations.yaml"
+          playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
           directory: "./big-ip/ansible/playbooks"
 

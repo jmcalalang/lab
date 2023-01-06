@@ -1,0 +1,38 @@
+# BIG-IP Access Profiles
+
+# Create BIG-IP {{BIGIPhost01}} Resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Import APM policy
+  bigip_apm_policy_import:
+    name: calalang-oidc
+    source: ../files/calalang-odic.tar.gz
+    type: access_policy
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Delete BIG-IP Authentication Token from {{BIGIPhost01}}
+  delegate_to: localhost
+  uri:
+    headers:
+      X-F5-Auth-Token: "{{ bigip1_auth_token }}"
+    method: DELETE
+    url: "https://{{BIGIPhost01}}/mgmt/shared/authz/tokens/{{ bigip1_auth_token }}"
+    status_code: "200"
+    validate_certs: no
+  register: bigip1_token_delete
+  retries: 30
+  delay: 5
+  until: "(bigip1_token_delete is successful) and (bigip1_token_delete.status == 200)"
+  when: state == "present"
