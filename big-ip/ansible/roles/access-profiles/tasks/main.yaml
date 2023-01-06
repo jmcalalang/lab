@@ -15,7 +15,6 @@
   bigip_apm_policy_import:
     name: calalang-oidc
     source: ../files/calalang-odic.tar.gz
-    type: access_policy
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
