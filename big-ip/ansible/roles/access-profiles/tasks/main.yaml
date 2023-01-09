@@ -11,12 +11,20 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Import System Auth APM policy
+  bigip_apm_policy_import:
+    name: system-auth
+    source: ../files/system-auth.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Import OIDC APM policy
   bigip_apm_policy_import:
     name: calalang-oidc
     source: ../files/calalang-odic.tar.gz
-    force: yes
-    reuse_objects: false
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -27,18 +35,16 @@
   bigip_apm_policy_import:
     name: calalang-webtop
     source: ../files/calalang-webtop.tar.gz
-    force: yes
-    reuse_objects: false
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Import System Auth APM policy
+- name: Import System AWS Federation policy
   bigip_apm_policy_import:
     name: system-auth
-    source: ../files/system-auth.tar.gz
+    source: ../files/aws-federation.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
