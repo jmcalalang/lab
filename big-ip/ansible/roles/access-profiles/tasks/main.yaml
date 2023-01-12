@@ -49,7 +49,6 @@
   bigip_apm_policy_import:
     name: aws-federation
     source: ../files/aws-federation.tar.gz
-    force: yes
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
