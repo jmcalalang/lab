@@ -25,6 +25,7 @@
   bigip_apm_policy_import:
     name: calalang-oidc
     source: ../files/calalang-odic.tar.gz
+    force: yes
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -35,6 +36,7 @@
   bigip_apm_policy_import:
     name: calalang-webtop
     source: ../files/calalang-webtop.tar.gz
+    force: yes
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -45,6 +47,7 @@
   bigip_apm_policy_import:
     name: system-auth
     source: ../files/aws-federation.tar.gz
+    force: yes
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
