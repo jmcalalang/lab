@@ -45,7 +45,7 @@
 
 - name: Import System AWS Federation policy
   bigip_apm_policy_import:
-    name: system-auth
+    name: aws-federation
     source: ../files/aws-federation.tar.gz
     force: yes
     provider: "{{ bigip_provider }}"
