@@ -14,7 +14,7 @@
 - name: Import System Auth APM policy
   bigip_apm_policy_import:
     name: system-auth
-    source: ../files/system-auth.tar.gz
+    source: ../files/access-policies/system-auth.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -24,7 +24,7 @@
 - name: Import OIDC APM policy
   bigip_apm_policy_import:
     name: calalang-oidc
-    source: ../files/calalang-odic.tar.gz
+    source: ../files/access-policies/calalang-odic.tar.gz
     force: yes
     reuse_objects: false
     provider: "{{ bigip_provider }}"
@@ -36,7 +36,7 @@
 - name: Import Webtop APM policy
   bigip_apm_policy_import:
     name: calalang-webtop
-    source: ../files/calalang-webtop.tar.gz
+    source: ../files/access-policies/calalang-webtop.tar.gz
     force: yes
     reuse_objects: false
     provider: "{{ bigip_provider }}"
@@ -48,7 +48,7 @@
 - name: Import AWS Federation policy
   bigip_apm_policy_import:
     name: aws-federation
-    source: ../files/aws-federation.tar.gz
+    source: ../files/access-policies/aws-federation.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
