@@ -6,7 +6,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.kubernetes"
     type = "CNAME"
-    data = "05da1338ae7b4eebb7ac51f5b1ae5364.autocerts.ves.volterra.io"
+    data = "8b15d782f9c4450fb7f49cf14ebdceb7.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
@@ -20,7 +20,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.argo"
     type = "CNAME"
-    data = "8a5ddd6e2b004e4991f15538dda6bbb8.autocerts.ves.volterra.io"
+    data = "468f3c5879314606bd61b17558398c26.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
@@ -34,7 +34,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.nms"
     type = "CNAME"
-    data = "3cec1a0623c34897bbd743e9c67144bb.autocerts.ves.volterra.io"
+    data = "da972aad86bd4c2c934cad7f4db87dbf.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
@@ -48,7 +48,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.jwt.nms"
     type = "CNAME"
-    data = "fca747fe48e94d12b0b9082976e03e0a.autocerts.ves.volterra.io"
+    data = "c5cc188069c0436b9639259e367626da.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
