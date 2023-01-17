@@ -7,7 +7,7 @@ resource "bigip_ltm_virtual_server" "https_10_0_2_51_terraform" {
   client_profiles            = ["/Common/clientssl"]
   source_address_translation = "automap"
   irules                     = ["OIDC_v2v_local_rule"]
-  vlans                      = "true"
-  vlans_enabled              = ["/Common/external"]
+  vlans                      = ["/Common/external"]
+  vlans_enabled              = "true"
   profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
 }
