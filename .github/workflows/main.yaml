@@ -71,7 +71,7 @@ jobs:
   BIG-IP-Terraform:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Resources-Available]
+    needs: [BIG-IP-Resources-Available, BIG-IP-Ansible]
     # Environment Variables
     env:
       BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
