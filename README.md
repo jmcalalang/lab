@@ -11,7 +11,9 @@ Congratulations you made it to Jon's lab. Below is an outline of the folder stru
 GitHub Actions for Ansible and Terraform
 
 - github action for BIG-IP F5 automation toolchain with ansible
-- github action for F5XC/ GoDaddy with terraform
+- github action for BIG-IP F5 automation toolchain with terraform
+- github action for GoDaddy with terraform
+- github action for F5xc with terraform
 - github action for NGINX Instance Manager with ansible
   
 ### argo
@@ -34,6 +36,11 @@ Ansible configuration management for BIG-IP. AS3, DO, and TS. Managed by Ansible
 - ts role with templates
   - azure log analytics and pull consumer
 
+Terraform configuration management for FAST and single application Virtual Servers. Managed by Terraform in Github Action
+  
+  - FAST LDAP Application
+  - Virtual Servers in Common
+
 ### certs
 
 Certs for F5XC and how to create letsencrypt certs
@@ -48,7 +55,7 @@ Certs for F5XC and how to create letsencrypt certs
 CIS configuration for BIG-IP. Managed by Argo
 
 - CIS deployment
-- virtual server with tls for NGINX ingress (IngressLink)
+- NGINX ingress (IngressLink)
 
 ### distributed-cloud
 
