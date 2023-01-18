@@ -11,12 +11,12 @@
             "Shared": {
                 "class": "Application",
                 "template": "shared",
-                "nginxDomain": {
+                "calalangDomain": {
                     "class": "GSLB_Domain",
-                    "domainName": "nginx.calalang.net",
+                    "domainName": "bigip.calalang.net",
                     "aliases": [
-                        "nginxcontroller.calalang.net",
-                        "nginxplus.calalang.net"
+                        "bigip01.calalang.net",
+                        "bigip02.calalang.net"
                     ],
                     "resourceRecordType": "A",
                     "poolLbMode": "ratio",
