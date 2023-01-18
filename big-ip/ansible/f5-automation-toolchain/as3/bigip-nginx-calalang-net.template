@@ -5,12 +5,12 @@
     "declaration": {
         "class": "ADC",
         "schemaVersion": "3.41.0",
-        "id": "NGINX-Org",
-        "nginxCalalangNet": {
+        "id": "bigip.calalang.net",
+        "bigipCalalangNet": {
             "class": "Tenant",
-            "nginx.calalang.net": {
+            "bigip.calalang.net": {
                 "class": "Application",
-                "nginxCalalangNet_vs": {
+                "https-10-0-2-14-as3": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "10.0.2.14"
@@ -22,7 +22,7 @@
                     ],
                     "policyEndpoint": "nginxOrgForwardPolicy",
                     "policyWAF": {
-                        "use": "nginxCalalangNet_OWASP_Auto_Tune"
+                        "use": "bigipCalalangNet_OWASP_Auto_Tune"
                     },
                     "persistenceMethods": [
                         "cookie"
@@ -83,7 +83,7 @@
                         }
                     ]
                 },
-                "nginxCalalangNet_OWASP_Auto_Tune": {
+                "bigipCalalangNet_OWASP_Auto_Tune": {
                     "class": "WAF_Policy",
                     "url": "https://raw.githubusercontent.com/f5devcentral/f5-asm-policy-templates/master/owasp_ready_template/owasp-auto-tune-v1.1.xml",
                     "ignoreChanges": true

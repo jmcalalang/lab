@@ -5,8 +5,8 @@
     "declaration": {
         "class": "ADC",
         "schemaVersion": "3.41.0",
-        "id": "nginxCalalangNetWIP",
-        "nginxCalalangNetWIP": {
+        "id": "bigipCalalangNetWIP",
+        "bigipCalalangNetWIP": {
             "class": "Tenant",
             "Shared": {
                 "class": "Application",
@@ -22,11 +22,11 @@
                     "poolLbMode": "ratio",
                     "pools": [
                         {
-                            "use": "nginxCalalangNetPool"
+                            "use": "bigipCalalangNetPool"
                         }
                     ]
                 },
-                "nginxCalalangNetPool": {
+                "bigipCalalangNetPool": {
                     "class": "GSLB_Pool",
                     "enabled": true,
                     "lbModeAlternate": "ratio",
@@ -48,7 +48,7 @@
                             "server": {
                                 "bigip": "/Common/calalang-azure-0"
                             },
-                            "virtualServer": "/nginxCalalangNet/nginx.calalang.net/nginxCalalangNet_vs",
+                            "virtualServer": "/bigipCalalangNet/bigip.calalang.net/https-10-0-2-14-as3",
                             "dependsOn": "none"
                         }
                     ],
