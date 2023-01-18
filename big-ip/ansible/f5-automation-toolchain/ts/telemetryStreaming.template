@@ -1,5 +1,6 @@
 {
     "class": "Telemetry",
+    "schemaVersion": "1.32.0",
     "My_Listener": {
         "class": "Telemetry_Listener",
         "port": 6514
@@ -41,6 +42,5 @@
         "passphrase": {
             "cipherText": "lYJMCOrZ7cXOAuGNroHRaAnd6eJ65MoZvxRl6x4pZGyDPhcomX5sTraOzj8+45MzaecJ2yynBjQ2/zaHA9XyMw=="
         }
-    },
-    "schemaVersion": "1.32.0"
+    }
 }

@@ -4,7 +4,7 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.41.0",
+        "schemaVersion": "3.42.0",
         "id": "bigip.calalang.net",
         "bigipCalalangNet": {
             "class": "Tenant",
