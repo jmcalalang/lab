@@ -21,7 +21,16 @@ fullnameOverride: "nms"
 
 # initialise global value for use by modules
 global:
-  nmsModules: {}
+    nmsModules:
+        nms-acm:
+            enabled: true
+nms-acm:
+    imagePullSecrets:
+    - name: regcred
+    acm:
+        image:
+            repository: calalangacr.azurecr.io/nms-acm 
+            tag: 1.4.0
 
 ## nmsClickhouse server configuration packaged with helm
 ## Enable this if external clickhouse is disabled

@@ -6,12 +6,13 @@ docker load -i nms-ingestion-2.7.0.tar.gz
 docker load -i nms-dpm-2.7.0.tar.gz
 docker load -i nms-integrations-2.7.0.tar.gz
 
-?
+
 docker tag localhost/nms-apigw:2.7.0 calalangacr.azurecr.io/nms-apigw:2.7.0
 docker tag localhost/nms-core:2.7.0 calalangacr.azurecr.io/nms-core:2.7.0
 docker tag localhost/nms-dpm:2.7.0 calalangacr.azurecr.io/nms-dpm:2.7.0
 docker tag localhost/nms-ingestion:2.7.0 calalangacr.azurecr.io/nms-ingestion:2.7.0
 docker tag localhost/nms-integrations:2.7.0 calalangacr.azurecr.io/nms-integrations:2.7.0
+docker tag localhost/acm:1.4.0 calalangacr.azurecr.io/nms-acm:1.4.0
 
 docker login calalangacr.azurecr.io -u <username> -p <password>
 
@@ -20,6 +21,7 @@ docker push calalangacr.azurecr.io/nms-core:2.7.0
 docker push calalangacr.azurecr.io/nms-dpm:2.7.0
 docker push calalangacr.azurecr.io/nms-ingestion:2.7.0
 docker push calalangacr.azurecr.io/nms-integrations:2.7.0
+docker push calalangacr.azurecr.io/nms-acm:1.4.0
 
 tar -xzf nms-hybrid-2.7.0.tgz   
 
