@@ -34,17 +34,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "nms.modules.name" . }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "nms.labels" . | nindent 4 }}
-data:
-  modules.json: |
-{{ tpl ( .Files.Get "nms-modules.json" ) . | indent 4 }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: {{ template "nms.openid.config.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:

@@ -1,18 +1,18 @@
 {{/* ClickHouse ENV variables and helpers used by NMS */}}
 {{- define "nms.clickhouse.env" }}
 {{- if .Values.nmsClickhouse.enabled -}}
-- name: CLICKHOUSE_ADDRESS
+- name: NMS_CLICKHOUSE_ADDRESS
   value: {{ template "nms.clickhouse.service.tcp" . }}
-- name: CLICKHOUSE_USER
+- name: NMS_CLICKHOUSE_USERNAME
   value: {{ .Values.nmsClickhouse.user | quote }}
-- name: CLICKHOUSE_PASSWORD
+- name: NMS_CLICKHOUSE_PASSWORD
   value: {{ .Values.nmsClickhouse.password | quote }}
 {{- else -}}
-- name: CLICKHOUSE_ADDRESS
+- name: NMS_CLICKHOUSE_ADDRESS
   value: {{ required "externalClickhouse.address is required when nmsClickhouse.enabled is not set" .Values.externalClickhouse.address | quote }}
-- name: CLICKHOUSE_USER
+- name: NMS_CLICKHOUSE_USER
   value: {{ .Values.externalClickhouse.user | default "" }}
-- name: CLICKHOUSE_PASSWORD
+- name: NMS_CLICKHOUSE_PASSWORD
   value: {{ .Values.externalClickhouse.password | default "" }}
 {{- end }}
 {{- end }}

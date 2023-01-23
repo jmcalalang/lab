@@ -1,27 +1,27 @@
 # nginx instance management scratch
 
-docker load -i nms-apigw-2.5.1.tar.gz
-docker load -i nms-core-2.5.1.tar.gz  
-docker load -i nms-ingestion-2.5.1.tar.gz
-docker load -i nms-dpm-2.5.1.tar.gz
-docker load -i nms-integrations-2.5.1.tar.gz
+docker load -i nms-apigw-2.7.0.tar.gz
+docker load -i nms-core-2.7.0.tar.gz  
+docker load -i nms-ingestion-2.7.0.tar.gz
+docker load -i nms-dpm-2.7.0.tar.gz
+docker load -i nms-integrations-2.7.0.tar.gz
 
-docker tag nginxdevopssvcs.azurecr.io/indigo-tools-docker/platform/release-2-5-1/apigw:latest calalangacr.azurecr.io/nms-apigw:2.5.1
-docker tag nginxdevopssvcs.azurecr.io/indigo-tools-docker/platform/release-2-5-1/core:latest calalangacr.azurecr.io/nms-core:2.5.1
-docker tag nginxdevopssvcs.azurecr.io/indigo-tools-docker/platform/release-2-5-1/dpm:latest calalangacr.azurecr.io/nms-dpm:2.5.1
-docker tag nginxdevopssvcs.azurecr.io/indigo-tools-docker/platform/release-2-5-1/ingestion:latest calalangacr.azurecr.io/nms-ingestion:2.5.1
-docker tag nginxdevopssvcs.azurecr.io/indigo-tools-docker/platform/release-2-5-1/integrations:latest calalangacr.azurecr.io/nms-integrations:2.5.1
+?
+docker tag localhost/nms-apigw:2.7.0 calalangacr.azurecr.io/nms-apigw:2.7.0
+docker tag localhost/nms-core:2.7.0 calalangacr.azurecr.io/nms-core:2.7.0
+docker tag localhost/nms-dpm:2.7.0 calalangacr.azurecr.io/nms-dpm:2.7.0
+docker tag localhost/nms-ingestion:2.7.0 calalangacr.azurecr.io/nms-ingestion:2.7.0
+docker tag localhost/nms-integrations:2.7.0 calalangacr.azurecr.io/nms-integrations:2.7.0
 
-az login
-az acr login --name calalangacr
+docker login calalangacr.azurecr.io -u <username> -p <password>
 
-docker push calalangacr.azurecr.io/nms-apigw:2.5.1
-docker push calalangacr.azurecr.io/nms-core:2.5.1
-docker push calalangacr.azurecr.io/nms-dpm:2.5.1
-docker push calalangacr.azurecr.io/nms-ingestion:2.5.1
-docker push calalangacr.azurecr.io/nms-integrations:2.5.1
+docker push calalangacr.azurecr.io/nms-apigw:2.7.0
+docker push calalangacr.azurecr.io/nms-core:2.7.0
+docker push calalangacr.azurecr.io/nms-dpm:2.7.0
+docker push calalangacr.azurecr.io/nms-ingestion:2.7.0
+docker push calalangacr.azurecr.io/nms-integrations:2.7.0
 
-tar -xzf nms-hybrid-2.5.1.tgz   
+tar -xzf nms-hybrid-2.7.0.tgz   
 
 helm install --create-namespace --namespace nms --dry-run nim ./nms-hybrid
 

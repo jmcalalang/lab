@@ -40,9 +40,6 @@ spec:
             - name: nms-nginx-conf-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-            - name: nms-modules-volume
-              mountPath: /var/lib/nms/modules.json
-              subPath: modules.json
             - name: openid-config-volume
               mountPath: /etc/nms/nginx/oidc/openid_configuration.conf
               subPath: openid_configuration.conf
@@ -58,6 +55,7 @@ spec:
             - name: apigw-certs
               mountPath: {{ template "nms.apigw.secrets.mountPath" }}
               readOnly: true
+            {{- include "nms.apigw.moduleVolumeMounts" . | nindent 12 }}
       volumes:
         - name: nms-http-conf-volume
           configMap:
@@ -67,10 +65,6 @@ spec:
           configMap:
             defaultMode: 0644
             name: {{ template "nms.nginx.config.name" . }}
-        - name: nms-modules-volume
-          configMap:
-            defaultMode: 0644
-            name: {{ template "nms.modules.name" . }}
         - name: openid-config-volume
           configMap:
               defaultMode: 0644
@@ -92,3 +86,6 @@ spec:
             sources:
               - secret:
                   name: {{ template "nms.apigw.secret-name" . }}
+        {{- include "nms.apigw.moduleVolumes" . | nindent 8 }}
+        
+

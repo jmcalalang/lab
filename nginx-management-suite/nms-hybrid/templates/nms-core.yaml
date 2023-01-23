@@ -50,22 +50,16 @@ spec:
             - name: nms-conf-volume
               mountPath: /etc/nms/nms.conf
               subPath: nms.conf
-            - name: nms-modules-volume
-              mountPath: /var/lib/nms/modules.json
-              subPath: modules.json
             - name: certs
               mountPath: /etc/nms/certs
               readOnly: true
             {{- include "nms.core.userVolumeMounts" . | nindent 12 }}
+            {{- include "nms.core.moduleVolumeMounts" . | nindent 12 }}
       volumes:
         - name: nms-conf-volume
           configMap:
             defaultMode: 0644
             name: {{ template "nms.config.name" . }}
-        - name: nms-modules-volume
-          configMap:
-            defaultMode: 0644
-            name: {{ template "nms.modules.name" . }}
         - name: certs
           projected:
             sources:
@@ -83,3 +77,4 @@ spec:
                     - key: core-client.key
                       path: services/core-client.key
         {{- include "nms.core.userVolumes" . | nindent 8 }}
+        {{- include "nms.core.moduleVolume" . | nindent 8 }}

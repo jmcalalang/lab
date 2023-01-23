@@ -94,21 +94,31 @@ Create the name of the service account to use
 {{ required "A valid .Values.adminPasswordHash entry required!" .Values.adminPasswordHash }}
 {{- end -}}
 
-{{/* Helper to return nms modules file name */}}
-{{- define "nms.modules.name" -}}
-{{ template "nms.fullname" . }}-modules
-{{- end -}}
-
 {{/*
 Generates server certificates for core, dpm, ingestion, integrations and
 client certificates for apigw, core, dpm, ingestion and integrations 
 */}}
 {{- define "nms.gen-internal-certs" -}}
 {{- $ca := . }}
+{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (include "nms.secret.internal-certs.name" . )) | default dict }}
+{{- $secretData := (get $secretObj "data") | default dict }}
+{{- $caKey := (get $secretData "ca.key") | default "" }}
+{{- $caCert := (get $secretData "ca.pem") | default "" }}
+{{- if eq $caKey "" }}
 {{- $ca = genCA (include "nms.fullname" .) 36600 -}}
+{{- end }}
+{{- if ne $caKey ""}}
+{{- $ca = buildCustomCert $caCert $caKey -}}
+{{- end }}
 {{- $servers := (list "core" "dpm" "ingestion" "integrations") }}
 {{- $clients := (list "apigw" "core" "dpm" "ingestion" "integrations") }}
-{{- template "gen-certs" ( list $ca $servers $clients $ ) -}}
+{{- range $k, $v := $.Values.global.nmsModules }}
+{{- range $i, $s := $v.services }}
+{{- $servers = append $servers $s }}
+{{- $clients = append $clients $s }}
+{{- end }}
+{{- end }}
+{{- template "gen-certs" ( list $ca $servers $clients $secretData $ ) -}}
 {{- end -}}
 
 {{/*
@@ -130,16 +140,31 @@ tls.key: {{ $cert.Key | b64enc }}
 {{- $ca := index . 0 }}
 {{- $services := index . 1 }}
 {{- $clients := index . 2 }}
-{{- $ := index . 3 }}
+{{- $existingCerts := index . 3 }}
+{{- $ := index . 4 }}
 ca.pem: {{ $ca.Cert | b64enc }}
 ca.key: {{ $ca.Key | b64enc }}
 {{- range $index, $subjectName := $services }}
 {{- printf "\n" -}}
+{{- $serverCert := (get $existingCerts (printf "%s-server.pem" $subjectName )) | default "" }}
+{{- $serverKey := (get $existingCerts (printf "%s-server.key" $subjectName )) | default "" }}
+{{- if ne $serverCert ""}}
+{{ printf "%s-server.pem" $subjectName }}: {{ $serverCert }}
+{{ printf "%s-server.key" $subjectName }}: {{ $serverKey }}
+{{- else }}
 {{- template "gen-server-certs" (list $subjectName $ca $) -}}
+{{- end }}
 {{- end }}
 {{- range $index, $subjectName := $clients }}
 {{- printf "\n" -}}
+{{- $clientCert := (get $existingCerts (printf "%s-client.pem" $subjectName )) | default "" }}
+{{- $clientKey := (get $existingCerts (printf "%s-client.key" $subjectName )) | default "" }}
+{{- if ne $clientCert ""}}
+{{ printf "%s-client.pem" $subjectName }}: {{ $clientCert }}
+{{ printf "%s-client.key" $subjectName }}: {{ $clientKey }}
+{{- else }}
 {{- template "gen-client-certs" (list $subjectName $ca) -}}
+{{- end }}
 {{- end }}
 {{- end -}}
 
@@ -208,7 +233,6 @@ Project certs for internal services to volume mount
    ------ Nginx API-GW ------
 *}
 
-
 {{/* Helper to return nginx apigw name */}}
 {{- define "nms.apigw.name" -}}
 {{ .Values.apigw.name | default "apigw" }}
@@ -252,13 +276,48 @@ app.kubernetes.io/name: {{ template "nms.apigw.name" . }}
 {{- template "nms.apigw.secrets.mountPath" . -}}/ca.pem
 {{- end -}}
 
+{{/* Helper functions for mounting module configuration */}}
+{{- define "nms.apigw.moduleVolumeMounts" -}}
+{{- range $k, $v := .Values.global.nmsModules }}
+{{- if $v.enabled }}
+{{- range $i, $config := $v.configs }}
+{{- range $j, $key := $config.upstreams }}
+- name: {{ $config.configmap }}
+  mountPath: /etc/nms/nginx/upstreams/{{ $key }}
+  subPath: {{ $key }}
+  readOnly: true
+{{- end }}
+{{- range $j, $key := $config.locations }}
+- name: {{ $config.configmap }}
+  mountPath: /etc/nms/nginx/locations/{{ $key }}
+  subPath: {{ $key }}
+  readOnly: true
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{- define "nms.apigw.moduleVolumes" -}}
+{{- range $k, $v := .Values.global.nmsModules }}
+{{- if $v.enabled }}
+{{- range $i, $u := $v.configs }}
+- name: {{ $u.configmap }}
+  configMap:
+    defaultMode: 0644
+    name: {{ $u.configmap }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
 {*
    ------ Core ------
 *}
 
 {{/* ENV variables */}}
 {{- define "nms.core.env" -}}
-- name: NATS_ADDRESS
+- name: NMS_DPM_NATS_ADDRESS
   value: {{ include "nms.dpm.service.natsStreaming" . }}
 {{- end }}
 
@@ -321,6 +380,7 @@ storageClassName: "{{ .Values.core.persistence.storageClass }}"
 {{- if .Values.core.persistence.enabled }}
 - name: change-mount-ownership
   image: busybox
+  imagePullPolicy: IfNotPresent
   command: [ '/bin/sh', '-c']
   args: ['chown -R 1000:1000 /var/lib/nms']
   volumeMounts:
@@ -356,13 +416,45 @@ storageClassName: "{{ .Values.core.persistence.storageClass }}"
   mountPath: /var/lib/nms/secrets
 {{- end -}}
 
+{{- define "nms.core.moduleVolume" -}}
+{{- $length := len .Values.global.nmsModules -}}
+{{- if ne $length 0 -}}
+- name: nms-modules-volume
+  projected:
+    sources:
+    {{- range $k, $v := .Values.global.nmsModules }}
+    {{- if $v.enabled }}
+    {{- range $kc, $c := $v.configs }}
+    {{- if gt (len $c.modules) 0 }}
+    - configMap:
+        name: {{ $c.configmap }}
+        items:
+        {{- range $i, $key := $c.modules }}
+        - key: {{ $key }}
+          path: {{ $key }}
+        {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+{{- end -}}
+{{- end -}}
+
+{{- define "nms.core.moduleVolumeMounts" -}}
+{{- $length := len .Values.global.nmsModules -}}
+{{- if ne $length 0 -}}
+- name: nms-modules-volume
+  mountPath: /var/lib/nms/modules
+{{- end -}}
+{{- end -}}
+
 {*
    ------ DPM ------
 *}
 
 {{/* ENV variables used by nms-dpm */}}
 {{- define "nms.dpm.env" -}}
-- name: CORE_ADDRESS
+- name: NMS_CORE_ADDRESS
   value: {{ include "nms.core.service.http" . }}
 {{- end }}
 
@@ -435,6 +527,7 @@ storageClassName: "{{ .Values.dpm.persistence.storageClass }}"
 {{- if .Values.dpm.persistence.enabled }}
 - name: change-mount-ownership
   image: busybox
+  imagePullPolicy: IfNotPresent
   command: [ '/bin/sh', '-c']
   args: ['chown -R 1000:1000 /var/lib/nms']
   volumeMounts:
@@ -476,7 +569,7 @@ storageClassName: "{{ .Values.dpm.persistence.storageClass }}"
 
 {{/* ENV variables nms-ingestion */}}
 {{- define "nms.ingestion.env" -}}
-- name: NATS_ADDRESS
+- name: NMS_DPM_NATS_ADDRESS
   value: {{ include "nms.dpm.service.natsStreaming" . }}
 {{- end }}
 
@@ -510,9 +603,7 @@ app.kubernetes.io/name: {{ template "nms.ingestion.name" . }}
 
 {{/* ENV variables used by nms-integrations */}}
 {{- define "nms.integrations.env" -}}
-- name: INTEGRATIONS_ADDRESS
-  value: {{ include "nms.integrations.service.http" . }}
-- name: NATS_ADDRESS
+- name: NMS_DPM_NATS_ADDRESS
   value: {{ include "nms.dpm.service.natsStreaming" . }}
 {{- end }}
 
@@ -560,6 +651,7 @@ storageClassName: "{{ .Values.integrations.persistence.storageClass }}"
 {{- if .Values.integrations.persistence.enabled }}
 - name: change-mount-ownership
   image: busybox
+  imagePullPolicy: IfNotPresent
   command: [ '/bin/sh', '-c']
   args: ['chown -R 1000:1000 /var/lib/nms']
   volumeMounts:
