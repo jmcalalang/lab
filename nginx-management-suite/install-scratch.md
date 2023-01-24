@@ -13,7 +13,7 @@ docker tag localhost/nms-dpm:2.7.0 calalangacr.azurecr.io/nms-dpm:2.7.0
 docker tag localhost/nms-ingestion:2.7.0 calalangacr.azurecr.io/nms-ingestion:2.7.0
 docker tag localhost/nms-integrations:2.7.0 calalangacr.azurecr.io/nms-integrations:2.7.0
 ## docker tag localhost/acm:1.4.0 calalangacr.azurecr.io/acm:1.4.0
-docker tag localhost/acm:1.3.1 calalangacr.azurecr.io/nms-acm:1.3.1
+docker tag localhost/acm:1.3.1 calalangacr.azurecr.io/acm:1.3.1
 
 docker login calalangacr.azurecr.io -u <username> -p <password>
 
@@ -23,7 +23,7 @@ docker push calalangacr.azurecr.io/nms-dpm:2.7.0
 docker push calalangacr.azurecr.io/nms-ingestion:2.7.0
 docker push calalangacr.azurecr.io/nms-integrations:2.7.0
 ## docker push calalangacr.azurecr.io/acm:1.4.0
-docker push calalangacr.azurecr.io/nms-acm:1.3.1
+docker push calalangacr.azurecr.io/acm:1.3.1
 
 tar -xzf nms-hybrid-2.7.0.tgz   
 
