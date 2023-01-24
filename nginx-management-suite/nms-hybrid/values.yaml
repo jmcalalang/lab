@@ -20,21 +20,17 @@ nameOverride: "nms"
 fullnameOverride: "nms"
 
 # initialise global value for use by modules
-# values.yaml
-# initialise global value for use by modules
 global:
-  nmsModules:
-    nms-acm:
-      enabled: true
-
-## API Connectivity Manager
-
+    nmsModules:
+        nms-acm:
+            enabled: true
 nms-acm:
+    imagePullSecrets:
+    - name: regcred
     acm:
         image:
             repository: calalangacr.azurecr.io/nms-acm
-        tag: 1.3.1
-        pullPolicy: IfNotPresent
+            tag: 1.4.0
 
 ## nmsClickhouse server configuration packaged with helm
 ## Enable this if external clickhouse is disabled
@@ -112,7 +108,6 @@ serviceAccount:
 ##
 # All properties used by API-GW
 ##
-
 apigw:
   name: apigw
   # To bring your own NGINX API Gateway certificates for hosting HTTPS NMS server,
