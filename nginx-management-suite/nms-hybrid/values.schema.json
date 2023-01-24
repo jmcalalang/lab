@@ -24,8 +24,7 @@
                                     "$ref": "#/definitions/configMapRef"
                                 }
                             }
-                        },
-                        "required": ["enabled", "configs", "services"]
+                        }
                     }
                 }
             }
