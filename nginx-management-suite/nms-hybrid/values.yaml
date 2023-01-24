@@ -25,12 +25,12 @@ global:
         nms-acm:
             enabled: true
 nms-acm:
-    imagePullSecrets:
-    - name: regcred
+#    imagePullSecrets:
+#    - name: regcred
     acm:
         image:
-            repository: calalangacr.azurecr.io/nms-acm
-            tag: 1.3.1
+            repository: calalangacr.azurecr.io/acm
+            tag: 1.4.0
 
 ## nmsClickhouse server configuration packaged with helm
 ## Enable this if external clickhouse is disabled
