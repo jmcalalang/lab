@@ -30,8 +30,6 @@ global:
 ## API Connectivity Manager
 
 nms-acm:
-  imagePullSecrets:
-    - name: regcred
   acm:
     image:
       repository: calalangacr.azurecr.io/nms-acm 
