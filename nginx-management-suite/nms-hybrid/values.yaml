@@ -30,10 +30,13 @@ global:
 ## API Connectivity Manager
 
 nms-acm:
-  acm:
-    image:
-      repository: calalangacr.azurecr.io/nms-acm 
-      tag: 1.4.0
+    imagePullSecrets:
+    - name: regcred
+    acm:
+        image:
+            repository: calalangacr.azurecr.io/nms-acm
+        tag: 1.4.0
+        pullPolicy: IfNotPresent
 
 ## nmsClickhouse server configuration packaged with helm
 ## Enable this if external clickhouse is disabled
