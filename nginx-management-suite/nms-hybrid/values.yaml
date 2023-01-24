@@ -9,7 +9,7 @@
 
 # Set admin password for NMS using --set flag with helm install
 # For example, with openssl LibreSSL 2.8.3, helm install --set adminPasswordHash=$(openssl passwd -1 "YouPassword123#")
-adminPasswordHash: "$1$LCEHZ8If$HNvp1Gd1hx.coyaRBfVEQ1"
+adminPasswordHash:
 
 # Use imagePullSecret to pass secret resources to pull all docker images from private registry.
 # https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/:
@@ -21,16 +21,7 @@ fullnameOverride: "nms"
 
 # initialise global value for use by modules
 global:
-    nmsModules:
-        nms-acm:
-            enabled: true
-nms-acm:
-#    imagePullSecrets:
-#    - name: regcred
-    acm:
-        image:
-            repository: calalangacr.azurecr.io/acm
-            tag: 1.3.1
+  nmsModules: {}
 
 ## nmsClickhouse server configuration packaged with helm
 ## Enable this if external clickhouse is disabled
@@ -119,8 +110,8 @@ apigw:
   image:
     # if the image is on a private registry, provide imagePullSecrets
     # For using NGINX Plus, update the repository name to your NGINX Plus docker image
-    repository: calalangacr.azurecr.io/nms-apigw
-    tag: 2.7.0
+    repository: apigw
+    tag: latest
     pullPolicy: IfNotPresent
   container:
     port:
@@ -140,8 +131,8 @@ core:
   name: core
   image:
     # if the image is on a private registry, provide imagePullSecrets
-    repository: calalangacr.azurecr.io/nms-core
-    tag: 2.7.0
+    repository: core
+    tag: latest
     pullPolicy: IfNotPresent
   container:
     port:
@@ -195,8 +186,8 @@ dpm:
   name: dpm
   image:
     # if the image is on a private registry, provide imagePullSecrets
-    repository: calalangacr.azurecr.io/nms-dpm
-    tag: 2.7.0
+    repository: dpm
+    tag: latest
     pullPolicy: IfNotPresent
   container:
     port:
@@ -253,8 +244,8 @@ ingestion:
   name: ingestion
   image:
     # if the image is on a private registry, provide imagePullSecrets
-    repository: calalangacr.azurecr.io/nms-ingestion
-    tag: 2.7.0
+    repository: ingestion
+    tag: latest
     pullPolicy: IfNotPresent
   # default replica count but can be increased as needed
   replicaCount: 1
@@ -276,8 +267,8 @@ integrations:
   name: integrations
   image:
     # if the image is on a private registry, provide imagePullSecrets
-    repository: calalangacr.azurecr.io/nms-integrations
-    tag: 2.7.0
+    repository: integrations
+    tag: latest
     pullPolicy: IfNotPresent
   container:
     port:

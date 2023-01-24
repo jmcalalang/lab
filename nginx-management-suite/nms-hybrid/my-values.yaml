@@ -1,0 +1,35 @@
+# values.yaml
+
+adminPasswordHash: "$1$LCEHZ8If$HNvp1Gd1hx.coyaRBfVEQ1"
+
+global:
+    nmsModules:
+        nms-acm:
+            enabled: true
+nms-acm:
+    acm:
+        image:
+            repository: calalangacr.azurecr.io/acm
+            tag: 1.4.0
+
+nms-hybrid:
+    apigw:
+        image:
+            repository: calalangacr.azurecr.io/nms-apigw
+            tag: 2.7.0
+    core:
+        image:
+            repository: calalangacr.azurecr.io/nms-core
+            tag: 2.7.0
+    dpm:
+        image:
+            repository: calalangacr.azurecr.io/nms-dpm
+            tag: 2.7.0
+    ingestion:
+        image:
+            repository: calalangacr.azurecr.io/nms-ingestion
+            tag: 2.7.0
+    integrations:
+        image:
+            repository: calalangacr.azurecr.io/nms-integrations
+            tag: 2.7.0
