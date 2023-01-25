@@ -1,7 +1,7 @@
 # Ansible Variables
 
 # NMS Instance UID
-"instanceGroupUID": 8930f767-9ebd-4140-ad7a-46ddb4117f58
+"instanceGroupUID": 242d9328-e867-4c12-b85e-78923d615ae5
 
 # Use Ansible module or skip
 state: 'present'

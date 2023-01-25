@@ -25,12 +25,9 @@ docker push calalangacr.azurecr.io/nms-integrations:2.7.0
 ## docker push calalangacr.azurecr.io/acm:1.4.0
 docker push calalangacr.azurecr.io/acm:1.3.1
 
-tar -xzf nms-hybrid-2.7.0.tgz   
+tar -xzf nms-hybrid-2.7.0.tgz
 
 helm install --create-namespace --namespace nms --dry-run nim ./nms-hybrid
 
-curl -k https://10.0.4.54/install/nginx-agent | sudo sh -s -- --skip-verify false --instance-group azure-instances
-
-
-curl -k <https://10.0.4.54/install/nginx-agent/install/nginx-agent >> > install.sh
-sudo sh ./install.sh --instance-group azure-instances
+From Instance:
+curl -k https://10.0.4.54/install/nginx-agent | sudo sh -s -- --skip-verify true --instance-group azure-instances
