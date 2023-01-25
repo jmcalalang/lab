@@ -1,0 +1,61 @@
+# Default values for acm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+acm:
+  name: &acmName acm
+  logLevel: info
+  image:
+    # if the image is on a private registry, provide imagePullSecrets
+    repository: acm
+    tag: latest
+    pullPolicy: IfNotPresent
+  container:
+    port:
+      http: 8037
+      db: 9300
+  service:
+    httpPort: 8037
+  resources:
+    requests:
+      # These are minimum requirements on node to run core
+      # There are no limits in place, so vertically scale as per data needs
+      cpu: 500m
+      memory: 512Mi
+  persistence:
+    enabled: true
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If existingClaim is defined, PVC must be created manually before volume will be bound
+    claims:
+    - name: dqlite
+      existingClaim:
+      size: 500Mi
+      accessMode: ReadWriteOnce
+  devportal:
+    credentials:
+      enabled: false
+      ssl: false
+    client:
+      caSecret:
+        name:
+        key:
+
+  nms:
+    core: {}
+
+
+global:
+  nmsModules:
+    nms-acm:
+      enabled: false
+      services:
+        - *acmName
+      configs:
+        - configmap: nms-acm-conf
+          modules:
+            - acm.json
+          upstreams:
+            - nms-acm-upstream.conf
+          locations:
+            - nms-acm-location.conf
