@@ -50,7 +50,7 @@
                             "bigip": "/Common/bigip"
                         }
                     ],
-                    "virtualServerDiscoveryMode": "enabled",
+                    "virtualServerDiscoveryMode": "enabled-no-delete",
                     "exposeRouteDomainsEnabled": true
                 },
                 "generic-server-0": {
