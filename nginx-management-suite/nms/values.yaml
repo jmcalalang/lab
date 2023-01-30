@@ -32,7 +32,7 @@ nms-hybrid:
 nms-acm:
   acm:
     image:
-      repository: calalangacr.azurecr.io/acm
+      repository: calalangacr.azurecr.io/nms-acm
       tag: 1.4.0
 
 nameOverride: "nms"
