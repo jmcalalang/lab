@@ -200,7 +200,7 @@ spec:
         - "cp /tmp/config.yaml /etc/vpm"
       containers:
       - name: vp-manager 
-        image: gcr.io/volterraio/vpm@sha256:ef9288fca3e542fadae1ba8a07ee110472613cda7903cfa9bb93ebd0cfaea872
+        image: gcr.io/volterraio/vpm
         imagePullPolicy: Always
         volumeMounts:
         - name: etcvpm
