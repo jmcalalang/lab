@@ -1,0 +1,25 @@
+{{- if .Values.acm.persistence.enabled }}
+{{- range .Values.acm.persistence.claims }}
+{{- if not .existingClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "acm.name" $ }}-{{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "acm.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .accessMode }}
+  resources:
+    requests:
+      storage: {{ .size }}
+  {{- include "acm.storageClass" $ | nindent 2 }}
+  volumeMode: Filesystem
+  {{- if $.Values.acm.persistence.volumeName }}
+  volumeName: {{ $.Values.acm.persistence.volumeName }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}
+{{- end }}
