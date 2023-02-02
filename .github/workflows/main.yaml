@@ -62,7 +62,7 @@ jobs:
             --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}" 
             --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}" 
             --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}" 
-            --verbose -vvvv
+          # --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
