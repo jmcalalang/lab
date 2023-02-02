@@ -43,7 +43,8 @@ acm:
 
   nms:
     core: {}
-
+    fullname: "nms"
+    fullnameOverride: "nms"
 
 global:
   nmsModules:

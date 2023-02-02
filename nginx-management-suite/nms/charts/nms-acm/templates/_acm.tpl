@@ -61,7 +61,7 @@ See https://helm.sh/docs/chart_template_guide/function_list/#index for how to us
   needed as subchart has `-` in name
 */}}
 {{- define "acm.secret.internal-certs.name" -}}
-{{ .Release.Name }}-internal-certs
+{{ .Values.acm.nms.fullnameOverride }}-internal-certs
 {{- end -}}
 
 {{/* Helper to return acm.conf name */}}
