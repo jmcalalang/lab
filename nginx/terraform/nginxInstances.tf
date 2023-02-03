@@ -1,53 +1,79 @@
-resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  count = var.count
+## NGINX Instances Terraform
+
+# Random instance uuid generator
+resource "random_uuid" "instances" {
+}
+
+# Data of an existing subnet
+data "azurerm_subnet" "existing" {
+  name                 = var.existing_subnet_name
+  virtual_network_name = var.existing_subnet_vnet
+  resource_group_name  = var.existing_subnet_resource_group
+}
+
+# NIC 
+resource "azurerm_network_interface" "nic" {
+  name                = "${random_uuid.instances.result}-nic"
+  location            = azurerm_resource_group.nginx-resource-group.location
+  resource_group_name = azurerm_resource_group.nginx-resource-group.name
 
   ip_configuration {
     name                          = "if-config"
-    subnet_id                     = var.subnet_id
-    private_ip_address_allocation = "dynamic"
+    subnet_id                     = data.azurerm_subnet.existing.id
+    private_ip_address_allocation = "Dynamic"
+  }
+
+  tags = {
+    owner = var.tag_owner
   }
 }
 
-resource "azurerm_virtual_machine" "example" {
-  name                  = "example-vm"
-  location              = azurerm_resource_group.nginx-terraform-rg.location
-  resource_group_name   = azurerm_resource_group.nginx-terraform-rg.name
-  network_interface_ids = [azurerm_network_interface.example.id]
+# Instance
+resource "azurerm_virtual_machine" "nginx" {
+  name                  = "nginx-${random_uuid.instances.result}"
+  location              = azurerm_resource_group.nginx-resource-group.location
+  resource_group_name   = azurerm_resource_group.nginx-resource-group.name
+  network_interface_ids = [azurerm_network_interface.nic.id]
   vm_size               = "Standard_B1s"
-  count                 = var.count
+
+  # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
+  plan {
+    publisher = "nginxinc"
+    product   = "nginx_plus_with_nginx_app_protect_developer"
+    name      = "nginx_plus_with_nginx_app_protect_dev_debian10"
+  }
 
   storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    publisher = "nginxinc"
+    offer     = "nginx_plus_with_nginx_app_protect_developer"
+    sku       = "nginx_plus_with_nginx_app_protect_dev_debian10"
     version   = "latest"
   }
 
   storage_os_disk {
-    name              = "example-os-disk"
+    name              = "${random_uuid.instances.result}-os-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "example-host"
-    admin_username = "example-admin"
-    admin_password = "example-password"
+    computer_name  = "nginx-${random_uuid.instances.result}"
+    admin_username = var.nginx_username
+    admin_password = var.nginx_password
+    custom_data    = base64encode(data.template_file.bootstrap.rendered)
   }
 
   os_profile_linux_config {
     disable_password_authentication = false
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y nginx",
-      "sudo systemctl start nginx"
-    ]
+  tags = {
+    owner = var.tag_owner
   }
+}
+
+# Data template Bash bootstrapping file
+data "template_file" "bootstrap" {
+  template = file("${path.module}/files/bootstrap.sh")
 }
