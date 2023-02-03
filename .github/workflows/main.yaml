@@ -305,6 +305,9 @@ jobs:
       - uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+      - uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
 
 #      - name: Download Terraform State
 #        id: download-artifact
