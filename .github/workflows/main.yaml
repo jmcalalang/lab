@@ -330,12 +330,6 @@ jobs:
 #          # default fail
 #          if_no_artifact_found: fail
 
-#      # az ad sp create-for-rbac --name "<name>" --role="Contributor" --scopes="/subscriptions/<subID>"
-#      - name: Azure Login
-#        id: login
-#        run: az login --service-principal --username ${{ secrets.AZURE_APPID }} --password ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
-#        continue-on-error: false
-
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
@@ -358,11 +352,15 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
+      - name: local path
+        id: path
+        run: pwd
+
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
         with:
           name: nginx-terraform-state
-          path: /home/runner/work/lab/lab/nginx/terraform/nginx/terraform.tfstate
+          path: /home/runner/work/lab/lab/nginx/terraform/terraform.tfstate
           retention-days: 30
 
 ########################################################################################################
