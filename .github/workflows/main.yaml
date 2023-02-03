@@ -290,6 +290,7 @@ jobs:
     env:
       TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
       TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
+      credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Where are the Terraform files
     defaults:
@@ -299,12 +300,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      - uses: azure/CLI@v1
-        with:
-          azcliversion: 2.30.0
-      - uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.3.2
