@@ -283,26 +283,31 @@ jobs:
           # Optional, directory where playbooks live
           directory: "./nginx/ansible/playbooks"
 
-#  NGINX-Terraform:
-#    # The type of runner that the job will run on
-#    runs-on: ubuntu-20.04
-#    # Environment Variables
-#    env:
-#      TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
-#      TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
-#
-#    # Where are the Terraform files
-#    defaults:
-#      run:
-#        working-directory: nginx/terraform/
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: hashicorp/setup-terraform@v2
-#        with:
-#          terraform_version: 1.3.2
-#
+  NGINX-Terraform:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    # Environment Variables
+    env:
+      TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
+      TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: nginx/terraform/
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.2
+
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+
 #      - name: Download Terraform State
 #        id: download-artifact
 #        uses: dawidd6/action-download-artifact@v2
@@ -325,35 +330,35 @@ jobs:
 #          #  "fail", "warn", "ignore"
 #          # default fail
 #          if_no_artifact_found: fail
-#
-#      - name: Terraform fmt
-#        id: fmt
-#        run: terraform fmt -check
-#        continue-on-error: false
-#
-#      - name: Terraform Init
-#        id: init
-#        run: terraform init -force-copy
-#
-#      - name: Terraform Validate
-#        id: validate
-#        run: terraform validate -no-color
-#
-#      - name: Terraform Plan
-#        id: plan
-#        run: terraform plan -no-color
-#        continue-on-error: false
-#
-#      - name: Terraform Apply
-#        id: apply
-#        run: terraform apply --auto-approve
-#
-#      - name: Upload Terraform State
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: nginx-terraform-state
-#          path: /home/runner/work/lab/lab/nginx/terraform/nginx/terraform.tfstate
-#          retention-days: 30
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: false
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+      - name: Upload Terraform State
+        uses: actions/upload-artifact@v3
+        with:
+          name: nginx-terraform-state
+          path: /home/runner/work/lab/lab/nginx/terraform/nginx/terraform.tfstate
+          retention-days: 30
 
 ########################################################################################################
 
