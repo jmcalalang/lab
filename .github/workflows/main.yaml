@@ -290,7 +290,6 @@ jobs:
     env:
       TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
       TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
-      credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Where are the Terraform files
     defaults:
@@ -327,9 +326,10 @@ jobs:
 #          # default fail
 #          if_no_artifact_found: fail
 
+      # az ad sp create-for-rbac --name "<name>" --role="Contributor" --scopes="/subscriptions/<subID>"
       - name: Azure Login
         id: login
-        run: az login
+        run: az login --service-principal --username ${{ secrets.AZURE_APPID }} --password ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
         continue-on-error: false
 
       - name: Terraform fmt
