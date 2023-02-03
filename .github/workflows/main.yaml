@@ -327,6 +327,11 @@ jobs:
 #          # default fail
 #          if_no_artifact_found: fail
 
+      - name: Azure Login
+        id: login
+        run: az login
+        continue-on-error: false
+
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
