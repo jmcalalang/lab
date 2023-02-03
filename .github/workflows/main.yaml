@@ -352,10 +352,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: local path
-        id: path
-        run: pwd
-
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
         with:
