@@ -77,3 +77,19 @@ resource "azurerm_virtual_machine" "nginx" {
 data "template_file" "bootstrap" {
   template = file("${path.module}/files/bootstrap.sh")
 }
+
+# Shutdown Schedule
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "daily" {
+  virtual_machine_id = azurerm_linux_virtual_machine.nginx.id
+  location           = azurerm_resource_group.nginx-resource-group.name
+  enabled            = true
+
+  daily_recurrence_time = "1930"
+  timezone              = "Pacific Standard Time"
+
+  notification_settings {
+    enabled         = true
+    time_in_minutes = "30"
+    email     = "j.calalang@f5.com"
+  }
+}
