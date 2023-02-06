@@ -1,8 +1,12 @@
 #! /bin/bash
+
+# Install the NGINX Agent and bind to instance group api
 curl -k https://10.0.4.54/install/nginx-agent > install.sh && sudo sh install.sh -g azure-instances && sudo systemctl start nginx-agent
 
+# apt-get update
 sudo apt-get update
 
+# Append to nginx-agent.conf the app-protect monitoring
 cat << EOF | sudo tee -a /etc/nginx-agent/nginx-agent.conf
 
 # Enable reporting NGINX App Protect details to the control plane.
@@ -21,3 +25,9 @@ nap_monitoring:
   syslog_port: 514
 
 EOF
+
+# Restart NGINX
+sudo systemctl restart nginx
+
+# Restart NGINX Agent
+sudo systemctl restart nginx-agent
