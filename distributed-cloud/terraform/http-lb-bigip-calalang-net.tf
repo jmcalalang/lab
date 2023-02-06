@@ -19,7 +19,7 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
       origin_pools {
         pool {
           namespace = var.namespace
-          name      = volterra_origin_pool.pool-ip-oidc.name
+          name      = volterra_origin_pool.pool-ip-bigip-nginx.name
         }
         weight           = 1
         priority         = 1

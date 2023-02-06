@@ -14,7 +14,7 @@ resource "volterra_origin_pool" "pool-ip-nginx" {
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-volt-rg"
+          name      = "calalang-aks-cluster"
         }
       }
     }
@@ -26,7 +26,7 @@ resource "volterra_origin_pool" "pool-ip-nginx" {
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-volt-rg"
+          name      = "calalang-aks-cluster"
         }
       }
     }

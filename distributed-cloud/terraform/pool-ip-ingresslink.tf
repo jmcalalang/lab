@@ -14,7 +14,7 @@ resource "volterra_origin_pool" "pool-ip-ingresslink" {
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-volt-rg"
+          name      = "calalang-aks-cluster"
         }
       }
     }
