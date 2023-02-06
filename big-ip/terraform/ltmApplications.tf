@@ -1,7 +1,7 @@
-# Virtual server https-10-0-2-51-terraform
-resource "bigip_ltm_virtual_server" "https-10-0-2-51-terraform" {
-  name                       = "/Common/https-10-0-2-51-terraform"
-  destination                = "10.0.2.51"
+# Virtual server https-10-0-2-13-terraform
+resource "bigip_ltm_virtual_server" "https-10-0-2-13-terraform" {
+  name                       = "/Common/https-10-0-2-13-terraform"
+  destination                = "10.0.2.13"
   description                = "BIG-IP NGINX Virtual Server"
   port                       = 443
   client_profiles            = ["/Common/clientssl"]
