@@ -2,7 +2,7 @@
 resource "bigip_ltm_virtual_server" "https-10-0-2-51-terraform" {
   name                       = "/Common/https-10-0-2-51-terraform"
   destination                = "10.0.2.51"
-  description                = "OIDC Forwarding Virtual Server"
+  description                = "BIG-IP NGINX Virtual Server"
   port                       = 443
   client_profiles            = ["/Common/clientssl"]
   source_address_translation = "automap"
@@ -19,9 +19,8 @@ resource "bigip_ltm_virtual_server" "https-10-0-2-12-terraform" {
   description                = "APM Webtop Virtual Server"
   port                       = 443
   client_profiles            = ["/Common/clientssl"]
-  server_profiles            = ["/Common/serverssl-insecure-compatible"]
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc"]
 }
