@@ -10,34 +10,36 @@ Congratulations you made it to Jon's lab. Below is an outline of the folder stru
 
 GitHub Actions for Ansible and Terraform
 
-- github action for BIG-IP F5 automation toolchain with ansible
-- github action for BIG-IP F5 automation toolchain with terraform
-- github action for GoDaddy with terraform
-- github action for F5xc with terraform
-- github action for NGINX Instance Manager with ansible
+- GitHub Actions
+  - BIG-IP F5 automation toolchain with ansible
+  - BIG-IP F5 automation toolchain with terraform
+  - GoDaddy with terraform
+  - F5xc with terraform
+  - NGINX Instance Manager with ansible
+  - NGINX with terraform
   
 ### argo
 
 Agro installation manifest
 
-- argo mainifest for installation into kubernetes
+- Argo
+  - argo mainifest for installation into kubernetes
 
 ### big-ip
 
-Ansible configuration management for BIG-IP. AS3, DO, and TS. Managed by Ansible in Github Action
+Configuration management for BIG-IP. AS3, DO, TS, and FAST Applications
 
-- default main for Ansible Roles variables
-- as3 role with templates
-  - common objects
-  - partition objects
-  - gslb objects
-- do role with templates
-  - best practices for f5 automation toolchain
-- ts role with templates
-  - azure log analytics and pull consumer
+- Ansible
+  - as3 role with templates
+    - common objects
+    - partition objects
+    - gslb objects
+  - do role with templates
+    - best practices for f5 automation toolchain
+  - ts role with templates
+    - azure log analytics and pull consumer
 
-Terraform configuration management for FAST and single application Virtual Servers. Managed by Terraform in Github Action
-  
+- Terraform
   - FAST LDAP Application
   - Virtual Servers in Common
 
@@ -54,63 +56,72 @@ Certs for F5XC and how to create letsencrypt certs
 
 CIS configuration for BIG-IP. Managed by Argo
 
-- CIS deployment
-- NGINX ingress (IngressLink)
+- Argo
+  - CIS deployment
+  - NGINX ingress (IngressLink)
 
 ### distributed-cloud
 
-Terraform configuration for F5XC. Managed by Terraform in Github Action
+Configuration for F5XC. Managed by Terraform in Github Action
 
-- f5xc application firewall
-- f5xc pools (dns,ip,kubernetes)
-- f5xc health checks
-- f5xc http load balancers
+- Terraform
+  - f5xc application firewall
+  - f5xc pools (dns,ip,kubernetes)
+  - f5xc health checks
+  - f5xc http load balancers
 
 ### godaddy
 
 GoDaddy configuration. Managed by Terraform in Github Action
 
-- godaddy zone configuration
+- Terraform
+  - godaddy zone configuration
 
 ### nginx
 
 NGINX configuration done in NIM declarative json templates. Managed by Ansible in Github Action
 
-- nginx role with nginx instance manager templates
-  - proxy of nginx.org
-- NGINX Management Suite Agent
+- Ansible
+  - nginx role with nginx instance manager templates
+
+- Terraform
+  - NGINX instances(s)
+    - Bash script to install NGINX Agent
 
 ### nginx-ingress
 
-NGINX ingress configuration. Managed by Argo
+NGINX ingress configuration
 
-- virtual servers (grpc,https)
-- oidc policy
-- jwt policy
-- nap policy
-- custom zones
+- Argo
+  - virtual servers (grpc,https)
+  - oidc policy
+  - jwt policy
+  - nap policy
+  - custom zones
 
 ### nginx-management-suite
 
-NGINX Management-suite with Instance Manager persona. Managed by Argo
+NGINX Management-suite with NIM and ACM. Created with Argo, configured with Ansible (NGINX Folder)
 
-- NIM for NGINX instances
-  - azure-instance group
-    - jwt policy
-    - api key
-    - sensitive uri match
-    - proxy_pass
+- Argo
+  - NMS for NGINX instances
+    - NIM (azure-instances)
+      - jwt policy
+      - api key
+      - sensitive uri match
+      - proxy_pass
+    - ACM (api)
 
 ### services
 
 Kubernetes services used for examples. Managed by Argo
 
-- coffee kubernetes service
-- tea kubernetes service
-- http-bin kubernetes service
-  - oidc policy
-- secure-app kubernetes service
-- syslog kubernetes service
+- Argo
+  - coffee kubernetes service
+  - tea kubernetes service
+  - http-bin kubernetes service
+  - secure-app kubernetes service
+  - syslog kubernetes service
 
 ### Lab.pdf
 

@@ -1,6 +1,6 @@
 # certificate scratch
 
-No longer needed with auto certificates
+## No longer needed with auto certificates
 
 sudo certbot -d bigip.calalang.net -d apm.calalang.net --manual --preferred-challenges dns certonly
 Certificate is saved at: /etc/letsencrypt/live/apm.calalang.net/fullchain.pem

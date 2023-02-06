@@ -1,0 +1,23 @@
+#! /bin/bash
+curl -k https://10.0.4.54/install/nginx-agent > install.sh && sudo sh install.sh -g api && sudo systemctl start nginx-agent
+
+sudo apt-get update
+
+cat << EOF | sudo tee -a /etc/nginx-agent/nginx-agent.conf
+
+# Enable reporting NGINX App Protect details to the control plane.
+nginx_app_protect:
+  # Report interval for NGINX App Protect details - the frequency at which NGINX Agent checks NGINX App Protect for changes.
+  report_interval: 15s
+# NGINX App Protect Monitoring config
+nap_monitoring:
+  # Buffer size for collector. Will contain log lines and parsed log lines
+  collector_buffer_size: 50000
+  # Buffer size for processor. Will contain log lines and parsed log lines
+  processor_buffer_size: 50000
+  # Syslog server IP address the collector will be listening to
+  syslog_ip: "127.0.0.1"
+  # Syslog server port the collector will be listening to
+  syslog_port: 514
+
+EOF

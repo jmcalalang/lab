@@ -30,11 +30,13 @@ resource "azurerm_network_interface" "nic" {
 
 # Instance
 resource "azurerm_virtual_machine" "nginx" {
-  name                  = "nginx-${random_uuid.instances.result}"
-  location              = azurerm_resource_group.nginx-resource-group.location
-  resource_group_name   = azurerm_resource_group.nginx-resource-group.name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  vm_size               = "Standard_B1s"
+  name                             = "nginx-${random_uuid.instances.result}"
+  location                         = azurerm_resource_group.nginx-resource-group.location
+  resource_group_name              = azurerm_resource_group.nginx-resource-group.name
+  network_interface_ids            = [azurerm_network_interface.nic.id]
+  vm_size                          = "Standard_B1s"
+  delete_data_disks_on_termination = true
+  delete_os_disk_on_termination    = true
 
   # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
   plan {
@@ -75,7 +77,7 @@ resource "azurerm_virtual_machine" "nginx" {
 
 # Data template Bash bootstrapping file
 data "template_file" "bootstrap" {
-  template = file("${path.module}/files/bootstrap.sh")
+  template = file("${path.module}/files/bootstrap-instance-group-api.sh")
 }
 
 # Shutdown Schedule
