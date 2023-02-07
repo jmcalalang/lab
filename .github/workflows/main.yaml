@@ -232,6 +232,7 @@ jobs:
   NMS-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    needs: [NGINX-Terraform]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

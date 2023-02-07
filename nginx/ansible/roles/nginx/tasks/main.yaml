@@ -41,6 +41,6 @@
     validate_certs: yes
   register: nms_instance_post_response
   retries: 30
-  delay: 5
+  delay: 10
   until: "(nms_instance_post_response is successful) and (nms_instance_post_response.status == 202)"
   when: state == "present"
