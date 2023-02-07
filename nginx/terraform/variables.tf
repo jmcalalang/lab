@@ -47,9 +47,17 @@ variable "tag_owner" {
 
 # Existing Subnet Resources
 
-variable "existing_subnet_name" {
+variable "existing_internal_subnet_name" {
   type        = string
-  description = "Name of existing Subnet"
+  description = "Name of existing internal Subnet"
+}
+variable "existing_external_subnet_name" {
+  type        = string
+  description = "Name of existing external Subnet"
+}
+variable "existing_mgmt_subnet_name" {
+  type        = string
+  description = "Name of existing management Subnet"
 }
 variable "existing_subnet_vnet" {
   type        = string
