@@ -1,13 +1,13 @@
 ## NGINX Instances Terraform
 
 # Random uuid generator
-resource "random_uuid" "random-uuid" {
+resource "random_uuid" "nginx-random-uuid" {
   count = sum([var.nginx-api-gw-count, var.nginx-instance-count])
 }
 
 # Data of an existing subnet
 data "azurerm_subnet" "existing" {
-  name                 = var.existing_subnet_name
+  name                 = var.existing_internal_subnet_name
   virtual_network_name = var.existing_subnet_vnet
   resource_group_name  = var.existing_subnet_resource_group
 }
@@ -16,7 +16,7 @@ data "azurerm_subnet" "existing" {
 
 # NGINX API Gateway NICs
 resource "azurerm_network_interface" "nic-api-gw" {
-  name                = "nic-${random_uuid.random-uuid[0].result}-${count.index}"
+  name                = "nic-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
   count               = sum([var.nginx-api-gw-count])
@@ -34,7 +34,7 @@ resource "azurerm_network_interface" "nic-api-gw" {
 
 # NGINX API Gateway Instances
 resource "azurerm_virtual_machine" "nginx-api-gw" {
-  name                             = "nginx-${random_uuid.random-uuid[0].result}-${count.index}"
+  name                             = "nginx-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
   location                         = azurerm_resource_group.nginx-resource-group.location
   resource_group_name              = azurerm_resource_group.nginx-resource-group.name
   network_interface_ids            = [azurerm_network_interface.nic-api-gw[count.index].id]
@@ -58,14 +58,14 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
   }
 
   storage_os_disk {
-    name              = "os-disk-${random_uuid.random-uuid[0].result}-${count.index}"
+    name              = "os-disk-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "nginx-${random_uuid.random-uuid[0].result}-${count.index}"
+    computer_name  = "nginx-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
     admin_username = var.nginx_username
     admin_password = var.nginx_password
     custom_data    = base64encode(data.template_file.bootstrap-instance-group-api-gw.rendered)
@@ -106,7 +106,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-api" {
 
 # NGINX Instances NICs
 resource "azurerm_network_interface" "nic-instances" {
-  name                = "nic-${random_uuid.random-uuid[1].result}-${count.index}"
+  name                = "nic-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
   count               = sum([var.nginx-instance-count])
@@ -124,7 +124,7 @@ resource "azurerm_network_interface" "nic-instances" {
 
 # NGINX Instances
 resource "azurerm_virtual_machine" "nginx-instance" {
-  name                             = "nginx-${random_uuid.random-uuid[1].result}-${count.index}"
+  name                             = "nginx-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
   location                         = azurerm_resource_group.nginx-resource-group.location
   resource_group_name              = azurerm_resource_group.nginx-resource-group.name
   network_interface_ids            = [azurerm_network_interface.nic-instances[count.index].id]
@@ -148,14 +148,14 @@ resource "azurerm_virtual_machine" "nginx-instance" {
   }
 
   storage_os_disk {
-    name              = "os-disk-${random_uuid.random-uuid[1].result}-${count.index}"
+    name              = "os-disk-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "nginx-${random_uuid.random-uuid[1].result}-${count.index}"
+    computer_name  = "nginx-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
     admin_username = var.nginx_username
     admin_password = var.nginx_password
     custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)

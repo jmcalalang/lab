@@ -14,6 +14,8 @@ tag_owner           = "j.calalang@f5.com"
 
 # Existing Subnet Variable Values
 
-existing_subnet_name           = "internal"
+existing_internal_subnet_name  = "internal"
+existing_external_subnet_name  = "external"
+existing_mgmt_subnet_name      = "mgmt"
 existing_subnet_vnet           = "calalang-azure-vnet"
 existing_subnet_resource_group = "calalang-rg"
