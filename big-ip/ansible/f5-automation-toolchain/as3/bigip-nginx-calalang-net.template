@@ -24,9 +24,6 @@
                     "policyWAF": {
                         "use": "bigipCalalangNet_OWASP_Auto_Tune"
                     },
-                    "profileAccess": {
-                        "bigip": "/Common/calalang-oidc"
-                    },
                     "persistenceMethods": [
                         "cookie"
                     ],
@@ -34,7 +31,7 @@
                     "layer4": "tcp",
                     "profileTCP": "normal"
                 },
-                "nginx_pl": {
+                "pool-dns-nginx-org": {
                     "class": "Pool",
                     "monitors": [
                         "tcp"
@@ -70,7 +67,7 @@
                                     "event": "request",
                                     "select": {
                                         "pool": {
-                                            "use": "nginx_pl"
+                                            "use": "pool-dns-nginx-org"
                                         }
                                     }
                                 },
