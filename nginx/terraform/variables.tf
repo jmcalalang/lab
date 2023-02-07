@@ -1,8 +1,28 @@
 # NGINX Terraform Variable Definitions
 
-variable "object_count" {
+variable "nginx-instance-offer" {
+  type        = string
+  description = "Offer name for NGINX instance resources"
+}
+variable "nginx-instance-sku" {
+  type        = string
+  description = "SKU name for NGINX instance resources"
+}
+variable "nginx-instance-count" {
   type        = number
-  description = "Number of instance resources"
+  description = "Number of NGINX instance resources"
+}
+variable "nginx-api-gw-offer" {
+  type        = string
+  description = "Offer name for NGINX API GW resources"
+}
+variable "nginx-api-gw-sku" {
+  type        = string
+  description = "SKU name for NGINX API GW resources"
+}
+variable "nginx-api-gw-count" {
+  type        = number
+  description = "Number of NGINX API GW resources"
 }
 variable "location" {
   type        = string

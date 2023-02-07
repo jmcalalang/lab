@@ -1,10 +1,13 @@
 #! /bin/bash
 
 # Install the NGINX Agent and bind to instance group api
-curl -k https://10.0.4.54/install/nginx-agent > install.sh && sudo sh install.sh -g api && sudo systemctl start nginx-agent
+curl -k https://10.0.4.54/install/nginx-agent > install.sh && sudo sh install.sh -g azure-api-gateways && sudo systemctl start nginx-agent
 
-# apt-get update
-sudo apt-get update
+# install nginx modules
+
+# curl -k https://10.0.4.54/install/nginx-plus-module-metrics | sudo sh
+
+sudo apt-get install nginx-plus-module-njs
 
 # Append to nginx-agent.conf the app-protect monitoring
 cat << EOF | sudo tee -a /etc/nginx-agent/nginx-agent.conf
