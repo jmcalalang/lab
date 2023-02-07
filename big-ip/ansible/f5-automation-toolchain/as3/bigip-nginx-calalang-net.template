@@ -24,6 +24,9 @@
                     "policyWAF": {
                         "use": "bigipCalalangNet_OWASP_Auto_Tune"
                     },
+                    "profileAccess": {
+                        "bigip": "/Common/calalang-oidc"
+                    },
                     "persistenceMethods": [
                         "cookie"
                     ],

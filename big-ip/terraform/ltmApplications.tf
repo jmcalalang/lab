@@ -8,7 +8,7 @@ resource "bigip_ltm_virtual_server" "https-10-0-2-12-terraform" {
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
   pool                       = bigip_ltm_pool.pool-nginx-azure-instances-terraform.name
 }
 resource "bigip_ltm_monitor" "monitor-nginx-azure-instances-terraform" {
