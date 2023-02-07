@@ -19,7 +19,7 @@ resource "bigip_ltm_pool" "pool-nginx-azure-instances-terraform" {
   name                   = "/Common/pool-nginx-azure-instances-terraform"
   load_balancing_mode    = "round-robin"
   minimum_active_members = 1
-  monitors               = [bigip_ltm_monitor.monitor.name]
+  monitors               = [bigip_ltm_monitor.monitor-nginx-azure-instances-terraform.name]
   allow_snat             = "yes"
   allow_nat              = "yes"
 }

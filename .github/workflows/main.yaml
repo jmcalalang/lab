@@ -126,11 +126,6 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: false
-
       - name: Terraform Apply
         id: apply
         run: terraform apply --auto-approve
@@ -210,11 +205,6 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: false
 
       - name: Terraform Apply
         id: apply
@@ -344,11 +334,6 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: false
-
       - name: Terraform Apply
         id: apply
         run: terraform apply --auto-approve
@@ -418,11 +403,6 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: false
 
       - name: Terraform Apply
         id: apply
