@@ -27,7 +27,7 @@
 - name: Set fact for AS3 release
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
-    as3_release_url: "{{ as3_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
+    as3_release_url: "{{ as3_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
     as3_release_checksum_url: "{{ as3_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
 
 - name: debug AS3 url
@@ -79,7 +79,7 @@
 - name: Set fact for DO release
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
-    do_release_url: "{{ do_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
+    do_release_url: "{{ do_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
     do_release_checksum_url: "{{ do_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
 
 - name: debug DO url
@@ -131,7 +131,7 @@
 - name: Set fact for TS release
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
-    ts_release_url: "{{ ts_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
+    ts_release_url: "{{ ts_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
     ts_release_checksum_url: "{{ ts_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
 
 - name: debug TS url
@@ -183,8 +183,8 @@
 - name: Set fact for fast release
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
-    fast_release_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
-    fast_release_checksum_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256.txt`)] | [0] | browser_download_url') }}"
+    fast_release_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
+    fast_release_checksum_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256.txt`)] | [0] | browser_download_url') }}"
 
 - name: debug fast url
   debug:
@@ -235,7 +235,7 @@
 - name: Set fact for cfe release
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
-    cfe_release_url: "{{ cfe_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
+    cfe_release_url: "{{ cfe_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
     cfe_release_checksum_url: "{{ cfe_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm.sha256`)] | [0] | browser_download_url') }}"
 
 - name: debug cfe url
