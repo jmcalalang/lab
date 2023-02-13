@@ -156,6 +156,10 @@ jobs:
       BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
 
     # Where are the Terraform files
     defaults:
