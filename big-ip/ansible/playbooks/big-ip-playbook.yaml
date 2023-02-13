@@ -2,7 +2,8 @@
 -
   hosts: localhost
   roles:
-    - ../roles/access-profiles
-    - ../roles/telemetry-streaming
-    - ../roles/application-services-3
+    - ../roles/install-atc
+#    - ../roles/access-profiles
+#    - ../roles/telemetry-streaming
+#    - ../roles/application-services-3
 #    - ../roles/declarative-onboarding
