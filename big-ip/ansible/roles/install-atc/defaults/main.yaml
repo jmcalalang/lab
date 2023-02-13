@@ -5,7 +5,7 @@ f5_networks_github_base_url: "https://api.github.com/repos/F5Networks"
 as3_file: "as3.rpm"
 as3_file_sha256: "{{as3_file}}.sha256"
 as3_use_latest: false
-as3_requested_tag: "v3.42.0" # a default value that is used if not overidden and if as3_use_latest = false
+as3_requested_tag: "v3.41.0" # a default value that is used if not overidden and if as3_use_latest = false
 
 do_file: "do.rpm"
 do_file_sha256: "{{do_file}}.sha256"
