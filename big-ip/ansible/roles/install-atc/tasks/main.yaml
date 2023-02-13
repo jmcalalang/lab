@@ -184,7 +184,7 @@
   set_fact:
     # weird workaround below: https://github.com/ansible/ansible/issues/27299
     fast_release_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.rpm`)] | [0] | browser_download_url') }}"
-    fast_release_checksum_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256`)] | [0] | browser_download_url') }}"
+    fast_release_checksum_url: "{{ fast_github_releases.json | to_json | from_json | json_query('assets[?ends_with(name, `.sha256.txt`)] | [0] | browser_download_url') }}"
 
 - name: debug fast url
   debug:
