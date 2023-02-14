@@ -16,7 +16,7 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 1000
+/usr/bin/setdb provision.extramb 2048
 /usr/bin/setdb restjavad.useextramb true
 
 # Download or Render BIG-IP Runtime Init Config
@@ -85,6 +85,14 @@ extension_services:
             class: DbVariables
             config.allow.rfc3927: enable
             dhclient.mgmt: disable
+            ui.advisory.enabled: true
+            ui.advisory.color: red
+            ui.advisory.text: Device Not Configured
+            provision.extramb: 2048
+            restjavad.useextramb: true
+            icrd.timeout: 180
+            restjavad.timeout: 180
+            restnoded.timeout: 180
           My_System:
             class: System
             hostname: '{{{ HOST_NAME }}}.local'
