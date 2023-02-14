@@ -14,10 +14,6 @@ terraform {
       source  = "hashicorp/time"
       version = "0.9.1"
     }
-    bigip = {
-      source  = "F5Networks/bigip"
-      version = "1.16.1"
-    }
   }
 }
 
@@ -36,9 +32,4 @@ provider "random" {
 
 provider "time" {
   # Configuration options
-}
-
-provider "bigip" {
-  # Configuration options
-  # Set as Environment Variables
 }
