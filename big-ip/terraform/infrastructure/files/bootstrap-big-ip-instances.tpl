@@ -111,14 +111,16 @@ extension_services:
           My_Provisioning:
             class: Provision
             ltm: nominal
-          My_DNS_Resolver:
+          DNS_Resolver:
             class: DNS_Resolver
             answerDefaultZones: false
             cacheSize: 5767168
-            routeDomain: 0
+            randomizeQueryNameCase: true
+            routeDomain: '0'
             forwardZones:
-              - .
-            nameservers:
+            - name: forward.net
+              nameservers:
+              - 168.63.129.16:53
               - 1.1.1.1:53
             useIpv4: true
             useIpv6: true
