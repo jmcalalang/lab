@@ -11,6 +11,16 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Provision Management
+  bigip_provision:
+    module: mgmt
+    memory: 2048
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Provision AFM
   bigip_provision:
     module: afm

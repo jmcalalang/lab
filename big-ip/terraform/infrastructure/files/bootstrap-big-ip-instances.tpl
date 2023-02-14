@@ -16,7 +16,7 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 2048
+/usr/bin/setdb provision.extramb 1000
 /usr/bin/setdb restjavad.useextramb true
 
 # Download or Render BIG-IP Runtime Init Config
