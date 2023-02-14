@@ -28,42 +28,42 @@ controls:
   extensionInstallDelayInMs: 10000
 pre_onboard_enabled: []
 runtime_parameters:
-    - name: HOST_NAME
-      type: metadata
-      metadataProvider:
-        environment: azure
-        type: compute
-        field: name
-    - name: SELF_IP_EXTERNAL
-      type: metadata
-      metadataProvider:
-        environment: azure
-        type: network
-        field: ipv4
-        index: 1
-    - name: SELF_IP_INTERNAL
-      type: metadata
-      metadataProvider:
-        environment: azure
-        type: network
-        field: ipv4
-        index: 2
-    - name: DEFAULT_GW
-      type: metadata
-      metadataProvider:
-        environment: azure
-        type: network
-        field: ipv4
-        index: 1
-        ipcalc: first
-    - name: MGMT_GW
-      type: metadata
-      metadataProvider:
-        environment: azure
-        type: network
-        field: ipv4
-        index: 0
-        ipcalc: first
+  - name: HOST_NAME
+    type: metadata
+    metadataProvider:
+      environment: azure
+      type: compute
+      field: name
+  - name: SELF_IP_EXTERNAL
+    type: metadata
+    metadataProvider:
+      environment: azure
+      type: network
+      field: ipv4
+      index: 1
+  - name: SELF_IP_INTERNAL
+    type: metadata
+    metadataProvider:
+      environment: azure
+      type: network
+      field: ipv4
+      index: 2
+  - name: DEFAULT_GW
+    type: metadata
+    metadataProvider:
+      environment: azure
+      type: network
+      field: ipv4
+      index: 1
+      ipcalc: first
+  - name: MGMT_GW
+    type: metadata
+    metadataProvider:
+      environment: azure
+      type: network
+      field: ipv4
+      index: 0
+      ipcalc: first
 bigip_ready_enabled: []
 extension_packages:
   install_operations:
@@ -95,14 +95,14 @@ extension_services:
             restnoded.timeout: 180
           My_System:
             class: System
-            hostname: '{{{ HOST_NAME }}}.local'
+            hostname: "{{{ HOST_NAME }}}.local"
             cliInactivityTimeout: 1200
             consoleInactivityTimeout: 1200
             autoPhonehome: true
           My_Dns:
             class: DNS
             nameServers:
-             - 168.63.129.16
+              - 168.63.129.16
           My_Ntp:
             class: NTP
             servers:
@@ -111,47 +111,60 @@ extension_services:
           My_Provisioning:
             class: Provision
             ltm: nominal
+          My_DNS_Resolver:
+            class: DNS_Resolver
+            answerDefaultZones: false
+            cacheSize: 5767168
+            routeDomain: 0
+            forwardZones:
+              - .
+            nameservers:
+              - 1.1.1.1:53
+            useIpv4: true
+            useIpv6: true
+            useTcp: true
+            useUdp: true
           external:
             class: VLAN
             tag: 4094
             mtu: 1500
             interfaces:
-              - name: '1.1'
+              - name: "1.1"
                 tagged: false
           internal:
             class: VLAN
             tag: 4093
             mtu: 1500
             interfaces:
-              - name: '1.2'
+              - name: "1.2"
                 tagged: false
           default:
             class: ManagementRoute
-            gw: '{{{ MGMT_GW }}}'
+            gw: "{{{ MGMT_GW }}}"
             network: default
           dhclient_route1:
             class: ManagementRoute
-            gw: '{{{ MGMT_GW }}}'
+            gw: "{{{ MGMT_GW }}}"
             network: 168.63.129.16/32
           azureMetadata:
             class: ManagementRoute
-            gw: '{{{ MGMT_GW }}}'
+            gw: "{{{ MGMT_GW }}}"
             network: 169.254.169.254/32
           external-self:
             class: SelfIp
-            address: '{{{ SELF_IP_EXTERNAL }}}'
+            address: "{{{ SELF_IP_EXTERNAL }}}"
             vlan: external
             allowService: default
             trafficGroup: traffic-group-local-only
           internal-self:
             class: SelfIp
-            address: '{{{ SELF_IP_INTERNAL }}}'
+            address: "{{{ SELF_IP_INTERNAL }}}"
             vlan: internal
             allowService: default
             trafficGroup: traffic-group-local-only
           defaultRoute:
             class: Route
-            gw: '{{{ DEFAULT_GW }}}'
+            gw: "{{{ DEFAULT_GW }}}"
             network: default
             mtu: 1500
 post_onboard_enabled: []

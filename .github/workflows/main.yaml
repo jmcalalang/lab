@@ -155,8 +155,6 @@ jobs:
     env:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
-      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -229,12 +227,7 @@ jobs:
     env:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
-      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
-      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
 
     # Where are the Terraform files
     defaults:

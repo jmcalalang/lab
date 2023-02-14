@@ -13,7 +13,7 @@ existing_subnet_resource_group  = "calalang-rg"
 
 big-ip-instance-offer = "f5-big-ip-best"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
-big-ip-instance-sku            = "f5-big-best-plus-hourly-25mbps"
+big-ip-instance-sku            = "f5-bigip-virtual-edition-1g-best-hourly-po-f5"
 big-ip-version                 = "latest"
 big-ip-instance-count          = 1
 big-ip-instance-size           = "Standard_DS3_v2"
