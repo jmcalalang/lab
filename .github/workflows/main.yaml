@@ -211,8 +211,8 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Destroy
-        id: destroy
+      - name: Terraform Apply
+        id: apply
         run: terraform destroy --auto-approve
 
       - name: Upload Terraform State
