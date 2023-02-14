@@ -21,6 +21,15 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Import OIDC APM policy
   bigip_apm_policy_import:
     name: calalang-oidc
@@ -31,10 +40,28 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Import Webtop APM policy
   bigip_apm_policy_import:
     name: calalang-webtop
     source: ../files/access-policies/calalang-webtop.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
