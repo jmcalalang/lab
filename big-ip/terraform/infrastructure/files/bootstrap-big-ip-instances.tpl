@@ -167,17 +167,3 @@ bash /var/config/rest/downloads/f5-bigip-runtime-init.gz.run -- "--cloud azure"
 
 # Run
 f5-bigip-runtime-init --config-file /config/cloud/runtime-init-conf.yaml 
-
-# Provision Modules
-tmsh modify sys provision gtm level nominal
-tmsh modify sys provision apm level nominal
-tmsh modify sys provision asm level nominal
-tmsh modify sys provision avr level nominal
-tmsh modify sys provision afm level nominal
-tmsh modify sys provision fps level nominal
-
-# Restart 
-tmsh restart sys service restjavad
-
-# Save Config
-tmsh save sys config

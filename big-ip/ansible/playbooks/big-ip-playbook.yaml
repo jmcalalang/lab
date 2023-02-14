@@ -2,8 +2,8 @@
 -
   hosts: localhost
   roles:
+    - ../roles/provision-modules
     - ../roles/install-atc
-#    - ../roles/declarative-onboarding
     - ../roles/access-profiles
     - ../roles/telemetry-streaming
     - ../roles/application-services-3

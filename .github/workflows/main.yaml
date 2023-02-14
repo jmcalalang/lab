@@ -300,7 +300,7 @@ jobs:
   NMS-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [NGINX-Terraform]
+    needs: [NGINX-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -352,7 +352,7 @@ jobs:
           # Optional, directory where playbooks live
           directory: "./nginx/ansible/playbooks"
 
-  NGINX-Terraform:
+  NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     # Environment Variables
