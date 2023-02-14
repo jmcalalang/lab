@@ -40,4 +40,9 @@ provider "time" {
 
 provider "bigip" {
   # Configuration options
+  
+  # Set as Environment Variables
+  # BIGIP_HOST
+  # BIGIP_USER
+  # BIGIP_PASSWORD
 }
