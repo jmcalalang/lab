@@ -21,10 +21,28 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Provision AFM
   bigip_provision:
     module: afm
     level: nominal
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -41,10 +59,28 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Provision AVR
   bigip_provision:
     module: avr
     level: nominal
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -61,6 +97,15 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Provision FPS
   bigip_provision:
     module: fps
@@ -71,10 +116,28 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 - name: Provision ASM
   bigip_provision:
     module: asm
     level: nominal
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:

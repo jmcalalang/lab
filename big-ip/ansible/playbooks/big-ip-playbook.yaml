@@ -5,5 +5,5 @@
     - ../roles/provision-modules
     - ../roles/install-atc
     - ../roles/access-profiles
-    - ../roles/telemetry-streaming
     - ../roles/application-services-3
+    - ../roles/telemetry-streaming

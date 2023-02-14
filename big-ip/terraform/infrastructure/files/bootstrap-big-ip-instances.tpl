@@ -118,7 +118,7 @@ extension_services:
             randomizeQueryNameCase: true
             routeDomain: '0'
             forwardZones:
-            - name: forward.net
+            - name: onmicrosoft.com
               nameservers:
               - 168.63.129.16:53
               - 1.1.1.1:53
