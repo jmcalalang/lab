@@ -1,3 +1,5 @@
+# This resource will create and manage imperative applications on BIG-IP.
+
 # Virtual server https-10-0-2-12-terraform
 resource "bigip_ltm_virtual_server" "https-10-0-2-12-terraform" {
   name                       = "/Common/https-10-0-2-12-terraform"
