@@ -18,4 +18,4 @@ big-ip-version                 = "latest"
 big-ip-instance-count          = 1
 big-ip-instance-size           = "Standard_DS3_v2"
 bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.5.2/dist/f5-bigip-runtime-init-1.5.2-1.gz.run"
-bigip_ready                    = "60s"
+bigip_ready                    = "180s"
