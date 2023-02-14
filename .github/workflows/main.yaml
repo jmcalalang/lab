@@ -98,6 +98,7 @@ jobs:
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    needs: [BIG-IP-Terraform]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -150,7 +151,6 @@ jobs:
   BIG-IP-Terraform:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Resources-Available, BIG-IP-Ansible]
     # Environment Variables
     env:
       BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
@@ -211,9 +211,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve
+#      - name: Terraform Apply
+#        id: apply
+#        run: terraform apply --auto-approve
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy --auto-approve
 
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
