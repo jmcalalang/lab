@@ -88,7 +88,7 @@ extension_services:
             ui.advisory.enabled: true
             ui.advisory.color: blue
             ui.advisory.text: Azure Instance
-            provision.extramb: 2048
+            provision.extramb: 1000
             restjavad.useextramb: true
             icrd.timeout: 180
             restjavad.timeout: 180
@@ -99,6 +99,9 @@ extension_services:
             cliInactivityTimeout: 1200
             consoleInactivityTimeout: 1200
             autoPhonehome: true
+          My_Disk:
+            class: Disk
+            applicationData: 47099904
           My_Dns:
             class: DNS
             nameServers:

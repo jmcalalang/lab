@@ -38,9 +38,9 @@ spec:
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
-            "--bigip-url=https://10.0.3.7",
+            "--bigip-url=https://10.0.3.4",
             "--bigip-partition=calalang-aks-cluster",
-            "--gtm-bigip-url=https://10.0.3.7",
+            "--gtm-bigip-url=https://10.0.3.4",
             "--gtm-bigip-username=$(BIGIP_USERNAME)",
             "--gtm-bigip-password=$(BIGIP_PASSWORD)",
             "--custom-resource-mode=true",
