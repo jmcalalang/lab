@@ -77,29 +77,33 @@ resource "azurerm_network_interface" "nic-internal" {
   ip_configuration {
     name                          = "if-config-internal-02"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.3.100"
   }
 
   ip_configuration {
     name                          = "if-config-internal-03"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.3.101"
   }
 
   ip_configuration {
     name                          = "if-config-internal-04"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.3.110"
   }
 
   ip_configuration {
     name                          = "if-config-internal-05"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.3.111"
   }
 
   tags = {
@@ -126,29 +130,33 @@ resource "azurerm_network_interface" "nic-external" {
   ip_configuration {
     name                          = "if-config-external-02"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.2.12"
   }
 
   ip_configuration {
     name                          = "if-config-external-03"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.2.14"
   }
 
   ip_configuration {
     name                          = "if-config-external-04"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.2.15"
   }
 
   ip_configuration {
     name                          = "if-config-external-05"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = false
+    private_ip_address = "10.0.2.50"
   }
 
   tags = {
