@@ -9,7 +9,7 @@ resource "volterra_origin_pool" "pool-ip-apm" {
   }
   origin_servers {
     private_ip {
-      ip              = "10.0.2.12"
+      ip              = "10.0.2.7"
       outside_network = true
       site_locator {
         site {

@@ -48,7 +48,7 @@
                             "server": {
                                 "bigip": "/Common/calalang-azure-0"
                             },
-                            "virtualServer": "/bigipCalalangNet/bigip.calalang.net/https-10-0-2-14-as3",
+                            "virtualServer": "/bigipCalalangNet/bigip.calalang.net/https-10-0-2-6-as3",
                             "dependsOn": "none"
                         }
                     ],

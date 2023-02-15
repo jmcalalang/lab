@@ -1,9 +1,9 @@
 # This resource will create and manage imperative applications on BIG-IP.
 
-# Virtual server https-10-0-2-12-terraform
-resource "bigip_ltm_virtual_server" "https-10-0-2-12-terraform" {
-  name                       = "/Common/https-10-0-2-12-terraform"
-  destination                = "10.0.2.12"
+# Virtual server https-10-0-2-7-terraform
+resource "bigip_ltm_virtual_server" "https-10-0-2-7-terraform" {
+  name                       = "/Common/https-10-0-2-7-terraform"
+  destination                = "10.0.2.7"
   description                = "apm.calalang.net"
   port                       = 443
   client_profiles            = ["/Common/clientssl"]
