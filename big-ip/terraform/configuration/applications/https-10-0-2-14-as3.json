@@ -5,7 +5,7 @@
     "declaration": {
         "class": "ADC",
         "schemaVersion": "3.43.0",
-        "id": "bigip.calalang.net",
+        "id": "bigipCalalangNetAS3",
         "bigipCalalangNet": {
             "class": "Tenant",
             "bigip.calalang.net": {

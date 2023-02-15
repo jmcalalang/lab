@@ -45,7 +45,7 @@ resource "azurerm_network_interface" "nic-management" {
   count               = sum([var.big-ip-instance-count])
 
   ip_configuration {
-    name                          = "if-config"
+    name                          = "if-config-management-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-management.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
@@ -65,12 +65,41 @@ resource "azurerm_network_interface" "nic-internal" {
   resource_group_name  = azurerm_resource_group.big-ip-resource-group.name
   count                = sum([var.big-ip-instance-count])
   enable_ip_forwarding = true
+  enable_accelerated_networking = true
 
   ip_configuration {
-    name                          = "if-config"
+    name                          = "if-config-internal-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
+  }
+
+  ip_configuration {
+    name                          = "if-config-internal-02"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-internal-03"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-internal-04"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-internal-05"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
   }
 
   tags = {
@@ -85,12 +114,41 @@ resource "azurerm_network_interface" "nic-external" {
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
   count               = sum([var.big-ip-instance-count])
+  enable_accelerated_networking = true
 
   ip_configuration {
-    name                          = "if-config"
+    name                          = "if-config-external-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
+  }
+
+  ip_configuration {
+    name                          = "if-config-external-02"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-external-03"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-external-04"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
+  }
+
+  ip_configuration {
+    name                          = "if-config-external-05"
+    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    private_ip_address_allocation = "Dynamic"
+    primary                       = false
   }
 
   tags = {
