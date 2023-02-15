@@ -60,11 +60,11 @@ resource "azurerm_network_interface" "nic-management" {
 }
 
 resource "azurerm_network_interface" "nic-internal" {
-  name                 = "nic-internal-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-  location             = azurerm_resource_group.big-ip-resource-group.location
-  resource_group_name  = azurerm_resource_group.big-ip-resource-group.name
-  count                = sum([var.big-ip-instance-count])
-  enable_ip_forwarding = true
+  name                          = "nic-internal-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  location                      = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name           = azurerm_resource_group.big-ip-resource-group.name
+  count                         = sum([var.big-ip-instance-count])
+  enable_ip_forwarding          = true
   enable_accelerated_networking = true
 
   ip_configuration {
@@ -110,10 +110,10 @@ resource "azurerm_network_interface" "nic-internal" {
 }
 
 resource "azurerm_network_interface" "nic-external" {
-  name                = "nic-external-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-  location            = azurerm_resource_group.big-ip-resource-group.location
-  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-  count               = sum([var.big-ip-instance-count])
+  name                          = "nic-external-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  location                      = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name           = azurerm_resource_group.big-ip-resource-group.name
+  count                         = sum([var.big-ip-instance-count])
   enable_accelerated_networking = true
 
   ip_configuration {
