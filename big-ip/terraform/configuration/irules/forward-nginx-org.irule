@@ -1,3 +1,0 @@
-when CLIENT_ACCEPTED {
-    virtual /bigipCalalangNet/bigip.calalang.net/https-10-0-2-14-as3
-}
