@@ -69,28 +69,28 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: Terraform fmt
+      - name: Terraform F5XC-Terraform fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Init
+      - name: Terraform F5XC-Terraform Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Validate
+      - name: Terraform F5XC-Terraform Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Destroy
-        id: destroy
-        run: terraform destroy --auto-approve
+      - name: Terraform F5XC-Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
 
-#      - name: Terraform Apply
-#        id: apply
-#        run: terraform apply --auto-approve
+#      - name: Terraform F5XC-Terraform Destroy
+#        id: destroy
+#        run: terraform destroy --auto-approve
 
-      - name: Upload Terraform State
+      - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
           name: f5xc-terraform-state
@@ -201,24 +201,28 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: Terraform fmt
+      - name: Terraform BIG-IP-Terraform-Infrastructure fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Init
+      - name: Terraform BIG-IP-Terraform-Infrastructure Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Validate
+      - name: Terraform BIG-IP-Terraform-Infrastructure Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve
+#      - name: Terraform BIG-IP-Terraform-Infrastructure Apply
+#        id: apply
+#        run: terraform apply --auto-approve
 
-      - name: Upload Terraform State
+      - name: Terraform BIG-IP-Terraform-Infrastructure Destroy
+        id: destroy
+        run: terraform destroy --auto-approve
+
+      - name: Upload Terraform BIG-IP-Terraform-Infrastructure State
         uses: actions/upload-artifact@v3
         with:
           name: big-ip-terraform-infrastructure-state
@@ -270,24 +274,28 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: Terraform fmt
+      - name: Terraform BIG-IP-Terraform-Configuration fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Init
+      - name: Terraform BIG-IP-Terraform-Configuration Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Validate
+      - name: Terraform BIG-IP-Terraform-Configuration Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
+      - name: Terraform BIG-IP-Terraform-Configuration Apply
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform State
+#      - name: Terraform BIG-IP-Terraform-Configuration Destroy
+#        id: destroy
+#        run: terraform destroy --auto-approve
+
+      - name: Upload Terraform BIG-IP-Terraform-Configuration State
         uses: actions/upload-artifact@v3
         with:
           name: big-ip-terraform-configuration-state
@@ -398,24 +406,28 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: Terraform fmt
+      - name: Terraform NGINX-Terraform-Infrastructure fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Init
+      - name: Terraform NGINX-Terraform-Infrastructure Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Validate
+      - name: Terraform NGINX-Terraform-Infrastructure Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
+      - name: Terraform NGINX-Terraform-Infrastructure Apply
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform State
+#      - name: Terraform NGINX-Terraform-Infrastructure Destroy
+#        id: destroy
+#        run: terraform destroy --auto-approve
+
+      - name: Upload Terraform NGINX-Terraform-Infrastructure State
         uses: actions/upload-artifact@v3
         with:
           name: nginx-terraform-state
@@ -468,24 +480,28 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: Terraform fmt
+      - name: Terraform GoDaddy-Terraform fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Init
+      - name: Terraform GoDaddy-Terraform Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Validate
+      - name: Terraform GoDaddy-Terraform Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
+      - name: Terraform GoDaddy-Terraform Apply
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform State
+#      - name: Terraform GoDaddy-Terraform Destroy
+#        id: apply
+#        run: terraform destroy --auto-approve
+
+      - name: Upload Terraform GoDaddy-Terraform State
         uses: actions/upload-artifact@v3
         with:
           name: godaddy-terraform-state
