@@ -82,9 +82,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy --auto-approve
+
+#      - name: Terraform Apply
+#        id: apply
+#        run: terraform apply --auto-approve
 
       - name: Upload Terraform State
         uses: actions/upload-artifact@v3
