@@ -70,8 +70,9 @@ resource "azurerm_network_interface" "nic-internal" {
   ip_configuration {
     name                          = "if-config-internal-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = true
+    private_ip_address            = "10.0.3.5"
   }
 
   ip_configuration {
@@ -123,8 +124,9 @@ resource "azurerm_network_interface" "nic-external" {
   ip_configuration {
     name                          = "if-config-external-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
     primary                       = true
+    private_ip_address            = "10.0.2.5"
   }
 
   ip_configuration {

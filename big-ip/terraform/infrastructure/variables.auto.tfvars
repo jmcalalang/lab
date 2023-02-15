@@ -1,7 +1,7 @@
 # Azure variables
 
 location                        = "westus2"
-resource_group_name             = "calalang-bigip-terraform-rg"
+resource_group_name             = "calalang-bigip-rg"
 tag_owner                       = "j.calalang@f5.com"
 existing_subnet_management_name = "mgmt"
 existing_subnet_internal_name   = "internal"
