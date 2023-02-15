@@ -6,56 +6,56 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.kubernetes"
     type = "CNAME"
-    data = "a5bd2c7550b9469280e6a7fa612ad638.autocerts.ves.volterra.io"
+    data = "1d2849df3b0d4852b4de73e8c6e4bd6d.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "kubernetes"
     type = "CNAME"
-    data = "ves-io-f4e9697e-fe31-487c-a25f-30ecacfebea8.ac.vh.ves.io"
+    data = "ves-io-378639c7-5a35-49c4-a280-61f068f8a1ac.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.argo"
     type = "CNAME"
-    data = "89757a8354284253b6521771401a9bc3.autocerts.ves.volterra.io"
+    data = "0c602a9c162940daa347dbcf7221d4b5.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "argo"
     type = "CNAME"
-    data = "ves-io-f4e9697e-fe31-487c-a25f-30ecacfebea8.ac.vh.ves.io"
+    data = "ves-io-378639c7-5a35-49c4-a280-61f068f8a1ac.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.nms"
     type = "CNAME"
-    data = "884f4b2a586b45538d4a7d6a26f2232d.autocerts.ves.volterra.io"
+    data = "f03a69faff5546f28575cde62cf1ba9c.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "nms"
     type = "CNAME"
-    data = "ves-io-f4e9697e-fe31-487c-a25f-30ecacfebea8.ac.vh.ves.io"
+    data = "ves-io-378639c7-5a35-49c4-a280-61f068f8a1ac.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.jwt.nms"
     type = "CNAME"
-    data = "5449c620dc644f1eb3e8377eabd3f87b.autocerts.ves.volterra.io"
+    data = "be3ebb0410e24a50953720de8e7f0641.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "jwt.nms"
     type = "CNAME"
-    data = "ves-io-f4e9697e-fe31-487c-a25f-30ecacfebea8.ac.vh.ves.io"
+    data = "ves-io-378639c7-5a35-49c4-a280-61f068f8a1ac.ac.vh.ves.io"
     ttl  = 3600
   }
 
@@ -64,14 +64,14 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.nginx"
     type = "CNAME"
-    data = "6e0c898fbe0c4d81a8987cdc0055c608.autocerts.ves.volterra.io"
+    data = "6f217aed38d3411999b55809432b53da.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "nginx"
     type = "CNAME"
-    data = "ves-io-64eec98a-0583-4f91-829f-79f6773d1e7e.ac.vh.ves.io"
+    data = "ves-io-135930e9-1d5a-4969-98fc-7a97c7200036.ac.vh.ves.io"
     ttl  = 3600
   }
 
@@ -80,42 +80,42 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.bigip"
     type = "CNAME"
-    data = "22a5cbc1825c44f8bdf48e8f2d6338e6.autocerts.ves.volterra.io"
+    data = "2045bde44bd74251ac705adb881e464b.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "bigip"
     type = "CNAME"
-    data = "ves-io-63ab01f1-be0f-434f-92ed-b59df9ece6df.ac.vh.ves.io"
+    data = "ves-io-7f5e0391-5fb1-41e9-86d2-0977c413df7c.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.apm"
     type = "CNAME"
-    data = "08052900b5bf4aa8a67d995c6134a6d5.autocerts.ves.volterra.io"
+    data = "8991903199134d23985aeddd22b84197.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "apm"
     type = "CNAME"
-    data = "ves-io-63ab01f1-be0f-434f-92ed-b59df9ece6df.ac.vh.ves.io"
+    data = "ves-io-7f5e0391-5fb1-41e9-86d2-0977c413df7c.ac.vh.ves.io"
     ttl  = 3600
   }
 
   record {
     name = "_acme-challenge.ingresslink"
     type = "CNAME"
-    data = "d33dd1a37d004f048948e46f53850c26.autocerts.ves.volterra.io"
+    data = "52c84bf7c43b4cd2aa547a9be034fac6.autocerts.ves.volterra.io"
     ttl  = 3600
   }
 
   record {
     name = "ingresslink"
     type = "CNAME"
-    data = "ves-io-63ab01f1-be0f-434f-92ed-b59df9ece6df.ac.vh.ves.io"
+    data = "ves-io-7f5e0391-5fb1-41e9-86d2-0977c413df7c.ac.vh.ves.io"
     ttl  = 3600
   }
 
