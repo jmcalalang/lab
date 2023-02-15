@@ -82,13 +82,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform F5XC-Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve
+#      - name: Terraform F5XC-Terraform Apply
+#        id: apply
+#        run: terraform apply --auto-approve
 
-#      - name: Terraform F5XC-Terraform Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
+      - name: Terraform F5XC-Terraform Destroy
+        id: destroy
+        run: terraform destroy --auto-approve
 
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
@@ -493,13 +493,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform GoDaddy-Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve
-
-#      - name: Terraform GoDaddy-Terraform Destroy
+#      - name: Terraform GoDaddy-Terraform Apply
 #        id: apply
-#        run: terraform destroy --auto-approve
+#        run: terraform apply --auto-approve
+
+      - name: Terraform GoDaddy-Terraform Destroy
+        id: apply
+        run: terraform destroy --auto-approve
 
       - name: Upload Terraform GoDaddy-Terraform State
         uses: actions/upload-artifact@v3
