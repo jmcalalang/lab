@@ -76,28 +76,28 @@ resource "azurerm_network_interface" "nic-internal" {
 
   ip_configuration {
     name                          = "if-config-internal-02"
-    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
 
   ip_configuration {
     name                          = "if-config-internal-03"
-    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
 
   ip_configuration {
     name                          = "if-config-internal-04"
-    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
 
   ip_configuration {
     name                          = "if-config-internal-05"
-    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
+    subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
