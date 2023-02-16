@@ -224,7 +224,7 @@
                     },
                     "devices": [
                         {
-                            "address": "10.0.2.5"
+                            "address": "10.0.2.4"
                         }
                     ],
                     "monitors": [
