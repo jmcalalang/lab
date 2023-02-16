@@ -1,4 +1,4 @@
-# BIG-IP Access Profiles
+# BIG-IP Partitions
 
 # Create BIG-IP {{BIGIPhost01}} Resources
 
@@ -11,9 +11,9 @@
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Create AKS partition {{ partition_name }}
+- name: Create AKS partition {{ partition }}
   bigip_partition:
-    name: "{{ partition_name }}"
+    name: "{{ partition }}"
     description: Partition for Calalang AKS 
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
