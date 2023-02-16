@@ -4,7 +4,7 @@ metadata:
   name: ingresslink-nginx-ingress
   namespace: nginx-ingress
 spec:
-  virtualServerAddress: "10.0.2.5"
+  virtualServerAddress: "10.0.2.8"
   iRules:
     - /Common/Shared/Proxy_Protocol_iRule
   selector:
