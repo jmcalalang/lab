@@ -30,25 +30,6 @@
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Provision AFM
-  bigip_provision:
-    module: afm
-    level: nominal
-    provider: "{{ bigip_provider }}"
-  delegate_to: localhost
-  with_items:
-    - "{{ bigips }}"
-  when: state == "present"
-
-- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
-  bigip_wait:
-    timeout: 300
-    provider: "{{ bigip_provider }}"
-  delegate_to: localhost
-  with_items:
-    - "{{ bigips }}"
-  when: state == "present"
-
 - name: Provision LTM
   bigip_provision:
     module: ltm
@@ -90,25 +71,6 @@
 - name: Provision GTM
   bigip_provision:
     module: gtm
-    level: nominal
-    provider: "{{ bigip_provider }}"
-  delegate_to: localhost
-  with_items:
-    - "{{ bigips }}"
-  when: state == "present"
-
-- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
-  bigip_wait:
-    timeout: 300
-    provider: "{{ bigip_provider }}"
-  delegate_to: localhost
-  with_items:
-    - "{{ bigips }}"
-  when: state == "present"
-
-- name: Provision FPS
-  bigip_provision:
-    module: fps
     level: nominal
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
