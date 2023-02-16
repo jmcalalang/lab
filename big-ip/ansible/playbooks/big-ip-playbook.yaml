@@ -6,4 +6,5 @@
     - ../roles/install-atc
     - ../roles/access-profiles
     - ../roles/application-services-3
+    - ../roles/partitions
     - ../roles/telemetry-streaming

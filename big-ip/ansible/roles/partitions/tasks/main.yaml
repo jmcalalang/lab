@@ -1,0 +1,20 @@
+# BIG-IP Access Profiles
+
+# Create BIG-IP {{BIGIPhost01}} Resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Create AKS partition {{ partition_name }}
+  bigip_partition:
+    name: "{{ partition_name }}"
+    description: Partition for Calalang AKS 
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  when: state == "present"
