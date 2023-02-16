@@ -11,9 +11,10 @@
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Create AKS partition {{ partition }}
+- name: Create AKS partition
   bigip_partition:
     name: "{{ partition }}"
+    description: AKS Partition
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   when: state == "present"
