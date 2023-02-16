@@ -3,6 +3,18 @@
 # NOTE: Startup Script is run once / initialization only (Cloud-Init behavior vs. typical re-entrant for Azure Custom Script Extension )
 # For 15.1+ and above, Cloud-Init will run the script directly and can remove Azure Custom Script Extension
 
+# Send output to log file and serial console
+mkdir -p  /var/log/cloud /config/cloud /var/config/rest/downloads
+LOG_FILE=/var/log/cloud/startup-script.log
+[[ ! -f $LOG_FILE ]] && touch $LOG_FILE || { echo "Run Only Once. Exiting"; exit; }
+npipe=/tmp/$$.tmp
+trap "rm -f $npipe" EXIT
+mknod $npipe p
+tee <$npipe -a $LOG_FILE /dev/ttyS0 &
+exec 1>&-
+exec 1>$npipe
+exec 2>&1
+
 # Run Immediately Before MCPD starts
 /usr/bin/setdb provision.extramb 2048
 /usr/bin/setdb restjavad.useextramb true
@@ -89,7 +101,7 @@ extension_services:
             autoPhonehome: true
           My_Disk:
             class: Disk
-            applicationData: 52428800
+            applicationData: 	52428800
           My_Dns:
             class: DNS
             nameServers:
