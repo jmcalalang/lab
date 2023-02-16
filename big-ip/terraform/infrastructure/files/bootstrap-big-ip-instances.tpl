@@ -101,7 +101,7 @@ extension_services:
             autoPhonehome: true
           My_Disk:
             class: Disk
-            applicationData: 	52428800
+            applicationData: 47185920
           My_Dns:
             class: DNS
             nameServers:
