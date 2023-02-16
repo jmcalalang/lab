@@ -14,7 +14,6 @@
 - name: Create AKS partition {{ partition }}
   bigip_partition:
     name: "{{ partition }}"
-    description: Partition for Calalang AKS 
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   when: state == "present"
