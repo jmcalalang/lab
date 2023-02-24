@@ -5,7 +5,9 @@ resource "azurerm_resource_group" "nginx-resource-group" {
   location = var.location
 
   tags = {
-    owner = var.tag_owner
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    owner       = var.tag_owner
   }
 
 }

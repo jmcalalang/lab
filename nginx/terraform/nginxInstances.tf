@@ -28,8 +28,8 @@ resource "azurerm_network_interface" "nic-api-gw" {
   }
 
   tags = {
-    environment = "lab"
-    nginx       = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -78,9 +78,8 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
   }
 
   tags = {
-    environment = "lab"
-    nginx       = "instances"
-    nginx-role  = "api-gw"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -122,8 +121,8 @@ resource "azurerm_network_interface" "nic-instances" {
   }
 
   tags = {
-    environment = "lab"
-    nginx       = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -172,9 +171,8 @@ resource "azurerm_virtual_machine" "nginx-instance" {
   }
 
   tags = {
-    environment = "lab"
-    nginx       = "instances"
-    nginx-role  = "proxy"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }

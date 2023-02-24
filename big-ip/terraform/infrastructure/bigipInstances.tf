@@ -32,8 +32,8 @@ resource "azurerm_public_ip" "public-ip-address-management" {
   domain_name_label   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -53,8 +53,8 @@ resource "azurerm_network_interface" "nic-management" {
   }
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -103,8 +103,8 @@ resource "azurerm_network_interface" "nic-internal" {
   }
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -152,8 +152,8 @@ resource "azurerm_network_interface" "nic-external" {
   }
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }
@@ -215,8 +215,8 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   }
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 }

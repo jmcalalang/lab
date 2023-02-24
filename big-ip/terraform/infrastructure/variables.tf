@@ -8,10 +8,6 @@ variable "resource_group_name" {
   type        = string
   description = "Resource Group name"
 }
-variable "tag_owner" {
-  type        = string
-  description = "Owner Tag"
-}
 variable "existing_subnet_management_name" {
   type        = string
   description = "Name of existing management Subnet"
@@ -31,6 +27,18 @@ variable "existing_subnet_vnet" {
 variable "existing_subnet_resource_group" {
   type        = string
   description = "Name of existing Resource Group"
+}
+variable "tag_owner" {
+  type        = string
+  description = "Owner Tag"
+}
+variable "tag_resource_type" {
+  type        = string
+  description = "Resource Type"
+}
+variable "tag_environment" {
+  type        = string
+  description = "Environment"
 }
 
 # BIG-IP variables

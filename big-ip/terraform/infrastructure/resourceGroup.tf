@@ -5,8 +5,8 @@ resource "azurerm_resource_group" "big-ip-resource-group" {
   location = var.location
 
   tags = {
-    environment = "lab"
-    big-ip      = "instances"
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
 

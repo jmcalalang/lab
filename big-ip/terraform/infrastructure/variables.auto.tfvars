@@ -3,6 +3,8 @@
 location                        = "westus2"
 resource_group_name             = "calalang-bigip-rg"
 tag_owner                       = "j.calalang@f5.com"
+tag_resource_type               = "big-ip"
+tag_environment                 = "lab"
 existing_subnet_management_name = "mgmt"
 existing_subnet_internal_name   = "internal"
 existing_subnet_external_name   = "external"
