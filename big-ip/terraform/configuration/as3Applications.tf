@@ -2,7 +2,7 @@
 
 # HTTP declarations
 data "template_file" "http-declarations" {
-  template = file("${path.module}/applications/http-*.json")
+  template = file("./applications/http-*.json")
   vars = {
   }
 }
@@ -14,7 +14,7 @@ resource "bigip_as3" "http-declarations" {
 
 # HTTPs declarations
 data "template_file" "https-declarations" {
-  template = file("${path.module}/applications/https-*.json")
+  template = file("./applications/https-*.json")
   vars = {
   }
 }
@@ -26,7 +26,7 @@ resource "bigip_as3" "https-declarations" {
 
 # WIP declarations
 data "template_file" "wip-declarations" {
-  template   = file("${path.module}/applications/wip-*.json")
+  template   = file("./applications/wip-*.json")
   depends_on = [bigip_as3.http-declarations, bigip_as3.https-declarations]
   vars = {
   }
@@ -39,7 +39,7 @@ resource "bigip_as3" "wip-declarations" {
 
 # TCP declarations
 data "template_file" "tcp-declarations" {
-  template = file("${path.module}/applications/tcp-*.json")
+  template = file("./applications/tcp-*.json")
   vars = {
   }
 }
@@ -51,7 +51,7 @@ resource "bigip_as3" "tcp-declarations" {
 
 # UDP declarations
 data "template_file" "udp-declarations" {
-  template = file("${path.module}/applications/udp-*.json")
+  template = file("./applications/udp-*.json")
   vars = {
   }
 }
