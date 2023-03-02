@@ -530,28 +530,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-#      - name: Download Terraform State
-#        id: download-artifact
-#        uses: dawidd6/action-download-artifact@v2
-#        with:
-#          name: kubernetes-terraform-infrastructure-state
-#          # Optional, a directory where to extract artifact(s), defaults to the current directory
-#          path: kubernetes/terraform/infrastructure
-#          # Optional, defaults to current repo
-#          check_artifacts: false
-#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-#          # default false
-#          search_artifacts: true
-#          # Optional, run number from the workflow
-#          # run_number: 3598306214
-#          # Optional, choose to skip unpacking the downloaded artifact(s)
-#          # default false
-#          # skip_unpack: false
-#          # Optional, choose how to exit the action if no artifact is found
-#          # can be one of:
-#          #  "fail", "warn", "ignore"
-#          # default fail
-#          if_no_artifact_found: fail
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: kubernetes-terraform-infrastructure-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: kubernetes/terraform/infrastructure
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
