@@ -589,9 +589,10 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [Kubernetes-Terraform-Infrastructure]
 
-    # Used for Azure Login
-    permissions:
-      id-token: write
+#    # Used for Azure Login
+#    permissions:
+#      id-token: write
+#      contents: read
 
     # Environment Variables
     env:
