@@ -11,6 +11,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Used for Azure Login
+permissions:
+  id-token: write
+  contents: read
+
 # jobs for F5XC, BIG-IP, NGINX, and NMS
 jobs:
 
@@ -593,12 +598,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-
-    # Used for Azure Login
-
-    permissions:
-      id-token: write # This is required for requesting the JWT
-
+  
     # Where are the Terraform files
     defaults:
       run:
