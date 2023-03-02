@@ -11,11 +11,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Used for Azure Login
-permissions:
-  id-token: write
-  contents: read
-
 # jobs for F5XC, BIG-IP, NGINX, and NMS
 jobs:
 
@@ -518,6 +513,7 @@ jobs:
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -592,6 +588,12 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [Kubernetes-Terraform-Infrastructure]
+
+    # Used for Azure Login
+    permissions:
+      id-token: write
+      contents: read
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -619,6 +621,10 @@ jobs:
         with:
           resource-group: '${{ secrets.AZURE_AKS_RG }}' 
           cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
 
       - name: Add bitnami charts
         id: bitnami-add
