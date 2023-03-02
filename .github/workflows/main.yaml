@@ -635,7 +635,7 @@ jobs:
 
       - name: Add argo-cd charts
         id: argo-cd-add
-        run: helm repo add argo-cd https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+        run: helm repo add argo https://argoproj.github.io/argo-helm
         continue-on-error: false
 
       - name: Update charts
