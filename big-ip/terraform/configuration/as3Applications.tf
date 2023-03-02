@@ -2,28 +2,28 @@
 
 # HTTP declarations
 resource "bigip_as3" "http-declarations" {
-  as3_json = fileset(path.module, "/applications/http-**.json")
+  as3_json = fileset(path.module, "applications/as3/http/**.json")
 }
 
 # HTTPs declarations
 resource "bigip_as3" "https-declarations" {
-  as3_json = fileset(path.module, "/applications/https-**.json")
+  as3_json = fileset(path.module, "/applications/as3/https/**.json")
 }
 
 # WIP declarations
 resource "bigip_as3" "wip-declarations" {
-  as3_json   = fileset(path.module, "/applications/wip-**.json")
+  as3_json   = fileset(path.module, "/applications/as3/wip/**.json")
   depends_on = [bigip_as3.http-declarations, bigip_as3.https-declarations]
 }
 
 # TCP declarations
 resource "bigip_as3" "tcp-declarations" {
-  as3_json = fileset(path.module, "/applications/tcp-**.json")
+  as3_json = fileset(path.module, "/applications/as3/tcp/**.json")
 }
 
 # UDP declarations
 resource "bigip_as3" "udp-declarations" {
-  as3_json = fileset(path.module, "/applications/udp-**.json")
+  as3_json = fileset(path.module, "/applications/as3/udp/**.json")
 }
 
 ## http bigip.calalang.net
