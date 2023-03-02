@@ -13,3 +13,19 @@ resource "helm_release" "nginx" {
   }
 
 }
+
+resource "helm_release" "argocd" {
+  name       = "argo-cd"
+  repository = "https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd"
+  chart      = "argo-cd"
+
+  values = [
+    "${file("./files/helm/argocd-values.yaml")}"
+  ]
+
+  set {
+    name  = "service.type"
+    value = "ClusterIP"
+  }
+
+}
