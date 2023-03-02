@@ -533,7 +533,7 @@ jobs:
 #        id: download-artifact
 #        uses: dawidd6/action-download-artifact@v2
 #        with:
-#          name: kubernetes-terraform-state
+#          name: kubernetes-terraform-infrastructure-state
 #          # Optional, a directory where to extract artifact(s), defaults to the current directory
 #          path: kubernetes/terraform/infrastructure
 #          # Optional, defaults to current repo
@@ -579,7 +579,7 @@ jobs:
       - name: Upload Terraform Kubernetes-Terraform-Infrastructure State
         uses: actions/upload-artifact@v3
         with:
-          name: kubernetes-terraform-state
+          name: kubernetes-terraform-infrastructure-state
           path: /home/runner/work/lab/lab/kubernetes/terraform/infrastructure/terraform.tfstate
           retention-days: 30
 
@@ -593,6 +593,11 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+
+    # Used for Azure Login
+
+    permissions:
+      id-token: write # This is required for requesting the JWT
 
     # Where are the Terraform files
     defaults:
@@ -629,7 +634,7 @@ jobs:
 #        id: download-artifact
 #        uses: dawidd6/action-download-artifact@v2
 #        with:
-#          name: kubernetes-terraform-state
+#          name: kubernetes-terraform-configuration-state
 #          # Optional, a directory where to extract artifact(s), defaults to the current directory
 #          path: kubernetes/terraform/configuration
 #          # Optional, defaults to current repo
@@ -675,6 +680,6 @@ jobs:
       - name: Upload Terraform Kubernetes-Terraform-Configuration State
         uses: actions/upload-artifact@v3
         with:
-          name: kubernetes-terraform-state
+          name: kubernetes-terraform-configuration-state
           path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
           retention-days: 30
