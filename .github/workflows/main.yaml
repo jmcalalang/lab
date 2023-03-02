@@ -606,9 +606,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_APPID }}
-          tenant-id: ${{ secrets.AZURE_TENANT }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION }}
+          creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}","tenantId":"${{ secrets.AZURE_TENANT }}"}'
 
       - name: Azure Kubernetes Context
         id: set-context
