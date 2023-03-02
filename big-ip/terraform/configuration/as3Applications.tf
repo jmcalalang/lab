@@ -2,33 +2,28 @@
 
 # HTTP declarations
 resource "bigip_as3" "http-declarations" {
-  for_each = fileset(path.module, "applications/http-**.json")
-  as3_json = each.key
+  as3_json = fileset(path.module, "/applications/http-**.json")
 }
 
 # HTTPs declarations
 resource "bigip_as3" "https-declarations" {
-  for_each = fileset(path.module, "applications/https-**.json")
-  as3_json = each.key
+  as3_json = fileset(path.module, "/applications/https-**.json")
 }
 
 # WIP declarations
 resource "bigip_as3" "wip-declarations" {
-  for_each   = fileset(path.module, "applications/wip-**.json")
-  as3_json   = each.key
-  depends_on = [bigip_as3.http-declarations]
+  as3_json   = fileset(path.module, "/applications/wip-**.json")
+  depends_on = [bigip_as3.http-declarations, bigip_as3.https-declarations]
 }
 
 # TCP declarations
 resource "bigip_as3" "tcp-declarations" {
-  for_each = fileset(path.module, "applications/tcp-**.json")
-  as3_json = each.key
+  as3_json = fileset(path.module, "/applications/tcp-**.json")
 }
 
 # UDP declarations
 resource "bigip_as3" "udp-declarations" {
-  for_each = fileset(path.module, "applications/udp-**.json")
-  as3_json = each.key
+  as3_json = fileset(path.module, "/applications/udp-**.json")
 }
 
 ## http bigip.calalang.net
