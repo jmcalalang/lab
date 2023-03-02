@@ -584,108 +584,108 @@ jobs:
           path: /home/runner/work/lab/lab/kubernetes/terraform/infrastructure/terraform.tfstate
           retention-days: 30
 
-#  Kubernetes-Terraform-Configuration:
-#    # The type of runner that the job will run on
-#    runs-on: ubuntu-20.04
-#    needs: [Kubernetes-Terraform-Infrastructure]
-#
-#    # Used for Azure Login
-#    permissions:
-#      id-token: write
-#      contents: read
-#
-#    # Environment Variables
-#    env:
-#      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
-#      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
-#      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-#      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-#  
-#    # Where are the Terraform files
-#    defaults:
-#      run:
-#        working-directory: kubernetes/terraform/configuration
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Azure login
-#        uses: azure/login@v1
-#        with:
-#          creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}",#"tenantId":"${{ secrets.AZURE_TENANT }}"}'
-#
-#      - name: Azure Kubernetes Context
-#        id: set-context
-#        uses: azure/aks-set-context@v3
-#        with:
-#          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
-#          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
-#
-#      - name: Setup kubectl
-#        id: install-kubectl
-#        uses: azure/setup-kubectl@v3
-#
-#      - name: Add bitnami charts
-#        id: bitnami-add
-#        run: helm repo add bitnami https://charts.bitnami.com/bitnami
-#        continue-on-error: false
-#
-#      - name: Update bitnami charts
-#        id: bitnami-update
-#        run: helm repo update 
-#        continue-on-error: false
-#
-##      - name: Download Terraform State
-##        id: download-artifact
-##        uses: dawidd6/action-download-artifact@v2
-##        with:
-##          name: kubernetes-terraform-configuration-state
-##          # Optional, a directory where to extract artifact(s), defaults to the current directory
-##          path: kubernetes/terraform/configuration
-##          # Optional, defaults to current repo
-##          check_artifacts: false
-##          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-##          # default false
-##          search_artifacts: true
-##          # Optional, run number from the workflow
-##          # run_number: 3598306214
-##          # Optional, choose to skip unpacking the downloaded artifact(s)
-##          # default false
-##          # skip_unpack: false
-##          # Optional, choose how to exit the action if no artifact is found
-##          # can be one of:
-##          #  "fail", "warn", "ignore"
-##          # default fail
-##          if_no_artifact_found: fail
-#
-#      - name: HashiCorp Terraform Setup
-#        uses: hashicorp/setup-terraform@v2
-#
-#      - name: Terraform Kubernetes-Terraform-Configuration fmt
-#        id: fmt
-#        run: terraform fmt -check
-#        continue-on-error: false
-#
-#      - name: Terraform Kubernetes-Terraform-Configuration Init
-#        id: init
-#        run: terraform init -force-copy
-#
-#      - name: Terraform Kubernetes-Terraform-Configuration Validate
-#        id: validate
-#        run: terraform validate -no-color
-#
-#      - name: Terraform Kubernetes-Terraform-Configuration Apply
-#        id: apply
-#        run: terraform apply --auto-approve
-#
-##      - name: Terraform Kubernetes-Terraform-Configuration Destroy
-##        id: destroy
-##        run: terraform destroy --auto-approve
-#
-#      - name: Upload Terraform Kubernetes-Terraform-Configuration State
-#        uses: actions/upload-artifact@v3
+  Kubernetes-Terraform-Configuration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [Kubernetes-Terraform-Infrastructure]
+
+    # Used for Azure Login
+    permissions:
+      id-token: write
+      contents: read
+
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+  
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: kubernetes/terraform/configuration
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}","tenantId":"${{ secrets.AZURE_TENANT }}"}'
+
+      - name: Azure Kubernetes Context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
+          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Add bitnami charts
+        id: bitnami-add
+        run: helm repo add bitnami https://charts.bitnami.com/bitnami
+        continue-on-error: false
+
+      - name: Update bitnami charts
+        id: bitnami-update
+        run: helm repo update 
+        continue-on-error: false
+
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
 #        with:
 #          name: kubernetes-terraform-configuration-state
-#          path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
-#          retention-days: 30
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: kubernetes/terraform/configuration
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
+
+      - name: HashiCorp Terraform Setup
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Kubernetes-Terraform-Configuration fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Kubernetes-Terraform-Configuration Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform Kubernetes-Terraform-Configuration Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Kubernetes-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+#      - name: Terraform Kubernetes-Terraform-Configuration Destroy
+#        id: destroy
+#        run: terraform destroy --auto-approve
+
+      - name: Upload Terraform Kubernetes-Terraform-Configuration State
+        uses: actions/upload-artifact@v3
+        with:
+          name: kubernetes-terraform-configuration-state
+          path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
+          retention-days: 30

@@ -19,7 +19,6 @@ terraform {
 
 provider "kubernetes" {
   # Configuration options
-  config_path = "~/.kube/config"
 }
 
 provider "kubectl" {
@@ -27,7 +26,5 @@ provider "kubectl" {
 }
 
 provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
+  # Configuration options
 }
