@@ -592,7 +592,6 @@ jobs:
     # Used for Azure Login
     permissions:
       id-token: write
-      contents: read
 
     # Environment Variables
     env:
