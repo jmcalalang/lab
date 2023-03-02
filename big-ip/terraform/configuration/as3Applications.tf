@@ -1,63 +1,33 @@
 # This resource will create and manage AS3 applications on BIG-IP from provided JSON declarations.
 
 # HTTP declarations
-data "template_file" "http-declarations" {
-  template = fileset("${path.module}/applications/http-*.json")
-  vars = {
-  }
-}
-
 resource "bigip_as3" "http-declarations" {
-  for_each = toset(data.template_file.http-declarations.documents)
+  for_each = fileset(path.module, "applications/http-**.json")
   as3_json = each.value
 }
 
 # HTTPs declarations
-data "template_file" "https-declarations" {
-  template = fileset("${path.module}/applications/https-*.json")
-  vars = {
-  }
-}
-
 resource "bigip_as3" "https-declarations" {
-  for_each = toset(data.template_file.https-declarations.documents)
+  for_each = fileset(path.module, "applications/https-**.json")
   as3_json = each.value
 }
 
 # WIP declarations
-data "template_file" "wip-declarations" {
-  template   = fileset("${path.module}/applications/wip-*.json")
-  depends_on = [bigip_as3.http-declarations, bigip_as3.https-declarations]
-  vars = {
-  }
-}
-
 resource "bigip_as3" "wip-declarations" {
-  for_each = toset(data.template_file.wip-declarations.documents)
-  as3_json = each.value
+  for_each   = fileset(path.module, "applications/wip-**.json")
+  as3_json   = each.value
+  depends_on = [bigip_as3.http-declarations]
 }
 
 # TCP declarations
-data "template_file" "tcp-declarations" {
-  template = fileset("${path.module}/applications/tcp-*.json")
-  vars = {
-  }
-}
-
 resource "bigip_as3" "tcp-declarations" {
-  for_each = toset(data.template_file.tcp-declarations.documents)
+  for_each = fileset(path.module, "applications/tcp-**.json")
   as3_json = each.value
 }
 
 # UDP declarations
-data "template_file" "udp-declarations" {
-  template = fileset("${path.module}/applications/udp-*.json")
-  vars = {
-  }
-}
-
 resource "bigip_as3" "udp-declarations" {
-  for_each = toset(data.template_file.udp-declarations.documents)
+  for_each = fileset(path.module, "applications/udp-**.json")
   as3_json = each.value
 }
 
