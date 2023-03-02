@@ -8,8 +8,8 @@ data "template_file" "http-declarations" {
 }
 
 resource "bigip_as3" "http-declarations" {
-  for_each  = toset(data.template_file.http-declarations.documents)
-  json_body = each.value
+  for_each = toset(data.template_file.http-declarations.documents)
+  as3_json = each.value
 }
 
 # HTTPs declarations
@@ -20,20 +20,21 @@ data "template_file" "https-declarations" {
 }
 
 resource "bigip_as3" "https-declarations" {
-  for_each  = toset(data.template_file.https-declarations.documents)
-  json_body = each.value
+  for_each = toset(data.template_file.https-declarations.documents)
+  as3_json = each.value
 }
 
 # WIP declarations
 data "template_file" "wip-declarations" {
-  template = file("${path.module}/applications/wip-*.json")
+  template   = file("${path.module}/applications/wip-*.json")
+  depends_on = [bigip_as3.http-declarations, bigip_as3.https-declarations]
   vars = {
   }
 }
 
 resource "bigip_as3" "wip-declarations" {
-  for_each  = toset(data.template_file.wip-declarations.documents)
-  json_body = each.value
+  for_each = toset(data.template_file.wip-declarations.documents)
+  as3_json = each.value
 }
 
 # TCP declarations
@@ -44,8 +45,8 @@ data "template_file" "tcp-declarations" {
 }
 
 resource "bigip_as3" "tcp-declarations" {
-  for_each  = toset(data.template_file.tcp-declarations.documents)
-  json_body = each.value
+  for_each = toset(data.template_file.tcp-declarations.documents)
+  as3_json = each.value
 }
 
 # UDP declarations
@@ -56,8 +57,8 @@ data "template_file" "udp-declarations" {
 }
 
 resource "bigip_as3" "udp-declarations" {
-  for_each  = toset(data.template_file.udp-declarations.documents)
-  json_body = each.value
+  for_each = toset(data.template_file.udp-declarations.documents)
+  as3_json = each.value
 }
 
 ## http bigip.calalang.net
