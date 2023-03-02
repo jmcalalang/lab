@@ -1,67 +1,62 @@
 # This resource will create and manage AS3 applications on BIG-IP from provided JSON declarations.
 
 # HTTP declarations
-
-data "as3_http_documents" "http-declarations" {
-  pattern = "./files/applications/http-*.yaml"
+data "template_file" "http-declarations" {
+  template = file("${path.module}/applications/http-*.json")
   vars = {
   }
 }
 
 resource "bigip_as3" "http-declarations" {
-  for_each  = toset(data.as3_path_documents.http-declarations.documents)
+  for_each  = toset(data.template_file.http-declarations.documents)
   json_body = each.value
 }
 
 # HTTPs declarations
-
-data "as3_https_documents" "https-declarations" {
-  pattern = "./files/applications/https-*.yaml"
+data "template_file" "https-declarations" {
+  template = file("${path.module}/applications/https-*.json")
   vars = {
   }
 }
 
 resource "bigip_as3" "https-declarations" {
-  for_each  = toset(data.as3_path_documents.https-declarations.documents)
+  for_each  = toset(data.template_file.https-declarations.documents)
   json_body = each.value
 }
 
 # WIP declarations
-
-data "as3_wip_documents" "wip-declarations" {
-  pattern = "./files/applications/wip-*.yaml"
+data "template_file" "wip-declarations" {
+  template = file("${path.module}/applications/wip-*.json")
   vars = {
   }
 }
 
 resource "bigip_as3" "wip-declarations" {
-  for_each  = toset(data.as3_path_documents.wip-declarations.documents)
+  for_each  = toset(data.template_file.wip-declarations.documents)
   json_body = each.value
 }
 
 # TCP declarations
-
-data "as3_tcp_documents" "tcp-declarations" {
-  pattern = "./files/applications/tcp-*.yaml"
+data "template_file" "tcp-declarations" {
+  template = file("${path.module}/applications/tcp-*.json")
   vars = {
   }
 }
 
 resource "bigip_as3" "tcp-declarations" {
-  for_each  = toset(data.as3_path_documents.tcp-declarations.documents)
+  for_each  = toset(data.template_file.tcp-declarations.documents)
   json_body = each.value
 }
 
 # UDP declarations
-
-data "as3_udp_documents" "udp-declarations" {
-  pattern = "./files/applications/udp-*.yaml"
+data "template_file" "udp-declarations" {
+  template = file("${path.module}/applications/udp-*.json")
   vars = {
   }
 }
 
 resource "bigip_as3" "udp-declarations" {
-  for_each  = toset(data.as3_udp_documents.udp-declarations.documents)
+  for_each  = toset(data.template_file.udp-declarations.documents)
   json_body = each.value
 }
 
