@@ -2,7 +2,7 @@
 
 # FAST declarations
 resource "bigip_fast_application" "fast-declarations" {
-  for_each = fileset(path.module, "applications/fast/**.json")
+  for_each  = fileset(path.module, "applications/fast/**.json")
   fast_json = file("${path.module}/${each.key}")
 }
 
