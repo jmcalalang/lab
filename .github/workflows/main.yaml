@@ -26,7 +26,7 @@ jobs:
       - name: cURL F5XC
         run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_HOSTNAME }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_HOSTNAME }}/api/web/namespaces/j-calalang 
 
-  F5XC-Terraform:
+  F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [F5XC-Resources-Available]
@@ -111,7 +111,7 @@ jobs:
       - name: cURL BIG-IP
         run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} -X GET -k https://${{ secrets.BIGIP_HOST }}/mgmt/tm/sys/ready/
 
-  BIG-IP-Ansible:
+  BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [BIG-IP-Resources-Available]
@@ -235,7 +235,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Ansible]
+    needs: [BIG-IP-Ansible-Configuration]
     # Environment Variables
     env:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
@@ -320,7 +320,7 @@ jobs:
       - name: cURL NMS
         run: curl --max-time 10 -u ${{ secrets.NMS_USERNAME }}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/instances
 
-  NMS-Ansible:
+  NMS-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [NMS-Resources-Available]
@@ -442,10 +442,10 @@ jobs:
 
 ########################################################################################################
 
-  GoDaddy-Terraform:
+  GoDaddy-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [F5XC-Terraform]
+    needs: [F5XC-Terraform-Configuration]
     # Environment Variables
     env:
       GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
