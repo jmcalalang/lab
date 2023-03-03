@@ -291,13 +291,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform BIG-IP-Terraform-Configuration Apply
-        id: apply
-        run: terraform apply --auto-approve
+#      - name: Terraform BIG-IP-Terraform-Configuration Apply
+#        id: apply
+#        run: terraform apply --auto-approve
 
-#      - name: Terraform BIG-IP-Terraform-Configuration Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
+      - name: Terraform BIG-IP-Terraform-Configuration Destroy
+        id: destroy
+        run: terraform destroy --auto-approve
 
       - name: Upload Terraform BIG-IP-Terraform-Configuration State
         uses: actions/upload-artifact@v3
