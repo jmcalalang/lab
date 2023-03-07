@@ -1,0 +1,17 @@
+# NGINX ingress repository JWT
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-ingress
+
+---
+
+kind: Secret
+metadata:
+  name: regcred
+  namespace: nginx-ingress
+type: kubernetes.io/dockerconfigjson
+apiVersion: v1
+data:
+  .dockerconfigjson: ${nginx_repo_jwt}
