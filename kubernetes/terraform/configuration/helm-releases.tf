@@ -1,18 +1,4 @@
-resource "helm_release" "nginx" {
-  name       = "nginx"
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "nginx"
-
-  values = [
-    "${file("./files/helm/nginx-values.yaml")}"
-  ]
-
-  set {
-    name  = "service.type"
-    value = "ClusterIP"
-  }
-
-}
+# Helm releases
 
 resource "helm_release" "argocd" {
   name       = "argo"
@@ -24,8 +10,9 @@ resource "helm_release" "argocd" {
   ]
 
   set {
-    name  = "service.type"
-    value = "ClusterIP"
+    name      = "service.type"
+    value     = "ClusterIP"
+    namespace = "argocd"
   }
 
 }
