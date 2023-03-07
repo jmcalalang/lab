@@ -602,6 +602,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TF_VAR_f5xc_site_token: ${{ secrets.F5XC_SITE_TOKEN }}
   
     # Where are the Terraform files
     defaults:

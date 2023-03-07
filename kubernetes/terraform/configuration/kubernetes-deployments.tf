@@ -3,7 +3,10 @@
 data "kubectl_path_documents" "deployments" {
   pattern = "./files/deployments/deployment-*.yaml"
   vars = {
-    nginx_image = "nginx:1.14.2"
+    nginx_image     = "nginx:1.14.2"
+    nginx_port      = "80"
+    f5xc_site_name  = "calalang-aks-site"
+    f5xc_site_token = var.f5xc_site_token
   }
 }
 
@@ -20,7 +23,6 @@ resource "kubectl_manifest" "deployment_manifests" {
 data "kubectl_path_documents" "services" {
   pattern = "./files/services/service-*.yaml"
   vars = {
-    nginx_port = "80"
   }
 }
 
@@ -33,3 +35,17 @@ resource "kubectl_manifest" "service_manifests" {
 }
 
 # Kubernetes manifest resource for custom resource definitions
+
+data "kubectl_path_documents" "crds" {
+  pattern = "./files/custom-resource-definitions/crd-*.yaml"
+  vars = {
+  }
+}
+
+resource "kubectl_manifest" "crd_manifests" {
+  depends_on = [
+    kubernetes_namespace.terraform
+  ]
+  for_each  = toset(data.kubectl_path_documents.crds.documents)
+  yaml_body = each.value
+}
