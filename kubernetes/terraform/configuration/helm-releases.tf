@@ -34,6 +34,11 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
+    name  = "controller.nginxplus"
+    value = "true"
+  }
+
+  set {
     name  = "controller.appprotect.enable"
     value = "true"
   }
