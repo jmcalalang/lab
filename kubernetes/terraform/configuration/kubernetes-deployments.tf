@@ -1,7 +1,7 @@
-# Kubernetes manifest resource for deployments
+# Kubernetes manifest resource for combined resources
 
-data "kubectl_path_documents" "deployments" {
-  pattern = "./files/deployments/deployment-*.yaml"
+data "kubectl_path_documents" "combined" {
+  pattern = "./files/combined/combined-*.yaml"
   vars = {
     nginx_image     = "nginx:1.14.2"
     nginx_port      = "80"
@@ -10,10 +10,20 @@ data "kubectl_path_documents" "deployments" {
   }
 }
 
+resource "kubectl_manifest" "combined_manifests" {
+  for_each  = toset(data.kubectl_path_documents.combined.documents)
+  yaml_body = each.value
+}
+
+# Kubernetes manifest resource for deployments
+
+data "kubectl_path_documents" "deployments" {
+  pattern = "./files/deployments/deployment-*.yaml"
+  vars = {
+  }
+}
+
 resource "kubectl_manifest" "deployment_manifests" {
-  depends_on = [
-    kubernetes_namespace.terraform
-  ]
   for_each  = toset(data.kubectl_path_documents.deployments.documents)
   yaml_body = each.value
 }
@@ -27,9 +37,6 @@ data "kubectl_path_documents" "services" {
 }
 
 resource "kubectl_manifest" "service_manifests" {
-  depends_on = [
-    kubernetes_namespace.terraform
-  ]
   for_each  = toset(data.kubectl_path_documents.services.documents)
   yaml_body = each.value
 }
@@ -43,9 +50,6 @@ data "kubectl_path_documents" "crds" {
 }
 
 resource "kubectl_manifest" "crd_manifests" {
-  depends_on = [
-    kubernetes_namespace.terraform
-  ]
   for_each  = toset(data.kubectl_path_documents.crds.documents)
   yaml_body = each.value
 }

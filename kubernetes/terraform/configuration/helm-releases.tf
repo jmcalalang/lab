@@ -1,10 +1,11 @@
 # Helm releases
 
 resource "helm_release" "argocd" {
-  name       = "argo"
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo-cd"
-  namespace  = "argocd"
+  name             = "argo"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = "argocd"
+  create_namespace = true
 
   values = [
     "${file("./files/helm/argocd-values.yaml")}"

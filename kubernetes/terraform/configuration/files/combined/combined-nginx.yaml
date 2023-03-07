@@ -1,6 +1,13 @@
 # NGINX service and deployment
 
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx
+
+---
+
+apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
