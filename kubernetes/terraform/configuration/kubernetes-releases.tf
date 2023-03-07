@@ -55,8 +55,6 @@ resource "kubectl_manifest" "service_manifests" {
 data "kubectl_path_documents" "combined" {
   pattern = "./files/combined/combined-*.yaml"
   vars = {
-    nginx_image     = "nginx:1.14.2"
-    nginx_port      = "80"
     f5xc_site_name  = "calalang-aks-site"
     f5xc_site_token = var.f5xc_site_token
     nginx_repo_jwt  = var.nginx_repo_jwt

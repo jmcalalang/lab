@@ -17,3 +17,35 @@ resource "helm_release" "argocd" {
   }
 
 }
+
+resource "helm_release" "nginx-plus-ingress" {
+  name       = "nginx-ingress"
+  repository = "https://helm.nginx.com/stable"
+  chart      = "nginx-ingress"
+  namespace  = "nginx-ingress"
+
+  values = [
+    "${file("./files/helm/nginx-plus-ingress-values.yaml")}"
+  ]
+
+  set {
+    name  = "controller.serviceAccount.imagePullSecretName"
+    value = "regcred"
+  }
+
+  set {
+    name  = "controller.appprotect.enable"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.enableOIDC"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.service.type"
+    value = "ClusterIP"
+  }
+
+}

@@ -635,6 +635,11 @@ jobs:
         run: helm repo add argo https://argoproj.github.io/argo-helm
         continue-on-error: false
 
+      - name: Add nginxinc charts
+        id: nginxinc-add
+        run: helm repo add nginx-stable https://helm.nginx.com/stable
+        continue-on-error: false
+
       - name: Update charts
         id: charts-update
         run: helm repo update 
