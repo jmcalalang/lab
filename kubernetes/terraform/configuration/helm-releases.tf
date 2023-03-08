@@ -24,7 +24,7 @@ resource "helm_release" "argocd" {
 resource "helm_release" "nginx-plus-ingress" {
   name       = "nginx-ingress"
   repository = "https://helm.nginx.com/stable"
-  chart      = "nginx-plus"
+  chart      = "nginx-ingress"
   namespace  = "nginx-ingress"
 
   values = [
@@ -43,7 +43,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.image.repository"
-    value = "nginx-plus-ingress"
+    value = "private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress"
   }
 
   set {
