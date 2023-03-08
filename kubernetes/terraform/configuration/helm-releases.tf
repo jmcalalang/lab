@@ -43,7 +43,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.image.repository"
-    value = "nginx-ic-nap/nginx-plus-ingress"
+    value = "nginx/nginx-plus-ingress"
   }
 
   set {
