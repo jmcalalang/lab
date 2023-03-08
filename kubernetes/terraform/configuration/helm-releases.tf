@@ -7,6 +7,7 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   namespace        = "argocd"
   create_namespace = true
+  version          = "5.24.1"
 
   values = [
     "${file("./files/helm/argocd-values.yaml")}"
@@ -26,6 +27,7 @@ resource "helm_release" "nginx-plus-ingress" {
   repository = "https://helm.nginx.com/stable"
   chart      = "nginx-ingress"
   namespace  = "nginx-ingress"
+  version    = "0.16.2"
 
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}"
