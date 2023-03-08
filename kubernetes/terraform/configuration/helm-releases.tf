@@ -1,5 +1,6 @@
 # Helm releases
 
+# Argo
 resource "helm_release" "argocd" {
   name             = "argo"
   repository       = "https://argoproj.github.io/argo-helm"
@@ -18,6 +19,8 @@ resource "helm_release" "argocd" {
 
 }
 
+
+# NGINX plus ingress controller
 resource "helm_release" "nginx-plus-ingress" {
   name       = "nginx-ingress"
   repository = "https://helm.nginx.com/stable"
@@ -36,6 +39,16 @@ resource "helm_release" "nginx-plus-ingress" {
   set {
     name  = "controller.nginxplus"
     value = "true"
+  }
+
+  set {
+    name  = "controller.image.repository"
+    value = "nginx-ic-nap/nginx-plus-ingress"
+  }
+
+  set {
+    name  = "controller.image.tag"
+    value = "3.0.2"
   }
 
   set {
