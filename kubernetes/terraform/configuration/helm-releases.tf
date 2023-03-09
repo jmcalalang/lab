@@ -100,7 +100,7 @@ resource "helm_release" "nginx-plus-ingress" {
 }
 
 # NGINX plus ingressLink controller
-resource "helm_release" "nginx-plus-ingress" {
+resource "helm_release" "nginx-plus-ingressLink" {
   name       = "ingresslink"
   repository = "https://helm.nginx.com/stable"
   chart      = "nginx-ingress"
