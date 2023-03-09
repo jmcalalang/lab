@@ -233,7 +233,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
   notification_settings {
     enabled         = true
     time_in_minutes = "30"
-    email           = "j.calalang@f5.com"
+    email           = var.notification_email
   }
 }
 

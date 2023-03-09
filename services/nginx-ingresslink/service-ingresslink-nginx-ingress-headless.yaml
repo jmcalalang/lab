@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ingresslink-nginx-ingress-headless
-  namespace: nginx-ingress
+  namespace: ingresslink
 spec:
   clusterIP: None
   selector:

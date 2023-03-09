@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: ingresslink-nginx-config
-  namespace: nginx-ingress
+  namespace: ingresslink
 data:
   stream-snippets: |
     server {

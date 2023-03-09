@@ -40,6 +40,10 @@ variable "tag_environment" {
   type        = string
   description = "Environment"
 }
+variable "notification_email" {
+  type        = string
+  description = "Email for shutdown alert"
+}
 
 # NGINX variables
 

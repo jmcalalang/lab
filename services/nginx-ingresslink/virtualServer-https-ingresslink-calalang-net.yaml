@@ -2,7 +2,7 @@ apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
   name: ingresslink.calalang.net
-  namespace: default
+  namespace: ingresslink
 spec:
   ingressClassName: ingresslink-nginx
   host: ingresslink.calalang.net
