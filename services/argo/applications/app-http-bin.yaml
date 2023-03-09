@@ -1,13 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'syslog'
-  namespace: argocd
+  name: 'http-bin'
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: services/syslog
+    path: applications/services/http-bin
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
