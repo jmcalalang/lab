@@ -7,6 +7,9 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = "argocd"
   version    = "5.24.1"
+depends_on = [
+  kubectl_manifest.argo
+]
 
   values = [
     "${file("./files/helm/argocd-values.yaml")}"
