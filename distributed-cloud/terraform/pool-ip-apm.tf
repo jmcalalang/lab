@@ -14,7 +14,7 @@ resource "volterra_origin_pool" "pool-ip-apm" {
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-aks-cluster"
+          name      = "calalang-aks-site"
         }
       }
     }
