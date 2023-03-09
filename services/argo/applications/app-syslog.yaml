@@ -11,10 +11,11 @@ spec:
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: syslog
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - Replace=true
+      - CreateNamespace=true
