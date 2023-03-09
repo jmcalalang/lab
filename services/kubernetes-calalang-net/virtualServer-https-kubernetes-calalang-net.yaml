@@ -2,7 +2,7 @@ apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
   name: kubernetes.calalang.net
-  namespace: default
+  namespace: calalang-net
 spec:
   ingressClassName: nginx
   host: kubernetes.calalang.net

@@ -54,6 +54,11 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
+    name  = "controller.customConfigMap"
+    value = "nginx-config"
+  }
+
+  set {
     name  = "controller.appprotect.enable"
     value = "true"
   }
@@ -66,6 +71,26 @@ resource "helm_release" "nginx-plus-ingress" {
   set {
     name  = "controller.service.type"
     value = "ClusterIP"
+  }
+
+  set {
+    name  = "controller.replicaCount"
+    value = "1"
+  }
+
+  set {
+    name  = "controller.globalConfiguration.create"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.enableSnippets"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.healthStatus"
+    value = "true"
   }
 
 }

@@ -2,7 +2,7 @@ apiVersion: k8s.nginx.org/v1
 kind: Policy
 metadata:
   name: waf-policy
-  namespace: default
+  namespace: calalang-net
 spec:
   waf:
     enable: true
