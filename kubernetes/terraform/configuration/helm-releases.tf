@@ -53,6 +53,11 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
+    name  = "controller.ingressClass"
+    value = "nginx"
+  }
+
+  set {
     name  = "controller.image.tag"
     value = "3.0.2"
   }
@@ -132,6 +137,11 @@ resource "helm_release" "nginx-plus-ingressLink" {
   set {
     name  = "controller.image.repository"
     value = "private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress"
+  }
+
+  set {
+    name  = "controller.ingressClass"
+    value = "ingresslink-nginx"
   }
 
   set {
