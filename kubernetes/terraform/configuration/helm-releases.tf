@@ -18,6 +18,11 @@ resource "helm_release" "argocd" {
     value = "ClusterIP"
   }
 
+  set {
+    name  = "configs.params.server.insecure"
+    value = "true"
+  }
+
 }
 
 

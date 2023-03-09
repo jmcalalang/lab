@@ -23,4 +23,4 @@ spec:
     name: readystatus
   type: ClusterIP
   selector:
-    app: nginx-ingress
+    app: nginx-ingress-nginx-ingress
