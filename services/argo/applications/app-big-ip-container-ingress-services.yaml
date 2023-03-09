@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: applications/services/cis
+    path: services/cis
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'

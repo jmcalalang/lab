@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: applications/services/secure-app
+    path: services/secure-app
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'

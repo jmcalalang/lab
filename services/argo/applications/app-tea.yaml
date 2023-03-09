@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: applications/services/tea
+    path: services/tea
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
