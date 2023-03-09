@@ -2,12 +2,11 @@
 
 # Argo
 resource "helm_release" "argocd" {
-  name             = "argo"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-cd"
-  namespace        = "argocd"
-  create_namespace = true
-  version          = "5.24.1"
+  name       = "argo"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+  namespace  = "argocd"
+  version    = "5.24.1"
 
   values = [
     "${file("./files/helm/argocd-values.yaml")}"
@@ -27,6 +26,9 @@ resource "helm_release" "nginx-plus-ingress" {
   chart      = "nginx-ingress"
   namespace  = "nginx-ingress"
   version    = "0.16.2"
+  depends_on = [
+    kubectl_manifest.nginx-ingress
+  ]
 
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}"
@@ -106,6 +108,9 @@ resource "helm_release" "nginx-plus-ingressLink" {
   chart      = "nginx-ingress"
   namespace  = "ingresslink"
   version    = "0.16.2"
+  depends_on = [
+    kubectl_manifest.nginx-ingresslink
+  ]
 
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}"

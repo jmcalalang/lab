@@ -1,12 +1,3 @@
-# NGINX ingress repository JWT
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: nginx-ingress
-
----
-
 apiVersion: v1
 kind: Secret
 metadata:

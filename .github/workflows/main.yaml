@@ -684,13 +684,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-#      - name: Terraform Kubernetes-Terraform-Configuration Apply
-#        id: apply
-#        run: terraform apply --auto-approve
+      - name: Terraform Kubernetes-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
 
-      - name: Terraform Kubernetes-Terraform-Configuration Destroy
-        id: destroy
-        run: terraform destroy --auto-approve
+#      - name: Terraform Kubernetes-Terraform-Configuration Destroy
+#        id: destroy
+#        run: terraform destroy --auto-approve
 
       - name: Upload Terraform Kubernetes-Terraform-Configuration State
         uses: actions/upload-artifact@v3
