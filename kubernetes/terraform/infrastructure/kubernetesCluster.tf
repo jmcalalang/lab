@@ -25,8 +25,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   default_node_pool {
-    name           = "d2v2"
-    node_count     = 2
+    name       = "d2v2"
+    node_count = 2
     #max_pods       = 100
     vm_size        = "Standard_D3_v2"
     vnet_subnet_id = data.azurerm_subnet.existing-subnet-kubernetes.id
