@@ -2,11 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: 'big-ip-container-ingress-services'
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: cis
+    path: services/cis
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'

@@ -9,12 +9,12 @@ resource "volterra_origin_pool" "pool-svc-nginx-ingress" {
   }
   origin_servers {
     k8s_service {
-      service_name    = "nginx-ingress.nginx-ingress"
+      service_name    = "nginx-ingress.nginx-ingress-nginx-ingress"
       outside_network = true
       site_locator {
         site {
           namespace = "system"
-          name      = "calalang-aks-cluster"
+          name      = "calalang-aks-site"
         }
       }
     }

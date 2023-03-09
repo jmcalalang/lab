@@ -11,8 +11,8 @@ spec:
     redirect:
       enable: true
   upstreams:
-  - name: argocd-server
-    service: argocd-server
+  - name: argo-argocd-server
+    service: argo-argocd-server
     port: 443
     type: http
     tls:
@@ -20,9 +20,9 @@ spec:
   routes:
   - path: /
     location-snippets: |
-      status_zone argocd-server;
+      status_zone argo-argocd-server;
     policies:
     - name: oidc-policy
     action:
       proxy:
-        upstream: argocd-server
+        upstream: argo-argocd-server

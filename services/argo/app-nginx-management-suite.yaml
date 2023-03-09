@@ -2,11 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: 'nginx-management-suite'
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: nginx-management-suite/nms-hybrid
+    path: services/nginx-management-suite/nms-hybrid
     targetRevision: HEAD
     helm:
       valueFiles:
