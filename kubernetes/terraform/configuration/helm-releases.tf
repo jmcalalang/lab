@@ -18,11 +18,6 @@ resource "helm_release" "argocd" {
     value = "ClusterIP"
   }
 
-  set {
-    name  = "configs.params.server.insecure"
-    value = "true"
-  }
-
 }
 
 
@@ -61,6 +56,11 @@ resource "helm_release" "nginx-plus-ingress" {
   set {
     name  = "controller.customConfigMap"
     value = "nginx-config"
+  }
+
+  set {
+    name  = "controller.defaultTLS.secret"
+    value = "nginx-ingress/default-server-secret"
   }
 
   set {
