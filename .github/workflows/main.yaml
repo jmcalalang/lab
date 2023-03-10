@@ -742,7 +742,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          name: Argo-terraform-configuration-state
+          name: argo-terraform-configuration-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: services/argo/terraform
           # Optional, defaults to current repo
