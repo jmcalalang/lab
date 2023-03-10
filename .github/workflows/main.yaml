@@ -764,30 +764,30 @@ jobs:
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
 
-      - name: Terraform Kubernetes-Terraform-Configuration fmt
+      - name: Terraform Argo-Terraform-Configuration fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Kubernetes-Terraform-Configuration Init
+      - name: Terraform Argo-Terraform-Configuration Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Kubernetes-Terraform-Configuration Validate
+      - name: Terraform Argo-Terraform-Configuration Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Kubernetes-Terraform-Configuration Apply
+      - name: Terraform Argo-Terraform-Configuration Apply
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform Kubernetes-Terraform-Configuration Destroy
+#      - name: Terraform Argo-Terraform-Configuration Destroy
 #        id: destroy
 #        run: terraform destroy --auto-approve
 
-      - name: Upload Terraform Kubernetes-Terraform-Configuration State
+      - name: Upload Terraform Argo-Terraform-Configuration State
         uses: actions/upload-artifact@v3
         with:
-          name: kubernetes-terraform-configuration-state
-          path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
+          name: Argo-terraform-configuration-state
+          path: /home/runner/work/lab/lab/services/argo/terraform/terraform.tfstate
           retention-days: 30
