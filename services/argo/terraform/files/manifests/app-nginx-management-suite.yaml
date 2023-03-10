@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'nginx-management-suite'
-  namespace: argocd
+  name: nginx-management-suite
 spec:
-  project: default
+  destination:
+    name: ''
+    namespace: nms
+    server: 'https://kubernetes.default.svc'
   source:
+    path: services/nginx-management-suite/nms
     repoURL: 'https://github.com/jmcalalang/lab'
-    path: services/nginx-management-suite/nms-hybrid
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: nms
+  sources: []
+  project: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - Replace=true
       - CreateNamespace=true
