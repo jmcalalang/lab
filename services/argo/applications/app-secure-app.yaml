@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: secure-app
+    namespace: calalang-net
   syncPolicy:
     automated:
       prune: true

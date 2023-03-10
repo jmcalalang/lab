@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: secure-app
+  template:
+    metadata:
+      labels:
+        app: secure-app
+    spec:
+      containers:
+        - name: secure-app
+          image: nginxdemos/nginx-hello:plain-text
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - name: secret
+              mountPath: /etc/nginx/ssl
+              readOnly: true
+            - name: config-volume
+              mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: secret
+          secret:
+            secretName: app-tls-secret
+        - name: config-volume
+          configMap:
+            name: secure-config
