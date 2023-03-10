@@ -2,6 +2,7 @@ apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
   name: ingresslink.calalang.net
+  namespace: calalang-net
 spec:
   ingressClassName: ingresslink-nginx
   host: ingresslink.calalang.net
@@ -15,10 +16,16 @@ spec:
     port: 80
   routes:
   - path: /
-    location-snippets: |
-      status_zone root;
     policies:
     - name: oidc-policy
+    location-snippets: |
+      status_zone externalname;
+      set $custom_variable $remote_addr; 
     action:
       proxy:
-        upstream: http-bin
+        upstream: www-nginx-org-externalname
+        rewritePath: /
+        requestHeaders:
+          set:
+            - name: Host
+              value: nginx.org
