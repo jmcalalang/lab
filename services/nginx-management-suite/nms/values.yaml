@@ -33,7 +33,7 @@ nms-acm:
   acm:
     image:
       repository: acrxoth6gb50.azurecr.io/nms-acm
-      tag: 1.4.1
+      tag: 1.4.0
 
 nameOverride: "nms"
 fullnameOverride: "nms"
