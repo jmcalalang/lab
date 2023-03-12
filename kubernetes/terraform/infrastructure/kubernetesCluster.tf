@@ -1,3 +1,6 @@
+data "azurerm_subscription" "primary" {
+}
+
 resource "random_uuid" "aks-random-uuid" {
   count = sum([var.aks-instance-count])
 }
@@ -25,9 +28,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   default_node_pool {
-    name       = "d2v2"
-    node_count = 2
-    #max_pods       = 100
+    name           = "d3v2"
+    node_count     = 1
+    max_pods       = 250
     vm_size        = "Standard_D3_v2"
     vnet_subnet_id = data.azurerm_subnet.existing-subnet-kubernetes.id
   }
@@ -41,4 +44,20 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     resource    = var.tag_resource_type
     owner       = var.tag_owner
   }
+}
+
+resource "azurerm_role_assignment" "AcrPull" {
+  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.container_registry.id
+  skip_service_principal_aad_check = true
+  count                            = sum([var.aks-instance-count])
+}
+
+resource "azurerm_role_assignment" "calalang-aks-role" {
+  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
+  role_definition_name             = "calalang-aks-role"
+  scope                            = data.azurerm_subscription.primary.id
+  skip_service_principal_aad_check = true
+  count                            = sum([var.aks-instance-count])
 }

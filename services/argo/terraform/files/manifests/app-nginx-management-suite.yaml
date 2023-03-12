@@ -2,11 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: 'nginx-management-suite'
+  namespace: argocd
 spec:
-  destination:
-    name: ''
-    namespace: nms
-    server: 'https://kubernetes.default.svc'
+  project: default
   source:
     path: services/nginx-management-suite/nms
     repoURL: 'https://github.com/jmcalalang/lab'
@@ -14,11 +12,13 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-  sources: []
-  project: default
+  destination:
+    namespace: nms
+    server: 'https://kubernetes.default.svc'
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
+      - Replace=true
       - CreateNamespace=true
