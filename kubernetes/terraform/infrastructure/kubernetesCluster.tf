@@ -55,11 +55,9 @@ resource "azurerm_role_assignment" "AcrPull" {
 }
 
 resource "azurerm_role_assignment" "calalang-aks-role" {
-  principal_id         = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
-  role_definition_name = "calalang-aks-role"
-  scope = [
-    data.azurerm_subscription.primary.id / resourceGroups / var.existing_subnet_resource_group
-  ]
+  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
+  role_definition_name             = "calalang-aks-role"
+  scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
   count                            = sum([var.aks-instance-count])
 }
