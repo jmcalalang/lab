@@ -221,6 +221,16 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   }
 }
 
+# ## BIG-IP role assignment
+# 
+# resource "azurerm_role_assignment" "bigip-role" {
+#   principal_id                     = azurerm_virtual_machine.big-ip-instance[count.index].object_id
+#   role_definition_name             = "AcrPull"
+#   scope                            = azurerm_virtual_machine.big-ip-instance[count.index].id
+#   skip_service_principal_aad_check = true
+#   count                            = sum([var.big-ip-instance-count])
+# }
+
 ## Shutdown Schedule
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
   virtual_machine_id    = azurerm_virtual_machine.big-ip-instance[count.index].id
