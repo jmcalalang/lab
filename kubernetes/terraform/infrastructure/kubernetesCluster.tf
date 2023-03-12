@@ -46,17 +46,28 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
-resource "azurerm_role_assignment" "AcrPull" {
-  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
-  role_definition_name             = "AcrPull"
-  scope                            = azurerm_container_registry.container_registry.id
-  skip_service_principal_aad_check = true
-  count                            = sum([var.aks-instance-count])
+resource "azurerm_role_definition" "aks-role-definition" {
+  name  = "aks-role-${random_uuid.aks-random-uuid[0].result}"
+  scope = data.azurerm_subscription.primary.id
+
+  permissions {
+    actions = [
+      "Microsoft.Network/virtualNetworks/subnets/joinLoadBalancer/action",
+      "Microsoft.Network/virtualNetworks/subnets/read",
+      "Microsoft.Network/virtualNetworks/subnets/join/action",
+      "Microsoft.ContainerRegistry/registries/pull/read"
+    ]
+    not_actions = []
+  }
+
+  assignable_scopes = [
+    data.azurerm_subscription.primary.id,
+  ]
 }
 
-resource "azurerm_role_assignment" "calalang-aks-role" {
+resource "azurerm_role_assignment" "aks-role-assignment" {
   principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id
-  role_definition_name             = "calalang-aks-role"
+  role_definition_name             = azurerm_role_definition.aks-role-definition.name
   scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
   count                            = sum([var.aks-instance-count])
