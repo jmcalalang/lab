@@ -9,7 +9,7 @@ data:
         listen 12345;
         listen [::]:12345;
         zone_sync;
-        zone_sync_server ingresslink-nginx-ingress-headless.nginx-ingress.svc.cluster.local:12345 resolve;
+        zone_sync_server ingresslink-nginx-ingress-headless.ingresslink.svc.cluster.local:12345 resolve;
     }
   proxy-protocol: "True"
   real-ip-header: "proxy_protocol"

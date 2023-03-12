@@ -47,8 +47,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 }
 
 resource "azurerm_role_definition" "aks-role-definition" {
-  name  = "aks-role-${random_uuid.aks-random-uuid[0].result}"
-  scope = data.azurerm_subscription.primary.id
+  name        = "aks-role-${random_uuid.aks-random-uuid[0].result}"
+  scope       = data.azurerm_subscription.primary.id
+  description = "Role created for AKS clusters"
 
   permissions {
     actions = [
