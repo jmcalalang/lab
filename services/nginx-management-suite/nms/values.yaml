@@ -9,30 +9,30 @@ nms-hybrid:
   adminPasswordHash: "$1$LCEHZ8If$HNvp1Gd1hx.coyaRBfVEQ1"
   apigw:
       image:
-          repository: acrxoth6gb50.azurecr.io/nms-apigw
+          repository: acri9eee8x9V.azurecr.io/nms-apigw
           tag: 2.8.0
   core:
       image:
-          repository: acrxoth6gb50.azurecr.io/nms-core
+          repository: acri9eee8x9V.azurecr.io/nms-core
           tag: 2.8.0
   dpm:
       image:
-          repository: acrxoth6gb50.azurecr.io/nms-dpm
+          repository: acri9eee8x9V.azurecr.io/nms-dpm
           tag: 2.8.0
   ingestion:
       image:
-          repository: acrxoth6gb50.azurecr.io/nms-ingestion
+          repository: acri9eee8x9V.azurecr.io/nms-ingestion
           tag: 2.8.0
   integrations:
       image:
-          repository: acrxoth6gb50.azurecr.io/nms-integrations
+          repository: acri9eee8x9V.azurecr.io/nms-integrations
           tag: 2.8.0
 
 ## Variable values to replace defaults of API Connectivity Manager Chart
 nms-acm:
   acm:
     image:
-      repository: acrxoth6gb50.azurecr.io/nms-acm
+      repository: acri9eee8x9V.azurecr.io/nms-acm
       tag: 1.4.0
 
 nameOverride: "nms"
