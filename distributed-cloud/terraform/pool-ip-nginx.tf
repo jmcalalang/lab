@@ -9,7 +9,7 @@ resource "volterra_origin_pool" "pool-ip-nginx" {
   }
   origin_servers {
     private_ip {
-      ip              = "10.0.3.6"
+      ip              = "10.0.3.5"
       outside_network = true
       site_locator {
         site {
