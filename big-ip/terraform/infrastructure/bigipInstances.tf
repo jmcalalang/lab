@@ -264,7 +264,7 @@ resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
   role_definition_name             = azurerm_role_definition.bigip-role-definition.name
   scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
-  count                            = sum([var.bigip-instance-count])
+  count                            = sum([var.big-ip-instance-count])
 }
 
 ## Shutdown Schedule
