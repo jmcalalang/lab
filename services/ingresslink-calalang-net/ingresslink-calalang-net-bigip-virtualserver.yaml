@@ -9,4 +9,4 @@ spec:
     - /Common/Shared/Proxy_Protocol_iRule
   selector:
     matchLabels:
-      app: ingresslink-nginx-ingress
+      app.kubernetes.io/name: ingresslink-nginx-ingress
