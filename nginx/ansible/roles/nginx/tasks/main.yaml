@@ -20,6 +20,11 @@
   until: "(nms_instance_alive_response is successful) and (nms_instance_alive_response.status == 200)"
   when: state == "present"
 
+- name: Print {{ NMSinstanceGroup }}
+  ansible.builtin.debug:
+    msg: Instance Group to be updated is {{ NMSinstanceGroup }}
+  when: state == "present"
+
 - name: Prepare the {{ NMShost01 }} NGINX azure-instances Declaration
   template: src="../config/azure-instances/nginx.template" dest="../config/azure-instances/nginx.json"
   delegate_to: localhost
