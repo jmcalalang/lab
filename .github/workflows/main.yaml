@@ -359,7 +359,7 @@ jobs:
             --extra-vars "NMSadminPassword=${{ secrets.NMS_PASSWORD }}" 
             --extra-vars "NMSToken=${{ secrets.NMS_TOKEN }}"
             --extra-vars "NMSinstanceGroup=${{ secrets.NMS_INSTANCE_GROUP }}"
-            --verbose -vvvv
+          #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
