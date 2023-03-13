@@ -28,8 +28,42 @@
     full_name: AKS Partition-Admin
     partition_access:
       - all:admin
-    update_password: on_create
+    update_password: always
   delegate_to: localhost
   with_items:
     - "{{ bigips }}"
   when: state == "present"
+
+# Delete BIG-IP {{BIGIPhost01}} Resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Create AKS partition admin
+  bigip_user:
+    provider: "{{ bigip_provider }}"
+    username_credential: "{{ username_credential }}"
+    password_credential: "{{ password_credential }}"
+    full_name: AKS Partition-Admin
+    partition_access:
+      - all:admin
+    update_password: always
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Create AKS partition {{ partition }}
+  bigip_partition:
+    name: "{{ partition }}"
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"

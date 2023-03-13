@@ -1,0 +1,21 @@
+# BIG-IP System
+
+# Update {{BIGIPhost01}} System Resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Set the ui.advisory.text DB variable on the BIG-IP
+  bigip_sys_db:
+    key: ui.advisory.text
+    value: "Instance changed at {{ ansible_date_time.iso8601 }}"
+    provider: "{{ bigip_provider }}"
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"

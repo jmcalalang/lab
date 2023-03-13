@@ -87,7 +87,7 @@ extension_services:
             dhclient.mgmt: disable
             ui.advisory.enabled: true
             ui.advisory.color: blue
-            ui.advisory.text: Azure Instance
+            ui.advisory.text: Azure Instance Ready
             provision.extramb: 2048
             restjavad.useextramb: true
             icrd.timeout: 180

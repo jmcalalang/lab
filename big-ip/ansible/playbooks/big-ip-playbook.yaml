@@ -2,6 +2,7 @@
 -
   hosts: localhost
   roles:
+    - ../roles/system
     - ../roles/provision-modules
     - ../roles/install-atc
     - ../roles/access-profiles

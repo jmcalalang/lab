@@ -5,6 +5,9 @@ resource "random_uuid" "pip-mgmt-random-uuid" {
   count = sum([var.big-ip-instance-count])
 }
 
+data "azurerm_subscription" "primary" {
+}
+
 data "azurerm_subnet" "existing-subnet-management" {
   name                 = var.existing_subnet_management_name
   virtual_network_name = var.existing_subnet_vnet
@@ -214,6 +217,10 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
     disable_password_authentication = false
   }
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -221,15 +228,44 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   }
 }
 
-# ## BIG-IP role assignment
-# 
-# resource "azurerm_role_assignment" "bigip-role" {
-#   principal_id                     = azurerm_virtual_machine.big-ip-instance[count.index].object_id
-#   role_definition_name             = "AcrPull"
-#   scope                            = azurerm_virtual_machine.big-ip-instance[count.index].id
-#   skip_service_principal_aad_check = true
-#   count                            = sum([var.big-ip-instance-count])
-# }
+## Roles
+
+resource "azurerm_role_definition" "bigip-role-definition" {
+  name        = "bigip-role-${random_uuid.big-ip-random-uuid[0].result}"
+  scope       = data.azurerm_subscription.primary.id
+  description = "Role created for BIG-IP clusters"
+
+  permissions {
+    actions = [
+      "Microsoft.Authorization/*/read",
+      "Microsoft.Compute/locations/*/read",
+      "Microsoft.Compute/virtualMachines/*/read",
+      "Microsoft.Network/*/join/action",
+      "Microsoft.Network/networkInterfaces/read",
+      "Microsoft.Network/networkInterfaces/write",
+      "Microsoft.Network/publicIPAddresses/read",
+      "Microsoft.Network/publicIPAddresses/write",
+      "Microsoft.Network/routeTables/*/read",
+      "Microsoft.Network/routeTables/*/write",
+      "Microsoft.Resources/subscriptions/resourceGroups/read",
+      "Microsoft.Storage/storageAccounts/listKeys/action",
+      "Microsoft.Storage/storageAccounts/read"
+    ]
+    not_actions = []
+  }
+
+  assignable_scopes = [
+    data.azurerm_subscription.primary.id
+  ]
+}
+
+resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
+  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].identity[0].principal_id
+  role_definition_name             = azurerm_role_definition.bigip-role-definition.name
+  scope                            = data.azurerm_subscription.primary.id
+  skip_service_principal_aad_check = true
+  count                            = sum([var.bigip-instance-count])
+}
 
 ## Shutdown Schedule
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
