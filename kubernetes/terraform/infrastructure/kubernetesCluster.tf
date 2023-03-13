@@ -69,7 +69,10 @@ resource "azurerm_role_definition" "aks-role-definition" {
 }
 
 resource "azurerm_role_assignment" "aks-role-assignment" {
-  principal_id                     = azurerm_kubernetes_cluster.kubernetes_cluster[count.index].identity[0].principal_id
+  principal_id = [
+    azurerm_kubernetes_cluster.kubernetes_cluster[count.index].kubelet_identity[0].object_id,
+    azurerm_kubernetes_cluster.kubernetes_cluster[count.index].identity[0].principal_id
+  ]
   role_definition_name             = azurerm_role_definition.aks-role-definition.name
   scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
