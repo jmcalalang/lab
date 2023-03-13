@@ -36,7 +36,7 @@
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
     method: POST
-    url: "https://{{ NMShost01 }}/api/platform/v1/instance-groups/{{ instanceGroupUID }}/config"
+    url: "https://{{ NMShost01 }}/api/platform/v1/instance-groups/{{ NMSinstanceGroup }}/config"
     status_code: 202
     validate_certs: yes
   register: nms_instance_post_response
