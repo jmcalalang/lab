@@ -11,6 +11,9 @@ data "kubectl_path_documents" "f5xc" {
 resource "kubectl_manifest" "f5xc" {
   for_each  = toset(data.kubectl_path_documents.f5xc.documents)
   yaml_body = each.value
+  depends_on = [
+    kubectl_manifest.nginx-ingress
+  ]
 }
 
 # Kubernetes argo manifest resources
@@ -24,6 +27,9 @@ data "kubectl_path_documents" "argo" {
 resource "kubectl_manifest" "argo" {
   for_each  = toset(data.kubectl_path_documents.argo.documents)
   yaml_body = each.value
+  depends_on = [
+    kubectl_manifest.nginx-ingress
+  ]
 }
 
 # Kubernetes nginx ingress plus manifest
