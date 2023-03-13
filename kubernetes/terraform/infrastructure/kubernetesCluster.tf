@@ -62,7 +62,7 @@ resource "azurerm_role_definition" "aks-role-definition" {
   }
 
   assignable_scopes = [
-    "data.azurerm_subscription.primary.id",
+#    "data.azurerm_subscription.primary.id",
     "data.azurerm_subscription.primary.id/resourceGroups/var.existing_subnet_resource_group"
   ]
 }
