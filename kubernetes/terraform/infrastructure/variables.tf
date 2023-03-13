@@ -39,3 +39,8 @@ variable "aks-instance-count" {
   type        = number
   description = "Number of kubernetes clusters"
 }
+
+variable "aks-node-count" {
+  type        = number
+  description = "Number of nodes in kubernetes clusters"
+}

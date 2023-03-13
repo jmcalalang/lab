@@ -12,3 +12,4 @@ existing_subnet_resource_group  = "calalang-rg"
 # Kubernetes variables
 
 aks-instance-count = 1
+aks-node-count     = 2
