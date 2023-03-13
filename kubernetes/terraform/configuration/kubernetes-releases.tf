@@ -8,11 +8,24 @@ data "kubectl_path_documents" "f5xc" {
   }
 }
 
+resource "kubernetes_manifest" "f5xc-namespace" {
+  manifest = {
+    "apiVersion" = "v1"
+    "kind"       = "Namespace"
+    "metadata" = {
+      "name" = "ves-system"
+    }
+  }
+  depends_on = [
+    kubectl_manifest.nginx-ingress
+  ]
+}
+
 resource "kubectl_manifest" "f5xc" {
   for_each  = toset(data.kubectl_path_documents.f5xc.documents)
   yaml_body = each.value
   depends_on = [
-    kubectl_manifest.nginx-ingress
+    kubernetes_manifest.f5xc-namespace
   ]
 }
 
@@ -24,11 +37,24 @@ data "kubectl_path_documents" "argo" {
   }
 }
 
+resource "kubernetes_manifest" "argo-namespace" {
+  manifest = {
+    "apiVersion" = "v1"
+    "kind"       = "Namespace"
+    "metadata" = {
+      "name" = "argocd"
+    }
+  }
+  depends_on = [
+    kubectl_manifest.nginx-ingress
+  ]
+}
+
 resource "kubectl_manifest" "argo" {
   for_each  = toset(data.kubectl_path_documents.argo.documents)
   yaml_body = each.value
   depends_on = [
-    kubectl_manifest.nginx-ingress
+    kubernetes_manifest.argo-namespace
   ]
 }
 
