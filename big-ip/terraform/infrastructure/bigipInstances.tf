@@ -180,6 +180,7 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   vm_size                          = var.big-ip-instance-size
   delete_data_disks_on_termination = true
   delete_os_disk_on_termination    = true
+  availability_set_id              = azurerm_availability_set.big-ip-instance.name
   count                            = sum([var.big-ip-instance-count])
 
   # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
@@ -220,6 +221,19 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   identity {
     type = "SystemAssigned"
   }
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    owner       = var.tag_owner
+  }
+}
+
+## Availability Set
+resource "azurerm_availability_set" "big-ip-instance" {
+  name                = "aset-${random_uuid.big-ip-random-uuid[0].result}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
 
   tags = {
     environment = var.tag_environment
