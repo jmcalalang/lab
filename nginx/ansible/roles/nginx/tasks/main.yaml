@@ -20,10 +20,6 @@
   until: "(nms_instance_alive_response is successful) and (nms_instance_alive_response.status == 200)"
   when: state == "present"
 
-- name: Print NMSinstanceGroup
-  debug: msg="Instance Group to be updated is {{ NMSinstanceGroup }}"
-  when: state == "present"
-
 - name: Prepare the {{ NMShost01 }} NGINX azure-instances Declaration
   template: src="../config/azure-instances/nginx.template" dest="../config/azure-instances/nginx.json"
   delegate_to: localhost
@@ -40,7 +36,7 @@
     url_password: "{{ NMSadminPassword }}"
     url_username: "{{ NMSadminUsername }}"
     method: POST
-    url: "https://{{ NMShost01 }}/api/platform/v1/instance-groups/{{ NMSinstanceGroup }}/config"
+    url: "https://{{ NMShost01 }}/api/platform/v1/instance-groups/48170671-b01b-4369-8cd9-897039a728de/config"
     status_code: 202
     validate_certs: yes
   register: nms_instance_post_response
