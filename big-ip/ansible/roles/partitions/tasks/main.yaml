@@ -27,7 +27,7 @@
     password_credential: "{{ password_credential }}"
     full_name: AKS Partition-Admin
     partition_access:
-      - "{{ partition }}:admin"
+      - all:admin
     update_password: on_create
   delegate_to: localhost
   with_items:
