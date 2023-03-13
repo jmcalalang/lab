@@ -28,7 +28,7 @@ spec:
           subPath: default.conf
         env:
           - name: NIM_HOST
-            value: "10.0.4.54"
+            value: "10.0.5.247"
           - name: NIM_GRPC_PORT
             value: "443"
           - name: NIM_INSTANCEGROUP

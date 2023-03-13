@@ -30,4 +30,4 @@ docker push acri9eee8x9V.azurecr.io/nms-acm:1.4.0
 
 
 From Instance:
-curl -k https://10.0.4.54/install/nginx-agent | sudo sh -s -- --skip-verify true --instance-group azure-instances
+curl -k https://10.0.5.247/install/nginx-agent | sudo sh -s -- --skip-verify true --instance-group azure-instances
