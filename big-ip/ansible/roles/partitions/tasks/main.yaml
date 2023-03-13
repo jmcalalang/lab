@@ -17,5 +17,19 @@
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
-    - "{{ bigips }}"  
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Create AKS partition admin
+  bigip_user:
+    provider: "{{ bigip_provider }}"
+    username_credential: "{{ username_credential }}"
+    password_credential: "{{ password_credential }}"
+    full_name: AKS Partition-Admin
+    partition_access:
+      - "{{ partition }}:admin"
+    update_password: on_create
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
   when: state == "present"
