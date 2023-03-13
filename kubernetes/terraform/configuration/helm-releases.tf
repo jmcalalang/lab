@@ -194,9 +194,9 @@ resource "helm_release" "nginx-plus-ingressLink" {
     value = "true"
   }
 
-  set {
-    name  = "controller.reportIngressStatus.ingressLink"
-    value = "ingresslink-nginx-ingress"
-  }
+#  set {
+#    name  = "controller.reportIngressStatus.ingressLink"
+#    value = "ingresslink-nginx-ingress"
+#  }
 
 }
