@@ -11,8 +11,8 @@ spec:
     redirect:
       enable: true
   upstreams:
-  - name: http-bin
-    service: http-bin
+  - name: www-nginx-org-externalname
+    service: www-nginx-org-externalname
     port: 80
   routes:
   - path: /

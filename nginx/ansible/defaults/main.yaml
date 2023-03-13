@@ -1,8 +1,5 @@
 # Ansible Variables
 
-# NMS Instance UID
-"instanceGroupUID": "{{ NMSinstanceGroup }}"
-
 # Use Ansible module or skip
 state: 'present'
 #state: 'absent'
