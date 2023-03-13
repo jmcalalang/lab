@@ -1,3 +1,6 @@
+################################# Azure Kubernetes Service #################################
+
+## Azure Network Objects
 data "azurerm_subscription" "primary" {
 }
 
@@ -11,6 +14,8 @@ data "azurerm_subnet" "existing-subnet-kubernetes" {
   resource_group_name  = var.existing_subnet_resource_group
 }
 
+
+## Cluster
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "aks-${random_uuid.aks-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.kubernetes-resource-group.location
@@ -46,6 +51,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 }
 
+## Roles
 resource "azurerm_role_definition" "aks-role-definition" {
   name        = "aks-role-${random_uuid.aks-random-uuid[0].result}"
   scope       = data.azurerm_subscription.primary.id
