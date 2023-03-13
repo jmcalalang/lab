@@ -260,7 +260,7 @@ resource "azurerm_role_definition" "bigip-role-definition" {
 }
 
 resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
-  principal_id                     = azurerm_virtual_machine.big-ip-instance[count.index].id
+  principal_id                     = azurerm_virtual_machine.big-ip-instance[count.index].name
   role_definition_name             = azurerm_role_definition.bigip-role-definition.name
   scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
