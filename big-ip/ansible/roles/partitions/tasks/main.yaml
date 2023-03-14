@@ -1,6 +1,6 @@
 # BIG-IP Partitions
 
-# Create BIG-IP {{BIGIPhost01}} Resources
+# Create BIG-IP {{BIGIPhost01}} partition resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -34,7 +34,7 @@
     - "{{ bigips }}"
   when: state == "present"
 
-# Delete BIG-IP {{BIGIPhost01}} Resources
+# Delete BIG-IP {{BIGIPhost01}} partition resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -45,7 +45,7 @@
     - "{{ bigips }}"
   when: state == "absent"
 
-- name: Create AKS partition admin
+- name: Delete AKS partition admin
   bigip_user:
     provider: "{{ bigip_provider }}"
     username_credential: "{{ username_credential }}"
@@ -59,7 +59,7 @@
     - "{{ bigips }}"
   when: state == "absent"
 
-- name: Create AKS partition {{ partition }}
+- name: Delete AKS partition {{ partition }}
   bigip_partition:
     name: "{{ partition }}"
     provider: "{{ bigip_provider }}"

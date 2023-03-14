@@ -11,117 +11,114 @@ Congratulations you made it to Jon's lab. Below is an outline of the folder stru
 GitHub Actions for Ansible and Terraform
 
 - GitHub Actions
-  - BIG-IP F5 automation toolchain with ansible
-  - BIG-IP F5 automation toolchain with terraform
-  - GoDaddy with terraform
-  - F5xc with terraform
-  - NGINX Instance Manager with ansible
-  - NGINX with terraform
-  
-### argo
+  - F5XC
+    - Terraform
+  - BIG-IP
+    - Terraform
+    - Ansible
+  - GoDaddy
+    - Terraform
+  - NGINX / NGINX Management System
+    - Terraform
+    - Ansible
+  - Kubernetes
+    - Terraform
+  - Argo
+    - Terraform
 
-Agro installation manifest
-
-- Argo
-  - argo mainifest for installation into kubernetes
 
 ### big-ip
 
-Configuration management for BIG-IP. AS3, DO, TS, and FAST Applications
+Configuration and Infrastructure management of BIG-IP resources
 
-- Ansible
-  - as3 role with templates
-    - common objects
-    - partition objects
-    - gslb objects
-  - do role with templates
-    - best practices for f5 automation toolchain
-  - ts role with templates
-    - azure log analytics and pull consumer
+- Ansible (Configuration)
+  - Access Profile Import
+  - AS3 Common Declaration
+  - Automation Toolchain Installation
+  - Create Partitions
+  - Provision BIG-IP Modules
+  - System BIG-IP Settings
+  - Telemetry Streaming Declaration
 
-- Terraform
-  - FAST LDAP Application
-  - Virtual Servers in Common
+- Terraform (Configuration)
+  - AS3 Application Declarations
+  - FAST Application Declarations
+  - Application Services in Common
+
+- Terraform (Infrastructure)
+  - Create BIG-IP(s)
+  - Create Availability Set
+  - Create RBAC Roles
+  - Create Resource Group
 
 ### certs
 
-Certs for F5XC and how to create letsencrypt certs
+Certs for F5XC Authentication
 
-- f5xc certification for authentication
-  - password is a GitHub repository secret
-- how to create certs needed for lab resources
-  - f5xc certs are auto generated
-
-### cis
-
-CIS configuration for BIG-IP. Managed by Argo
-
-- Argo
-  - CIS deployment
-  - NGINX ingress (IngressLink)
+- Generated p12 file
 
 ### distributed-cloud
 
-Configuration for F5XC. Managed by Terraform in Github Action
+Configuration management of F5XC resources
 
-- Terraform
-  - f5xc application firewall
-  - f5xc pools (dns,ip,kubernetes)
-  - f5xc health checks
-  - f5xc http load balancers
+- Terraform (Infrastructure)
+  - F5XC Application Firewall
+  - F5XC Origin Pools
+  - F5XC Health Checks
+  - F5XC Http Load-Balancers
 
 ### godaddy
 
-GoDaddy configuration. Managed by Terraform in Github Action
+Configuration management of GoDaddy resources
 
 - Terraform
-  - godaddy zone configuration
+  - Records Management
+
+### kubernetes
+
+Configuration management of Kubernetes resources
+
+- Terraform (Configuration)
+  - Install NGINX Ingress Controller
+  - Install NGINX IngressLink Controller
+  - Install F5XC Kubernetes Site
+  - Install Argo
+
+- Terraform (Infrastructure)
+  - Create Azure Kubernetes Service
+  - Create Azure Container Regisitry
+  - Create RBAC Roles
+  - Create Resource Group
 
 ### nginx
 
-NGINX configuration done in NIM declarative json templates. Managed by Ansible in Github Action
+Configuration and Infrastructure management of NGINX resources
 
-- Ansible
-  - nginx role with nginx instance manager templates
+- Ansible (Configuration)
+  - NGINX Management Suite Configuration of NGINX
 
-- Terraform
-  - NGINX instances(s)
-    - Bash script to install NGINX Agent
-
-### nginx-ingress
-
-NGINX ingress configuration
-
-- Argo
-  - virtual servers (grpc,https)
-  - oidc policy
-  - jwt policy
-  - nap policy
-  - custom zones
-
-### nginx-management-suite
-
-NGINX Management-suite with NIM and ACM. Created with Argo, configured with Ansible (NGINX Folder)
-
-- Argo
-  - NMS for NGINX instances
-    - NIM (azure-instances)
-      - jwt policy
-      - api key
-      - sensitive uri match
-      - proxy_pass
-    - ACM (api)
+- Terraform (Infrastructure)
+  - Create NGINX(s)
+  - Create Availability Set
+  - Create Resource Group
 
 ### services
 
-Kubernetes services used for examples. Managed by Argo
+Configuration of Kubernetes services
 
 - Argo
-  - coffee kubernetes service
-  - tea kubernetes service
-  - http-bin kubernetes service
-  - secure-app kubernetes service
-  - syslog kubernetes service
+- Container Ingress Services (BIG-IP)
+- Coffee
+- Http-Bin
+- ingresslink.calalang.net
+- kubernetes.calalang.net
+- NGINX Management Suite
+- NGINX.org
+- NGINX Plus
+- nms.calalang.net
+- Secure Application
+- Syslog
+- Tea
 
 ### Lab.pdf
 

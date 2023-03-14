@@ -43,6 +43,7 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
   vm_size                          = "Standard_B1s"
   delete_data_disks_on_termination = true
   delete_os_disk_on_termination    = true
+  availability_set_id              = azurerm_availability_set.nginx-api-gateway-instance.id
   count                            = sum([var.nginx-api-gw-count])
 
   # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
@@ -88,6 +89,19 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
 # NGINX API Gateway Instances bootstrapping file
 data "template_file" "bootstrap-instance-group-api-gw" {
   template = file("${path.module}/files/bootstrap-instance-group-api-gw.sh")
+}
+
+## Availability Set
+resource "azurerm_availability_set" "nginx-api-gateway-instance" {
+  name                = "aset-api-gateway-${random_uuid.nginx-random-uuid[0].result}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.nginx-resource-group.name
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    owner       = var.tag_owner
+  }
 }
 
 # NGINX API Gateway Instances Shutdown Schedule
@@ -137,6 +151,7 @@ resource "azurerm_virtual_machine" "nginx-instance" {
   vm_size                          = "Standard_B1s"
   delete_data_disks_on_termination = true
   delete_os_disk_on_termination    = true
+  availability_set_id              = azurerm_availability_set.nginx-proxy-instance.id
   count                            = sum([var.nginx-instance-count])
 
   # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
@@ -182,6 +197,19 @@ resource "azurerm_virtual_machine" "nginx-instance" {
 # NGINX Instances bootstrapping file
 data "template_file" "bootstrap-instance-group-azure-instances" {
   template = file("${path.module}/files/bootstrap-instance-group-azure-instances.sh")
+}
+
+## Availability Set
+resource "azurerm_availability_set" "nginx-proxy-instance" {
+  name                = "aset-proxy-${random_uuid.nginx-random-uuid[1].result}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.nginx-resource-group.name
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    owner       = var.tag_owner
+  }
 }
 
 # NGINX Instances Shutdown Schedule

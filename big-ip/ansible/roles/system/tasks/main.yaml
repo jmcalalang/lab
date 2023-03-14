@@ -1,6 +1,6 @@
 # BIG-IP System
 
-# Update {{BIGIPhost01}} System Resources
+# Update {{BIGIPhost01}} system resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
   bigip_wait:
@@ -19,3 +19,23 @@
   with_items:
     - "{{ bigips }}"
   when: state == "present"
+
+# Remove {{BIGIPhost01}} system resources
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Clear the ui.advisory.text DB variable on the BIG-IP
+  bigip_sys_db:
+    key: ui.advisory.text
+    value: ""
+    provider: "{{ bigip_provider }}"
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
