@@ -17,7 +17,7 @@ existing_subnet_resource_group  = "calalang-rg"
 big-ip-instance-offer = "f5-big-ip-best"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
 big-ip-instance-sku            = "f5-bigip-virtual-edition-1g-best-hourly-po-f5"
-big-ip-version                 = "latest"
+big-ip-version                 = "16.1.303000"
 big-ip-instance-count          = 1
 big-ip-instance-size           = "Standard_DS3_v2"
 bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.5.2/dist/f5-bigip-runtime-init-1.5.2-1.gz.run"
