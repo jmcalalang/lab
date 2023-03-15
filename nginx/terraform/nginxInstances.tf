@@ -49,15 +49,15 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
   # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
   plan {
     publisher = "nginxinc"
-    product   = var.nginx-instance-offer
-    name      = var.nginx-instance-sku
+    product   = var.nginx-api-gw-offer
+    name      = var.nginx-api-gw-sku
   }
 
   storage_image_reference {
     publisher = "nginxinc"
-    offer     = var.nginx-instance-offer
-    sku       = var.nginx-instance-sku
-    version   = "latest"
+    offer     = var.nginx-api-gw-offer
+    sku       = var.nginx-api-gw-sku
+    version   = var.nginx-api-gw-version
   }
 
   storage_os_disk {
@@ -165,7 +165,7 @@ resource "azurerm_virtual_machine" "nginx-instance" {
     publisher = "nginxinc"
     offer     = var.nginx-instance-offer
     sku       = var.nginx-instance-sku
-    version   = "latest"
+    version   = var.nginx-instance-version
   }
 
   storage_os_disk {

@@ -14,10 +14,14 @@ existing_subnet_resource_group = "calalang-rg"
 
 # NGINX variables
 
-nginx-instance-offer = "nginx_plus_with_nginx_app_protect_developer"
-nginx-instance-sku   = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
-nginx-instance-count = 1
+# az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s nginx_plus_with_nginx_app_protect_dev_ubuntu2004
 
-nginx-api-gw-offer = "nginx_plus_with_nginx_app_protect_developer"
-nginx-api-gw-sku   = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
-nginx-api-gw-count = 1
+nginx-instance-offer   = "nginx_plus_with_nginx_app_protect_developer"
+nginx-instance-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
+nginx-instance-version = "5.0.0"
+nginx-instance-count   = 1
+
+nginx-api-gw-offer   = "nginx_plus_with_nginx_app_protect_developer"
+nginx-api-gw-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
+nginx-api-gw-version = "5.0.0"
+nginx-api-gw-count   = 1

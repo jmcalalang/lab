@@ -55,6 +55,10 @@ variable "nginx-instance-sku" {
   type        = string
   description = "SKU name for NGINX instance resources"
 }
+variable "nginx-instance-version" {
+  type        = string
+  description = "Version of NGINX instance resources"
+}
 variable "nginx-instance-count" {
   type        = number
   description = "Number of NGINX instance resources"
@@ -66,6 +70,10 @@ variable "nginx-api-gw-offer" {
 variable "nginx-api-gw-sku" {
   type        = string
   description = "SKU name for NGINX API GW resources"
+}
+variable "nginx-api-gw-version" {
+  type        = string
+  description = "Version of NGINX API GW resources"
 }
 variable "nginx-api-gw-count" {
   type        = number
