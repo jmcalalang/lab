@@ -145,9 +145,11 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}" 
-            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}" 
-            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}" 
+            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}"
+            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}"
+            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
+            --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
+            --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
           # --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
