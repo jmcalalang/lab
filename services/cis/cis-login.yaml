@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   username: YWtzLWFkbWlu
-  password: dUc0dE11QnQ0N1dyc0h5Uw==
+  password: SGFycmlzb24xMjMh
 kind: Secret
 metadata:
   name: bigip-login

@@ -2,4 +2,4 @@
 
 partition: "calalang-aks-cluster"
 username_credential: "aks-admin"
-password_credential: "uG4tMuBt47WrsHyS"
+password_credential: "{{ BIGIPadminPassword }}"
