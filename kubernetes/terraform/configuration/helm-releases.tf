@@ -34,8 +34,23 @@ resource "helm_release" "cis" {
   ]
 
   set {
+    name  = "ingressClass.isDefaultIngressController"
+    value = "false"
+  }
+
+  set {
     name  = "bigip_secret.create"
     value = "true"
+  }
+
+  set {
+    name  = "bigip_secret.username"
+    value = var.bigip_aks_username
+  }
+
+  set {
+    name  = "bigip_secret.password"
+    value = var.bigip_aks_password
   }
 
   set {
@@ -54,13 +69,18 @@ resource "helm_release" "cis" {
   }
 
   set {
-    name  = "bigip_secret.username"
-    value = var.bigip_aks_username
+    name  = "args.insecure"
+    value = "true"
   }
 
   set {
-    name  = "bigip_secret.password"
-    value = var.bigip_aks_password
+    name  = "args.custom-resource-mode"
+    value = "true"
+  }
+
+  set {
+    name  = "args.log-as3-response"
+    value = "true"
   }
 
   set {
@@ -86,11 +106,6 @@ resource "helm_release" "cis" {
   set {
     name  = "args.log_level"
     value = "DEBUG"
-  }
-
-  set {
-    name  = "ingressClass.isDefaultIngressController"
-    value = "false"
   }
 
 }
