@@ -26,7 +26,7 @@
     "make_monitor": true,
     "monitor_interval": 30,
     "monitor_username": "service_ldap",
-    "monitor_passphrase": "OTA0RDN6JCRnSEVm",
+    "monitor_passphrase": "${monitor_passphrase}",
     "monitor_base": "dc=calalang,dc=net",
     "monitor_filter": "objectclass=*",
     "common_tcp_profile": false,

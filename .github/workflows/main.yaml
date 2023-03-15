@@ -165,6 +165,7 @@ jobs:
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
       TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
       TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
+      TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
