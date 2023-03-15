@@ -10,3 +10,13 @@ variable "nginx_repo_jwt" {
   type        = string
   description = "NGINX JWT"
 }
+
+variable "bigip_aks_username" {
+  type        = string
+  description = "BIG-IP AKS Username"
+}
+
+variable "bigip_aks_password" {
+  type        = string
+  description = "BIG-IP AKS Password"
+}
