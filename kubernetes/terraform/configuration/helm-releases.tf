@@ -22,6 +22,79 @@ resource "helm_release" "argocd" {
 
 }
 
+# BIG-IP Container Ingress Services
+resource "helm_release" "cis" {
+  name       = "cis"
+  repository = "https://f5networks.github.io/charts/stable"
+  chart      = "f5-bigip-ctlr"
+  version    = "0.0.24"
+
+  values = [
+    "${file("./files/helm/f5-bigip-ctlr-values.yaml")}"
+  ]
+
+  set {
+    name  = "bigip_secret.create"
+    value = "true"
+  }
+
+  set {
+    name  = "version"
+    value = "2.12.0"
+  }
+
+  set {
+    name  = "args.bigip_partition"
+    value = "calalang_aks_cluster"
+  }
+
+  set {
+    name  = "args.bigip_url"
+    value = "https://10.0.3.4"
+  }
+
+  set {
+    name  = "bigip_secret.username"
+    value = var.bigip_aks_username
+  }
+
+  set {
+    name  = "bigip_secret.password"
+    value = var.bigip_aks_password
+  }
+
+  set {
+    name  = "args.gtm-bigip-username"
+    value = var.bigip_aks_username
+  }
+
+  set {
+    name  = "args.gtm-bigip-password"
+    value = var.bigip_aks_password
+  }
+
+  set {
+    name  = "args.gtm-bigip-username"
+    value = "https://10.0.3.4"
+  }
+
+  set {
+    name  = "args.pool_member_type"
+    value = "cluster"
+  }
+
+  set {
+    name  = "args.log_level"
+    value = "DEBUG"
+  }
+
+  set {
+    name  = "ingressClass.isDefaultIngressController"
+    value = "false"
+  }
+
+}
+
 # NGINX plus ingress controller
 resource "helm_release" "nginx-plus-ingress" {
   name       = "nginx-ingress"
@@ -193,10 +266,5 @@ resource "helm_release" "nginx-plus-ingressLink" {
     name  = "controller.healthStatus"
     value = "true"
   }
-
-  #  set {
-  #    name  = "controller.reportIngressStatus.ingressLink"
-  #    value = "ingresslink-nginx-ingress"
-  #  }
 
 }
