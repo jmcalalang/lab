@@ -7,10 +7,11 @@ resource "bigip_ltm_virtual_server" "https-10-0-2-7-terraform" {
   description                = "apm.calalang.net"
   port                       = 443
   client_profiles            = ["/Common/clientssl"]
+  server_profiles            = ["/Common/serverssl-insecure-compatible"]
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/rewrite-portal", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile", "/Common/webacceleration", "/Common/vdi"]
   pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
 }
 resource "bigip_ltm_monitor" "monitor-nginx-azure-instances-terraform" {
