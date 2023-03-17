@@ -31,6 +31,7 @@ resource "azurerm_network_interface" "nic-api-gw" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
+    proxy       = "apigw"
   }
 }
 
@@ -101,6 +102,7 @@ resource "azurerm_availability_set" "nginx-api-gateway-instance" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
+    proxy       = "apigw"
   }
 }
 
@@ -139,6 +141,7 @@ resource "azurerm_network_interface" "nic-instances" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
+    proxy       = "proxy"
   }
 }
 
@@ -209,6 +212,7 @@ resource "azurerm_availability_set" "nginx-proxy-instance" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
+    proxy       = "proxy"
   }
 }
 
