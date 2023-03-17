@@ -82,7 +82,7 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
-    proxy-type  = "api-gateway"
+    proxy       = "apigw"
   }
 }
 
@@ -190,7 +190,7 @@ resource "azurerm_virtual_machine" "nginx-instance" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     owner       = var.tag_owner
-    proxy-type  = "proxy"
+    proxy       = "proxy"
   }
 }
 

@@ -60,7 +60,7 @@ resource "helm_release" "cis" {
 
   set {
     name  = "args.bigip_partition"
-    value = "calalang_aks_cluster"
+    value = "calalang-aks-cluster"
   }
 
   set {

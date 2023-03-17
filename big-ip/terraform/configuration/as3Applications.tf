@@ -10,7 +10,7 @@ resource "bigip_as3" "http-declarations" {
 # HTTPs declarations
 resource "bigip_as3" "https-declarations" {
   for_each        = fileset(path.module, "applications/as3/https/**.json")
-  as3_json        = file("${path.module}/${each.key}")
+  as3_json        = templatefile("${path.module}/${each.key}", { subscriptionId = var.ARM_SUBSCRIPTION_ID })
   ignore_metadata = true
 }
 

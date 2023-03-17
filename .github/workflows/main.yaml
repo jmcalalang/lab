@@ -243,6 +243,7 @@ jobs:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
       BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
+      TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
 
     # Where are the Terraform files

@@ -21,7 +21,6 @@
     - "{{ bigips }}"
   when: state == "present"
 
-
 # Remove BIG-IP {{BIGIPhost01}} APM resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
