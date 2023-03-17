@@ -23,7 +23,7 @@
                             "tagKey": "proxy",
                             "tagValue": "proxy",
                             "addressRealm": "private",
-                            "subscriptionId": "${monitor_passphrase}",
+                            "subscriptionId": "${subscriptionId}",
                             "resourceGroup": "calalang-nginx-rg",
                             "useManagedIdentity": true
                         }
