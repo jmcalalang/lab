@@ -12,6 +12,10 @@ All the components of this lab are maintained through GitOps (Argo) and CI with 
 | ![Kubernetes Badge](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=fff&style=plastic)                 | ![Argo Badge](https://img.shields.io/badge/Argo-EF7B4D?logo=argo&logoColor=fff&style=plastic)                                |                                                                                                                                                                                   |
 | ![GoDaddy Badge](https://img.shields.io/badge/GoDaddy-1BDBDB?logo=godaddy&logoColor=000&style=plastic)                          |                                                                                                                              |                                                                                                                                                                                   |
 
+## Environment
+
+![image](lab.png)
+
 ## Folder Structure
 
 ### github
@@ -123,7 +127,3 @@ Configuration of Kubernetes services
 - NGINX Plus
 - nms.calalang.net
 - Syslog
-
-### Lab.pdf
-
-PDF of my lab diagram and services in each part
