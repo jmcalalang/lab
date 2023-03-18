@@ -1,14 +1,14 @@
 # F5 Lab
 
-![F5 Badge](https://img.shields.io/badge/F5-E4002B?logo=f5&logoColor=fff&style=plastic),![NGINX Badge](https://img.shields.io/badge/NGINX-009639?logo=nginx&logoColor=fff&style=plastic)
-
-![Terraform Badge](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=fff&style=plastic),![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=plastic),![GitHub Actions Badge](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=fff&style=plastic)
-
-[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml),[![Open Issues]](https://img.shields.io/github/issues/jmcalalang/lab)
-
-Congratulations you've made it to Jon's F5 lab. This lab environment is constantly used to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
+Congratulations you've made it to Jon's F5 lab. This lab environment is used daily to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
 
 All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions.
+
+Products: ![F5 Badge](https://img.shields.io/badge/F5-E4002B?logo=f5&logoColor=fff&style=plastic)![NGINX Badge](https://img.shields.io/badge/NGINX-009639?logo=nginx&logoColor=fff&style=plastic)![Microsoft Azure Badge](https://img.shields.io/badge/Microsoft%20Azure-0078D4?logo=microsoftazure&logoColor=fff&style=plastic)![Kubernetes Badge](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=fff&style=plastic)![GoDaddy Badge](https://img.shields.io/badge/GoDaddy-1BDBDB?logo=godaddy&logoColor=000&style=plastic)
+
+Tools: ![Terraform Badge](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=fff&style=plastic)![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=plastic)![GitHub Actions Badge](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=fff&style=plastic)![Argo Badge](https://img.shields.io/badge/Argo-EF7B4D?logo=argo&logoColor=fff&style=plastic)
+
+Code: [![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml),![Open Issues)](https://img.shields.io/github/issues/jmcalalang/lab)
 
 ## Folder Structure
 
