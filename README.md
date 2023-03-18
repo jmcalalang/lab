@@ -8,7 +8,7 @@ Products: ![F5 Badge](https://img.shields.io/badge/F5-E4002B?logo=f5&logoColor=f
 
 Tools: ![Terraform Badge](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=fff&style=plastic)![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=plastic)![GitHub Actions Badge](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=fff&style=plastic)![Argo Badge](https://img.shields.io/badge/Argo-EF7B4D?logo=argo&logoColor=fff&style=plastic)
 
-Code: [![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml),![Open Issues)](https://img.shields.io/github/issues/jmcalalang/lab)
+Code: [![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)![Open Issues)](https://img.shields.io/github/issues/jmcalalang/lab)
 
 ## Folder Structure
 
