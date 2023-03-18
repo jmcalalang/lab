@@ -1,8 +1,14 @@
-# Jon's Lab
+# F5 Lab
 
-[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
+![F5 Badge](https://img.shields.io/badge/F5-E4002B?logo=f5&logoColor=fff&style=plastic),![NGINX Badge](https://img.shields.io/badge/NGINX-009639?logo=nginx&logoColor=fff&style=plastic)
 
-Congratulations you made it to Jon's lab. Below is an outline of the folder structure, in it are the working parts of Jon's lab. This lab is maintained through GitOps (Argo) and CI with GitHub Actions.
+![Terraform Badge](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=fff&style=plastic),![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=plastic),![GitHub Actions Badge](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=fff&style=plastic)
+
+[![Lab Ansible Action](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml),[![Open Issues]](https://img.shields.io/github/issues/jmcalalang/lab)
+
+Congratulations you've made it to Jon's F5 lab. This lab environment is constantly used to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
+
+All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions.
 
 ## Folder Structure
 
@@ -108,17 +114,14 @@ Configuration of Kubernetes services
 
 - Argo
 - Container Ingress Services (BIG-IP)
-- Coffee
-- Http-Bin
+- Google Online Boutique
 - ingresslink.calalang.net
 - kubernetes.calalang.net
 - NGINX Management Suite
 - NGINX.org
 - NGINX Plus
 - nms.calalang.net
-- Secure Application
 - Syslog
-- Tea
 
 ### Lab.pdf
 
