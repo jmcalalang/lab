@@ -39,27 +39,6 @@ spec:
         status_zone root;
       policies:
         - name: kubernetes-calalang-net-oidc-policy
-      matches:
-        - conditions:
-            - cookie: "app_version"
-              value: "dark"
-          action:
-            proxy:
-              upstream: spa-dark
-              responseHeaders:
-                add:
-                  - name: IC-Nginx-Version
-                    value: ${nginx_version}
-                    always: true
-                  - name: IC-Nginx-Host
-                    value: ${host}
-                    always: true
-                  - name: IC-Nginx-URI
-                    value: ${request_uri}
-                    always: true
-                  - name: IC-Nginx-Server-Address
-                    value: ${server_addr}
-                    always: true
       action:
         proxy:
           upstream: spa
