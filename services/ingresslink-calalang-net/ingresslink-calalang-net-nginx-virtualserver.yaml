@@ -17,7 +17,7 @@ spec:
   routes:
   - path: /
     policies:
-    - name: ingresslink-calalang-net-oidc-policy-oidc-policy
+    - name: ingresslink-calalang-net-oidc-policy
     location-snippets: |
       status_zone externalname;
       set $custom_variable $remote_addr; 
