@@ -11,6 +11,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
+    namespace: ingresslink
   syncPolicy:
     automated:
       prune: true
