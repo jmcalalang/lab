@@ -37,8 +37,8 @@ spec:
     - path: /
       location-snippets: |
         status_zone root;
-      policies:
-        - name: kubernetes-calalang-net-oidc-policy
+#      policies:
+#        - name: kubernetes-calalang-net-oidc-policy
       action:
         proxy:
           upstream: spa
