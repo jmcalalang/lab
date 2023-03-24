@@ -1,0 +1,12 @@
+apiVersion: k8s.nginx.org/v1
+kind: Policy
+metadata:
+  name: brewz-waf-policy
+spec:
+  waf:
+    enable: true
+    apPolicy: "calalang-net/brewz-api-security-policy"
+    securityLog:
+      enable: true
+      apLogConf: "calalang-net/brewz-logconf"
+      logDest: "syslog:server=syslog.syslog-svc.default:514"
