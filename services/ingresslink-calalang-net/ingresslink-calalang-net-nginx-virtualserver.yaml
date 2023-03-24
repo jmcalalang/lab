@@ -7,7 +7,7 @@ spec:
   ingressClassName: ingresslink-nginx
   host: ingresslink.calalang.net
   tls:
-    secret: kubernetes-calalang-net-tls-secret
+    secret: ingresslink-calalang-net-tls-secret
     redirect:
       enable: true
   upstreams:
@@ -17,7 +17,7 @@ spec:
   routes:
   - path: /
     policies:
-    - name: oidc-policy
+    - name: ingresslink-calalang-net-oidc-policy-oidc-policy
     location-snippets: |
       status_zone externalname;
       set $custom_variable $remote_addr; 

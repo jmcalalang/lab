@@ -3,7 +3,7 @@ kind: VirtualServer
 metadata:
   name: kubernetes.calalang.net
 spec:
-  ingressClassName: nginx  
+  ingressClassName: nginx
   host: kubernetes.calalang.net
   tls:
     secret: kubernetes-calalang-net-tls-secret
@@ -37,10 +37,12 @@ spec:
     - path: /
       location-snippets: |
         status_zone root;
+      policies:
+        - name: kubernetes-calalang-net-oidc-policy
       matches:
         - conditions:
-          - cookie: "app_version"
-            value: "dark"
+            - cookie: "app_version"
+              value: "dark"
           action:
             proxy:
               upstream: spa-dark
