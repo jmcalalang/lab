@@ -20,7 +20,7 @@ spec:
   routes:
   - path: /
     location-snippets: |
-      status_zone argo-argocd-server;
+      status_zone argo-calalang-net-root;
     policies:
     - name: oidc-policy
     action:

@@ -19,7 +19,7 @@ spec:
   routes:
   - path: /
     location-snippets: |
-      status_zone nms-server;
+      status_zone jwt-nms-calalang-net-root;
     policies:
     - name: jwt-policy
     action:
