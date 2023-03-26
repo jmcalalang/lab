@@ -30,7 +30,7 @@
     - "{{ bigips }}"
   when: state == "present"
 
-- name: Import System Auth APM policy
+- name: Import Calalang OIDC APM policy
   bigip_apm_policy_import:
     name: system-auth
     source: ../files/access-policies/calalang-oidc.tar.gz
@@ -70,7 +70,7 @@
     - "{{ bigips }}"
   when: state == "absent"
 
-- name: Remove System Auth APM policy
+- name: Remove Calalang OIDC APM policy
   bigip_apm_policy_import:
     name: system-auth
     source: ../files/access-policies/calalang-oidc.tar.gz
