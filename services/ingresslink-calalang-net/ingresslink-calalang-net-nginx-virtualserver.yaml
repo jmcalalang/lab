@@ -18,7 +18,7 @@ spec:
     policies:
     - name: ingresslink-calalang-net-oidc-policy
     location-snippets: |
-      status_zone externalname;
+      status_zone www-nginx-org-root;
       set $custom_variable $remote_addr; 
     action:
       proxy:

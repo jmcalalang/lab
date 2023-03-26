@@ -21,6 +21,25 @@
     - "{{ bigips }}"
   when: state == "present"
 
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Import System Auth APM policy
+  bigip_apm_policy_import:
+    name: system-auth
+    source: ../files/access-policies/calalang-oidc.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
 # Remove BIG-IP {{BIGIPhost01}} APM resources
 
 - name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
@@ -36,6 +55,25 @@
   bigip_apm_policy_import:
     name: system-auth
     source: ../files/access-policies/system-auth.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Remove System Auth APM policy
+  bigip_apm_policy_import:
+    name: system-auth
+    source: ../files/access-policies/calalang-oidc.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
