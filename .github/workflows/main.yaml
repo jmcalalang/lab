@@ -95,7 +95,11 @@ jobs:
       - name: pwd
         id: pwd
         run: pwd
-        
+
+      - name: ls
+        id: ls
+        run: ls -lah
+
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
