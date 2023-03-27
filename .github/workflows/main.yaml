@@ -92,19 +92,11 @@ jobs:
 #        id: destroy
 #        run: terraform destroy --auto-approve
 
-      - name: pwd
-        id: pwd
-        run: pwd
-
-      - name: ls
-        id: ls
-        run: ls -lah distributed-cloud/
-
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
           name: f5xc-terraform-state
-          path: /home/runner/work/lab/lab/distributed-cloud/terraform/infrastructure/terraform.tfstate
+          path: /home/runner/work/lab/lab/distributed-cloud/terraform/infrastructure/distributed-cloud/terraform.tfstate
           retention-days: 30
 
   F5XC-Terraform-Configuration:
@@ -177,7 +169,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: f5xc-terraform-state
-          path: /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/terraform.tfstate
+          path: /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/distributed-cloud/terraform.tfstate
           retention-days: 30
 
 ########################################################################################################
@@ -831,28 +823,28 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-#      - name: Download Terraform State
-#        id: download-artifact
-#        uses: dawidd6/action-download-artifact@v2
-#        with:
-#          name: argo-terraform-configuration-state
-#          # Optional, a directory where to extract artifact(s), defaults to the current directory
-#          path: services/argo/terraform
-#          # Optional, defaults to current repo
-#          check_artifacts: false
-#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-#          # default false
-#          search_artifacts: true
-#          # Optional, run number from the workflow
-#          # run_number: 3598306214
-#          # Optional, choose to skip unpacking the downloaded artifact(s)
-#          # default false
-#          # skip_unpack: false
-#          # Optional, choose how to exit the action if no artifact is found
-#          # can be one of:
-#          #  "fail", "warn", "ignore"
-#          # default fail
-#          if_no_artifact_found: fail
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: argo-terraform-configuration-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: services/argo/terraform
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
