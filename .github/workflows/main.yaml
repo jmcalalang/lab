@@ -48,28 +48,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: f5xc-terraform-infrastructure-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: distributed-cloud/terraform/infrastructure
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          #vrun_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: f5xc-terraform-infrastructure-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: distributed-cloud/terraform/infrastructure
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          #vrun_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -121,28 +121,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: f5xc-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: distributed-cloud/terraform/configuration
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          #vrun_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: f5xc-terraform-configuration-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: distributed-cloud/terraform/configuration
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          #vrun_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
