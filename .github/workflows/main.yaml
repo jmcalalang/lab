@@ -38,7 +38,7 @@ jobs:
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: distributed-cloud/terraform/infrastructure/
+        working-directory: distributed-cloud/terraform/infrastructure
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -92,6 +92,10 @@ jobs:
 #        id: destroy
 #        run: terraform destroy --auto-approve
 
+      - name: pwd
+        id: pwd
+        run: pwd
+        
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
@@ -111,7 +115,7 @@ jobs:
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: distributed-cloud/terraform/configuration/
+        working-directory: distributed-cloud/terraform/configuration
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
