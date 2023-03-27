@@ -52,7 +52,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          name: f5xc-terraform-state
+          name: f5xc-terraform-infrastructure-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: distributed-cloud/terraform/infrastructure
           # Optional, defaults to current repo
@@ -95,7 +95,7 @@ jobs:
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
-          name: f5xc-terraform-state
+          name: f5xc-terraform-infrastructure-state
           path: /home/runner/work/lab/lab/distributed-cloud/terraform/infrastructure/distributed-cloud/terraform.tfstate
           retention-days: 30
 
@@ -125,7 +125,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          name: f5xc-terraform-state
+          name: f5xc-terraform-configuration-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: distributed-cloud/terraform/configuration
           # Optional, defaults to current repo
@@ -168,7 +168,7 @@ jobs:
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
-          name: f5xc-terraform-state
+          name: f5xc-terraform-configuration-state
           path: /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/distributed-cloud/terraform.tfstate
           retention-days: 30
 
