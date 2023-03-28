@@ -17,7 +17,7 @@ variable "ttl" {
   type        = number
   description = "DNS time to live"
 }
-variable "record-type" {
+variable "record-type-cname" {
   type        = string
   description = "DNS record type"
 }
