@@ -22,7 +22,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     simple_route {
       http_method = "ANY"
       path {
-        path = "/re"
+        path = "/global"
       }
       origin_pools {
         pool {

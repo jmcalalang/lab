@@ -28,12 +28,5 @@ resource "volterra_origin_pool" "pool-vk8s-nginx-unprivileged" {
   loadbalancer_algorithm = "LB_OVERRIDE"
   port                   = 80
   same_as_endpoint_port  = true
-  use_tls {
-    disable_sni = true
-    tls_config {
-      default_security = true
-    }
-    skip_server_verification = true
-    no_mtls                  = true
-  }
+  no_tls                 = true
 }

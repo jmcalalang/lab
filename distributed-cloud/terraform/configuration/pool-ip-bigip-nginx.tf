@@ -21,7 +21,7 @@ resource "volterra_origin_pool" "pool-ip-bigip-nginx" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.health-check-tcp.name
+    name      = volterra_healthcheck.health-check-http.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
