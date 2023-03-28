@@ -523,7 +523,6 @@ jobs:
   GoDaddy-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [F5XC-Terraform-Configuration]
     # Environment Variables
     env:
       GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}

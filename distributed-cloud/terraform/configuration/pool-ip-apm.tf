@@ -21,7 +21,7 @@ resource "volterra_origin_pool" "pool-ip-apm" {
   }
   healthcheck {
     namespace = var.namespace
-    name      = volterra_healthcheck.health-check-http.name
+    name      = volterra_healthcheck.health-check-tcp.name
   }
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
