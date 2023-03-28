@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-unprivileged
+  labels:
+    app: nginx-unprivileged
+spec:
+  selector:
+    matchLabels:
+      app: nginx-unprivileged
+  template:
+    metadata:
+      labels:
+        app: nginx-unprivileged
+    spec:
+      containers:
+        - name: nginx-unprivileged
+          image: reg.edgecnf.com/apps/nginx-unpriv:v4.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

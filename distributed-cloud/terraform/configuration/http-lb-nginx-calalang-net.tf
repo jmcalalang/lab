@@ -18,6 +18,26 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     weight   = 1
     priority = 1
   }
+  routes {
+    simple_route {
+      http_method = "ANY"
+      path {
+        path = "/re"
+      }
+      origin_pools {
+        pool {
+          namespace = var.namespace
+          name      = volterra_origin_pool.pool-vk8s-nginx-unprivileged.name
+        }
+        weight           = 1
+        priority         = 1
+        endpoint_subsets = {}
+      }
+      advanced_options {
+        prefix_rewrite = "/"
+      }
+    }
+  }
   https_auto_cert {
     add_hsts              = true
     http_redirect         = true

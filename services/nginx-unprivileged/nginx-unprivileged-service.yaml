@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-unprivileged
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx-unprivileged
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
