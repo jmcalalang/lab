@@ -15,7 +15,6 @@ resource "volterra_origin_pool" "pool-vk8s-nginx-unprivileged" {
           namespace = "system"
           name      = "ves-io-all-res"
           tenant    = "ves-io"
-          kind      = "virtual_site"
         }
       }
       vk8s_networks = true
