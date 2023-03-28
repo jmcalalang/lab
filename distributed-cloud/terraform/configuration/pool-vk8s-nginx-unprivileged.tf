@@ -12,7 +12,7 @@ resource "volterra_origin_pool" "pool-vk8s-nginx-unprivileged" {
       service_name = "nginx-unprivileged.j-calalang"
       site_locator {
         virtual_site {
-          namespace = "system"
+          namespace = "shared"
           name      = "ves-io-all-res"
           tenant    = "ves-io"
         }
