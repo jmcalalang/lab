@@ -64,13 +64,16 @@ Certs for F5XC Authentication
 
 ### distributed-cloud
 
-Configuration management of F5XC resources
+Configuration and Infrastructure management of F5XC resources
 
-- Terraform (Infrastructure)
+- Terraform (Configuration)
   - F5XC Application Firewall
   - F5XC Origin Pools
   - F5XC Health Checks
   - F5XC Http Load-Balancers
+
+- Terraform (Infrastructure)
+  - F5XC vk8s Site
 
 ### godaddy
 
@@ -112,12 +115,9 @@ Configuration and Infrastructure management of NGINX resources
 Configuration of Kubernetes services
 
 - Argo
-- Container Ingress Services (BIG-IP)
-- Google Online Boutique
 - ingresslink.calalang.net
 - kubernetes.calalang.net
 - NGINX Management Suite
-- NGINX.org
-- NGINX Plus
+- nginx-unprivileged
 - nms.calalang.net
-- Syslog
+- syslog
