@@ -3,7 +3,7 @@
 data "kubectl_path_documents" "nginx-unprivileged" {
   pattern = "./files/manifests/nginx-unprivileged/nginx-unprivileged-*.yaml"
   vars = {
-    version = var.nginx-unprivileged-version
+    nginx-unprivileged-version = var.nginx-unprivileged-version
   }
 }
 

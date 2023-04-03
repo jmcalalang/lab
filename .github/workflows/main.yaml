@@ -107,6 +107,7 @@ jobs:
 
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
+      KUBECONFIG: ${{ secrets.VES_KUBECONFIG }}
 
     # Where are the Terraform files
     defaults:
