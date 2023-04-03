@@ -126,9 +126,13 @@ jobs:
         id: mkdir-kube
         run: mkdir ~/.kube/
 
-      - name: Update kubeconfig
-        id: update-kubeconfig
-        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
+#      - name: Update kubeconfig
+#        id: update-kubeconfig
+#        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
+
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: Download Terraform State
         id: download-artifact
