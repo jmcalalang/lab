@@ -9,6 +9,14 @@ terraform {
       source  = "volterraedge/volterra"
       version = "0.11.19"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.19.0"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.14.0"
+    }
   }
 }
 
@@ -17,4 +25,10 @@ terraform {
 provider "volterra" {
   api_p12_file = "../../../certs/f5-sa.console.ves.volterra.io.api-creds.p12"
   url          = "https://f5-sa.console.ves.volterra.io/api"
+}
+provider "kubernetes" {
+  # Configuration options
+}
+provider "kubectl" {
+  # Configuration options
 }

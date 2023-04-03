@@ -8,3 +8,7 @@ variable "owner" {
   type        = string
   description = "Creator of resource"
 }
+variable "nginx-unprivileged-version" {
+  type        = string
+  description = "Version of nginx unprivileged"
+}
