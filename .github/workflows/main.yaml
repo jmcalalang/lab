@@ -124,8 +124,6 @@ jobs:
       - uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG }}
-        with:
-          args: get pods
 
       - name: Download Terraform State
         id: download-artifact
