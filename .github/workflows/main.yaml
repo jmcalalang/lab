@@ -122,9 +122,9 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Create kubeconfig
-        id: touch-kubeconfig
-        run: touch ~/.kube/config
+      - name: Make kube directory
+        id: mkdir-kube
+        run: mkdir ~/.kube/
 
       - name: Update kubeconfig
         id: update-kubeconfig
