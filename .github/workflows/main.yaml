@@ -130,17 +130,17 @@ jobs:
 #        id: update-kubeconfig
 #        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
-#      - uses: actions-hub/kubectl@master
-#        env:
-#          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
-      - name: Make kubeconfig
-        id: write_file
-        uses: timheuer/base64-to-file@v1.2
-        with:
-          fileName: 'config'
-          fileDir: '~/.kube/'
-          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+#      - name: Make kubeconfig
+#        id: write_file
+#        uses: timheuer/base64-to-file@v1.2
+#        with:
+#          fileName: 'config'
+#          fileDir: '~/.kube/'
+#          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: Download Terraform State
         id: download-artifact
