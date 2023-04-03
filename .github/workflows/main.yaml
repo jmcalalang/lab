@@ -124,7 +124,7 @@ jobs:
 
       - name: Create kubeconfig
         id: kubeconfig
-        run: base64 --decode $VES_KUBECONFIG_BASE64 > $HOME/.kube/config
+        run: base64 --decode $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
       - name: Download Terraform State
         id: download-artifact
