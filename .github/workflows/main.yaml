@@ -122,6 +122,10 @@ jobs:
         with:
           terraform_version: 1.3.2
 
+      - name: Set Kubeconfig from environment variable
+        id: kubeconfig
+        run: printenv KUBECONFIG >$HOME/.kube/config
+
       - name: Download Terraform State
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
