@@ -124,7 +124,7 @@ jobs:
 
       - name: Set Kubeconfig from environment variable
         id: kubeconfig
-        run: printenv KUBECONFIG >$HOME/.kube/config
+        run: printf "%s" "KUBECONFIG" > "$HOME/.kube/config"
 
       - name: Download Terraform State
         id: download-artifact
