@@ -123,11 +123,11 @@ jobs:
           terraform_version: 1.3.2
 
       - name: Create kubeconfig
-        id: kubeconfig
+        id: touch-kubeconfig
         run: touch ~/.kube/config
 
       - name: Update kubeconfig
-        id: kubeconfig
+        id: update-kubeconfig
         run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
       - name: Download Terraform State
