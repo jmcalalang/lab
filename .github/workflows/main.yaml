@@ -210,7 +210,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/home/runner/work/lab/lab/big-ip/playbooks/" # <-- only one value is allowed
+          path: "/home/runner/work/lab/lab/big-ip/ansible/configuration/playbooks/" # <-- only one value is allowed
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -227,7 +227,7 @@ jobs:
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
-          directory: "./big-ip/ansible/playbooks"
+          directory: "./big-ip/ansible/configuration/playbooks"
 
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -423,7 +423,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/home/runner/work/lab/lab/nginx/playbooks/" # <-- only one value is allowed
+          path: "/home/runner/work/lab/lab/nginx/ansible/configuration/roles/nginx/tasks/main.yaml" # <-- only one value is allowed
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -440,7 +440,7 @@ jobs:
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
-          directory: "./nginx/ansible/playbooks"
+          directory: "./nginx/ansible/configuration/playbooks"
 
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on

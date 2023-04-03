@@ -60,7 +60,7 @@ spec:
         set $custom_variable $binary_remote_addr;
       policies:
         - name: brewz-rate-limit-policy
-        - name: brewz-waf-policy
+        - name: brewz-api-policy
       action:
         proxy:
           upstream: api
@@ -78,21 +78,21 @@ spec:
       location-snippets: |
         status_zone kubernetes-calalang-net-inventory;
       policies:
-        - name: brewz-waf-policy
+        - name: brewz-api-policy
       action:
         proxy:
           upstream: inventory
           rewritePath: /api/inventory
     - path: /api/recommendations
       policies:
-        - name: brewz-waf-policy
+        - name: brewz-api-policy
       action:
         proxy:
           upstream: recommendations
           rewritePath: /api/recommendations
     - path: /images
       policies:
-        - name: brewz-waf-policy
+        - name: brewz-api-policy
       action:
         proxy:
           upstream: api
@@ -103,3 +103,5 @@ spec:
           code: 200
           type: "text/plain"
           body: "Hello from ${server_addr}\n"
+      policies:
+        - name: brewz-waf-policy

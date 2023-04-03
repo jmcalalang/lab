@@ -1,11 +1,11 @@
 apiVersion: k8s.nginx.org/v1
 kind: Policy
 metadata:
-  name: brewz-waf-policy
+  name: brewz-api-policy
 spec:
   waf:
     enable: true
-    apPolicy: "calalang-net/brewz-waf-security-policy"
+    apPolicy: "calalang-net/brewz-api-security-policy"
     securityLogs:
       - 
         enable: true
