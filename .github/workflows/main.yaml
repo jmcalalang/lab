@@ -144,12 +144,8 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'config'
-          fileDir: '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/'
+          fileDir: '$HOME/.kube'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
-
-      - name: cat
-        id: cat
-        run: cat /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/config
 
       - name: Download Terraform State
         id: download-artifact

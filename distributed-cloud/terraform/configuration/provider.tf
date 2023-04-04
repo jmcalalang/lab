@@ -11,7 +11,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.19.0"
+      version = "2.18.1"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -28,8 +28,6 @@ provider "volterra" {
 }
 provider "kubernetes" {
   # Configuration options
-  config_path    = "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/config"
-  config_context = "calalang-vk8s"
 }
 provider "kubectl" {
   # Configuration options
