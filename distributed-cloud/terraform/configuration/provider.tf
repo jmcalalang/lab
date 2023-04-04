@@ -28,7 +28,7 @@ provider "volterra" {
 }
 provider "kubernetes" {
   # Configuration options
-  config_path = "$HOME/.kube/config"
+  config_path = "$PWD/kubeconfig/config"
 }
 provider "kubectl" {
   # Configuration options

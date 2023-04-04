@@ -130,12 +130,12 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'config'
-          fileDir: '$HOME/.kube'
+          fileDir: '$PWD/kubeconfig/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
-      - name: Cat kubeconfig
+      - name: cat kubeconfig
         id: cat
-        run: cat '$HOME/.kube/config'
+        run: cat '$PWD/kubeconfig/config'
 
       - name: Download Terraform State
         id: download-artifact
