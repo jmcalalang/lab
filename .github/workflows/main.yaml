@@ -130,9 +130,9 @@ jobs:
 #        env:
 #          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
-#      - name: Make kube directory
-#        id: mkdir-kube
-#        run: mkdir ~/.kube/
+      - name: Make kube directory
+        id: mkdir-kube
+        run: mkdir ~/.kube/
 
 #      - name: Update kubeconfig
 #        id: update-kubeconfig
