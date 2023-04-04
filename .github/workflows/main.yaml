@@ -153,7 +153,7 @@ jobs:
 
       - name: ls
         id: ls
-        run: ls -lah ~/
+        run: ls -lah /home/runner/work/lab/lab/distributed-cloud/terraform/configuration
 
       - name: Download Terraform State
         id: download-artifact
