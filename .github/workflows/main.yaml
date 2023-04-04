@@ -133,7 +133,7 @@ jobs:
 
       - name: Make kube directory
         id: mkdir-kube
-        run: mkdir ~/.kube/
+        run: mkdir ~/kubectl/
 
 #      - name: Update kubeconfig
 #        id: update-kubeconfig
@@ -144,12 +144,12 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'config'
-          fileDir: '~/.kube/'
+          fileDir: '~/kubectl/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: Cat kubeconfig
         id: cat
-        run: cat ~/.kube/config
+        run: cat ~/kubectl/config
 
       - name: Download Terraform State
         id: download-artifact
