@@ -29,6 +29,7 @@ provider "volterra" {
 provider "kubernetes" {
   # Configuration options
   config_path = "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/config"
+  config_context = "calalang-vk8s"
 }
 provider "kubectl" {
   # Configuration options
