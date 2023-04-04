@@ -144,6 +144,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'kubectl'
+          fileDir: '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: pwd
