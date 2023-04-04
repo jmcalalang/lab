@@ -9,10 +9,6 @@ terraform {
       source  = "volterraedge/volterra"
       version = "0.11.19"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.19.0"
-    }
     kubectl = {
       source  = "gavinbunney/kubectl"
       version = "1.14.0"
@@ -26,17 +22,11 @@ provider "volterra" {
   api_p12_file = "../../../certs/f5-sa.console.ves.volterra.io.api-creds.p12"
   url          = "https://f5-sa.console.ves.volterra.io/api"
 }
-provider "kubernetes" {
-  # Configuration options
-  config_paths = [
-    "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
-  ]
-  config_context = "calalang-vk8s"
-}
 provider "kubectl" {
   # Configuration options
   config_paths = [
     "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
   ]
-  config_context = "calalang-vk8s"
+  config_context   = "calalang-vk8s"
+  load_config_file = false
 }
