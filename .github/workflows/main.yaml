@@ -143,17 +143,13 @@ jobs:
         id: write_file
         uses: timheuer/base64-to-file@v1.2
         with:
-          fileName: 'kubectl'
+          fileName: 'config'
           fileDir: '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
-      - name: pwd
-        id: pwd
-        run: pwd
-
-      - name: ls
-        id: ls
-        run: ls -lah /home/runner/work/lab/lab/distributed-cloud/terraform/configuration
+      - name: cat
+        id: cat
+        run: cat /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/config
 
       - name: Download Terraform State
         id: download-artifact
