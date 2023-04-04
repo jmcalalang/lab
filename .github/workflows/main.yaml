@@ -125,11 +125,11 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-#      - uses: actions-hub/kubectl@master
-#        env:
-#          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG }}
-#        with:
-#          args: get pods
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG }}
+        with:
+          args: apply -f files/manifests/nginx-unprivileged/nginx-unprivileged-service.yaml
 
 #      - name: Make kube directory
 #        id: mkdir-kube
@@ -139,13 +139,13 @@ jobs:
 #        id: update-kubeconfig
 #        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
-      - name: Make kubeconfig
-        id: write_file
-        uses: timheuer/base64-to-file@v1.2
-        with:
-          fileName: 'config'
-          fileDir: '$HOME/.kube'
-          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+#      - name: Make kubeconfig
+#        id: write_file
+#        uses: timheuer/base64-to-file@v1.2
+#        with:
+#          fileName: 'config'
+#          fileDir: '$HOME/.kube'
+#          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: Download Terraform State
         id: download-artifact
