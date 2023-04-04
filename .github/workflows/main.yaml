@@ -133,6 +133,10 @@ jobs:
           fileDir: '$HOME/.kube'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
+      - name: Cat kubeconfig
+        id: cat
+        run: cat '$HOME/.kube/config'
+
       - name: Download Terraform State
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
