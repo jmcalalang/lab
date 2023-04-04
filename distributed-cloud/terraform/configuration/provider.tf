@@ -24,10 +24,10 @@ provider "volterra" {
 }
 provider "kubectl" {
   # Configuration options
-  config_paths = [
-    "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
-  ]
-  config_context = "calalang-vk8s"
-  #  load_config_file = false
-  host = "https://f5-sa.console.ves.volterra.io/api/vk8s/namespaces/j-calalang/calalang-vk8s"
+  host                   = var.ves_vk8s_host
+  config_context         = var.ves_vk8s_context
+  client_certificate     = base64decode(var.ves_vk8s_client_certificate)
+  client_key             = base64decode(var.ves_vk8s_client_key)
+  cluster_ca_certificate = base64decode(var.ves_vk8s_cluster_ca_certificate)
+  load_config_file       = false
 }

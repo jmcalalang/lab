@@ -107,6 +107,11 @@ jobs:
 
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
+      TF_VAR_ves_vk8s_host: ${{ secrets.VES_VK8S_HOST }}
+      TF_VAR_ves_vk8s_context: ${{ secrets.VES_VK8S_CONTEXT }}
+      TF_VAR_ves_vk8s_client_certificate: ${{ secrets.VES_VK8S_CLIENT_CERTIFICATE }}
+      TF_VAR_ves_vk8s_client_key: ${{ secrets.VES_VK8S_CLIENT_KEY }}
+      TF_VAR_ves_vk8s_cluster_ca_certificate: ${{ secrets.VES_VK8S_CLUSTER_CA_CERTIFICATE }}
 
     # Where are the Terraform files
     defaults:
@@ -124,18 +129,6 @@ jobs:
       - name: Setup kubectl
         id: install-kubectl
         uses: azure/setup-kubectl@v3
-
-      - name: Make kubeconfig
-        id: write_file
-        uses: timheuer/base64-to-file@v1.2
-        with:
-          fileName: 'kubeconfig.yaml'
-          fileDir: '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/'
-          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
-
-      - name: cat kubeconfig
-        id: cat
-        run: cat '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml'
 
       - name: Download Terraform State
         id: download-artifact
