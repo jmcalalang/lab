@@ -147,9 +147,13 @@ jobs:
           fileDir: '~/kubectl/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
-      - name: Cat kubeconfig
-        id: cat
-        run: cat ~/kubectl/config
+      - name: pwd
+        id: pwd
+        run: pwd
+
+      - name: ls
+        id: ls
+        run: ls -lah ~/
 
       - name: Download Terraform State
         id: download-artifact
