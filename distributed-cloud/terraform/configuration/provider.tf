@@ -28,7 +28,7 @@ provider "volterra" {
 }
 provider "kubernetes" {
   # Configuration options
-  config_path = "~/kubectl/config"
+  config_path = "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubectl"
 }
 provider "kubectl" {
   # Configuration options

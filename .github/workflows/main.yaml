@@ -131,9 +131,9 @@ jobs:
 #        with:
 #          args: get pods
 
-      - name: Make kube directory
-        id: mkdir-kube
-        run: mkdir ~/kubectl/
+#      - name: Make kube directory
+#        id: mkdir-kube
+#        run: mkdir ~/kubectl/
 
 #      - name: Update kubeconfig
 #        id: update-kubeconfig
@@ -143,8 +143,7 @@ jobs:
         id: write_file
         uses: timheuer/base64-to-file@v1.2
         with:
-          fileName: 'config'
-          fileDir: '~/kubectl/'
+          fileName: 'kubectl'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: pwd
