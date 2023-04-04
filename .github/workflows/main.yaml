@@ -107,7 +107,7 @@ jobs:
 
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
-      VES_KUBECONFIG_BASE64: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+      KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG }}
 
     # Where are the Terraform files
     defaults:
@@ -128,27 +128,25 @@ jobs:
 
 #      - uses: actions-hub/kubectl@master
 #        env:
-#          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+#          KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG }}
+#        with:
+#          args: get pods
 
-      - name: Make kube directory
-        id: mkdir-kube
-        run: mkdir ~/.kube/
+#      - name: Make kube directory
+#        id: mkdir-kube
+#        run: mkdir ~/.kube/
 
 #      - name: Update kubeconfig
 #        id: update-kubeconfig
 #        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
-      - name: Make kubeconfig
-        id: write_file
-        uses: timheuer/base64-to-file@v1.2
-        with:
-          fileName: 'config'
-          fileDir: '~/.kube/'
-          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
-
-      - name: cat kubeconfig
-        id: cat
-        run: ~/.kube/config
+#      - name: Make kubeconfig
+#        id: write_file
+#        uses: timheuer/base64-to-file@v1.2
+#        with:
+#          fileName: 'config'
+#          fileDir: '~/.kube/'
+#          encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: Download Terraform State
         id: download-artifact
