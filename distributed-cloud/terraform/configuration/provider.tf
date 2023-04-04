@@ -27,7 +27,7 @@ provider "kubectl" {
   config_paths = [
     "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
   ]
-  config_context   = "calalang-vk8s"
-#  load_config_file = false
-  host             = "https://f5-sa.console.ves.volterra.io/api/vk8s/namespaces/j-calalang/calalang-vk8s"
+  config_context = "calalang-vk8s"
+  #  load_config_file = false
+  host = "https://f5-sa.console.ves.volterra.io/api/vk8s/namespaces/j-calalang/calalang-vk8s"
 }
