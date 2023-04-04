@@ -31,7 +31,12 @@ provider "kubernetes" {
   config_paths = [
     "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
   ]
+  config_context = "calalang-vk8s"
 }
 provider "kubectl" {
   # Configuration options
+  config_paths = [
+    "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
+  ]
+  config_context = "calalang-vk8s"
 }
