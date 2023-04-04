@@ -122,17 +122,21 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Make kube directory
-        id: mkdir-kube
-        run: mkdir ~/.kube/
-
-#      - name: Update kubeconfig
-#        id: update-kubeconfig
-#        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
 
       - uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.VES_KUBECONFIG_BASE64 }}
+
+#      - name: Make kube directory
+#        id: mkdir-kube
+#        run: mkdir ~/.kube/
+
+#      - name: Update kubeconfig
+#        id: update-kubeconfig
+#        run: base64 --decode -i $VES_KUBECONFIG_BASE64 > ~/.kube/config
 
 #      - name: Make kubeconfig
 #        id: write_file
