@@ -28,7 +28,9 @@ provider "volterra" {
 }
 provider "kubernetes" {
   # Configuration options
-  config_path = "/kubeconfig/config"
+  config_paths = [
+    "/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml"
+  ]
 }
 provider "kubectl" {
   # Configuration options

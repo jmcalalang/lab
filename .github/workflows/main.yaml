@@ -129,13 +129,13 @@ jobs:
         id: write_file
         uses: timheuer/base64-to-file@v1.2
         with:
-          fileName: 'config'
-          fileDir: '/kubeconfig/'
+          fileName: 'kubeconfig.yaml'
+          fileDir: '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/'
           encodedString: ${{ secrets.VES_KUBECONFIG_BASE64 }}
 
       - name: cat kubeconfig
         id: cat
-        run: cat '/kubeconfig/config'
+        run: cat '/home/runner/work/lab/lab/distributed-cloud/terraform/configuration/kubeconfig.yaml'
 
       - name: Download Terraform State
         id: download-artifact
