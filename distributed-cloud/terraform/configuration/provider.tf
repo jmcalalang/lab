@@ -29,4 +29,5 @@ provider "kubectl" {
   ]
   config_context   = "calalang-vk8s"
   load_config_file = false
+  host             = "https://f5-sa.console.ves.volterra.io/api/vk8s/namespaces/j-calalang/calalang-vk8s"
 }
