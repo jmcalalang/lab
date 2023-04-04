@@ -11,7 +11,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.18.1"
+      version = "2.19.0"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -28,6 +28,7 @@ provider "volterra" {
 }
 provider "kubernetes" {
   # Configuration options
+  config_path = "$HOME/.kube/config"
 }
 provider "kubectl" {
   # Configuration options
