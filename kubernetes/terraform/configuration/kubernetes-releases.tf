@@ -91,7 +91,8 @@ resource "kubectl_manifest" "nginx-ingresslink" {
 data "kubectl_path_documents" "nginx-unprivileged" {
   pattern = "./files/manifests/nginx-unprivileged/nginx-unprivileged-*.yaml"
   vars = {
-    nginx-unprivileged-version = var.nginx-unprivileged-version
+    nginx-unprivileged-version = var.nginx-unprivileged-version,
+    namespace                  = var.namespace
   }
 }
 
