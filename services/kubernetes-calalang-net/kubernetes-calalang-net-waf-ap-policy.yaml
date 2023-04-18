@@ -17,11 +17,7 @@ spec:
       settings:
         isEnabled: false
     response-pages:
-    - responseContent: "<html><head><title>Custom Reject Page</title></head><body>This
-        is a custom response page; it is supposed to overwrite the default page with
-        custom text.<br><br>Your support ID is: <%TS.request.ID()%><br><br><a href='javascript:history.back();'>[Go
-        Back]</a></body></html>"
-      responseHeader: "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nPragma: no-cache\r\nConnection:
-        close"
-      responseActionType: custom
-      responsePageType: default
+        - responseHeader: HTTP/1.1 403 forbidden
+          responseActionType: custom
+          responsePageType: default
+          responseContent: "<html><head><title>Custom Reject Page</title></head><body><h1>I EAT THE COOKIE</h1><br><img src=\'https://longislandweekly.com/wp-content/uploads/2019/11/Cookie-Monster-cookie-crumbs.jpg\' width=200 height=150><br><br>Your support ID is: <%TS.request.ID()%><br><br><a href=\'javascript:history.back();\'>[Go Back]</a></body></html>"
