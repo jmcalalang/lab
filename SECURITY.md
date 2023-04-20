@@ -1,6 +1,6 @@
 # Security Policy
 
-Maintained by Jon
+Maintained by Jon Calalang
 
 ## Supported Versions
 

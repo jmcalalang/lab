@@ -53,7 +53,7 @@ Configuration and Infrastructure management of BIG-IP resources
 - Terraform (Infrastructure)
   - Create BIG-IP(s)
   - Create Availability Set
-  - Create RBAC Roles
+  - Create Managed Service Identity Roles
   - Create Resource Group
 
 ### certs
@@ -87,15 +87,17 @@ Configuration management of GoDaddy resources
 Configuration management of Kubernetes resources
 
 - Terraform (Configuration)
-  - Install NGINX Ingress Controller
-  - Install NGINX IngressLink Controller
-  - Install F5XC Kubernetes Site
-  - Install Argo
+  - Install NGINX Ingress Controller in Azure Kubernetes Service
+  - Install NGINX IngressLink Controller in Azure Kubernetes Service
+  - Install F5XC Kubernetes Site in Azure Kubernetes Service
+  - Install Argo in Azure Kubernetes Service
+  - Install BIG-IP Container Ingress Services in Azure Kubernetes Service
+  - Install NGINX Unprivileged in F5XC vk8s
 
 - Terraform (Infrastructure)
   - Create Azure Kubernetes Service
   - Create Azure Container Regisitry
-  - Create RBAC Roles
+  - Create Managed Service Identity Roles
   - Create Resource Group
 
 ### nginx
@@ -114,10 +116,9 @@ Configuration and Infrastructure management of NGINX resources
 
 Configuration of Kubernetes services
 
-- Argo
+- argo
 - ingresslink.calalang.net
 - kubernetes.calalang.net
 - NGINX Management Suite
-- nginx-unprivileged
 - nms.calalang.net
 - syslog
