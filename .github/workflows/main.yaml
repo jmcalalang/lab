@@ -519,7 +519,8 @@ jobs:
 
       - name: Terraform GoDaddy-Terraform Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init
+        # run: terraform init -force-copy
 
       - name: Terraform GoDaddy-Terraform Validate
         id: validate
