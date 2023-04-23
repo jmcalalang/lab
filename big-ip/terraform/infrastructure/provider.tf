@@ -6,20 +6,26 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.41.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.4.3"
+    bigip = {
+      source  = "F5Networks/bigip"
+      version = "1.16.1"
+    }
+    tfe = {
+      source  = "hashicorp/tfe"
+      version = "0.44.1"
     }
     time = {
       source  = "hashicorp/time"
       version = "0.9.1"
     }
-    bigip = {
-      source  = "F5Networks/bigip"
-      version = "1.16.1"
+    random = {
+      source  = "hashicorp/random"
+      version = "3.4.3"
     }
   }
 }
+
+# Provider Options
 
 provider "azurerm" {
   # Configuration options
@@ -29,15 +35,15 @@ provider "azurerm" {
     }
   }
 }
-
-provider "random" {
+provider "bigip" {
   # Configuration options
 }
-
+provider "tfe" {
+  # Configuration options
+}
 provider "time" {
   # Configuration options
 }
-
-provider "bigip" {
+provider "random" {
   # Configuration options
 }

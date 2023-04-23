@@ -2,29 +2,33 @@
 
 terraform {
   required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.18.1"
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.9.0"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
       version = "1.14.0"
     }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "2.9.0"
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.18.1"
+    }
+    tfe = {
+      source  = "hashicorp/tfe"
+      version = "0.44.1"
     }
   }
 }
 
-provider "kubernetes" {
+# Provider Options
+
+provider "helm" {
   # Configuration options
 }
-
 provider "kubectl" {
   # Configuration options
 }
-
 provider "kubectl" {
   # Configuration options
   alias                  = "kubectl-vk8s"
@@ -35,7 +39,9 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(var.ves_vk8s_cluster_ca_certificate)
   load_config_file       = false
 }
-
-provider "helm" {
+provider "kubernetes" {
+  # Configuration options
+}
+provider "tfe" {
   # Configuration options
 }

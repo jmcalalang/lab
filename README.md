@@ -4,6 +4,8 @@ Congratulations you've made it to Jon's F5 lab. This lab environment is used dai
 
 All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions. The components are loosely coupled, meaning there is no carryover from one GitHub Action to another, or between Terraform and Ansible. This was done on purpose to be able to consume/copy just the needed components.
 
+Terraform state is setup as remote, with app.terraform.io (Terraform Cloud)
+
 [![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
 ## Environment
@@ -21,20 +23,20 @@ GitHub Actions for lab environment
 ![image](actions.png)
 
 - GitHub Actions breakdown
-  - F5XC
+  - Argo
     - Terraform
   - BIG-IP
     - Terraform
     - Ansible
+  - F5XC
+    - Terraform
   - GoDaddy
+    - Terraform
+  - Kubernetes
     - Terraform
   - NGINX / NGINX Management System
     - Terraform
     - Ansible
-  - Kubernetes
-    - Terraform
-  - Argo
-    - Terraform
 
 - Github Actions secret table
 
@@ -64,6 +66,7 @@ GitHub Actions for lab environment
   | NMS_PASSWORD                    |
   | NMS_TOKEN                       |
   | NMS_USERNAME                    |
+  | TFE_TOKEN                       |
   | VES_HOSTNAME                    |
   | VES_P12_PASSWORD                |
   | VES_VK8S_CLIENT_CERTIFICATE     |
@@ -71,7 +74,6 @@ GitHub Actions for lab environment
   | VES_VK8S_CLUSTER_CA_CERTIFICATE |
   | VES_VK8S_CONTEXT                |
   | VES_VK8S_HOST                   |
-  |                                 |
 
 ### big-ip
 

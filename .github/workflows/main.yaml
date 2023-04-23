@@ -16,6 +16,304 @@ jobs:
 
 ########################################################################################################
 
+  Argo-Terraform-Configuration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [Kubernetes-Terraform-Configuration]
+
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+  
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: services/argo/terraform
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}","tenantId":"${{ secrets.AZURE_TENANT }}"}'
+
+      - name: Azure Kubernetes Context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
+          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: argo-terraform-configuration-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: services/argo/terraform
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+
+      - name: HashiCorp Terraform Setup
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Argo-Terraform-Configuration fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Argo-Terraform-Configuration Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform Argo-Terraform-Configuration Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Argo-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+      - name: Upload Terraform Argo-Terraform-Configuration State
+        uses: actions/upload-artifact@v3
+        with:
+          name: argo-terraform-configuration-state
+          path: /home/runner/work/lab/lab/services/argo/terraform/terraform.tfstate
+          retention-days: 30
+
+########################################################################################################
+
+  BIG-IP-Resources-Available:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [BIG-IP-Terraform-Infrastructure]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: cURL BIG-IP
+        run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} -X GET -k https://${{ secrets.BIGIP_HOST }}/mgmt/tm/sys/ready/
+
+  BIG-IP-Ansible-Configuration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [BIG-IP-Resources-Available]
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install PIP
+        run: sudo apt-get install -y python3-pip
+
+      - name: Install apt-get dependencies
+        run: sudo pip3 install jmespath
+
+      - name: Setup ansible
+        run: |
+          ansible --version
+          pipx inject ansible-core jmespath
+
+      - name: Run ansible-lint
+        # replace `main` with any valid ref, or tags like `v6`
+        uses: ansible-community/ansible-lint-action@main
+        # optional:
+        with:
+          path: "/home/runner/work/lab/lab/big-ip/ansible/configuration/playbooks/" # <-- only one value is allowed
+
+      - name: Run Ansible Playbooks
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --extra-vars "@../defaults/main.yaml" 
+            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}"
+            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}"
+            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
+            --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
+            --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
+          # --verbose -vvvv
+          # Required, playbook filepath
+          playbook: "big-ip-playbook.yaml"
+          # Optional, directory where playbooks live
+          directory: "./big-ip/ansible/configuration/playbooks"
+
+  BIG-IP-Terraform-Infrastructure:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      BIGIP_USER: ${{ secrets.BIGIP_USER }}
+      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
+      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: big-ip/terraform/infrastructure
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.2
+
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: big-ip-terraform-infrastructure-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: big-ip/terraform/infrastructure
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+      - name: Upload Terraform BIG-IP-Terraform-Infrastructure State
+        uses: actions/upload-artifact@v3
+        with:
+          name: big-ip-terraform-infrastructure-state
+          path: /home/runner/work/lab/lab/big-ip/terraform/infrastructure/terraform.tfstate
+          retention-days: 30
+
+  BIG-IP-Terraform-Configuration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [BIG-IP-Ansible-Configuration]
+    
+    # Environment Variables
+    env:
+      BIGIP_USER: ${{ secrets.BIGIP_USER }}
+      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+      BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
+      TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: big-ip/terraform/configuration
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.2
+
+      - name: Download Terraform State
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: big-ip-terraform-configuration-state
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: big-ip/terraform/configuration
+          # Optional, defaults to current repo
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
+          # Optional, run number from the workflow
+          # run_number: 3598306214
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          # skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+
+      - name: Terraform BIG-IP-Terraform-Configuration fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform BIG-IP-Terraform-Configuration Init
+        id: init
+        run: terraform init -force-copy
+
+      - name: Terraform BIG-IP-Terraform-Configuration Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform BIG-IP-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+      - name: Upload Terraform BIG-IP-Terraform-Configuration State
+        uses: actions/upload-artifact@v3
+        with:
+          name: big-ip-terraform-configuration-state
+          path: /home/runner/work/lab/lab/big-ip/terraform/configuration/terraform.tfstate
+          retention-days: 30
+
+
+########################################################################################################
+
   F5XC-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
@@ -30,9 +328,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [F5XC-Resources-Available]
+    
     # Environment Variables
-
     env:
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
@@ -88,10 +387,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform F5XC-Terraform Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
@@ -103,9 +398,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     needs: [F5XC-Resources-Available, F5XC-Terraform-Infrastructure]
+    
     # Environment Variables
-
     env:
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
@@ -161,10 +457,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform F5XC-Terraform Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
       - name: Upload Terraform F5XC-Terraform State
         uses: actions/upload-artifact@v3
         with:
@@ -174,359 +466,15 @@ jobs:
 
 ########################################################################################################
 
-  BIG-IP-Resources-Available:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    needs: [BIG-IP-Terraform-Infrastructure]
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - name: cURL BIG-IP
-        run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} -X GET -k https://${{ secrets.BIGIP_HOST }}/mgmt/tm/sys/ready/
-
-  BIG-IP-Ansible-Configuration:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    needs: [BIG-IP-Resources-Available]
-    # Steps represent a sequence of tasks that will be executed as part of the job
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Install PIP
-        run: sudo apt-get install -y python3-pip
-
-      - name: Install apt-get dependencies
-        run: sudo pip3 install jmespath
-
-      - name: Setup ansible
-        run: |
-          ansible --version
-          pipx inject ansible-core jmespath
-
-      - name: Run ansible-lint
-        # replace `main` with any valid ref, or tags like `v6`
-        uses: ansible-community/ansible-lint-action@main
-        # optional:
-        with:
-          path: "/home/runner/work/lab/lab/big-ip/ansible/configuration/playbooks/" # <-- only one value is allowed
-
-      - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          # Optional, additional flags to pass to ansible-playbook
-          options: |
-            --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOST }}"
-            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}"
-            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
-            --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
-            --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
-          # --verbose -vvvv
-          # Required, playbook filepath
-          playbook: "big-ip-playbook.yaml"
-          # Optional, directory where playbooks live
-          directory: "./big-ip/ansible/configuration/playbooks"
-
-  BIG-IP-Terraform-Infrastructure:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    # Environment Variables
-    env:
-      BIGIP_USER: ${{ secrets.BIGIP_USER }}
-      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
-      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
-      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-
-    # Where are the Terraform files
-    defaults:
-      run:
-        working-directory: big-ip/terraform/infrastructure
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.2
-
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: big-ip-terraform-infrastructure-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: big-ip/terraform/infrastructure
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
-
-      - name: Terraform BIG-IP-Terraform-Infrastructure fmt
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: false
-
-      - name: Terraform BIG-IP-Terraform-Infrastructure Init
-        id: init
-        run: terraform init -force-copy
-
-      - name: Terraform BIG-IP-Terraform-Infrastructure Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Terraform BIG-IP-Terraform-Infrastructure Apply
-        id: apply
-        run: terraform apply --auto-approve
-
-#      - name: Terraform BIG-IP-Terraform-Infrastructure Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
-      - name: Upload Terraform BIG-IP-Terraform-Infrastructure State
-        uses: actions/upload-artifact@v3
-        with:
-          name: big-ip-terraform-infrastructure-state
-          path: /home/runner/work/lab/lab/big-ip/terraform/infrastructure/terraform.tfstate
-          retention-days: 30
-
-  BIG-IP-Terraform-Configuration:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    needs: [BIG-IP-Ansible-Configuration]
-    # Environment Variables
-    env:
-      BIGIP_USER: ${{ secrets.BIGIP_USER }}
-      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-      BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
-      TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-      TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
-
-    # Where are the Terraform files
-    defaults:
-      run:
-        working-directory: big-ip/terraform/configuration
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.2
-
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: big-ip-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: big-ip/terraform/configuration
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
-
-      - name: Terraform BIG-IP-Terraform-Configuration fmt
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: false
-
-      - name: Terraform BIG-IP-Terraform-Configuration Init
-        id: init
-        run: terraform init -force-copy
-
-      - name: Terraform BIG-IP-Terraform-Configuration Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Terraform BIG-IP-Terraform-Configuration Apply
-        id: apply
-        run: terraform apply --auto-approve
-
-#      - name: Terraform BIG-IP-Terraform-Configuration Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
-      - name: Upload Terraform BIG-IP-Terraform-Configuration State
-        uses: actions/upload-artifact@v3
-        with:
-          name: big-ip-terraform-configuration-state
-          path: /home/runner/work/lab/lab/big-ip/terraform/configuration/terraform.tfstate
-          retention-days: 30
-
-######################################################################################################
-
-  NMS-Resources-Available:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    needs: [NGINX-Terraform-Infrastructure]
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: cURL NMS
-        run: curl --max-time 10 -u ${{ secrets.NMS_USERNAME }}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/#instances
-
-  NMS-Ansible-Configuration:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    needs: [NMS-Resources-Available]
-    # Steps represent a sequence of tasks that will be executed as part of the job
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Install PIP
-        run: sudo apt-get install -y python3-pip
-
-      - name: Install apt-get dependencies
-        run: sudo pip3 install jmespath
-
-      - name: Setup ansible
-        run: |
-          ansible --version
-          pipx inject ansible-core jmespath
-
-      - name: Run ansible-lint
-        # replace `main` with any valid ref, or tags like `v6`
-        uses: ansible-community/ansible-lint-action@main
-        # optional:
-        with:
-          path: "/home/runner/work/lab/lab/nginx/ansible/configuration/roles/nginx/tasks/main.yaml" # <-- only one value is allowed
-
-      - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          # Optional, additional flags to pass to ansible-playbook
-          options: |
-            --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "NMShost01=${{ secrets.NMS_HOSTNAME }}" 
-            --extra-vars "NMSadminUsername=${{ secrets.NMS_USERNAME }}" 
-            --extra-vars "NMSadminPassword=${{ secrets.NMS_PASSWORD }}" 
-            --extra-vars "NMSToken=${{ secrets.NMS_TOKEN }}"
-            --extra-vars "NMSinstanceGroup=${{ secrets.NMS_INSTANCE_GROUP }}"
-          #  --verbose -vvvv
-          # Required, playbook filepath
-          playbook: "nginx.yaml"
-          # Optional, directory where playbooks live
-          directory: "./nginx/ansible/configuration/playbooks"
-
-  NGINX-Terraform-Infrastructure:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    # Environment Variables
-    env:
-      TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
-      TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
-      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-
-    # Where are the Terraform files
-    defaults:
-      run:
-        working-directory: nginx/terraform/
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.2
-
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: nginx-terraform-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: nginx/terraform/
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
-
-      - name: Terraform NGINX-Terraform-Infrastructure fmt
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: false
-
-      - name: Terraform NGINX-Terraform-Infrastructure Init
-        id: init
-        run: terraform init -force-copy
-
-      - name: Terraform NGINX-Terraform-Infrastructure Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Terraform NGINX-Terraform-Infrastructure Apply
-        id: apply
-        run: terraform apply --auto-approve
-
-#      - name: Terraform NGINX-Terraform-Infrastructure Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
-      - name: Upload Terraform NGINX-Terraform-Infrastructure State
-        uses: actions/upload-artifact@v3
-        with:
-          name: nginx-terraform-state
-          path: /home/runner/work/lab/lab/nginx/terraform/terraform.tfstate
-          retention-days: 30
-
-########################################################################################################
-
   GoDaddy-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    
     # Environment Variables
     env:
       GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
       GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -581,10 +529,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform GoDaddy-Terraform Destroy
-#        id: apply
-#        run: terraform destroy --auto-approve
-
       - name: Upload Terraform GoDaddy-Terraform State
         uses: actions/upload-artifact@v3
         with:
@@ -604,6 +548,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -657,10 +602,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform Kubernetes-Terraform-Infrastructure Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
       - name: Upload Terraform Kubernetes-Terraform-Infrastructure State
         uses: actions/upload-artifact@v3
         with:
@@ -688,6 +629,7 @@ jobs:
       TF_VAR_ves_vk8s_client_certificate: ${{ secrets.VES_VK8S_CLIENT_CERTIFICATE }}
       TF_VAR_ves_vk8s_client_key: ${{ secrets.VES_VK8S_CLIENT_KEY }}
       TF_VAR_ves_vk8s_cluster_ca_certificate: ${{ secrets.VES_VK8S_CLUSTER_CA_CERTIFICATE }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
   
     # Where are the Terraform files
     defaults:
@@ -777,10 +719,6 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform Kubernetes-Terraform-Configuration Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
       - name: Upload Terraform Kubernetes-Terraform-Configuration State
         uses: actions/upload-artifact@v3
         with:
@@ -788,52 +726,99 @@ jobs:
           path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
           retention-days: 30
 
-########################################################################################################
+######################################################################################################
 
-  Argo-Terraform-Configuration:
+  NMS-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [Kubernetes-Terraform-Configuration]
+    needs: [NGINX-Terraform-Infrastructure]
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: cURL NMS
+        run: curl --max-time 10 -u ${{ secrets.NMS_USERNAME }}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/#instances
+
+  NMS-Ansible-Configuration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [NMS-Resources-Available]
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install PIP
+        run: sudo apt-get install -y python3-pip
+
+      - name: Install apt-get dependencies
+        run: sudo pip3 install jmespath
+
+      - name: Setup ansible
+        run: |
+          ansible --version
+          pipx inject ansible-core jmespath
+
+      - name: Run ansible-lint
+        # replace `main` with any valid ref, or tags like `v6`
+        uses: ansible-community/ansible-lint-action@main
+        # optional:
+        with:
+          path: "/home/runner/work/lab/lab/nginx/ansible/configuration/roles/nginx/tasks/main.yaml" # <-- only one value is allowed
+
+      - name: Run Ansible Playbooks
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --extra-vars "@../defaults/main.yaml" 
+            --extra-vars "NMShost01=${{ secrets.NMS_HOSTNAME }}" 
+            --extra-vars "NMSadminUsername=${{ secrets.NMS_USERNAME }}" 
+            --extra-vars "NMSadminPassword=${{ secrets.NMS_PASSWORD }}" 
+            --extra-vars "NMSToken=${{ secrets.NMS_TOKEN }}"
+            --extra-vars "NMSinstanceGroup=${{ secrets.NMS_INSTANCE_GROUP }}"
+          #  --verbose -vvvv
+          # Required, playbook filepath
+          playbook: "nginx.yaml"
+          # Optional, directory where playbooks live
+          directory: "./nginx/ansible/configuration/playbooks"
+
+  NGINX-Terraform-Infrastructure:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-  
+      TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
+      TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: services/argo/terraform
+        working-directory: nginx/terraform/
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
 
-      - name: Azure login
-        uses: azure/login@v1
+      - uses: hashicorp/setup-terraform@v2
         with:
-          creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}","tenantId":"${{ secrets.AZURE_TENANT }}"}'
-
-      - name: Azure Kubernetes Context
-        id: set-context
-        uses: azure/aks-set-context@v3
-        with:
-          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
-          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
-
-      - name: Setup kubectl
-        id: install-kubectl
-        uses: azure/setup-kubectl@v3
+          terraform_version: 1.3.2
 
       - name: Download Terraform State
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          name: argo-terraform-configuration-state
+          name: nginx-terraform-state
           # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: services/argo/terraform
+          path: nginx/terraform/
           # Optional, defaults to current repo
           check_artifacts: false
           # Optional, search for the last workflow run whose stored an artifact named as in `name` input
@@ -850,33 +835,26 @@ jobs:
           # default fail
           if_no_artifact_found: fail
 
-      - name: HashiCorp Terraform Setup
-        uses: hashicorp/setup-terraform@v2
-
-      - name: Terraform Argo-Terraform-Configuration fmt
+      - name: Terraform NGINX-Terraform-Infrastructure fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
 
-      - name: Terraform Argo-Terraform-Configuration Init
+      - name: Terraform NGINX-Terraform-Infrastructure Init
         id: init
         run: terraform init -force-copy
 
-      - name: Terraform Argo-Terraform-Configuration Validate
+      - name: Terraform NGINX-Terraform-Infrastructure Validate
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Argo-Terraform-Configuration Apply
+      - name: Terraform NGINX-Terraform-Infrastructure Apply
         id: apply
         run: terraform apply --auto-approve
 
-#      - name: Terraform Argo-Terraform-Configuration Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-
-      - name: Upload Terraform Argo-Terraform-Configuration State
+      - name: Upload Terraform NGINX-Terraform-Infrastructure State
         uses: actions/upload-artifact@v3
         with:
-          name: argo-terraform-configuration-state
-          path: /home/runner/work/lab/lab/services/argo/terraform/terraform.tfstate
+          name: nginx-terraform-state
+          path: /home/runner/work/lab/lab/nginx/terraform/terraform.tfstate
           retention-days: 30
