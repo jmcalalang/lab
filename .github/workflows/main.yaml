@@ -474,7 +474,7 @@ jobs:
     env:
       GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
       GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
-      TF_VAR_terraform-cloud-token: ${{ secrets.TFE_TOKEN }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:

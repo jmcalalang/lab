@@ -3,6 +3,7 @@
 terraform {
   backend "remote" {
     organization = "jmcalalang-lab"
+    hostname     = "app.terraform.io"
     workspaces {
       name = "godaddy-terraform-configuration-state"
     }
@@ -25,6 +26,7 @@ provider "godaddy" {
   # Configuration options
 }
 provider "tfe" {
+  hostname = "app.terraform.io"
+  token    = var.tfe_token
   # Configuration options
-  token = var.terraform-cloud-token
 }
