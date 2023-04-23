@@ -26,4 +26,5 @@ provider "godaddy" {
 }
 provider "tfe" {
   # Configuration options
+  token = var.terraform-cloud-token
 }
