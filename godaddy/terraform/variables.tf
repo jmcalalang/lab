@@ -13,6 +13,14 @@ variable "http-lb-nginx-ves-hostname" {
   type        = string
   description = "NGINX http load balancer ves hostname"
 }
+variable "terraform-cloud-organization" {
+  type        = string
+  description = "Terraform cloud organization"
+}
+variable "terraform-cloud-workspace" {
+  type        = string
+  description = "Terraform cloud workspace"
+}
 variable "ttl" {
   type        = number
   description = "DNS time to live"

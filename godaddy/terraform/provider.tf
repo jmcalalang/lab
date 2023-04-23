@@ -1,8 +1,11 @@
 # Main Terraform Provider
 
 terraform {
-  backend "local" {
-    path = "godaddy/terraform.tfstate"
+  backend "remote" {
+    organization = var.terraform-cloud-organization
+    workspaces {
+      name = var.terraform-cloud-workspace
+    }
   }
   required_providers {
     godaddy = {
