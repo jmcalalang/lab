@@ -13,10 +13,6 @@ variable "http-lb-nginx-ves-hostname" {
   type        = string
   description = "NGINX http load balancer ves hostname"
 }
-variable "tfe_token" {
-  type        = string
-  description = "Terraform cloud token"
-}
 variable "ttl" {
   type        = number
   description = "DNS time to live"

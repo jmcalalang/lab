@@ -26,7 +26,5 @@ provider "godaddy" {
   # Configuration options
 }
 provider "tfe" {
-  hostname = "app.terraform.io"
-  token    = var.tfe_token
   # Configuration options
 }
