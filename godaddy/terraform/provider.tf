@@ -2,9 +2,9 @@
 
 terraform {
   backend "remote" {
-    organization = var.terraform-cloud-organization
+    organization = "jmcalalang-lab"
     workspaces {
-      name = var.terraform-cloud-workspace
+      name = "godaddy-terraform-configuration-state"
     }
   }
   required_providers {
