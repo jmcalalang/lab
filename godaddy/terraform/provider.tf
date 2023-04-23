@@ -27,4 +27,5 @@ provider "godaddy" {
 }
 provider "tfe" {
   # Configuration options
+  token = "63MKbIeOju4tvQ.atlasv1.E8ufk6QSMyjreA6AzPXimyEr3z10Vpaz01KSVasPQ5QU8y4C0PEgftmQJrJ6ShekN70"
 }
