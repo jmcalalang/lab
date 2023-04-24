@@ -518,7 +518,7 @@ jobs:
 
       - name: Terraform GoDaddy-Terraform Init
         id: init
-        run: terraform init -ignore-remote-version -migrate-state -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -force-copy -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
         # run: terraform init -force-copy
 
       - name: Terraform GoDaddy-Terraform Validate
