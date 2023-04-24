@@ -2,8 +2,9 @@
 
 terraform {
   backend "remote" {
-    organization = "jmcalalang-lab"
-    hostname     = "app.terraform.io"
+    organization = {}
+    hostname     = {}
+    token        = {}
     workspaces {
       name = "godaddy-terraform-configuration-state"
     }

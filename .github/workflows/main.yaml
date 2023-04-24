@@ -474,7 +474,6 @@ jobs:
     env:
       GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
       GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -519,7 +518,7 @@ jobs:
 
       - name: Terraform GoDaddy-Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -migrate-state -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
         # run: terraform init -force-copy
 
       - name: Terraform GoDaddy-Terraform Validate
@@ -530,12 +529,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform GoDaddy-Terraform State
-        uses: actions/upload-artifact@v3
-        with:
-          name: godaddy-terraform-state
-          path: /home/runner/work/lab/lab/godaddy/terraform/godaddy/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform GoDaddy-Terraform State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: godaddy-terraform-state
+#          path: /home/runner/work/lab/lab/godaddy/terraform/godaddy/terraform.tfstate
+#          retention-days: 30
 
 ########################################################################################################
 
