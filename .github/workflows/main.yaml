@@ -53,28 +53,28 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: argo-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: services/argo/terraform
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: argo-terraform-configuration-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: services/argo/terraform
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -86,7 +86,7 @@ jobs:
 
       - name: Terraform Argo-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Argo-Terraform-Configuration Validate
         id: validate
@@ -188,28 +188,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: big-ip-terraform-infrastructure-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: big-ip/terraform/infrastructure
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: big-ip-terraform-infrastructure-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: big-ip/terraform/infrastructure
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform BIG-IP-Terraform-Infrastructure fmt
         id: fmt
@@ -218,7 +218,7 @@ jobs:
 
       - name: Terraform BIG-IP-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform BIG-IP-Terraform-Infrastructure Validate
         id: validate
@@ -261,28 +261,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: big-ip-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: big-ip/terraform/configuration
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: big-ip-terraform-configuration-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: big-ip/terraform/configuration
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform BIG-IP-Terraform-Configuration fmt
         id: fmt
@@ -291,7 +291,7 @@ jobs:
 
       - name: Terraform BIG-IP-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform BIG-IP-Terraform-Configuration Validate
         id: validate
@@ -343,28 +343,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: f5xc-terraform-infrastructure-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: distributed-cloud/terraform/infrastructure
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          #vrun_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: f5xc-terraform-infrastructure-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: distributed-cloud/terraform/infrastructure
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          #vrun_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -373,7 +373,7 @@ jobs:
 
       - name: Terraform F5XC-Terraform Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform F5XC-Terraform Validate
         id: validate
@@ -412,28 +412,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: f5xc-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: distributed-cloud/terraform/configuration
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          #vrun_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: f5xc-terraform-configuration-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: distributed-cloud/terraform/configuration
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          #vrun_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -442,7 +442,7 @@ jobs:
 
       - name: Terraform F5XC-Terraform Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform F5XC-Terraform Validate
         id: validate
@@ -513,7 +513,7 @@ jobs:
 
       - name: Terraform GoDaddy-Terraform Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform GoDaddy-Terraform Validate
         id: validate
@@ -552,28 +552,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: kubernetes-terraform-infrastructure-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: kubernetes/terraform/infrastructure
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: kubernetes-terraform-infrastructure-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: kubernetes/terraform/infrastructure
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -585,7 +585,7 @@ jobs:
 
       - name: Terraform Kubernetes-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Kubernetes-Terraform-Infrastructure Validate
         id: validate
@@ -668,28 +668,28 @@ jobs:
         run: helm repo update 
         continue-on-error: false
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: kubernetes-terraform-configuration-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: kubernetes/terraform/configuration
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: kubernetes-terraform-configuration-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: kubernetes/terraform/configuration
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -701,7 +701,7 @@ jobs:
 
       - name: Terraform Kubernetes-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Kubernetes-Terraform-Configuration Validate
         id: validate
@@ -803,28 +803,28 @@ jobs:
         with:
           terraform_version: 1.3.2
 
-      - name: Download Terraform State
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          name: nginx-terraform-state
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
-          path: nginx/terraform/
-          # Optional, defaults to current repo
-          check_artifacts: false
-          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
-          # default false
-          search_artifacts: true
-          # Optional, run number from the workflow
-          # run_number: 3598306214
-          # Optional, choose to skip unpacking the downloaded artifact(s)
-          # default false
-          # skip_unpack: false
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
+#      - name: Download Terraform State
+#        id: download-artifact
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          name: nginx-terraform-state
+#          # Optional, a directory where to extract artifact(s), defaults to the current directory
+#          path: nginx/terraform/
+#          # Optional, defaults to current repo
+#          check_artifacts: false
+#          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+#          # default false
+#          search_artifacts: true
+#          # Optional, run number from the workflow
+#          # run_number: 3598306214
+#          # Optional, choose to skip unpacking the downloaded artifact(s)
+#          # default false
+#          # skip_unpack: false
+#          # Optional, choose how to exit the action if no artifact is found
+#          # can be one of:
+#          #  "fail", "warn", "ignore"
+#          # default fail
+#          if_no_artifact_found: fail
 
       - name: Terraform NGINX-Terraform-Infrastructure fmt
         id: fmt
@@ -833,7 +833,7 @@ jobs:
 
       - name: Terraform NGINX-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform NGINX-Terraform-Infrastructure Validate
         id: validate
