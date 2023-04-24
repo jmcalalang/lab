@@ -1,6 +1,14 @@
 # Main Terraform Provider
 
 terraform {
+  backend "remote" {
+    organization = {}
+    hostname     = {}
+    token        = {}
+    workspaces {
+      name = "argo-terraform-configuration-state"
+    }
+  }
   required_providers {
     kubectl = {
       source  = "gavinbunney/kubectl"

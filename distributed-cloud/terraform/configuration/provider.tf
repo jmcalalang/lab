@@ -1,8 +1,13 @@
 # Main Terraform Provider
 
 terraform {
-  backend "local" {
-    path = "distributed-cloud/terraform.tfstate"
+  backend "remote" {
+    organization = {}
+    hostname     = {}
+    token        = {}
+    workspaces {
+      name = "f5xc-terraform-configuration-state"
+    }
   }
   required_providers {
     tfe = {

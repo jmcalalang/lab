@@ -27,7 +27,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
   
     # Where are the Terraform files
     defaults:
@@ -87,7 +86,7 @@ jobs:
 
       - name: Terraform Argo-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Argo-Terraform-Configuration Validate
         id: validate
@@ -97,12 +96,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform Argo-Terraform-Configuration State
-        uses: actions/upload-artifact@v3
-        with:
-          name: argo-terraform-configuration-state
-          path: /home/runner/work/lab/lab/services/argo/terraform/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform Argo-Terraform-Configuration State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: argo-terraform-configuration-state
+#          path: /home/runner/work/lab/lab/services/argo/terraform/terraform.tfstate
+#          retention-days: 30
 
 ########################################################################################################
 
@@ -175,7 +174,6 @@ jobs:
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
       TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
       TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -220,7 +218,7 @@ jobs:
 
       - name: Terraform BIG-IP-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform BIG-IP-Terraform-Infrastructure Validate
         id: validate
@@ -230,12 +228,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform BIG-IP-Terraform-Infrastructure State
-        uses: actions/upload-artifact@v3
-        with:
-          name: big-ip-terraform-infrastructure-state
-          path: /home/runner/work/lab/lab/big-ip/terraform/infrastructure/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform BIG-IP-Terraform-Infrastructure State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: big-ip-terraform-infrastructure-state
+#          path: /home/runner/work/lab/lab/big-ip/terraform/infrastructure/terraform.tfstate
+#          retention-days: 30
 
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
@@ -249,7 +247,6 @@ jobs:
       BIGIP_HOST: ${{ secrets.BIGIP_HOST }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -294,7 +291,7 @@ jobs:
 
       - name: Terraform BIG-IP-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform BIG-IP-Terraform-Configuration Validate
         id: validate
@@ -304,12 +301,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform BIG-IP-Terraform-Configuration State
-        uses: actions/upload-artifact@v3
-        with:
-          name: big-ip-terraform-configuration-state
-          path: /home/runner/work/lab/lab/big-ip/terraform/configuration/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform BIG-IP-Terraform-Configuration State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: big-ip-terraform-configuration-state
+#          path: /home/runner/work/lab/lab/big-ip/terraform/configuration/terraform.tfstate
+#          retention-days: 30
 
 
 ########################################################################################################
@@ -331,7 +328,6 @@ jobs:
     
     # Environment Variables
     env:
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
@@ -377,7 +373,7 @@ jobs:
 
       - name: Terraform F5XC-Terraform Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform F5XC-Terraform Validate
         id: validate
@@ -387,12 +383,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform F5XC-Terraform State
-        uses: actions/upload-artifact@v3
-        with:
-          name: f5xc-terraform-infrastructure-state
-          path: /home/runner/work/lab/lab/distributed-cloud/terraform/infrastructure/distributed-cloud/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform F5XC-Terraform State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: f5xc-terraform-infrastructure-state
+#          path: /home/runner/work/lab/lab/distributed-cloud/terraform/infrastructure/distributed-cloud/terraform.tfstate
+#          retention-days: 30
 
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
@@ -401,7 +397,6 @@ jobs:
     
     # Environment Variables
     env:
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
@@ -447,7 +442,7 @@ jobs:
 
       - name: Terraform F5XC-Terraform Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform F5XC-Terraform Validate
         id: validate
@@ -457,12 +452,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform F5XC-Terraform State
-        uses: actions/upload-artifact@v3
-        with:
-          name: f5xc-terraform-configuration-state
-          path: /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/distributed-cloud/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform F5XC-Terraform State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: f5xc-terraform-configuration-state
+#          path: /home/runner/work/lab/lab/distributed-cloud/terraform/configuration/distributed-cloud/terraform.tfstate
+#          retention-days: 30
 
 ########################################################################################################
 
@@ -518,8 +513,7 @@ jobs:
 
       - name: Terraform GoDaddy-Terraform Init
         id: init
-        run: terraform init -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
-        # run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform GoDaddy-Terraform Validate
         id: validate
@@ -548,7 +542,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -592,7 +585,7 @@ jobs:
 
       - name: Terraform Kubernetes-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Kubernetes-Terraform-Infrastructure Validate
         id: validate
@@ -602,12 +595,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform Kubernetes-Terraform-Infrastructure State
-        uses: actions/upload-artifact@v3
-        with:
-          name: kubernetes-terraform-infrastructure-state
-          path: /home/runner/work/lab/lab/kubernetes/terraform/infrastructure/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform Kubernetes-Terraform-Infrastructure State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: kubernetes-terraform-infrastructure-state
+#          path: /home/runner/work/lab/lab/kubernetes/terraform/infrastructure/terraform.tfstate
+#          retention-days: 30
 
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
@@ -629,7 +622,6 @@ jobs:
       TF_VAR_ves_vk8s_client_certificate: ${{ secrets.VES_VK8S_CLIENT_CERTIFICATE }}
       TF_VAR_ves_vk8s_client_key: ${{ secrets.VES_VK8S_CLIENT_KEY }}
       TF_VAR_ves_vk8s_cluster_ca_certificate: ${{ secrets.VES_VK8S_CLUSTER_CA_CERTIFICATE }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
   
     # Where are the Terraform files
     defaults:
@@ -709,7 +701,7 @@ jobs:
 
       - name: Terraform Kubernetes-Terraform-Configuration Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform Kubernetes-Terraform-Configuration Validate
         id: validate
@@ -719,12 +711,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform Kubernetes-Terraform-Configuration State
-        uses: actions/upload-artifact@v3
-        with:
-          name: kubernetes-terraform-configuration-state
-          path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform Kubernetes-Terraform-Configuration State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: kubernetes-terraform-configuration-state
+#          path: /home/runner/work/lab/lab/kubernetes/terraform/configuration/terraform.tfstate
+#          retention-days: 30
 
 ######################################################################################################
 
@@ -797,7 +789,6 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
       TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
       TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
-      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
     # Where are the Terraform files
     defaults:
@@ -842,7 +833,7 @@ jobs:
 
       - name: Terraform NGINX-Terraform-Infrastructure Init
         id: init
-        run: terraform init -force-copy
+        run: terraform init -force-copy -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
 
       - name: Terraform NGINX-Terraform-Infrastructure Validate
         id: validate
@@ -852,9 +843,9 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-      - name: Upload Terraform NGINX-Terraform-Infrastructure State
-        uses: actions/upload-artifact@v3
-        with:
-          name: nginx-terraform-state
-          path: /home/runner/work/lab/lab/nginx/terraform/terraform.tfstate
-          retention-days: 30
+#      - name: Upload Terraform NGINX-Terraform-Infrastructure State
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: nginx-terraform-state
+#          path: /home/runner/work/lab/lab/nginx/terraform/terraform.tfstate
+#          retention-days: 30

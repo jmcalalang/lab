@@ -1,6 +1,14 @@
 # Main Terraform Provider
 
 terraform {
+  backend "remote" {
+    organization = {}
+    hostname     = {}
+    token        = {}
+    workspaces {
+      name = "big-ip-terraform-infrastructure-state"
+    }
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"

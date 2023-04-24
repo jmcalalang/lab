@@ -1,6 +1,14 @@
 # Main Terraform Provider
 
 terraform {
+  backend "remote" {
+    organization = {}
+    hostname     = {}
+    token        = {}
+    workspaces {
+      name = "kubernetes-terraform-configuration-state"
+    }
+  }
   required_providers {
     helm = {
       source  = "hashicorp/helm"

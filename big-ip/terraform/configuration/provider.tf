@@ -1,6 +1,14 @@
 # Main Terraform Provider
 
 terraform {
+  backend "remote" {
+    organization = {}
+    hostname     = {}
+    token        = {}
+    workspaces {
+      name = "big-ip-terraform-configuration-state"
+    }
+  }
   required_providers {
     bigip = {
       source  = "F5Networks/bigip"
