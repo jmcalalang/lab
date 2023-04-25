@@ -8,9 +8,9 @@ resource "random_uuid" "f5xc-azure-site-random-uuid" {
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
   namespace   = var.namespace
-  description = "Azure Site ${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
-  count       = sum([var.f5xc-azure-site-count])
-  disable     = false
+  description = "Azure Site in ${var.location} for ${var.label-owner}"
+  #  count       = sum([var.f5xc-azure-site-count])
+  disable = false
 
   // Cordinates of site
   coordinates {
