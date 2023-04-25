@@ -6,9 +6,9 @@ resource "random_uuid" "f5xc-azure-site-random-uuid" {
 }
 
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
-  name        = "${var.owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
+  name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
   namespace   = var.namespace
-  description = "Azure Site ${var.owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
+  description = "Azure Site ${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
   count       = sum([var.f5xc-azure-site-count])
   disable     = false
 
@@ -32,7 +32,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 
   // One of the arguments from this list "azure_region alternate_region" must be set
   azure_region   = var.location
-  resource_group = var.resource-group-name
+  resource_group = var.f5xc-azure-site-resource-group
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
   ingress_gw {
