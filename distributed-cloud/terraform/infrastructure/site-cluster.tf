@@ -47,36 +47,13 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
           subnet_name         = var.existing-vnet-subnet
         }
       }
-      performance_enhancement_mode {
-        perf_mode_l7_enhanced = true
-      }
+    }
+    performance_enhancement_mode {
+      perf_mode_l7_enhanced = true
     }
     azure_certified_hw = var.f5xc-azure-site-offer
-
-    // One of the arguments from this list "no_dc_cluster_group dc_cluster_group" must be set
-    no_dc_cluster_group = true
-
-    // One of the arguments from this list "active_forward_proxy_policies forward_proxy_allow_all no_forward_proxy" must be set
-    no_forward_proxy = true
-
-    // One of the arguments from this list "no_global_network global_network_list" must be set
-    no_global_network = true
-
-    // One of the arguments from this list "k8s_cluster no_k8s_cluster" must be set
-    no_k8s_cluster = true
-
-    // One of the arguments from this list "no_network_policy active_network_policies active_enhanced_firewall_policies" must be set
-    no_network_policy = true
-
-    // One of the arguments from this list "no_outside_static_routes outside_static_routes" must be set
-    no_outside_static_routes = true
-
-    // One of the arguments from this list "sm_connection_public_ip sm_connection_pvt_ip" must be set
-    sm_connection_public_ip = true
-
-    // One of the arguments from this list "storage_class_list default_storage" must be set
-    default_storage = true
   }
+
   vnet {
     // One of the arguments from this list "existing_vnet new_vnet" must be set
     existing_vnet {
@@ -95,7 +72,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   }
 
   // Labels
-  labels {
+  labels = {
     owner         = var.label-owner
     resource-type = var.label-resource-type
     environment   = var.label-environment
