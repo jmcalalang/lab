@@ -9,6 +9,8 @@ resource "volterra_virtual_k8s" "calalang-vk8s" {
     name      = "ves-io-all-res"
   }
   labels = {
-    "owner" = var.label-owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
 }
