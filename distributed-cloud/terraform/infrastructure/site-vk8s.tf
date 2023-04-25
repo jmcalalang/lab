@@ -1,3 +1,5 @@
+## F5 Distributed Cloud Virtual Kubernetes Cluster
+
 resource "volterra_virtual_k8s" "calalang-vk8s" {
   name      = var.vk8s-name
   namespace = var.namespace
@@ -7,6 +9,6 @@ resource "volterra_virtual_k8s" "calalang-vk8s" {
     name      = "ves-io-all-res"
   }
   labels = {
-    "owner" = var.owner
+    "owner" = var.label-owner
   }
 }
