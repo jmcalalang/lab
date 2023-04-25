@@ -22,10 +22,6 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.18.1"
     }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "0.44.1"
-    }
   }
 }
 
@@ -48,8 +44,5 @@ provider "kubectl" {
   load_config_file       = false
 }
 provider "kubernetes" {
-  # Configuration options
-}
-provider "tfe" {
   # Configuration options
 }

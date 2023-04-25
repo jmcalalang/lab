@@ -18,10 +18,6 @@ terraform {
       source  = "F5Networks/bigip"
       version = "1.16.1"
     }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "0.44.1"
-    }
     time = {
       source  = "hashicorp/time"
       version = "0.9.1"
@@ -44,9 +40,6 @@ provider "azurerm" {
   }
 }
 provider "bigip" {
-  # Configuration options
-}
-provider "tfe" {
   # Configuration options
 }
 provider "time" {
