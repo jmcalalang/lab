@@ -4,17 +4,14 @@ resource "volterra_virtual_k8s" "calalang-vk8s" {
   name      = var.vk8s-name
   namespace = var.namespace
   vsite_refs {
-    tenant    = "ves-io"
     namespace = var.namespace
     name      = "seattle"
   }
   vsite_refs {
-    tenant    = "ves-io"
     namespace = var.namespace
     name      = "singapore"
   }
   vsite_refs {
-    tenant    = "ves-io"
     namespace = var.namespace
     name      = "london"
   }
