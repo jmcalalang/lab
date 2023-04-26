@@ -71,26 +71,26 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   performance_enhancement_mode {
     perf_mode_l7_enhanced = true
   }
-
-  vnet {
-    // One of the arguments from this list "existing_vnet new_vnet" must be set
-    existing_vnet {
-      // One of the arguments from this list "name autogenerate" must be set
-      resource_group = var.existing-vnet-resource-group
-      vnet_name      = var.existing-vnet-subnet
-    }
-  }
-
-  // Offline Survivability Mode
-  offline_survivability_mode {
-    enable_offline_survivability_mode = true
-  }
-
-  // Labels
-  labels = {
-    owner         = var.label-owner
-    resource-type = var.label-resource-type
-    environment   = var.label-environment
-  }
-
 }
+
+vnet {
+  // One of the arguments from this list "existing_vnet new_vnet" must be set
+  existing_vnet {
+    // One of the arguments from this list "name autogenerate" must be set
+    resource_group = var.existing-vnet-resource-group
+    vnet_name      = var.existing-vnet-subnet
+  }
+}
+
+// Offline Survivability Mode
+offline_survivability_mode {
+  enable_offline_survivability_mode = true
+}
+
+// Labels
+labels = {
+  owner         = var.label-owner
+  resource-type = var.label-resource-type
+  environment   = var.label-environment
+}
+
