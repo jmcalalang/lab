@@ -24,10 +24,6 @@ variable "vk8s-name" {
 }
 
 # F5 Distributed Cloud Azure Site
-variable "f5xc-azure-site-count" {
-  type        = number
-  description = "Number of f5xc azure sites"
-}
 variable "f5xc-azure-site-latitude" {
   type        = number
   description = "Location of resources"
