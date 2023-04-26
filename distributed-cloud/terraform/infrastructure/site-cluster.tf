@@ -2,14 +2,12 @@
 
 # Random uuid generator
 resource "random_uuid" "f5xc-azure-site-random-uuid" {
-  count = sum([var.f5xc-azure-site-count])
 }
 
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
   namespace   = "system"
   description = "Azure Site in ${var.location} for ${var.label-owner}"
-  count       = sum([var.f5xc-azure-site-count])
   disable     = false
 
   // One of the arguments from this list "azure_region alternate_region" must be set
@@ -103,12 +101,11 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 }
 
 resource "volterra_tf_params_action" "f5xc-azure-site" {
-  site_name        = volterra_azure_vnet_site.f5xc-azure-site[count.index].id
+  site_name        = volterra_azure_vnet_site.f5xc-azure-site
   site_kind        = "azure_vnet_site"
   action           = "apply"
   wait_for_action  = true
   ignore_on_update = false
-  count            = sum([var.f5xc-azure-site-count])
 
   depends_on = [volterra_azure_vnet_site.f5xc-azure-site]
 }

@@ -10,7 +10,6 @@ label-environment   = "lab"
 vk8s-name = "calalang-vk8s"
 
 # F5XC Azure Site
-f5xc-azure-site-count          = 1
 f5xc-azure-site-latitude       = 44.0582
 f5xc-azure-site-longitude      = 121.3153
 f5xc-azure-site-resource-group = "calalang-f5xc-rg"
