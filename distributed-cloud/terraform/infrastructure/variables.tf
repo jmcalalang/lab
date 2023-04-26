@@ -54,9 +54,13 @@ variable "location" {
 }
 variable "existing-vnet-resource-group" {
   type        = string
-  description = "Resource Group name"
+  description = "Existing resource group name"
+}
+variable "existing-vnet" {
+  type        = string
+  description = "Existing vnet name"
 }
 variable "existing-vnet-subnet" {
   type        = string
-  description = "Resource Group name"
+  description = "Existing vnet subnet name"
 }

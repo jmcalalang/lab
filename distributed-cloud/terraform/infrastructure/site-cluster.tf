@@ -85,7 +85,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     existing_vnet {
       // One of the arguments from this list "name autogenerate" must be set
       resource_group = var.existing-vnet-resource-group
-      vnet_name      = var.existing-vnet-subnet
+      vnet_name      = var.existing-vnet
     }
   }
 
@@ -100,4 +100,14 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
+}
+
+resource "volterra_tf_params_action" "f5xc-azure-site" {
+  site_name        = volterra_azure_vnet_site.f5xc-azure-site.name
+  site_kind        = "azure_vnet_site"
+  action           = "apply"
+  wait_for_action  = true
+  ignore_on_update = false
+
+  depends_on = [volterra_azure_vnet_site.f5xc-azure-site]
 }
