@@ -1,11 +1,16 @@
 ## F5XC Site Cluster Terraform
 
 # Random uuid generator
-resource "random_uuid" "f5xc-azure-site-random-uuid" {
+resource "random_string" "f5xc-azure-site-random-string" {
+  length      = 4
+  lower       = true
+  special     = false
+  min_lower   = 2
+  min_numeric = 2
 }
 
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
-  name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid.result}"
+  name        = "${var.label-owner}-azure-${var.location}-${random_string.f5xc-azure-site-random-string.result}"
   namespace   = "system"
   description = "Azure Site in ${var.location} for ${var.label-owner}"
   disable     = false
