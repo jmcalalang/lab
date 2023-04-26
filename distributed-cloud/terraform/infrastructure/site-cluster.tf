@@ -25,9 +25,10 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   // One of the arguments from this list "blocked_services default_blocked_services" must be set
   default_blocked_services = true
 
-  // Offline Survivability Mode
-  offline_survivability_mode {
-    enable_offline_survivability_mode = true
+  // One of the arguments from this list "azure_cred" must be set
+  azure_cred {
+    name      = var.f5xc-cloud-credential
+    namespace = "system"
   }
 
   // Cordinates of site
@@ -35,14 +36,6 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     latitude  = var.f5xc-azure-site-latitude
     longitude = var.f5xc-azure-site-longitude
   }
-
-  // One of the arguments from this list "azure_cred" must be set
-  azure_cred {
-    name      = var.f5xc-cloud-credential
-    namespace = "system"
-  }
-
-
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
   ingress_gw {
@@ -78,20 +71,26 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   performance_enhancement_mode {
     perf_mode_l7_enhanced = true
   }
-}
 
-vnet {
-  // One of the arguments from this list "existing_vnet new_vnet" must be set
-  existing_vnet {
-    // One of the arguments from this list "name autogenerate" must be set
-    resource_group = var.existing-vnet-resource-group
-    vnet_name      = var.existing-vnet-subnet
+  vnet {
+    // One of the arguments from this list "existing_vnet new_vnet" must be set
+    existing_vnet {
+      // One of the arguments from this list "name autogenerate" must be set
+      resource_group = var.existing-vnet-resource-group
+      vnet_name      = var.existing-vnet-subnet
+    }
   }
-}
 
-// Labels
-labels = {
-  owner         = var.label-owner
-  resource-type = var.label-resource-type
-  environment   = var.label-environment
+  // Offline Survivability Mode
+  offline_survivability_mode {
+    enable_offline_survivability_mode = true
+  }
+
+  // Labels
+  labels = {
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
+  }
+
 }
