@@ -10,6 +10,9 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   description = "Azure Site in ${var.location} for ${var.label-owner}"
   disable     = false
 
+  // Machine Type
+  machine_type = "Standard_D3_v2"
+
   // One of the arguments from this list "azure_region alternate_region" must be set
   azure_region   = var.location
   resource_group = var.f5xc-azure-site-resource-group
