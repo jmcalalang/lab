@@ -64,6 +64,18 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
         }
       }
     }
+    az_nodes {
+      azure_az  = "3"
+      disk_size = "80"
+
+      local_subnet {
+        // One of the arguments from this list "subnet_param subnet" must be set
+        subnet {
+          vnet_resource_group = true
+          subnet_name         = var.existing-vnet-subnet
+        }
+      }
+    }
     performance_enhancement_mode {
       perf_mode_l7_enhanced = true
     }
