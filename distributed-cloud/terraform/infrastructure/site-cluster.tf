@@ -108,7 +108,7 @@ resource "volterra_tf_params_action" "f5xc-azure-site" {
   action           = "apply"
   wait_for_action  = true
   ignore_on_update = false
-  count       = sum([var.f5xc-azure-site-count])
+  count            = sum([var.f5xc-azure-site-count])
 
   depends_on = [volterra_azure_vnet_site.f5xc-azure-site]
 }
