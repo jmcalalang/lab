@@ -5,7 +5,7 @@ resource "random_uuid" "f5xc-azure-site-random-uuid" {
 }
 
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
-  name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid[0].result}-${count.index}"
+  name        = "${var.label-owner}-azure-${var.location}-${random_uuid.f5xc-azure-site-random-uuid.result}"
   namespace   = "system"
   description = "Azure Site in ${var.location} for ${var.label-owner}"
   disable     = false
