@@ -104,7 +104,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 }
 
 resource "volterra_tf_params_action" "f5xc-azure-site" {
-  site_name        = volterra_azure_vnet_site.f5xc-azure-site
+  site_name        = volterra_azure_vnet_site.f5xc-azure-site.name
   site_kind        = "azure_vnet_site"
   action           = "apply"
   wait_for_action  = true
