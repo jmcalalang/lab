@@ -100,22 +100,16 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     enable_offline_survivability_mode = true
   }
 
+  lifecycle {
+    ignore_changes = [labels]
+  }
+
   // Labels
   labels = {
     owner             = var.label-owner
     resource-type     = var.label-resource-type
     environment       = var.label-environment
-    "ves.io/provider" = "ves-io-AZURE"
-    "ves.io/siteType" = "ves-io-ce"
   }
-}
-
-resource "volterra_cloud_site_labels" "labels" {
-  name      = volterra_azure_vnet_site.f5xc-azure-site.name
-  site_type = "azure_vnet_site"
-  labels = {
-  }
-  ignore_on_delete = true
 }
 
 resource "volterra_tf_params_action" "f5xc-azure-site" {
