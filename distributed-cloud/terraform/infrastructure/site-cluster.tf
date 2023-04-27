@@ -115,7 +115,7 @@ resource "volterra_cloud_site_labels" "labels" {
   site_type = "azure_vnet_site"
   labels = {
   }
-  ignore_on_delete = false
+  ignore_on_delete = true
 }
 
 resource "volterra_tf_params_action" "f5xc-azure-site" {
