@@ -15,6 +15,13 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   description = "Azure Site in ${var.location} for ${var.label-owner}"
   disable     = false
 
+  // Labels
+  labels = {
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
+  }
+
   // Machine Type
   machine_type = "Standard_D3_v2"
 
@@ -100,15 +107,9 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     enable_offline_survivability_mode = true
   }
 
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {
     ignore_changes = [labels]
-  }
-
-  // Labels
-  labels = {
-    owner         = var.label-owner
-    resource-type = var.label-resource-type
-    environment   = var.label-environment
   }
 }
 
