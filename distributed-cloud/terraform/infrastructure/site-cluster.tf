@@ -106,9 +106,9 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 
   // Labels
   labels = {
-    owner             = var.label-owner
-    resource-type     = var.label-resource-type
-    environment       = var.label-environment
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
 }
 
