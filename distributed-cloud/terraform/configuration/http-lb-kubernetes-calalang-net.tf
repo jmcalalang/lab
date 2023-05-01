@@ -130,4 +130,10 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   no_challenge           = true
   add_location           = true
 
+
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  lifecycle {
+    ignore_changes = [labels]
+  }
+
 }
