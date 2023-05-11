@@ -1,5 +1,5 @@
 resource "volterra_route" "route-nginx-calalang-net" {
-  name      = "nginx-calalang-net-edge-uris-${each.key}"
+  name      = "nginx-calalang-net-edge-uri-${each.key}"
   namespace = var.namespace
   labels = {
     owner         = var.label-owner

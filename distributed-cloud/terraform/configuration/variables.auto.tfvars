@@ -7,4 +7,4 @@ label-resource-type = "f5xc"
 label-environment   = "lab"
 
 # Resource Variables
-domain        = "calalang.net"
+domain = "calalang.net"
