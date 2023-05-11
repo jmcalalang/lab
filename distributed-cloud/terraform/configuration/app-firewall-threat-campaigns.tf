@@ -4,7 +4,9 @@ resource "volterra_app_firewall" "app-firewall-threat-campaigns" {
   name      = "app-firewall-threat-campaigns"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   blocking_page {
     response_code = "Forbidden"

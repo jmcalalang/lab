@@ -4,7 +4,9 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   name      = "http-lb-kubernetes-calalang-net"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
   domains                         = ["kubernetes.calalang.net", "argo.calalang.net", "nms.calalang.net", "jwt.nms.calalang.net"]

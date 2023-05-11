@@ -4,7 +4,9 @@ resource "volterra_healthcheck" "health-check-http" {
   name      = "health-check-http"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   http_health_check {
     use_origin_server_name = false

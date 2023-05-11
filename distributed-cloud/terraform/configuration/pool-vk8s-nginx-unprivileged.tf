@@ -5,7 +5,9 @@ resource "volterra_origin_pool" "pool-vk8s-nginx-unprivileged" {
   namespace   = var.namespace
   description = "NGINX vk8s unprivileged service"
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   origin_servers {
     k8s_service {

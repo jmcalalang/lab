@@ -4,7 +4,9 @@ resource "volterra_healthcheck" "health-check-tcp" {
   name      = "health-check-tcp"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   tcp_health_check {
   }

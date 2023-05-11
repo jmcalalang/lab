@@ -5,7 +5,9 @@ resource "volterra_origin_pool" "pool-dns-f5" {
   namespace   = var.namespace
   description = "F5 Entities Origin Pools"
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   origin_servers {
     public_name {

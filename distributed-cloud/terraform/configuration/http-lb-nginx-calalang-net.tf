@@ -4,7 +4,9 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   name      = "http-lb-nginx-calalang-net"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   description                     = "Global HTTPS Load Balancer for nginx.calalang.net"
   domains                         = ["nginx.calalang.net"]

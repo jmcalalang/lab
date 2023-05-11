@@ -5,7 +5,9 @@ resource "volterra_origin_pool" "pool-svc-nginx-ingress" {
   namespace   = var.namespace
   description = "NGINX Ingress Controller Service"
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   origin_servers {
     k8s_service {

@@ -5,7 +5,9 @@ resource "volterra_origin_pool" "pool-ip-bigip-nginx" {
   namespace   = var.namespace
   description = "BIG-IP NGINX Virtual Server"
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   origin_servers {
     private_ip {

@@ -4,7 +4,9 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
   name      = "http-lb-bigip-calalang-net"
   namespace = var.namespace
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   description                     = "Global HTTPS Load Balancer for bigip.calalang.net"
   domains                         = ["bigip.calalang.net", "apm.calalang.net", "ingresslink.calalang.net"]

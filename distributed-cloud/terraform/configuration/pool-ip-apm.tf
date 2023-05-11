@@ -5,7 +5,9 @@ resource "volterra_origin_pool" "pool-ip-apm" {
   namespace   = var.namespace
   description = "APM BIG-IP Virtual"
   labels = {
-    "owner" = var.owner
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
   }
   origin_servers {
     private_ip {
