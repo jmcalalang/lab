@@ -20,6 +20,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     weight   = 1
     priority = 1
   }
+  for_each = toset(local.edge-uris)
   routes {
     custom_route_object {
       route_ref {
