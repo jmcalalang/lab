@@ -1,4 +1,4 @@
-## F5XC Site Cluster Terraform
+## F5XC Azure Site Cluster Terraform
 
 # Random uuid generator
 resource "random_string" "f5xc-azure-site-random-string" {

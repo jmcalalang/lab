@@ -113,9 +113,12 @@ Configuration and Infrastructure management of F5XC resources
 
 - Terraform (Configuration)
   - F5XC Application Firewall
-  - F5XC Origin Pools
+  - F5XC Clusters
+  - F5XC Endpoints
   - F5XC Health Checks
   - F5XC Http Load-Balancers
+  - F5XC Origin Pools
+  - F5XC Routes
 
 - Terraform (Infrastructure)
   - F5XC vk8s Site

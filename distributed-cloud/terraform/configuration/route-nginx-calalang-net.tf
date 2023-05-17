@@ -27,18 +27,17 @@ resource "volterra_route" "route-nginx-calalang-net" {
       destinations {
         cluster {
           namespace = var.namespace
-          name      = volterra_cluster.cluster-nginx-instances.name
+          name      = volterra_cluster.cluster-nginx-unprivileged.name
         }
         weight   = 0
         priority = 1
       }
       timeout           = 0
-      auto_host_rewrite = false
+      auto_host_rewrite = true
       priority          = "DEFAULT"
       spdy_config {
         use_spdy = false
       }
-      host_rewrite = false
     }
     disable_location_add = false
     service_policy {

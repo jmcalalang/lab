@@ -29,6 +29,14 @@ nap_monitoring:
 
 EOF
 
+# Append to agent-dynamic.conf for tags
+cat << EOF | sudo tee -a /etc/nginx-agent/agent-dynamic.conf
+
+tags:
+    - azure-instance
+
+EOF
+
 # Restart NGINX
 sudo systemctl restart nginx
 

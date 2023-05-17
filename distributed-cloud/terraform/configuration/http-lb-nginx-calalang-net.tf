@@ -21,22 +21,10 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     priority = 1
   }
   routes {
-    simple_route {
-      http_method = "ANY"
-      path {
-        path = "/global"
-      }
-      origin_pools {
-        pool {
-          namespace = var.namespace
-          name      = volterra_origin_pool.pool-vk8s-nginx-unprivileged.name
-        }
-        weight           = 1
-        priority         = 1
-        endpoint_subsets = {}
-      }
-      advanced_options {
-        prefix_rewrite = "/"
+    custom_route_object {
+      route_ref {
+        namespace = var.namespace
+        name      = volterra_route.route-nginx-calalang-net.name
       }
     }
   }
