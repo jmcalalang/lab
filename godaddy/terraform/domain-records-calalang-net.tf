@@ -64,7 +64,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge.nginx"
     type = var.record-type-cname
-    data = "c5ba287a765b47a783df3e510a0d3043.autocerts.ves.volterra.io"
+    data = "e76d11948da25ae1ad73a0f99eb9c058.autocerts.ves.volterra.io"
     ttl  = var.ttl
   }
 
