@@ -518,7 +518,7 @@ jobs:
         uses: ansible-community/ansible-lint-action@main
         # optional:
         with:
-          path: "/home/runner/work/lab/lab/nginx/ansible/configuration/roles/nginx/tasks/main.yaml" # <-- only one value is allowed
+          path: "/home/runner/work/lab/lab/nginx/ansible/configuration/playbooks/" # <-- only one value is allowed
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2

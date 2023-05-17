@@ -24,7 +24,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     custom_route_object {
       route_ref {
         namespace = var.namespace
-        name      = volterra_route.route-nginx-calalang-net.name
+        name      = volterra_route.route-nginx-calalang-net[each.key].name
       }
     }
   }
