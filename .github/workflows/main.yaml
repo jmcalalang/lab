@@ -184,7 +184,7 @@ jobs:
     env:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
       BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-      BIGIP_HOSTNAME: ${{ secrets.BIGIP_HOSTNAME }}
+      BIGIP_HOST: ${{ secrets.BIGIP_HOSTNAME }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
 
@@ -411,7 +411,7 @@ jobs:
       TF_VAR_ves_vk8s_client_certificate: ${{ secrets.VES_VK8S_CLIENT_CERTIFICATE }}
       TF_VAR_ves_vk8s_client_key: ${{ secrets.VES_VK8S_CLIENT_KEY }}
       TF_VAR_ves_vk8s_cluster_ca_certificate: ${{ secrets.VES_VK8S_CLUSTER_CA_CERTIFICATE }}
-      TF_VAR_VES_VK8S_server: ${{ secrets.VES_VK8S_SERVER }}  
+      TF_VAR_ves_vk8s_server: ${{ secrets.VES_VK8S_SERVER }}  
 
     # Where are the Terraform files
     defaults:
