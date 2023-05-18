@@ -18,6 +18,8 @@ resource "volterra_endpoint" "endpoint-nginx-unprivileged" {
     virtual_site {
       ref {
         name = "ves-io-all-res"
+        tenant = "ves-io"
+        namespace = "shared"
       }
       network_type         = "VIRTUAL_NETWORK_SITE_LOCAL"
       disable_internet_vip = true

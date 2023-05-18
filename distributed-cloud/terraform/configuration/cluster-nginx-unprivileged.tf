@@ -12,7 +12,7 @@ resource "volterra_cluster" "cluster-nginx-unprivileged" {
     name      = volterra_endpoint.endpoint-nginx-unprivileged.name
   }
   health_checks {
-    name      = volterra_healthcheck.health-check-http.name
+    name      = volterra_healthcheck.health-check-tcp.name
     namespace = var.namespace
   }
   loadbalancer_algorithm = "LB_OVERRIDE"
