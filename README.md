@@ -2,7 +2,7 @@
 
 Congratulations you've made it to Jon's F5 lab. This lab environment is used daily to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
 
-All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions. The components are loosely coupled, meaning there is no carryover from one GitHub Action to another, or between Terraform and Ansible. This was done on purpose to be able to consume/copy just the needed components.
+All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions (Terraform and Ansible). The components are loosely coupled, meaning there is no carryover from one GitHub Action to another, or between Terraform and Ansible. This was done on purpose to be able to consume/copy just the needed components.
 
 Terraform state is setup as remote, with app.terraform.io (Terraform Cloud).
 
@@ -52,7 +52,7 @@ GitHub Actions for lab environment
   | AZURE_TENANT                    |
   | BIGIP_AKS_PASSWORD              |
   | BIGIP_AKS_USER                  |
-  | BIGIP_HOST                      |
+  | BIGIP_HOSTNAME                  |
   | BIGIP_PASSWORD                  |
   | BIGIP_USER                      |
   | F5XC_SITE_TOKEN                 |
@@ -65,7 +65,7 @@ GitHub Actions for lab environment
   | NMS_INSTANCE_GROUP              |
   | NMS_PASSWORD                    |
   | NMS_TOKEN                       |
-  | NMS_USERNAME                    |
+  | NMS_USER                        |
   | TF_CLOUD_HOSTNAME               |
   | TF_CLOUD_ORGANIZATION           |
   | TF_CLOUD_TOKEN                  |
@@ -75,7 +75,7 @@ GitHub Actions for lab environment
   | VES_VK8S_CLIENT_KEY             |
   | VES_VK8S_CLUSTER_CA_CERTIFICATE |
   | VES_VK8S_CONTEXT                |
-  | VES_VK8S_HOST                   |
+  | VES_VK8S_SERVER               |
 
 ### big-ip
 
