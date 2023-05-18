@@ -17,8 +17,8 @@ resource "volterra_endpoint" "endpoint-nginx-unprivileged" {
   where {
     virtual_site {
       ref {
-        name = "ves-io-all-res"
-        tenant = "ves-io"
+        name      = "ves-io-all-res"
+        tenant    = "ves-io"
         namespace = "shared"
       }
       network_type         = "VIRTUAL_NETWORK_SITE_LOCAL"

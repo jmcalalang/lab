@@ -34,7 +34,7 @@ resource "volterra_route" "route-nginx-calalang-net" {
       }
       timeout           = 0
       auto_host_rewrite = true
-      prefix_rewrite = "/"
+      prefix_rewrite    = "/"
       priority          = "DEFAULT"
       spdy_config {
         use_spdy = false
