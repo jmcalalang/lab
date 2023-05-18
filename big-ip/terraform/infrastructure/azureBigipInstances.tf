@@ -4,7 +4,7 @@
 
 resource "azurerm_resource_group" "big-ip-resource-group" {
   name     = var.resource_group_name
-  location = var.location
+  location = var.azure_location
 
   tags = {
     environment = var.tag_environment
@@ -222,7 +222,7 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
     computer_name  = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
     admin_username = var.big-ip-username
     admin_password = var.big-ip-password
-    custom_data = base64encode(templatefile("${path.module}/files/bootstrap-big-ip-instances.tpl", {
+    custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
       package_url    = var.bigip_runtime_init_package_url
       admin_username = var.big-ip-username
     }))
@@ -246,7 +246,7 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
 ## Availability Set
 resource "azurerm_availability_set" "big-ip-instance" {
   name                = "aset-${random_uuid.big-ip-random-uuid[0].result}"
-  location            = var.location
+  location            = var.azure_location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
 
   tags = {
@@ -298,7 +298,7 @@ resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
 ## Shutdown Schedule
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
   virtual_machine_id    = azurerm_virtual_machine.big-ip-instance[count.index].id
-  location              = var.location
+  location              = var.azure_location
   enabled               = true
   daily_recurrence_time = "1900"
   timezone              = "Pacific Standard Time"
