@@ -6,7 +6,7 @@ All the components of this lab are maintained through GitOps (Argo) and CI with 
 
 Terraform state is setup as remote, with app.terraform.io (Terraform Cloud).
 
-[![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
+[![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
 ## Environment
 
@@ -75,7 +75,7 @@ GitHub Actions for lab environment
   | VES_VK8S_CLIENT_KEY             |
   | VES_VK8S_CLUSTER_CA_CERTIFICATE |
   | VES_VK8S_CONTEXT                |
-  | VES_VK8S_SERVER               |
+  | VES_VK8S_SERVER                 |
 
 ### big-ip
 
