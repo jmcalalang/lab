@@ -312,7 +312,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
 }
 
 ## Wait for BIG-IP
-resource "time_sleep" "bigip_ready" {
+resource "time_sleep" "azure_bigip_ready" {
   depends_on      = [azurerm_virtual_machine.big-ip-instance]
   create_duration = var.bigip_ready
 }

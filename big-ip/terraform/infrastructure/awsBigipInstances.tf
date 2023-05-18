@@ -238,7 +238,7 @@ resource "aws_instance" "big-ip-az2" {
 }
 
 ## Wait for BIG-IP
-resource "time_sleep" "bigip_ready" {
+resource "time_sleep" "aws_bigip_ready" {
   depends_on      = [aws_instance.big-ip-az1, aws_instance.big-ip-az2]
   create_duration = var.bigip_ready
 }
