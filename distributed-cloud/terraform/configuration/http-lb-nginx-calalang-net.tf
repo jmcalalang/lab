@@ -28,6 +28,30 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
       }
     }
   }
+  routes {
+    custom_route_object {
+      route_ref {
+        namespace = var.namespace
+        name      = "nginx-calalang-net-edge-uri-global"
+      }
+    }
+  }
+  routes {
+    custom_route_object {
+      route_ref {
+        namespace = var.namespace
+        name      = "nginx-calalang-net-edge-uri-re"
+      }
+    }
+  }
+  routes {
+    custom_route_object {
+      route_ref {
+        namespace = var.namespace
+        name      = "nginx-calalang-net-edge-uri-vk8s"
+      }
+    }
+  }
   https_auto_cert {
     add_hsts              = true
     http_redirect         = true
