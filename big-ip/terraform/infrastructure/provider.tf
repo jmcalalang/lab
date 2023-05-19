@@ -10,10 +10,10 @@ terraform {
     }
   }
   required_providers {
-#    aws = {
-#      source  = "hashicorp/aws"
-#      version = "4.65.0"
-#    }
+    #    aws = {
+    #      source  = "hashicorp/aws"
+    #      version = "4.65.0"
+    #    }
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "3.41.0"
