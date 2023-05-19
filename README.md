@@ -95,11 +95,16 @@ Configuration and Infrastructure management of BIG-IP resources
   - FAST Application Declarations
   - Application Services in Common
 
-- Terraform (Infrastructure)
+- Terraform (Azure Infrastructure)
   - BIG-IP(s)
   - Availability Set
   - Managed Service Identity Roles(s)
   - Resource Group
+
+- Terraform (AWS Infrastructure)
+  - BIG-IP(s)
+  - Security Groups
+  - Elastic IP
 
 ### certs
 
