@@ -133,6 +133,10 @@ variable "big_ip_ami" {
 variable "big_ip_per_az_count" {
   type        = number
   description = "Count of big-ip's per availability zones"
+  validation {
+    condition     = var.big_ip_per_az_count >= 0 && var.big_ip_per_az_count <= 4 && floor(var.big_ip_per_az_count) == var.big_ip_per_az_count
+    error_message = "Accepted values: 0-4. Multi-Value Route 53 does not accept greater then 8 records"
+  }
 }
 variable "external_secondary_ip_count" {
   type        = number
