@@ -12,19 +12,19 @@ terraform {
   required_providers {
     #    aws = {
     #      source  = "hashicorp/aws"
-    #      version = "4.65.0"
+    #      version = ">= 5.0.0"
     #    }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.41.0"
+      version = ">= 3.57.0"
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.9.1"
+      version = ">= 0.9.1"
     }
     random = {
       source  = "hashicorp/random"
-      version = "3.4.3"
+      version = ">= 3.5.1"
     }
   }
 }

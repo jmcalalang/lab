@@ -12,11 +12,11 @@ terraform {
   required_providers {
     random = {
       source  = "hashicorp/random"
-      version = "3.4.3"
+      version = ">= 3.5.1"
     }
     volterra = {
       source  = "volterraedge/volterra"
-      version = "0.11.19"
+      version = ">= 0.11.22"
     }
   }
 }
