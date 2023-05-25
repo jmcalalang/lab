@@ -97,14 +97,16 @@ Configuration and Infrastructure management of BIG-IP resources
 
 - Terraform (Azure Infrastructure)
   - BIG-IP(s)
-  - Availability Set
   - Managed Service Identity Roles(s)
   - Resource Group
+  - Availability Set
 
 - Terraform (AWS Infrastructure)
   - BIG-IP(s)
-  - Security Groups
+  - Identity and Access Management Roles(s)
+  - Security Groups (External / Management)
   - Elastic IP
+  - Route53 Records
 
 ### certs
 
