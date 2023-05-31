@@ -10,15 +10,23 @@ Terraform state is setup as remote, with app.terraform.io (Terraform Cloud).
 
 ## Environment
 
+Environment variables are passed from GitHub repository secrets to Actions, keeping secrets out of code.
+
+To set environment variables:
+
+``` export EXAMPLE="example" ```
+
+Diagram:
+
 ![image](lab.png)
 
 ## Folder Structure
 
 ### github
 
-GitHub Actions for lab environment
+GitHub Actions for the lab environment
 
-- Github Actions pipeline
+- GitHub Actions pipeline
 
 ![image](actions.png)
 
@@ -38,45 +46,6 @@ GitHub Actions for lab environment
     - Terraform
     - Ansible
 
-- Github Actions secret table
-
-  | **Repository secrets**          |
-  |---------------------------------|
-  | AD_SERVICE_LDAP_PASSWORD        |
-  | AZURE_AKS_NAME                  |
-  | AZURE_AKS_RG                    |
-  | AZURE_APPID                     |
-  | AZURE_DISPLAYNAME               |
-  | AZURE_PASSWORD                  |
-  | AZURE_SUBSCRIPTION              |
-  | AZURE_TENANT                    |
-  | BIGIP_AKS_PASSWORD              |
-  | BIGIP_AKS_USER                  |
-  | BIGIP_HOSTNAME                  |
-  | BIGIP_PASSWORD                  |
-  | BIGIP_USER                      |
-  | F5XC_SITE_TOKEN                 |
-  | GODADDY_API_KEY                 |
-  | GODADDY_API_SECRET              |
-  | NGINX_PASSWORD                  |
-  | NGINX_REPO_JWT                  |
-  | NGINX_USER                      |
-  | NMS_HOSTNAME                    |
-  | NMS_INSTANCE_GROUP              |
-  | NMS_PASSWORD                    |
-  | NMS_TOKEN                       |
-  | NMS_USER                        |
-  | TF_CLOUD_HOSTNAME               |
-  | TF_CLOUD_ORGANIZATION           |
-  | TF_CLOUD_TOKEN                  |
-  | VES_HOSTNAME                    |
-  | VES_P12_PASSWORD                |
-  | VES_VK8S_CLIENT_CERTIFICATE     |
-  | VES_VK8S_CLIENT_KEY             |
-  | VES_VK8S_CLUSTER_CA_CERTIFICATE |
-  | VES_VK8S_CONTEXT                |
-  | VES_VK8S_SERVER                 |
-
 ### big-ip
 
 Configuration and Infrastructure management of BIG-IP resources
@@ -90,10 +59,26 @@ Configuration and Infrastructure management of BIG-IP resources
   - System BIG-IP Settings
   - Telemetry Streaming Declaration
 
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | BIGIP_AKS_PASSWORD              |
+  | BIGIP_AKS_USER                  |
+  | BIGIP_HOSTNAME                  |
+  | BIGIP_PASSWORD                  |
+  | BIGIP_USER                      |
+
 - Terraform (Configuration)
   - AS3 Application Declarations
   - FAST Application Declarations
   - Application Services in Common
+
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | AD_SERVICE_LDAP_PASSWORD        |
+  | AZURE_SUBSCRIPTION              |  
+  | BIGIP_HOSTNAME                  |
+  | BIGIP_PASSWORD                  |
+  | BIGIP_USER                      |
 
 - Terraform (Azure Infrastructure)
   - BIG-IP(s)
@@ -101,12 +86,27 @@ Configuration and Infrastructure management of BIG-IP resources
   - Resource Group
   - Availability Set
 
+  | **Infrastructure Env Variables** |
+  |----------------------------------|
+  | AZURE_APPID                      |
+  | AZURE_PASSWORD                   |
+  | AZURE_SUBSCRIPTION               |
+  | AZURE_TENANT                     |  
+  | BIGIP_PASSWORD                   |
+  | BIGIP_USER                       |
+
 - Terraform (AWS Infrastructure)
   - BIG-IP(s)
   - Identity and Access Management Roles(s)
   - Security Groups (External / Management)
   - Elastic IP
   - Route53 Records
+
+  | **Infrastructure Env Variables** |
+  |----------------------------------|
+  | AWS_ACCESS_KEY_ID                |
+  | AWS_SECRET_ACCESS_KEY            |
+  | AWS_SESSION_TOKEN                |
 
 ### certs
 
@@ -127,12 +127,26 @@ Configuration and Infrastructure management of F5XC resources
   - F5XC Origin Pools
   - F5XC Routes
 
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | VES_P12_PASSWORD                |
+
 - Terraform (Infrastructure)
   - F5XC vk8s Site
+
+  | **Infrastructure Env Variables** |
+  |----------------------------------|
+  | F5XC_CLOUD_CREDENTIAL            |
+  | VES_P12_PASSWORD                 |
 
 ### godaddy
 
 Configuration management of GoDaddy resources
+
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | GODADDY_API_KEY                 |
+  | GODADDY_API_SECRET              |
 
 - Terraform
   - Records Management
@@ -149,11 +163,34 @@ Configuration management of Kubernetes resources
   - BIG-IP Container Ingress Services in Azure Kubernetes Service
   - NGINX Unprivileged in F5XC vk8s
 
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | AZURE_APPID                     |
+  | AZURE_PASSWORD                  |
+  | AZURE_SUBSCRIPTION              |
+  | AZURE_TENANT                    |
+  | BIGIP_AKS_PASSWORD              |
+  | BIGIP_AKS_USER                  |
+  | F5XC_SITE_TOKEN                 |
+  | NGINX_REPO_JWT                  |
+  | VES_VK8S_CLIENT_CERTIFICATE     |
+  | VES_VK8S_CLIENT_KEY             |
+  | VES_VK8S_CLUSTER_CA_CERTIFICATE |
+  | VES_VK8S_CONTEXT                |
+  | VES_VK8S_SERVER                 |
+
 - Terraform (Infrastructure)
   - Azure Kubernetes Service(s)
-  - Azure Container Regisitry(s)
+  - Azure Container Registry(s)
   - Managed Service Identity Roles(s)
   - Resource Group
+
+  | **Infrastructure Env Variables** |
+  |----------------------------------|
+  | AZURE_APPID                      |
+  | AZURE_PASSWORD                   |
+  | AZURE_SUBSCRIPTION               |
+  | AZURE_TENANT                     |
 
 ### nginx
 
@@ -162,10 +199,27 @@ Configuration and Infrastructure management of NGINX resources
 - Ansible (Configuration)
   - NGINX Management Suite Configuration of NGINX
 
+  | **Configuration Env Variables** |
+  |---------------------------------|
+  | NMS_HOSTNAME                    |
+  | NMS_INSTANCE_GROUP              |
+  | NMS_PASSWORD                    |
+  | NMS_TOKEN                       |
+  | NMS_USER                        |
+
 - Terraform (Infrastructure)
   - NGINX(s)
   - Availability Set
   - Resource Group
+
+  | **Infrastructure Env Variables** |
+  |----------------------------------|
+  | AZURE_APPID                      |
+  | AZURE_PASSWORD                   |
+  | AZURE_SUBSCRIPTION               |
+  | AZURE_TENANT                     |
+  | NGINX_PASSWORD                   |
+  | NGINX_USER                       |
 
 ### services
 
