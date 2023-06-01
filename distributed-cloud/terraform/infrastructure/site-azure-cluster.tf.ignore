@@ -15,8 +15,15 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   description = "Azure Site in ${var.location} for ${var.label-owner}"
   disable     = false
 
-  // Labels
+  // Labels for XC
   labels = {
+    owner         = var.label-owner
+    resource-type = var.label-resource-type
+    environment   = var.label-environment
+  }
+
+  // tags for Azure
+  tags = {
     owner         = var.label-owner
     resource-type = var.label-resource-type
     environment   = var.label-environment
