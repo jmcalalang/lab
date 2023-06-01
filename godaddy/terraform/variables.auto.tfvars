@@ -5,3 +5,4 @@ http-lb-big-ip-ves-hostname     = "ves-io-a34d7e19-a421-4879-afa8-ac1055799bad.a
 http-lb-nginx-ves-hostname      = "ves-io-f9fc2303-3c00-4f49-8edd-99fe0f3236b8.ac.vh.ves.io"
 ttl                             = 3600
 record-type-cname               = "CNAME"
+record-type-txt                 = "TXT"

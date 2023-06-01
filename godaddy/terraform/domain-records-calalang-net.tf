@@ -1,6 +1,15 @@
 resource "godaddy_domain_record" "domain-records-calalang-net" {
   domain = "calalang.net"
 
+  # Records for Wildcard
+
+  record {
+    name = "_acme-challenge"
+    type = var.record-type-txt
+    data = "DWMH84BEKqdw1TEQtgmdubjdMjLYGT1bIXVFrrlfqGo"
+    ttl  = var.ttl
+  }
+
   # Records for Kubernetes
 
   record {
