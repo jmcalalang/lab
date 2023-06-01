@@ -133,6 +133,7 @@ Configuration and Infrastructure management of F5XC resources
 
 - Terraform (Infrastructure)
   - F5XC vk8s Site
+  - F5XC Azure Site
 
 | **Infrastructure Env Variables** |
 |----------------------------------|
