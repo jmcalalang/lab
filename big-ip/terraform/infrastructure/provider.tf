@@ -1,5 +1,7 @@
 # Main Terraform Provider
 
+## Remove backend "remote" to run terraform state locally
+
 terraform {
   backend "remote" {
     organization = {}
