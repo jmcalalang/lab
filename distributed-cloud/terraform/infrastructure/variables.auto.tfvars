@@ -2,6 +2,7 @@
 
 # Shared variables
 namespace           = "j-calalang"
+label-email         = "j.calalang@f5.com"
 label-owner         = "j-calalang"
 label-resource-type = "f5xc"
 label-environment   = "lab"

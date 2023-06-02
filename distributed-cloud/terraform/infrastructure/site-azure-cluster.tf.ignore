@@ -24,7 +24,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 
   // Tags for Azure
   tags = {
-    owner         = var.label-owner
+    owner         = var.label-email
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }

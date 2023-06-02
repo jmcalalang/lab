@@ -121,6 +121,7 @@ Configuration and Infrastructure management of F5XC resources
 - Terraform (Configuration)
   - F5XC Application Firewall
   - F5XC Clusters
+  - F5XC Certificate / Key
   - F5XC Endpoints
   - F5XC Health Checks
   - F5XC Http Load-Balancers
@@ -129,6 +130,8 @@ Configuration and Infrastructure management of F5XC resources
 
 | **Configuration Env Variables** |
 |---------------------------------|
+| CALALANG_NET_CERT               |
+| CALALANG_NET_KEY                |
 | VES_P12_PASSWORD                |
 
 - Terraform (Infrastructure)

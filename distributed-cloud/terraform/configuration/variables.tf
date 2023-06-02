@@ -24,3 +24,11 @@ variable "domain" {
   type        = string
   description = "domain"
 }
+variable "wildcard-calalang-net-certificate" {
+  type        = string
+  description = "Certificate base64 encoded"
+}
+variable "wildcard-calalang-net-key" {
+  type        = string
+  description = "Key base64 encoded"
+}

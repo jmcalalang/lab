@@ -4,9 +4,13 @@ variable "namespace" {
   type        = string
   description = "Namespace for deployed objects in F5XC"
 }
+variable "label-email" {
+  type        = string
+  description = "Owner email"
+}
 variable "label-owner" {
   type        = string
-  description = "Owner Tag"
+  description = "Owner name"
 }
 variable "label-resource-type" {
   type        = string
