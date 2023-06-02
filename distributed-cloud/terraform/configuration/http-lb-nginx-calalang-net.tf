@@ -52,11 +52,16 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
       }
     }
   }
-  https_auto_cert {
-    add_hsts              = true
-    http_redirect         = true
-    no_mtls               = true
-    enable_path_normalize = true
+  https {
+    http_redirect = true
+    add_hsts      = true
+    port          = 443
+    tls_cert_params {
+      certificates {
+        namespace = var.namespace
+        name      = volterra_certificate.wildcard-calalang-net.name
+      }
+    }
   }
   app_firewall {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
