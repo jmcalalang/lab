@@ -33,10 +33,10 @@ terraform {
 
 # Provider Options
 
-# provider "aws" {
-#   # Configuration options
-#   region = "us-west-2"
-# }
+provider "aws" {
+  # Configuration options
+  region = "us-west-2"
+}
 provider "azurerm" {
   # Configuration options
   features {
