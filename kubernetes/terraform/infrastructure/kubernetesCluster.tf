@@ -47,7 +47,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 

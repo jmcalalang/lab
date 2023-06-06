@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "big-ip-resource-group" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 
 }
@@ -51,7 +51,7 @@ resource "azurerm_public_ip" "public-ip-address-management" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -72,7 +72,7 @@ resource "azurerm_network_interface" "nic-management" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -122,7 +122,7 @@ resource "azurerm_network_interface" "nic-internal" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -171,7 +171,7 @@ resource "azurerm_network_interface" "nic-external" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -239,7 +239,7 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -252,7 +252,7 @@ resource "azurerm_availability_set" "big-ip-instance" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 

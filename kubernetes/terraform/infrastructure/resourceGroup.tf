@@ -7,6 +7,6 @@ resource "azurerm_resource_group" "kubernetes-resource-group" {
   tags = {
     environment = "lab"
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }

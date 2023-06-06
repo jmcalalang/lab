@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "nginx-resource-group" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 
 }

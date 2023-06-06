@@ -3,7 +3,7 @@ resource "aws_route53_zone" "route53_zone" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_route53_health_check" "route53_health_check" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 

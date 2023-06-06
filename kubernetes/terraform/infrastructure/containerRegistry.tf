@@ -14,6 +14,6 @@ resource "azurerm_container_registry" "container_registry" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }

@@ -11,7 +11,7 @@ resource "aws_eip" "eip_mgmt_az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_network_interface" "nic-management-az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_eip" "eip_external_vip_01_az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_network_interface" "nic-external-az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -56,7 +56,7 @@ resource "aws_network_interface" "nic-internal-az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_eip" "eip_mgmt_az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -78,7 +78,7 @@ resource "aws_network_interface" "nic-management-az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -90,7 +90,7 @@ resource "aws_eip" "eip_external_vip_01_az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -101,7 +101,7 @@ resource "aws_network_interface" "nic-external-az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_network_interface" "nic-internal-az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -142,7 +142,7 @@ resource "aws_security_group" "big_ip_mgmt_security_group" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -165,7 +165,7 @@ resource "aws_security_group" "big_ip_external_security_group" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -260,7 +260,7 @@ resource "aws_instance" "big-ip-az1" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 
@@ -289,7 +289,7 @@ resource "aws_instance" "big-ip-az2" {
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
-    owner       = var.tag_owner
+    Owner       = var.tag_owner
   }
 }
 

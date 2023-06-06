@@ -2,7 +2,7 @@ resource "volterra_endpoint" "endpoint-nginx-unprivileged" {
   name      = "endpoint-nginx-unprivileged"
   namespace = var.namespace
   labels = {
-    owner         = var.label-owner
+    Owner         = var.label-owner
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
