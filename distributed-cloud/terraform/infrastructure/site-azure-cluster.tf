@@ -58,8 +58,16 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   }
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
-  ingress_gw {
+  voltstack_cluster {
     azure_certified_hw = var.f5xc-azure-site-offer
+    k8s_cluster {
+      namespace = var.namespace
+      name      = "${var.label-owner}-azure-mk8-${random_string.f5xc-azure-site-random-string.result}"
+    }
+    no_network_policy        = true
+    no_forward_proxy         = true
+    no_outside_static_routes = true
+    no_global_network        = true
     az_nodes {
       azure_az  = "1"
       disk_size = "80"
