@@ -61,7 +61,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   voltstack_cluster {
     azure_certified_hw = var.f5xc-azure-site-offer
     k8s_cluster {
-      namespace = var.namespace
+      namespace = "system"
       name      = "${var.label-owner}-azure-mk8-${random_string.f5xc-azure-site-random-string.result}"
     }
     no_network_policy        = true
