@@ -104,9 +104,6 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
         }
       }
     }
-    performance_enhancement_mode {
-      perf_mode_l7_enhanced = true
-    }
   }
   vnet {
     // One of the arguments from this list "existing_vnet new_vnet" must be set
