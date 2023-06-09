@@ -1,6 +1,6 @@
 ## F5 Distributed Cloud Virtual Kubernetes Cluster
 
-resource "volterra_virtual_k8s" "calalang-vk8s" {
+resource "volterra_virtual_k8s" "f5xc-virtual-kubernetes" {
   name      = var.vk8s-name
   namespace = var.namespace
   vsite_refs {

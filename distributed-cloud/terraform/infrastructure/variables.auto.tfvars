@@ -7,8 +7,10 @@ label-owner         = "j-calalang"
 label-resource-type = "f5xc"
 label-environment   = "lab"
 
-# F5XC vk8s variables
-vk8s-name = "calalang-vk8s"
+# F5XC k8s variables
+mk8s-name   = "calalang-mk8s"
+mk8s-domain = "mk8s.calalang.net"
+vk8s-name   = "calalang-vk8s"
 
 # F5XC Azure Site
 f5xc-azure-site-latitude       = 44.0582

@@ -9,6 +9,7 @@ resource "random_string" "f5xc-azure-site-random-string" {
   min_numeric = 2
 }
 
+# Azure AppStack Site
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   name        = "${var.label-owner}-azure-${var.location}-${random_string.f5xc-azure-site-random-string.result}"
   namespace   = "system"
@@ -58,8 +59,12 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   }
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
-  ingress_gw {
+  voltstack_cluster {
     azure_certified_hw = var.f5xc-azure-site-offer
+    k8s_cluster {
+      name      = volterra_k8s_cluster.f5xc-managed-kubernetes.name
+      namespace = "system"
+    }
     az_nodes {
       azure_az  = "1"
       disk_size = "80"
@@ -95,9 +100,6 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
           subnet_name         = var.existing-vnet-subnet
         }
       }
-    }
-    performance_enhancement_mode {
-      perf_mode_l7_enhanced = true
     }
   }
   vnet {

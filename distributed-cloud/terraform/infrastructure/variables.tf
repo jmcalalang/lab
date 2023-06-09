@@ -21,7 +21,15 @@ variable "label-environment" {
   description = "Environment"
 }
 
-# F5 Distributed Cloud Virtual Kubernetes Cluster
+# F5 Distributed Cloud Kubernetes Cluster
+variable "mk8s-name" {
+  type        = string
+  description = "Name of mk8s cluster"
+}
+variable "mk8s-domain" {
+  type        = string
+  description = "FQDN of mk8s cluster"
+}
 variable "vk8s-name" {
   type        = string
   description = "Name of vk8s cluster"

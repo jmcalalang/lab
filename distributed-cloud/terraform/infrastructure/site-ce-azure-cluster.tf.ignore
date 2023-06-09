@@ -9,6 +9,7 @@ resource "random_string" "f5xc-azure-site-random-string" {
   min_numeric = 2
 }
 
+# Azure CE Site
 resource "volterra_azure_vnet_site" "f5xc-azure-site" {
   name        = "${var.label-owner}-azure-${var.location}-${random_string.f5xc-azure-site-random-string.result}"
   namespace   = "system"
