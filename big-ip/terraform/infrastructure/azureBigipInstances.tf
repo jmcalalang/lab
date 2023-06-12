@@ -185,8 +185,8 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "443"
+    protocol                   = "TCP"
+    source_port_range          = "*"
     destination_port_range     = "443"
     source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
@@ -197,8 +197,8 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "22"
+    protocol                   = "TCP"
+    source_port_range          = "*"
     destination_port_range     = "22"
     source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
@@ -209,8 +209,8 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "443"
+    protocol                   = "TCP"
+    source_port_range          = "*"
     destination_port_range     = "443"
     source_address_prefixes    = var.allowed_github_ips
     destination_address_prefix = "*"
@@ -239,8 +239,8 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "80"
+    protocol                   = "TCP"
+    source_port_range          = "*"
     destination_port_range     = "80"
     source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
@@ -251,8 +251,8 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
     priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "443"
+    protocol                   = "TCP"
+    source_port_range          = "*"
     destination_port_range     = "443"
     source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
