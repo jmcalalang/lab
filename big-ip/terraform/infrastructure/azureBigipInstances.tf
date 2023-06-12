@@ -188,7 +188,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "443"
     destination_port_range     = "443"
-    source_address_prefix      = var.allowed_ips
+    source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
   }
 
@@ -200,7 +200,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "22"
     destination_port_range     = "22"
-    source_address_prefix      = var.allowed_ips
+    source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
   }
 
@@ -212,7 +212,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "443"
     destination_port_range     = "443"
-    source_address_prefix      = var.allowed_github_ips
+    source_address_prefixes    = var.allowed_github_ips
     destination_address_prefix = "*"
   }
 
@@ -223,7 +223,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "big-ip-management-sg" {
+resource "azurerm_network_interface_security_group_association" "big-ip-management-sg" {
   network_interface_id      = azurerm_network_interface.nic-management[count.index].id
   network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
 }
@@ -264,7 +264,7 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "big-ip-external-sg" {
+resource "azurerm_network_interface_security_group_association" "big-ip-external-sg" {
   network_interface_id      = azurerm_network_interface.nic-external[count.index].id
   network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
 }
