@@ -175,6 +175,100 @@ resource "azurerm_network_interface" "nic-external" {
   }
 }
 
+resource "azurerm_network_security_group" "big-ip-management-sg" {
+  name                = "big-ip-management-sg"
+  location            = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
+
+  security_rule {
+    name                       = "management-https"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "443"
+    destination_port_range     = "443"
+    source_address_prefix      = var.allowed_ips
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "management-ssh"
+    priority                   = 105
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "22"
+    destination_port_range     = "22"
+    source_address_prefix      = var.allowed_ips
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "github-actions"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "443"
+    destination_port_range     = "443"
+    source_address_prefix      = var.allowed_github_ips
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "big-ip-management-sg" {
+  network_interface_id      = azurerm_network_interface.nic-management[count.index].id
+  network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
+}
+
+resource "azurerm_network_security_group" "big-ip-external-sg" {
+  name                = "big-ip-external-sg"
+  location            = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
+
+  security_rule {
+    name                       = "http"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "80"
+    destination_port_range     = "80"
+    source_address_prefixes    = var.allowed_ips
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "https"
+    priority                   = 105
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "443"
+    destination_port_range     = "443"
+    source_address_prefixes    = var.allowed_ips
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "big-ip-external-sg" {
+  network_interface_id      = azurerm_network_interface.nic-external[count.index].id
+  network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
+}
+
 ## Instances
 resource "random_uuid" "big-ip-random-uuid" {
   count = sum([var.big-ip-instance-count])

@@ -1,5 +1,13 @@
 # Shared variables
 
+variable "allowed_ips" {
+  type        = list(any)
+  description = "Allowed IP addresses form management access"
+}
+variable "allowed_github_ips" {
+  type        = list(any)
+  description = "Allowed IP addresses form management access"
+}
 variable "bigip_ready" {
   type        = string
   description = "BIG-IP Wait time for ready"
@@ -90,10 +98,6 @@ variable "big-ip-version" {
 
 # AWS Variables
 
-variable "allowed_ips" {
-  type        = list(any)
-  description = "Allowed IP addresses form management access"
-}
 variable "existing_subnet_az1_management_id" {
   type        = string
   description = "Management subnet availability zone 1"
