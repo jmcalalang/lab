@@ -206,7 +206,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
 
   security_rule {
     name                       = "github-actions"
-    priority                   = 100
+    priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
