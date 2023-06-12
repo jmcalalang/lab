@@ -226,6 +226,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
 resource "azurerm_network_interface_security_group_association" "big-ip-management-sg" {
   network_interface_id      = azurerm_network_interface.nic-management[count.index].id
   network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
+  count                     = sum([var.big-ip-instance-count])
 }
 
 resource "azurerm_network_security_group" "big-ip-external-sg" {
@@ -267,6 +268,7 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
 resource "azurerm_network_interface_security_group_association" "big-ip-external-sg" {
   network_interface_id      = azurerm_network_interface.nic-external[count.index].id
   network_security_group_id = azurerm_network_security_group.big-ip-external-sg.id
+  count                     = sum([var.big-ip-instance-count])
 }
 
 ## Instances
