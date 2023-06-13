@@ -14,6 +14,26 @@ data "azurerm_subnet" "existing" {
 
 ################################# NGINX API Gateway Instance Group #################################
 
+# NGINX API Gateway Security Groups
+
+resource "azurerm_network_security_group" "nginx-api-gw-sg" {
+  name                = "nginx-api-gw-sg"
+  location            = azurerm_resource_group.nginx-resource-group.location
+  resource_group_name = azurerm_resource_group.nginx-resource-group.name
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "nginx-api-gw-sg" {
+  network_interface_id      = azurerm_network_interface.nic-api-gw[count.index].id
+  network_security_group_id = azurerm_network_security_group.nginx-api-gw-sg.id
+  count                     = sum([var.big-ip-instance-count])
+}
+
 # NGINX API Gateway NICs
 resource "azurerm_network_interface" "nic-api-gw" {
   name                = "nic-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
@@ -123,6 +143,26 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-api" {
 }
 
 ################################# NGINX Azure Instance Group #################################
+
+# NGINX API Gateway Security Groups
+
+resource "azurerm_network_security_group" "nginx-instances-sg" {
+  name                = "nginx-instances-sg"
+  location            = azurerm_resource_group.nginx-resource-group.location
+  resource_group_name = azurerm_resource_group.nginx-resource-group.name
+
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "nginx-instances-sg" {
+  network_interface_id      = azurerm_network_interface.nic-instances[count.index].id
+  network_security_group_id = azurerm_network_security_group.nginx-instances-sg.id
+  count                     = sum([var.big-ip-instance-count])
+}
 
 # NGINX Instances NICs
 resource "azurerm_network_interface" "nic-instances" {
