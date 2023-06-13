@@ -1,4 +1,0 @@
-# Github IPv4 addresses 
-
-Pull from https://api.github.com/meta
- - remove everything and then ctrl+j to remove returns
