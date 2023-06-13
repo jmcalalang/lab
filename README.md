@@ -196,6 +196,35 @@ Configuration management of Kubernetes resources
 | AZURE_SUBSCRIPTION               |
 | AZURE_TENANT                     |
 
+### networking
+
+Infrastructure management of Azure and AWS networks
+
+- Terraform (Infrastructure)
+  - Azure Resource Group
+  - Azure VNET
+  - Azure Subnets
+  - Azure Security Groups
+  - Azure Route Table
+  - Azure NAT Gateway
+  - AWS VPC
+  - AWS VPC DHCP Options
+  - AWS Subnets (2 Availability zones)
+  - AWS Security Groups
+  - AWS Route Table
+  - AWS NAT Gateway
+  - AWS Internet Gateway
+
+| **Infrastructure Env Variables** |
+|----------------------------------|
+| AWS_ACCESS_KEY_ID                |
+| AWS_SECRET_ACCESS_KEY            |
+| AWS_SESSION_TOKEN                |
+| AZURE_APPID                      |
+| AZURE_PASSWORD                   |
+| AZURE_SUBSCRIPTION               |
+| AZURE_TENANT                     |
+
 ### nginx
 
 Configuration and Infrastructure management of NGINX resources
