@@ -31,7 +31,7 @@ resource "azurerm_network_security_group" "nginx-api-gw-sg" {
 resource "azurerm_network_interface_security_group_association" "nginx-api-gw-sg" {
   network_interface_id      = azurerm_network_interface.nic-api-gw[count.index].id
   network_security_group_id = azurerm_network_security_group.nginx-api-gw-sg.id
-  count                     = sum([var.big-ip-instance-count])
+  count                     = sum([var.nginx-api-gw-count])
 }
 
 # NGINX API Gateway NICs
@@ -161,7 +161,7 @@ resource "azurerm_network_security_group" "nginx-instances-sg" {
 resource "azurerm_network_interface_security_group_association" "nginx-instances-sg" {
   network_interface_id      = azurerm_network_interface.nic-instances[count.index].id
   network_security_group_id = azurerm_network_security_group.nginx-instances-sg.id
-  count                     = sum([var.big-ip-instance-count])
+  count                     = sum([var.nginx-instance-count])
 }
 
 # NGINX Instances NICs
