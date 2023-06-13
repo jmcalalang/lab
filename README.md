@@ -137,6 +137,7 @@ Configuration and Infrastructure management of F5XC resources
 - Terraform (Infrastructure)
   - F5XC vk8s Site
   - F5XC Azure Site
+  - F5XC Azure AppStack
 
 | **Infrastructure Env Variables** |
 |----------------------------------|
@@ -198,15 +199,9 @@ Configuration management of Kubernetes resources
 
 ### networking
 
-Infrastructure management of Azure and AWS networks
+Infrastructure management of AWS and Azure networks
 
-- Terraform (Infrastructure)
-  - Azure Resource Group
-  - Azure VNET
-  - Azure Subnets
-  - Azure Security Groups
-  - Azure Route Table
-  - Azure NAT Gateway
+- Terraform (AWS Infrastructure)
   - AWS VPC
   - AWS VPC DHCP Options
   - AWS Subnets (2 Availability zones)
@@ -220,6 +215,17 @@ Infrastructure management of Azure and AWS networks
 | AWS_ACCESS_KEY_ID                |
 | AWS_SECRET_ACCESS_KEY            |
 | AWS_SESSION_TOKEN                |
+
+- Terraform (Azure Infrastructure)
+  - Azure Resource Group
+  - Azure VNET
+  - Azure Subnets
+  - Azure Security Groups
+  - Azure Route Table
+  - Azure NAT Gateway
+
+| **Infrastructure Env Variables** |
+|----------------------------------|
 | AZURE_APPID                      |
 | AZURE_PASSWORD                   |
 | AZURE_SUBSCRIPTION               |
