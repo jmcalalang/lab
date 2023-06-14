@@ -49,7 +49,7 @@ resource "azurerm_subnet" "kubernetes" {
   name                 = "kubernetes"
   resource_group_name  = azurerm_resource_group.networking-resource-group.name
   virtual_network_name = azurerm_virtual_network.azure-10-0-0-0-16-vnet.name
-  address_prefixes     = ["10.0.4.0/24"]
+  address_prefixes     = ["10.0.4.0/22"]
 }
 
 ## Azure Network Security Groups
