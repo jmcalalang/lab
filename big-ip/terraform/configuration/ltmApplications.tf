@@ -15,10 +15,10 @@ resource "bigip_ltm_virtual_server" "https-10-0-2-7-terraform" {
   pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
 }
 resource "bigip_ltm_monitor" "monitor-nginx-azure-instances-terraform" {
-  name   = "/Common/monitor-nginx-azure-instances-terraform"
-  parent = "/Common/http"
-  interval  = 5
-  timeout   = 31 
+  name     = "/Common/monitor-nginx-azure-instances-terraform"
+  parent   = "/Common/http"
+  interval = 5
+  timeout  = 31
 }
 resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances-terraform" {
   name                   = "/Common/pool-ip-nginx-azure-instances-terraform"
