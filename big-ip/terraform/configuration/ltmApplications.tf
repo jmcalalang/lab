@@ -25,7 +25,7 @@ resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances-terraform" {
   monitors               = [bigip_ltm_monitor.monitor-nginx-azure-instances-terraform.name]
   allow_snat             = "yes"
   allow_nat              = "yes"
-  depends_on = [ bigip_ltm_monitor.bigip_ltm_monitor.monitor-nginx-azure-instances-terraform ]
+  depends_on             = [bigip_ltm_monitor.bigip_ltm_monitor.monitor-nginx-azure-instances-terraform]
 }
 resource "bigip_ltm_pool_attachment" "attach_node" {
   for_each = toset([bigip_ltm_node.node-10-0-3-5-terraform.name])
