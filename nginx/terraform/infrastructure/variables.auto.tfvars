@@ -8,9 +8,9 @@ tag_environment                = "lab"
 notification_email             = "j.calalang@f5.com"
 existing_internal_subnet_name  = "internal"
 existing_external_subnet_name  = "external"
-existing_mgmt_subnet_name      = "mgmt"
-existing_subnet_vnet           = "calalang-azure-vnet"
-existing_subnet_resource_group = "calalang-rg"
+existing_mgmt_subnet_name      = "management"
+existing_subnet_vnet           = "azure-10-0-0-0-16-vnet"
+existing_subnet_resource_group = "calalang-networking-rg"
 
 # NGINX variables
 
@@ -18,10 +18,10 @@ existing_subnet_resource_group = "calalang-rg"
 
 nginx-instance-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-instance-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
-nginx-instance-version = "5.0.0"
+nginx-instance-version = "6.1.0"
 nginx-instance-count   = 1
 
 nginx-api-gw-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-api-gw-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
-nginx-api-gw-version = "5.0.0"
+nginx-api-gw-version = "6.1.0"
 nginx-api-gw-count   = 1

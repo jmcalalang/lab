@@ -44,3 +44,13 @@ variable "aks-node-count" {
   type        = number
   description = "Number of nodes in kubernetes clusters"
 }
+
+variable "kubernetes_version" {
+  type        = string
+  description = "Kubernetes version"
+}
+
+variable "vm_size" {
+  type        = string
+  description = "Node instance size"
+}

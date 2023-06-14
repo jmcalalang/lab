@@ -31,11 +31,11 @@ key_name                    = "calalang_west2_key"
 # Azure variables
 
 azure_location                  = "westus2"
-existing_subnet_management_name = "mgmt"
+existing_subnet_management_name = "management"
 existing_subnet_internal_name   = "internal"
 existing_subnet_external_name   = "external"
-existing_subnet_vnet            = "calalang-azure-vnet"
-existing_subnet_resource_group  = "calalang-rg"
+existing_subnet_vnet            = "azure-10-0-0-0-16-vnet"
+existing_subnet_resource_group  = "calalang-networking-rg"
 notification_email              = "j.calalang@f5.com"
 resource_group_name             = "calalang-bigip-rg"
 
@@ -46,4 +46,4 @@ big-ip-instance-offer = "f5-big-ip-best"
 big-ip-instance-size  = "Standard_DS3_v2"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
 big-ip-instance-sku = "f5-bigip-virtual-edition-1g-best-hourly-po-f5"
-big-ip-version      = "16.1.303000"
+big-ip-version      = "17.1.001000"

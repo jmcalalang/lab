@@ -1,12 +1,23 @@
 # Kubernetes variables
 
-variable "f5xc_site_token" {
+# ArgoCD Values
+
+# BIG-IP Container Ingress Services Values
+variable "big-ip-cis-chart-version" {
   type        = string
-  description = "F5XC Site Token"
+  description = "BIG-IP Container Ingress Services Chart Version"
 }
-variable "nginx_repo_jwt" {
+variable "big-ip-cis-image" {
   type        = string
-  description = "NGINX JWT"
+  description = "BIG-IP Container Ingress Services Image"
+}
+variable "big-ip-ltm-management-address" {
+  type        = string
+  description = "BIG-IP Container Ingress Services LTM Target"
+}
+variable "big-ip-gtm-management-address" {
+  type        = string
+  description = "BIG-IP Container Ingress Services GTM Target"
 }
 variable "bigip_aks_username" {
   type        = string
@@ -15,6 +26,27 @@ variable "bigip_aks_username" {
 variable "bigip_aks_password" {
   type        = string
   description = "BIG-IP AKS Password"
+}
+
+
+# Nginx Ingress Controller Values
+variable "nginx-ingress-controller-chart-version" {
+  type        = string
+  description = "NGINX Ingress Controller Chart Version"
+}
+variable "nginx-ingress-controller-image" {
+  type        = string
+  description = "NGINX Ingress Controller Image"
+}
+variable "nginx_repo_jwt" {
+  type        = string
+  description = "NGINX JWT"
+}
+
+# vk8s Terraform Variable Values
+variable "f5xc_site_token" {
+  type        = string
+  description = "F5XC Site Token"
 }
 variable "namespace" {
   type        = string

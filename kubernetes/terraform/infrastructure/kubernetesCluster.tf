@@ -22,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   resource_group_name = azurerm_resource_group.kubernetes-resource-group.name
   dns_prefix          = "aks-${random_uuid.aks-random-uuid[0].result}-${count.index}"
   count               = sum([var.aks-instance-count])
-  kubernetes_version  = "1.25.5"
+  kubernetes_version  = var.kubernetes_version
 
   network_profile {
     network_plugin     = "azure"
@@ -36,7 +36,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name           = "d3v2"
     node_count     = var.aks-node-count
     max_pods       = 250
-    vm_size        = "Standard_D3_v2"
+    vm_size        = var.vm_size
     vnet_subnet_id = data.azurerm_subnet.existing-subnet-kubernetes.id
   }
 

@@ -19,7 +19,7 @@ jobs:
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [Kubernetes-Terraform-Configuration]
+    needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Configuration]
 
     # Environment Variables
     env:
@@ -78,7 +78,7 @@ jobs:
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Terraform-Infrastructure]
+    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -88,7 +88,7 @@ jobs:
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Resources-Available]
+    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Resources-Available]
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -133,7 +133,8 @@ jobs:
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    
+    needs: [Cloud-Network-Terraform-Infrastructure]    
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -181,7 +182,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [BIG-IP-Ansible-Configuration]
+    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
     
     # Environment Variables
     env:
@@ -226,6 +227,7 @@ jobs:
   F5XC-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    needs: [Cloud-Network-Terraform-Infrastructure]    
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -236,7 +238,7 @@ jobs:
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [F5XC-Resources-Available]
+    needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available]
     
     # Environment Variables
     env:
@@ -276,7 +278,7 @@ jobs:
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [F5XC-Resources-Available, F5XC-Terraform-Infrastructure]
+    needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available, F5XC-Terraform-Infrastructure]
     
     # Environment Variables
     env:
@@ -360,6 +362,7 @@ jobs:
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -400,7 +403,7 @@ jobs:
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [Kubernetes-Terraform-Infrastructure]
+    needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -485,10 +488,56 @@ jobs:
 
 ######################################################################################################
 
+  Cloud-Network-Terraform-Infrastructure:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: networking/terraform/infrastructure
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.5
+
+      - name: Terraform Cloud-Network-Terraform-Infrastructure fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Cloud-Network-Terraform-Infrastructure Init
+        id: init
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+
+      - name: Terraform Cloud-Network-Terraform-Infrastructure Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Cloud-Network-Terraform-Infrastructure Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+######################################################################################################
+
   NMS-Resources-Available:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [NGINX-Terraform-Infrastructure]
+    needs: [Cloud-Network-Terraform-Infrastructure, NGINX-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -500,7 +549,7 @@ jobs:
   NMS-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [NMS-Resources-Available]
+    needs: [Cloud-Network-Terraform-Infrastructure, NMS-Resources-Available]
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -545,6 +594,7 @@ jobs:
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    needs: [Cloud-Network-Terraform-Infrastructure]
     
     # Environment Variables
     env:
@@ -558,7 +608,7 @@ jobs:
     # Where are the Terraform files
     defaults:
       run:
-        working-directory: nginx/terraform/
+        working-directory: nginx/terraform/infrastructure
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

@@ -6,7 +6,7 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   namespace  = "argocd"
-  version    = "5.24.1"
+  version    = var.argo-chart-version
   depends_on = [
     kubectl_manifest.argo
   ]
@@ -27,7 +27,7 @@ resource "helm_release" "cis" {
   name       = "cis"
   repository = "https://f5networks.github.io/charts/stable"
   chart      = "f5-bigip-ctlr"
-  version    = "0.0.24"
+  version    = var.big-ip-cis-chart-version
 
   values = [
     "${file("./files/helm/f5-bigip-ctlr-values.yaml")}"
@@ -55,7 +55,7 @@ resource "helm_release" "cis" {
 
   set {
     name  = "version"
-    value = "2.12.0"
+    value = var.big-ip-cis-image
   }
 
   set {
@@ -65,7 +65,7 @@ resource "helm_release" "cis" {
 
   set {
     name  = "args.bigip_url"
-    value = "https://10.0.3.4"
+    value = var.big-ip-ltm-management-address
   }
 
   set {
@@ -95,7 +95,7 @@ resource "helm_release" "cis" {
 
   set {
     name  = "args.gtm-bigip-username"
-    value = "https://10.0.3.4"
+    value = var.big-ip-gtm-management-address
   }
 
   set {
@@ -116,7 +116,7 @@ resource "helm_release" "nginx-plus-ingress" {
   repository = "https://helm.nginx.com/stable"
   chart      = "nginx-ingress"
   namespace  = "nginx-ingress"
-  version    = "0.16.2"
+  version    = var.nginx-ingress-controller-chart-version
   depends_on = [
     kubectl_manifest.nginx-ingress
   ]
@@ -147,7 +147,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.image.tag"
-    value = "3.0.2"
+    value = var.nginx-ingress-controller-image
   }
 
   set {
@@ -203,7 +203,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
   repository = "https://helm.nginx.com/stable"
   chart      = "nginx-ingress"
   namespace  = "ingresslink"
-  version    = "0.16.2"
+  version    = var.nginx-ingress-controller-chart-version
   depends_on = [
     kubectl_manifest.nginx-ingresslink
   ]
@@ -234,7 +234,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
 
   set {
     name  = "controller.image.tag"
-    value = "3.0.2"
+    value = var.nginx-ingress-controller-image
   }
 
   set {
