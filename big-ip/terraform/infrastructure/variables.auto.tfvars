@@ -11,13 +11,13 @@ bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-b
 
 # AWS variables
 
-existing_subnet_az1_management_id = "subnet-0ee8e2cae6cea74cb"
-existing_subnet_az1_external_id   = "subnet-06cab6de005ec9785"
-existing_subnet_az1_internal_id   = "subnet-04c7cfb35c9224840"
-existing_subnet_az2_management_id = "subnet-0a6fe8fde8d5b510a"
-existing_subnet_az2_external_id   = "subnet-05b2a7b832d0e8217"
-existing_subnet_az2_internal_id   = "subnet-0a3a131eabe6298e5"
-vpc_id                            = "vpc-0f4d706f36f3387c0"
+existing_subnet_az1_management_id = "subnet-0fed20660405dcd29"
+existing_subnet_az1_external_id   = "subnet-0de5ca824f855eb8e"
+existing_subnet_az1_internal_id   = "subnet-0b73939eba6454afb"
+existing_subnet_az2_management_id = "subnet-00a2b950ce003876e"
+existing_subnet_az2_external_id   = "subnet-0b0bcb1bf3a2473c9"
+existing_subnet_az2_internal_id   = "subnet-0c005a1b2511dcd6f"
+vpc_id                            = "vpc-0bb527f5634f025fa"
 
 # AWS BIG-IP variables
 
