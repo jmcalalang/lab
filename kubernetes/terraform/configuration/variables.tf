@@ -1,6 +1,10 @@
 # Kubernetes variables
 
 # ArgoCD Values
+variable "argo-chart-version" {
+  type        = string
+  description = "ArgoCD Chart Version"
+}
 
 # BIG-IP Container Ingress Services Values
 variable "big-ip-cis-chart-version" {
