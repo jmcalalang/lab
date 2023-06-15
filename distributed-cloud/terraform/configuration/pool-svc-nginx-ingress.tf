@@ -11,7 +11,7 @@ resource "volterra_origin_pool" "pool-svc-nginx-ingress" {
   }
   origin_servers {
     k8s_service {
-      service_name    = "nginx-ingress-nginx-ingress.nginx-ingress"
+      service_name    = "nginx-ingress-controller.nginx-ingress"
       outside_network = true
       site_locator {
         site {

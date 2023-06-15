@@ -6,4 +6,4 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app: nginx-ingress-nginx-ingress
+    app: nginx-ingress-headless
