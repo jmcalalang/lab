@@ -21,6 +21,7 @@ vpc_id                            = "vpc-0bb527f5634f025fa"
 
 # AWS BIG-IP variables
 
+# aws ec2 describe-images --owners 679593333241 --filters "Name=name, Values=*BIGIP-16.1.3*PAYG*"
 big_ip_ami                  = "F5 BIGIP-16* PAYG-Best Plus 25Mbps*"
 big_ip_per_az_count         = 1
 external_secondary_ip_count = 1
@@ -46,4 +47,4 @@ big-ip-instance-offer = "f5-big-ip-best"
 big-ip-instance-size  = "Standard_DS3_v2"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
 big-ip-instance-sku = "f5-bigip-virtual-edition-1g-best-hourly-po-f5"
-big-ip-version      = "17.1.001000"
+big-ip-version      = "16.1.304000"
