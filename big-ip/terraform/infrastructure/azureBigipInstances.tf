@@ -171,7 +171,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   security_rule {
@@ -182,7 +182,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   tags = {
@@ -210,7 +210,7 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   tags = {
