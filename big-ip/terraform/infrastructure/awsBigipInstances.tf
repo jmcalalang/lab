@@ -124,14 +124,14 @@ resource "aws_security_group" "big_ip_mgmt_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = 6
-    cidr_blocks = var.allowed_ips
+    cidr_blocks = ["0.0.0.0/0"]
   }
-  # Allows GUI access
+  # Allows HTTPS access
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = 6
-    cidr_blocks = var.allowed_ips
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -154,7 +154,7 @@ resource "aws_security_group" "big_ip_external_security_group" {
     from_port   = 443
     to_port     = 443
     protocol    = 6
-    cidr_blocks = var.allowed_ips
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0

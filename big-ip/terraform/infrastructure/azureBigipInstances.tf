@@ -5,7 +5,6 @@
 resource "azurerm_resource_group" "big-ip-resource-group" {
   name     = var.resource_group_name
   location = var.azure_location
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -47,7 +46,6 @@ resource "azurerm_public_ip" "public-ip-address-management" {
   allocation_method   = "Dynamic"
   count               = sum([var.big-ip-instance-count])
   domain_name_label   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -60,7 +58,6 @@ resource "azurerm_network_interface" "nic-management" {
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
   count               = sum([var.big-ip-instance-count])
-
   ip_configuration {
     name                          = "if-config-management-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-management.id
@@ -68,7 +65,6 @@ resource "azurerm_network_interface" "nic-management" {
     primary                       = true
     public_ip_address_id          = azurerm_public_ip.public-ip-address-management[count.index].id
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -83,42 +79,36 @@ resource "azurerm_network_interface" "nic-internal" {
   count                         = sum([var.big-ip-instance-count])
   enable_ip_forwarding          = true
   enable_accelerated_networking = true
-
   ip_configuration {
     name                          = "if-config-internal-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
   }
-
   ip_configuration {
     name                          = "if-config-internal-02"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-internal-03"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-internal-04"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-internal-05"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -132,42 +122,36 @@ resource "azurerm_network_interface" "nic-external" {
   resource_group_name           = azurerm_resource_group.big-ip-resource-group.name
   count                         = sum([var.big-ip-instance-count])
   enable_accelerated_networking = true
-
   ip_configuration {
     name                          = "if-config-external-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
   }
-
   ip_configuration {
     name                          = "if-config-external-02"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-external-03"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-external-04"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   ip_configuration {
     name                          = "if-config-external-05"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -179,7 +163,6 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
   name                = "big-ip-management-sg"
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-
   security_rule {
     name                       = "management-https"
     priority                   = 100
@@ -188,10 +171,9 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_ips
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
-
   security_rule {
     name                       = "management-ssh"
     priority                   = 105
@@ -200,22 +182,9 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefixes    = var.allowed_ips
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
-
-  security_rule {
-    name                       = "github-actions"
-    priority                   = 110
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_github_ips
-    destination_address_prefix = "*"
-  }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -233,31 +202,17 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
   name                = "big-ip-external-sg"
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-
   security_rule {
-    name                       = "http"
+    name                       = "https"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefixes    = var.allowed_ips
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "https"
-    priority                   = 105
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_ips
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -285,7 +240,6 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
     azurerm_network_interface.nic-management[count.index].id,
     azurerm_network_interface.nic-external[count.index].id,
     azurerm_network_interface.nic-internal[count.index].id
-
   ]
   vm_size                          = var.big-ip-instance-size
   delete_data_disks_on_termination = true
@@ -299,21 +253,18 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
     product   = var.big-ip-instance-offer
     name      = var.big-ip-instance-sku
   }
-
   storage_image_reference {
     publisher = "f5-networks"
     offer     = var.big-ip-instance-offer
     sku       = var.big-ip-instance-sku
     version   = var.big-ip-version
   }
-
   storage_os_disk {
     name              = "os-disk-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-
   os_profile {
     computer_name  = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
     admin_username = var.big-ip-username
@@ -323,15 +274,12 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
       admin_username = var.big-ip-username
     }))
   }
-
   os_profile_linux_config {
     disable_password_authentication = false
   }
-
   identity {
     type = "SystemAssigned"
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -344,7 +292,6 @@ resource "azurerm_availability_set" "big-ip-instance" {
   name                = "aset-${random_uuid.big-ip-random-uuid[0].result}"
   location            = var.azure_location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -358,7 +305,6 @@ resource "azurerm_role_definition" "bigip-role-definition" {
   name        = "bigip-role-${random_uuid.big-ip-random-uuid[0].result}"
   scope       = data.azurerm_subscription.primary.id
   description = "Role created for BIG-IP clusters"
-
   permissions {
     actions = [
       "Microsoft.Authorization/*/read",
@@ -377,7 +323,6 @@ resource "azurerm_role_definition" "bigip-role-definition" {
     ]
     not_actions = []
   }
-
   assignable_scopes = [
     data.azurerm_subscription.primary.id
   ]
@@ -399,7 +344,6 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
   daily_recurrence_time = "1900"
   timezone              = "Pacific Standard Time"
   count                 = sum([var.big-ip-instance-count])
-
   notification_settings {
     enabled         = true
     time_in_minutes = "30"
