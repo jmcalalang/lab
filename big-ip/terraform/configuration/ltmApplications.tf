@@ -14,18 +14,11 @@ resource "bigip_ltm_virtual_server" "https-10-0-2-7-terraform" {
   profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
   pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
 }
-resource "bigip_ltm_monitor" "monitor-nginx-azure-instances-terraform" {
-  name     = "/Common/monitor-nginx-azure-instances-terraform"
-  parent   = "/Common/http"
-  send     = "GET /\r\n"
-  interval = 5
-  timeout  = 16
-}
 resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances-terraform" {
   name                   = "/Common/pool-ip-nginx-azure-instances-terraform"
   load_balancing_mode    = "round-robin"
   minimum_active_members = 1
-  monitors               = [bigip_ltm_monitor.monitor-nginx-azure-instances-terraform.name]
+  monitors               = ["/Common/http"]
   allow_snat             = "yes"
   allow_nat              = "yes"
 }
