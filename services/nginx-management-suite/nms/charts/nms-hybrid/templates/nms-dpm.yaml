@@ -30,6 +30,10 @@ spec:
       serviceAccountName: {{ template "nms.serviceAccountName" . }}
       initContainers:
         {{- include "nms.dpm.initContainers" . | nindent 8 }}
+      {{- if .Values.dpm.tolerations }}
+      tolerations:
+        {{- toYaml .Values.dpm.tolerations | nindent 8 }}
+      {{- end }}
       containers:
         - name: dpm
           image: "{{ .Values.dpm.image.repository }}:{{ .Values.dpm.image.tag }}"

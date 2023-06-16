@@ -26,6 +26,10 @@ spec:
       securityContext:
         fsGroup: 1000
       serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      {{- if .Values.ingestion.tolerations }}
+      tolerations:
+        {{- toYaml .Values.ingestion.tolerations | nindent 8 }}
+      {{- end }}
       containers:
         - name: ingestion
           image: "{{ .Values.ingestion.image.repository }}:{{ .Values.ingestion.image.tag }}"

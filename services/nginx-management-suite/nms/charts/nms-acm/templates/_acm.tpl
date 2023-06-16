@@ -109,6 +109,11 @@ nms-acm-conf
 {{ .Values.acm.service.httpPort | default 8037 }}
 {{- end -}}
 
+{{/* Helper to return acm metrics status */}}
+{{- define "acm.metrics.enabled" -}}
+{{ .Values.acm.metrics.enabled | default false }}
+{{- end -}}
+
 {*
    ------ NMS ------
 *}

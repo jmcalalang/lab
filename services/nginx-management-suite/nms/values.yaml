@@ -10,30 +10,30 @@ nms-hybrid:
   apigw:
       image:
           repository: acri9eee8x9V.azurecr.io/nms-apigw
-          tag: 2.8.0
+          tag: 2.11.0
   core:
       image:
           repository: acri9eee8x9V.azurecr.io/nms-core
-          tag: 2.8.0
+          tag: 2.11.0
   dpm:
       image:
           repository: acri9eee8x9V.azurecr.io/nms-dpm
-          tag: 2.8.0
+          tag: 2.11.0
   ingestion:
       image:
           repository: acri9eee8x9V.azurecr.io/nms-ingestion
-          tag: 2.8.0
+          tag: 2.11.0
   integrations:
       image:
           repository: acri9eee8x9V.azurecr.io/nms-integrations
-          tag: 2.8.0
+          tag: 2.11.0
 
 ## Variable values to replace defaults of API Connectivity Manager Chart
 nms-acm:
   acm:
     image:
       repository: acri9eee8x9V.azurecr.io/nms-acm
-      tag: 1.4.0
+      tag: 1.6.0
 
 nameOverride: "nms"
 fullnameOverride: "nms"

@@ -53,7 +53,7 @@ spec:
               mountPath: {{ template "nms.secret.internal-certs.dir" . }}
               readOnly: true
             - name: apigw-certs
-              mountPath: {{ template "nms.apigw.secrets.mountPath" }}
+              mountPath: {{ template "nms.apigw.secrets.mountPath" . }}
               readOnly: true
             {{- include "nms.apigw.moduleVolumeMounts" . | nindent 12 }}
       volumes:

@@ -82,10 +82,18 @@ metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
-  type: LoadBalancer
+  type: {{ .Values.apigw.service.type }}
+  {{- with .Values.apigw.service.externalIPs }}
+  externalIPs:
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   ports:
-    - port: {{ .Values.apigw.service.httpsPort | default 443 }}
-      name: https
+    - name: https
+      protocol: TCP
+      port: {{ .Values.apigw.service.httpsPort }}
+      {{- if eq .Values.apigw.service.type "NodePort" }}
+      nodePort: {{ .Values.apigw.service.nodePortHttps }}
+      {{- end }}
   selector:
     {{- include "nms.apigw.selectorLabels" . | nindent 4 }}
 

@@ -1,14 +1,17 @@
 apiVersion: v2
-appVersion: 1.2.1
+appVersion: 1.7.0
 dependencies:
 - name: nms-hybrid
   repository: https://github.com/nginxinc/helm-charts/stable
-  version: ~2.8.0
+  version: ~2.11.0
 - condition: global.nmsModules.nms-acm.enabled
   name: nms-acm
   repository: https://github.com/nginxinc/helm-charts/stable
-  version: ~1.4.1
+  version: ~1.6.0
+#- name: nms-adm
+#  repository: https://github.com/nginxinc/helm-charts/stable
+#  version: ~4.0.0
 description: A chart for installing the NGINX Management Suite
 name: nms
 type: application
-version: 1.2.1
+version: 1.7.0

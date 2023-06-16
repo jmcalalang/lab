@@ -1,15 +1,16 @@
+{{- if $.Values.global.utility }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nms.core.name" . }}
+  name: {{ include "nms.utility.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "nms.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
-      {{- include "nms.core.selectorLabels" . | nindent 6 }}
+      {{- include "nms.utility.selectorLabels" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
@@ -19,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "nms.core.selectorLabels" . | nindent 8 }}
+        {{- include "nms.utility.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,32 +29,15 @@ spec:
       securityContext:
         fsGroup: 1000
       serviceAccountName: {{ template "nms.serviceAccountName" . }}
-      initContainers:
-        {{- include "nms.core.initContainers" . | nindent 8 }}
-      {{- if .Values.core.tolerations }}
-      tolerations:
-        {{- toYaml .Values.core.tolerations | nindent 8 }}
-      {{- end }}
       containers:
-        - name: core
-          image: "{{ .Values.core.image.repository }}:{{ .Values.core.image.tag }}"
-          imagePullPolicy: {{ .Values.core.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.core.container.port.http }}
-              protocol: TCP
-            - name: grpc
-              containerPort: {{ .Values.core.container.port.grpc }}
-              protocol: TCP
+        - name: utility
+          image: "{{ .Values.utility.image.repository }}:{{ .Values.utility.image.tag }}"
+          imagePullPolicy: {{ .Values.utility.image.pullPolicy }}
+          command: ["/bin/sh"]
+          args: ["-c", "tail -f /dev/null"]
           env:
-            # Clickhouse env variable
-            {{- include "nms.clickhouse.env" . | nindent 12 }}
             # core specific env variable
-            {{- include "nms.core.env" . | nindent 12 }}
-            # Vault env variable
-            {{- include "nms.vault.env" . | nindent 12 }}
-          resources:
-            {{- toYaml .Values.core.resources | nindent 12 }}
+            {{- include "nms.utility.env" . | nindent 12 }}
           volumeMounts:
             - name: nms-conf-volume
               mountPath: /etc/nms/nms.conf
@@ -61,8 +45,7 @@ spec:
             - name: certs
               mountPath: /etc/nms/certs
               readOnly: true
-            {{- include "nms.core.userVolumeMounts" . | nindent 12 }}
-            {{- include "nms.core.moduleVolumeMounts" . | nindent 12 }}
+            {{- include "nms.utility.userVolumeMounts" . | nindent 12 }}
       volumes:
         - name: nms-conf-volume
           configMap:
@@ -84,5 +67,5 @@ spec:
                       path: services/core-client.pem
                     - key: core-client.key
                       path: services/core-client.key
-        {{- include "nms.core.userVolumes" . | nindent 8 }}
-        {{- include "nms.core.moduleVolume" . | nindent 8 }}
+        {{- include "nms.utility.userVolumes" . | nindent 8 }}
+{{- end }}

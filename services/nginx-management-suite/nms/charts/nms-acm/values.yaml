@@ -5,6 +5,8 @@
 acm:
   name: &acmName acm
   logLevel: info
+  metrics:
+    enabled: false
   image:
     # if the image is on a private registry, provide imagePullSecrets
     repository: acm

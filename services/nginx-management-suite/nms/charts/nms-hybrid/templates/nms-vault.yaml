@@ -1,0 +1,61 @@
+{{- if .Values.nmsVault.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "nms.vault.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.vault.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "nms.vault.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+        annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nms.vault.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      containers:
+        - name: vault-server
+          image: "{{ .Values.nmsVault.image.repository }}:{{ .Values.nmsVault.image.tag }}"
+          imagePullPolicy: {{ .Values.nmsVault.image.pullPolicy }}
+          command: ['/bin/sh', '-c']
+          args: ['vault server -dev -dev-root-token-id=root_token']
+          ports:
+            - name: http
+              containerPort: {{ template "nms.vault.containerPort.rpc" }}
+              protocol: TCP
+          volumeMounts:
+            {{- include "nms.vault.userVolumeMounts" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.dpm.resources | nindent 12 }}
+      volumes:
+        - name: nms-conf-volume
+          configMap:
+            defaultMode: 0644
+            name: {{ template "nms.config.name" . }}
+        {{- include "nms.vault.userVolumes" . | nindent 8 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "nms.vault.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "nms.vault.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ template "nms.vault.containerPort.rpc" }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "nms.vault.selectorLabels" . | nindent 4 }}
+{{- end }}
+
+

@@ -4,12 +4,18 @@
         "global": {
             "type": "object",
             "properties": {
+                "utility": {
+                    "type": "boolean"
+                },
                 "nmsModules": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "object",
                         "properties": {
                             "enabled": {
+                                "type": "boolean"
+                            },
+                            "addClaimsToUtility": {
                                 "type": "boolean"
                             },
                             "services": {
@@ -46,6 +52,12 @@
                         "type": "string"
                     }
                 },
+                "mapped_apis": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "locations": {
                     "type": "array",
                     "items": {
@@ -59,7 +71,7 @@
                     }
                 }
             },
-            "required": ["configmap", "upstreams", "locations", "modules"]
+            "required": ["configmap", "upstreams", "modules"]
         }
     }
 }

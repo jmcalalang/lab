@@ -30,6 +30,10 @@ spec:
       serviceAccountName: {{ template "nms.serviceAccountName" . }}
       initContainers:
         {{- include "nms.integrations.initContainers" . | nindent 8 }}
+      {{- if .Values.integrations.tolerations }}
+      tolerations:
+        {{- toYaml .Values.integrations.tolerations | nindent 8 }}
+      {{- end }}
       containers:
         - name: integrations
           image: "{{ .Values.integrations.image.repository }}:{{ .Values.integrations.image.tag }}"

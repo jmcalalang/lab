@@ -96,7 +96,7 @@ Create the name of the service account to use
 
 {{/*
 Generates server certificates for core, dpm, ingestion, integrations and
-client certificates for apigw, core, dpm, ingestion and integrations 
+client certificates for apigw, core, dpm, ingestion and integrations
 */}}
 {{- define "nms.gen-internal-certs" -}}
 {{- $ca := . }}
@@ -111,7 +111,7 @@ client certificates for apigw, core, dpm, ingestion and integrations
 {{- $ca = buildCustomCert $caCert $caKey -}}
 {{- end }}
 {{- $servers := (list "core" "dpm" "ingestion" "integrations") }}
-{{- $clients := (list "apigw" "core" "dpm" "ingestion" "integrations") }}
+{{- $clients := (list (include "nms.apigw.name" .) "core" "dpm" "ingestion" "integrations") }}
 {{- range $k, $v := $.Values.global.nmsModules }}
 {{- range $i, $s := $v.services }}
 {{- $servers = append $servers $s }}
@@ -126,7 +126,7 @@ Generates self signed CA and server certificates for apigw
 */}}
 {{- define "nms.gen-apigw-certs" -}}
 {{- $ca := . }}
-{{- $subjectName := "apigw" }}
+{{- $subjectName := include "nms.apigw.name" . }}
 {{- $ca = genCA (include "nms.fullname" .) 36600 -}}
 {{- $altNames := (list $subjectName (printf "%s.%s.svc" $subjectName .Release.Namespace ) (printf "%s.%s.svc.cluster.local" $subjectName .Release.Namespace )) -}}
 {{- $ips := (list "0.0.0.0" "127.0.0.1") -}}
@@ -144,48 +144,48 @@ tls.key: {{ $cert.Key | b64enc }}
 {{- $ := index . 4 }}
 ca.pem: {{ $ca.Cert | b64enc }}
 ca.key: {{ $ca.Key | b64enc }}
-{{- range $index, $subjectName := $services }}
+{{- range $index, $serviceName := $services }}
 {{- printf "\n" -}}
-{{- $serverCert := (get $existingCerts (printf "%s-server.pem" $subjectName )) | default "" }}
-{{- $serverKey := (get $existingCerts (printf "%s-server.key" $subjectName )) | default "" }}
+{{- $serverCert := (get $existingCerts (printf "%s-server.pem" $serviceName )) | default "" }}
+{{- $serverKey := (get $existingCerts (printf "%s-server.key" $serviceName )) | default "" }}
 {{- if ne $serverCert ""}}
-{{ printf "%s-server.pem" $subjectName }}: {{ $serverCert }}
-{{ printf "%s-server.key" $subjectName }}: {{ $serverKey }}
+{{ printf "%s-server.pem" $serviceName }}: {{ $serverCert }}
+{{ printf "%s-server.key" $serviceName }}: {{ $serverKey }}
 {{- else }}
-{{- template "gen-server-certs" (list $subjectName $ca $) -}}
+{{- template "gen-server-certs" (list $serviceName $ca $) -}}
 {{- end }}
 {{- end }}
-{{- range $index, $subjectName := $clients }}
+{{- range $index, $clientName := $clients }}
 {{- printf "\n" -}}
-{{- $clientCert := (get $existingCerts (printf "%s-client.pem" $subjectName )) | default "" }}
-{{- $clientKey := (get $existingCerts (printf "%s-client.key" $subjectName )) | default "" }}
+{{- $clientCert := (get $existingCerts (printf "%s-client.pem" $clientName )) | default "" }}
+{{- $clientKey := (get $existingCerts (printf "%s-client.key" $clientName )) | default "" }}
 {{- if ne $clientCert ""}}
-{{ printf "%s-client.pem" $subjectName }}: {{ $clientCert }}
-{{ printf "%s-client.key" $subjectName }}: {{ $clientKey }}
+{{ printf "%s-client.pem" $clientName }}: {{ $clientCert }}
+{{ printf "%s-client.key" $clientName }}: {{ $clientKey }}
 {{- else }}
-{{- template "gen-client-certs" (list $subjectName $ca) -}}
+{{- template "gen-client-certs" (list $clientName $ca) -}}
 {{- end }}
 {{- end }}
 {{- end -}}
 
 {{- define "gen-server-certs" -}}
-{{- $subjectName := index . 0 }}
+{{- $serviceName := index . 0 }}
 {{- $ca := index . 1 }}
 {{- $ := index . 2 }}
-{{- $altNames := (list $subjectName (printf "%s.%s.svc" $subjectName $.Release.Namespace ) (printf "%s.%s.svc.cluster.local" $subjectName $.Release.Namespace )) -}}
+{{- $altNames := (list $serviceName (printf "%s.%s.svc" $serviceName $.Release.Namespace ) (printf "%s.%s.svc.cluster.local" $serviceName $.Release.Namespace )) -}}
 {{- $ips := (list "0.0.0.0" "127.0.0.1") -}}
-{{- $cert := genSignedCert ( printf "%s.%s" $subjectName $.Release.Namespace ) $ips $altNames 36600 $ca -}}
-{{ printf "%s-server.pem" $subjectName }}: {{ $cert.Cert | b64enc }}
-{{ printf "%s-server.key" $subjectName }}: {{ $cert.Key | b64enc }}
+{{- $cert := genSignedCert ( printf "%s.%s" $serviceName $.Release.Namespace ) $ips $altNames 36600 $ca -}}
+{{ printf "%s-server.pem" $serviceName }}: {{ $cert.Cert | b64enc }}
+{{ printf "%s-server.key" $serviceName }}: {{ $cert.Key | b64enc }}
 {{- end -}}
 
 {{- define "gen-client-certs" -}}
-{{- $subjectName := index . 0 }}
+{{- $clientName := index . 0 }}
 {{- $ca := index . 1 }}
-{{- $altNames := (list (printf "%s-api-service" $subjectName ) (printf "%s-grpc-service" $subjectName )) -}}
-{{- $cert := genSignedCert ( printf "%s-client" $subjectName ) nil $altNames 36600 $ca -}}
-{{ printf "%s-client.pem" $subjectName }}: {{ $cert.Cert | b64enc }}
-{{ printf "%s-client.key" $subjectName }}: {{ $cert.Key | b64enc }}
+{{- $altNames := (list (printf "%s-api-service" $clientName ) (printf "%s-grpc-service" $clientName )) -}}
+{{- $cert := genSignedCert ( printf "%s-client" $clientName ) nil $altNames 36600 $ca -}}
+{{ printf "%s-client.pem" $clientName }}: {{ $cert.Cert | b64enc }}
+{{ printf "%s-client.key" $clientName }}: {{ $cert.Key | b64enc }}
 {{- end -}}
 
 {{/* Helper to return nms internal certs dir */}}
@@ -276,6 +276,15 @@ app.kubernetes.io/name: {{ template "nms.apigw.name" . }}
 {{- template "nms.apigw.secrets.mountPath" . -}}/ca.pem
 {{- end -}}
 
+{{/* Helper to return nms api gateway port */}}
+{{- define "nms.apigw.port" -}}
+{{- if eq .Values.apigw.service.type "NodePort" -}}
+{{- .Values.apigw.service.nodePortHttps -}}
+{{- else }}
+{{- .Values.apigw.service.httpsPort -}}
+{{- end -}}
+{{- end }}
+
 {{/* Helper functions for mounting module configuration */}}
 {{- define "nms.apigw.moduleVolumeMounts" -}}
 {{- range $k, $v := .Values.global.nmsModules }}
@@ -284,6 +293,12 @@ app.kubernetes.io/name: {{ template "nms.apigw.name" . }}
 {{- range $j, $key := $config.upstreams }}
 - name: {{ $config.configmap }}
   mountPath: /etc/nms/nginx/upstreams/{{ $key }}
+  subPath: {{ $key }}
+  readOnly: true
+{{- end }}
+{{- range $j, $key := $config.mapped_apis }}
+- name: {{ $config.configmap }}
+  mountPath: /etc/nms/nginx/upstreams/mapped_apis/{{ $key }}
   subPath: {{ $key }}
   readOnly: true
 {{- end }}
@@ -309,6 +324,14 @@ app.kubernetes.io/name: {{ template "nms.apigw.name" . }}
 {{- end }}
 {{- end }}
 {{- end }}
+{{- end -}}
+
+{{- define "nms.apigw.nginxWorkerConnections" -}}
+{{ .Values.apigw.nginxWorkerConnections | default 1024 }}
+{{- end -}}
+
+{{- define "nms.apigw.nginxWorkerRlimitNofile" -}}
+{{ .Values.apigw.nginxWorkerRlimitNofile | default 4096 }}
 {{- end -}}
 
 {*
@@ -345,6 +368,15 @@ app.kubernetes.io/name: {{ template "nms.apigw.name" . }}
 {{- define "nms.core.grpcPort" -}}
 {{ .Values.core.container.port.grpc | default 8038 }}
 {{- end -}}
+
+{{/* Helper to return secrets driver type */}}
+{{- define "nms.secret.driverType" -}}
+{{- if or .Values.nmsVault.enabled .Values.externalVault.address -}}
+vault
+{{- else -}}
+local
+{{- end }}
+{{- end }}
 
 {{/* Helper to return Core dqlite container bind address */}}
 {{- define "nms.core.dqliteAddress" -}}
@@ -500,7 +532,7 @@ nats://{{ template "nms.dpm.name" . }}:{{ template "nms.dpm.natsStreamingPort" .
 
 {{/* Helper to return dpm grpc service */}}
 {{- define "nms.dpm.service.grpc" -}}
-{{ template "nms.dpm.name" }}:{{ template "nms.dpm.grpcPort" . }}
+{{ template "nms.dpm.name" . }}:{{ template "nms.dpm.grpcPort" . }}
 {{- end -}}
 
 {{/* Helper to return dpm grpc port */}}
@@ -605,6 +637,8 @@ app.kubernetes.io/name: {{ template "nms.ingestion.name" . }}
 {{- define "nms.integrations.env" -}}
 - name: NMS_DPM_NATS_ADDRESS
   value: {{ include "nms.dpm.service.natsStreaming" . }}
+- name: NMS_CORE_ADDRESS
+  value: {{ include "nms.core.service.http" . }}
 {{- end }}
 
 {{/* Helper to return Integrations http container bind address */}}
@@ -677,4 +711,97 @@ storageClassName: "{{ .Values.integrations.persistence.storageClass }}"
 {{- define "nms.integrations.userVolumeMounts" -}}
 - name: dqlite-volume
   mountPath: /var/lib/nms/dqlite
+{{- end -}}
+
+{*
+   ------ Utility ------
+*}
+
+{{/* ENV variables */}}
+{{- define "nms.utility.env" -}}
+{{- end }}
+
+{{/* Helper to return utility name */}}
+{{- define "nms.utility.name" -}}
+{{ .Values.utility.name | default "utility" }}
+{{- end -}}
+
+{{- define "nms.utility.selectorLabels" -}}
+app.kubernetes.io/name: {{ template "nms.utility.name" . }}
+{{- end }}
+
+{{- define "nms.utility.userVolumes" -}}
+{{- if .Values.core.persistence.enabled }}
+- name: core-dqlite-volume
+  persistentVolumeClaim:
+    claimName: {{ template "nms.core.name" . }}-dqlite
+- name: secrets-volume
+  persistentVolumeClaim:
+    claimName: {{ template "nms.core.name" . }}-secrets
+{{- end }}
+{{- if .Values.dpm.persistence.enabled }}
+- name: dpm-dqlite-volume
+  persistentVolumeClaim:
+    claimName: {{ template "nms.dpm.name" . }}-dqlite
+{{- end }}
+{{- if .Values.integrations.persistence.enabled }}
+- name: integrations-dqlite-volume
+  persistentVolumeClaim:
+    claimName: {{ template "nms.integrations.name" . }}-dqlite
+{{- end }}
+{{- range $k, $v := $.Values.global.nmsModules }}
+{{- if $v.enabled }}
+{{- if $v.addClaimsToUtility }}
+{{- if eq "nms-adm" $k }}
+- name: adm-sqlite-volume
+  persistentVolumeClaim:
+    claimName: adm-sqlite
+{{- else if eq "nms-acm" $k }}
+- name: acm-dqlite-volume
+  persistentVolumeClaim:
+    claimName: acm-dqlite
+{{- end }}
+- name: {{ $k }}-conf-volume
+  configMap:
+    defaultMode: 0644
+    name: {{ $k }}-conf
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "nms.utility.userVolumeMounts" -}}
+{{- if .Values.core.persistence.enabled }}
+- name: core-dqlite-volume
+  mountPath: /var/lib/nms/dqlite/core
+- name: secrets-volume
+  mountPath: /var/lib/nms/secrets
+{{- end }}
+{{- if .Values.dpm.persistence.enabled }}
+- name: dpm-dqlite-volume
+  mountPath: /var/lib/nms/dqlite/dpm
+{{- end }}
+{{- if .Values.integrations.persistence.enabled }}
+- name: integrations-dqlite-volume
+  mountPath: /var/lib/nms/dqlite/integrations
+{{- end }}
+{{- range $k, $v := $.Values.global.nmsModules }}
+{{- if $v.enabled }}
+{{- if $v.addClaimsToUtility }}
+{{- if eq "nms-adm" $k }}
+- name: adm-sqlite-volume
+  mountPath: /var/lib/nms/sqlite/adm
+- name: {{ $k }}-conf-volume
+  mountPath: /etc/nms/modules/adm/adm.yaml
+  subPath: adm.yaml
+{{- else if eq "nms-acm" $k }}
+- name: acm-dqlite-volume
+  mountPath: /var/lib/nms/dqlite/acm
+- name: {{ $k }}-conf-volume
+  mountPath: /etc/nms/acm.conf
+  subPath: acm.conf
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end -}}

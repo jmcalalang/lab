@@ -21,14 +21,18 @@ spec:
         {{- include "nms.clickhouse.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ template "nms.serviceAccountName" . }}
+      {{- if .Values.nmsClickhouse.tolerations }}
+      tolerations:
+        {{- toYaml .Values.nmsClickhouse.tolerations | nindent 8 }}
+      {{- end }}
       containers:
         - name: clickhouse-server
           image: "{{ .Values.nmsClickhouse.image.repository }}:{{ .Values.nmsClickhouse.image.tag }}"
           imagePullPolicy: {{ .Values.nmsClickhouse.image.pullPolicy }}
-          args: ['--', '--tcp_port={{ template "nms.clickhouse.containerPort.rpc" }}']
+          args: ['--', '--tcp_port={{ template "nms.clickhouse.containerPort.rpc" . }}']
           ports:
             - name: rpc
-              containerPort: {{ template "nms.clickhouse.containerPort.rpc" }}
+              containerPort: {{ template "nms.clickhouse.containerPort.rpc" . }}
               protocol: TCP
             - name: http
               containerPort: 8123
@@ -49,7 +53,7 @@ metadata:
     {{- include "nms.clickhouse.labels" . | nindent 4 }}
 spec:
   ports:
-    - port: {{ template "nms.clickhouse.containerPort.rpc" }}
+    - port: {{ template "nms.clickhouse.containerPort.rpc" . }}
       protocol: TCP
       name: rpc
     - port: 8123

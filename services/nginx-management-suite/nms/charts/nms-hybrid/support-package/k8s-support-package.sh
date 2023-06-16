@@ -22,13 +22,14 @@ fi
 
 set -o pipefail
 
+shopt -s nullglob
+
 PACKAGE_NAME="k8s-support-pkg-$(date +%s)"
 # make assumption we are running helm from a linux-based machine
 # and will have access to /tmp folder 
 PACKAGE_DIR="/tmp/$PACKAGE_NAME"
-NMS_ADMIN_USERNAME=""
-NMS_ADMIN_PASSWORD=""
 NMS_HELM_NAMESPACE=""
+NMS_MODULES=""
 # default is to run this script from the `support-package` sub-directory in the Chart directory
 CHART_DIR=".."
 CHART_FILE="${CHART_DIR}/Chart.yaml"
@@ -39,6 +40,8 @@ EXCLUDE_DB_DATA=false
 EXCLUDE_TS_DATA=false
 
 SQLITE_BIN="sqlite3"
+DQLITE_BACKUP_PATH="/etc/nms/scripts"
+DQLITE_BACKUP_BIN="dqlite-backup"
 
 echo_section() {
     echo "####"
@@ -82,11 +85,10 @@ print_help() {
     echo "A valid kubeconfig is expected in a default location"
     echo "  -h  | --help                Print this help message"
     echo "  -o  | --output_dir          Directory where k8s-support-pkg archive will be generated"
-    echo "  -u  | --username            NGINX Instance Manager admin username"
-    echo "  -p  | --password            NGINX Instance Manager admin password"
     echo "  -n  | --namespace           NGINX Instance Manager Helm namespace"
     echo "  -xd | --exclude_databases   exclude all database data dumps from the support package"
     echo "  -xt | --exclude_timeseries  exclude timeseries data dumps from the support package"
+    echo "  -m  | --modules             include specific modules in Dqlite database backup data"
 }
 
 parse_args() {
@@ -100,18 +102,15 @@ parse_args() {
                                             OUTPUT_DIR=$(sanitize_path "$2")
                                             shift
                                             ;;
-                -u | --username )           NMS_ADMIN_USERNAME="$2"
-                                            shift
-                                            ;;                        
-                -p | --password )           NMS_ADMIN_PASSWORD="$2"
-                                            shift
-                                            ;;                        
                 -n | --namespace )          NMS_HELM_NAMESPACE="$2"
                                             shift
                                             ;;                        
                 -xd | --exclude_databases ) EXCLUDE_DB_DATA=true
                                             ;;
                 -xt | --exclude_timeseries )EXCLUDE_TS_DATA=true
+                                            ;;
+                -m | --modules )            NMS_MODULES="$2"
+                                            shift
                                             ;;
                 -h | --help )               print_help
                                             exit 0
@@ -126,16 +125,8 @@ parse_args() {
 }
 
 prompt_for_helm_install_info() {
-    echo_section "Query user info"
-    if [ -z "$NMS_ADMIN_USERNAME" ]; then 
-        echo "Please provide the NGINX Instance Manager admin username:"
-        read -r NMS_ADMIN_USERNAME
-    fi
-    if [ -z "$NMS_ADMIN_PASSWORD" ]; then 
-        echo "Please provide the NGINX Instance Manager admin password:"
-        read -rs NMS_ADMIN_PASSWORD
-    fi
-    if [ -z "$NMS_HELM_NAMESPACE" ]; then 
+    echo_section "Query user for info"
+    if [ -z "$NMS_HELM_NAMESPACE" ]; then
         echo "Please provide the NGINX Instance Manager Helm namespace:"
         read -r NMS_HELM_NAMESPACE
     fi
@@ -429,7 +420,6 @@ dump_clickhouse() {
     done
     echo "ClickHouse information collected"
 }
-
 # Dump data from dqlite database
 dump_dqlite() {
     local output_dir="$1"
@@ -437,6 +427,7 @@ dump_dqlite() {
     create_path_if_not_exists "$output_dir"
 
     echo_section "Dump dqlite: $database"
+    config_file="/etc/nms/nms.conf"
 
     case ${database} in
         "core")
@@ -451,6 +442,11 @@ dump_dqlite() {
         pod_name="$(kubectl -n "${NMS_HELM_NAMESPACE}" get pods -o name | grep integrations)"
         db_addr="0.0.0.0:7892"
         ;;
+        "acm")
+        pod_name="$(kubectl -n "${NMS_HELM_NAMESPACE}" get pods -o name | grep acm)"
+        db_addr="0.0.0.0:9300"
+        config_file=""
+        ;;
         *)
             echo "Unknown database ${database}"
             return
@@ -462,18 +458,23 @@ dump_dqlite() {
     # run the dqlite-backup tool and copy the output files back to this host machine
     echo "nms-${database} database address is" "$db_addr"
 
+    # verify dqlite-backup tool is available in the target container
+    if ! kubectl -n "${NMS_HELM_NAMESPACE}" exec -it "${pod_name}" -- ls "${DQLITE_BACKUP_PATH}/${DQLITE_BACKUP_BIN}" > /dev/null 2>&1 /dev/null; then
+      echo "WARNING: ${DQLITE_BACKUP_PATH}/${DQLITE_BACKUP_BIN} is not available in ${pod_name}. Skipping..."
+      return
+    fi
+
     echo "Collecting nms-${database} DQlite information..."
-    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- /etc/nms/scripts/dqlite-backup -name "$database" -address "$db_addr" -output /etc/nms/scripts
-    
+    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- "${DQLITE_BACKUP_PATH}/${DQLITE_BACKUP_BIN}" -name "$database" -address "$db_addr" -config "$config_file" -output "${DQLITE_BACKUP_PATH}"
     # copy file back to host machine
     # shellcheck disable=SC2086
-    kubectl -n "${NMS_HELM_NAMESPACE}" cp -c "${database}" "$pod_name_with_ns":/etc/nms/scripts/${database} $output_dir/${database}
+    kubectl -n "${NMS_HELM_NAMESPACE}" cp -c "${database}" "$pod_name_with_ns":${DQLITE_BACKUP_PATH}/${database} $output_dir/${database}
     # shellcheck disable=SC2086
-    kubectl -n "${NMS_HELM_NAMESPACE}" cp -c "${database}" "$pod_name_with_ns":/etc/nms/scripts/${database}-wal $output_dir/${database}-wal
+    kubectl -n "${NMS_HELM_NAMESPACE}" cp -c "${database}" "$pod_name_with_ns":${DQLITE_BACKUP_PATH}/${database}-wal $output_dir/${database}-wal
 
     # delete dqlite-backup files from the container
-    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- rm "/etc/nms/scripts/${database}"
-    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- rm "/etc/nms/scripts/${database}-wal"
+    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- rm "${DQLITE_BACKUP_PATH}/${database}"
+    kubectl -n "${NMS_HELM_NAMESPACE}" exec "${pod_name}" -- rm "${DQLITE_BACKUP_PATH}/${database}-wal"
 
     echo "nms-${database} DQlite information collected"
 
@@ -483,8 +484,8 @@ dump_dqlite() {
 # Converts dqlite dump
 convert_dqlite_backup_to_sql() {
     if ! cmd=$(command -v "${SQLITE_BIN}") || [ ! -x "$cmd" ]; then
-	    echo "WARNING: cannot find ${SQLITE_BIN} binary. Skipping..."
-	    return
+      echo "WARNING: cannot find ${SQLITE_BIN} binary. Skipping..."
+      return
     fi
 
     local process="$1"
@@ -529,7 +530,7 @@ main() {
 
     verify_namespace_accessible
 
-    export PACKAGE_DIR SQLITE_BIN EXCLUDE_DB_DATA EXCLUDE_TS_DATA
+    export PACKAGE_DIR SQLITE_BIN EXCLUDE_DB_DATA EXCLUDE_TS_DATA NMS_HELM_NAMESPACE
 
     if [ -d "pre.d" ]; then
         for script in pre.d/*; do
@@ -574,6 +575,16 @@ main() {
         dump_dqlite "$PACKAGE_DIR/dqlite/core" "core"
         dump_dqlite "$PACKAGE_DIR/dqlite/dpm" "dpm"
         dump_dqlite "$PACKAGE_DIR/dqlite/integrations" "integrations"
+        if [[ "${NMS_MODULES}" == *"acm"* ]]; then
+          dump_dqlite "$PACKAGE_DIR/dqlite/acm" "acm"
+        fi
+
+        ##  Back up App Delivery Manager
+        # Uncomment the following lines to back up App Delivery Manager.
+        # if [[ "${NMS_MODULES}" == *"adm"* ]]; then
+        #  ./k8s-support-package-adm.sh
+        #fi
+
     else
         echo "excluding database data from support package"
     fi
@@ -594,10 +605,11 @@ main() {
     fi
 }
 
+parse_args "$@"
+
 # Verify pre-requisites and abort if any not met
 verify_pre_reqs
 
-parse_args "$@"
 echo "Using tmp directory: $PACKAGE_DIR"
 create_path_if_not_exists "$PACKAGE_DIR"
 # Call main() in a subshell and capture stdout/stderr in a file to be included
@@ -612,3 +624,5 @@ tar -C "/tmp" -czf "$archive_file" "$PACKAGE_NAME"
 echo "Archive $archive_file ready"
 
 rm -rf "$PACKAGE_DIR"
+
+shopt -u nullglob
