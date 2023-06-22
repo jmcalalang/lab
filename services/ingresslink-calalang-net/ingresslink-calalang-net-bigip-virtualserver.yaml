@@ -1,11 +1,11 @@
 apiVersion: "cis.f5.com/v1"
 kind: IngressLink
 metadata:
-  name: ingresslink-nginx-ingress-controller
+  name: ingresslink-nginx-ingress
 spec:
   virtualServerAddress: "10.0.2.8"
   iRules:
     - /Common/Shared/Proxy_Protocol_iRule
   selector:
     matchLabels:
-      app.kubernetes.io/name: ingresslink-nginx-ingress-controller
+      app.kubernetes.io/instance: ingresslink
