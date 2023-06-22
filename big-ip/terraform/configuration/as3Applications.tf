@@ -35,3 +35,10 @@ resource "bigip_as3" "udp-declarations" {
   as3_json        = templatefile("${path.module}/${each.key}", { subscriptionId = var.ARM_SUBSCRIPTION_ID })
   ignore_metadata = true
 }
+
+# Pool declarations
+resource "bigip_as3" "pool-declarations" {
+  for_each        = fileset(path.module, "applications/as3/pool/**.json")
+  as3_json        = templatefile("${path.module}/${each.key}", { subscriptionId = var.ARM_SUBSCRIPTION_ID })
+  ignore_metadata = true
+}
