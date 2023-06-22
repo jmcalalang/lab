@@ -87,3 +87,7 @@ variable "nginx_password" {
   type        = string
   description = "Environment Variable for NGINX Password"
 }
+variable "nms-hostname" {
+  type        = string
+  description = "NGINX Management Suite Hostname"
+}

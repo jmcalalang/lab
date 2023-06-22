@@ -16,12 +16,14 @@ existing_subnet_resource_group = "calalang-networking-rg"
 
 # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s nginx_plus_with_nginx_app_protect_dev_ubuntu2004
 
+nms-hostname = "10.0.5.246"
+
 nginx-instance-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-instance-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
 nginx-instance-version = "6.1.0"
-nginx-instance-count   = 1
+nginx-instance-count   = 2
 
 nginx-api-gw-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-api-gw-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
 nginx-api-gw-version = "6.1.0"
-nginx-api-gw-count   = 1
+nginx-api-gw-count   = 2
