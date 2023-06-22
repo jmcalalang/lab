@@ -158,7 +158,3 @@ variable "route53_multivalue_name" {
   type        = string
   description = "BIG-IP Route53 multivalue record"
 }
-variable "route53_zone" {
-  type        = string
-  description = "Route53 DNS Zone"
-}
