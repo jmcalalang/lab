@@ -122,7 +122,7 @@ apigw:
       https: 443
   service:
     # Other supported values are NodePort, LoadBalancer.
-    type: ClusterIP
+    type: LoadBalancer
     # Optional externalIPs to be used when service type is ClusterIP.
     externalIPs: []
     httpsPort: 443
