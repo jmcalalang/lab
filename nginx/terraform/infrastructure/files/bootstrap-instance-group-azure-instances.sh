@@ -1,11 +1,11 @@
 #! /bin/bash
 
 # Install the NGINX Agent and bind to instance group api
-curl -k https://10.0.5.247/install/nginx-agent > install.sh && sudo sh install.sh -g azure-instances && sudo systemctl start nginx-agent
+curl -k https://10.0.5.246/install/nginx-agent > install.sh && sudo sh install.sh -g azure-instances && sudo systemctl start nginx-agent
 
 # install nginx modules
 
-# curl -k https://10.0.5.247/install/nginx-plus-module-metrics | sudo sh
+# curl -k https://10.0.5.246/install/nginx-plus-module-metrics | sudo sh
 
 sudo apt-get install nginx-plus-module-njs
 
