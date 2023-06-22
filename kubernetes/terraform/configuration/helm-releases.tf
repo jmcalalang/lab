@@ -60,7 +60,7 @@ resource "helm_release" "cis" {
 
   set {
     name  = "args.bigip_partition"
-    value = "calalang-aks-cluster"
+    value = var.bigip_aks_partition
   }
 
   set {
@@ -94,7 +94,7 @@ resource "helm_release" "cis" {
   }
 
   set {
-    name  = "args.gtm-bigip-username"
+    name  = "args.gtm-bigip-url"
     value = var.big-ip-gtm-management-address
   }
 

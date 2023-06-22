@@ -31,6 +31,10 @@ variable "bigip_aks_password" {
   type        = string
   description = "BIG-IP AKS Password"
 }
+variable "bigip_aks_partition" {
+  type        = string
+  description = "BIG-IP AKS Partition"
+}
 
 
 # Nginx Ingress Controller Values
