@@ -114,6 +114,10 @@ variable "existing_subnet_az2_external_id" {
   type        = string
   description = "External subnet availability zone 2"
 }
+variable "route53_zone" {
+  type        = string
+  description = "Route53 DNS Zone"
+}
 variable "vpc_id" {
   type        = string
   description = "Environment"
@@ -149,4 +153,12 @@ variable "instance_type" {
 variable "key_name" {
   type        = string
   description = "AWS key name for EC2"
+}
+variable "route53_multivalue_name" {
+  type        = string
+  description = "BIG-IP Route53 multivalue record"
+}
+variable "route53_zone" {
+  type        = string
+  description = "Route53 DNS Zone"
 }

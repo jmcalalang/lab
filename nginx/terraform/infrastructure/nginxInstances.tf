@@ -109,7 +109,7 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
 
 # NGINX API Gateway Instances bootstrapping file
 data "template_file" "bootstrap-instance-group-api-gw" {
-  template = file("${path.module}/files/bootstrap-instance-group-api-gw.sh", { nms-hostname = var.nms-hostname })
+  template = templatefile("${path.module}/files/bootstrap-instance-group-api-gw.sh", { nms-hostname = var.nms-hostname })
 }
 
 ## Availability Set
@@ -239,7 +239,7 @@ resource "azurerm_virtual_machine" "nginx-instance" {
 
 # NGINX Instances bootstrapping file
 data "template_file" "bootstrap-instance-group-azure-instances" {
-  template = file("${path.module}/files/bootstrap-instance-group-azure-instances.sh", { nms-hostname = var.nms-hostname })
+  template = templatefile("${path.module}/files/bootstrap-instance-group-azure-instances.sh", { nms-hostname = var.nms-hostname })
 }
 
 ## Availability Set

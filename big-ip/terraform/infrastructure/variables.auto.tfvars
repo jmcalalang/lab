@@ -14,6 +14,7 @@ existing_subnet_az1_internal_id   = "subnet-0b73939eba6454afb"
 existing_subnet_az2_management_id = "subnet-00a2b950ce003876e"
 existing_subnet_az2_external_id   = "subnet-0b0bcb1bf3a2473c9"
 existing_subnet_az2_internal_id   = "subnet-0c005a1b2511dcd6f"
+route53_zone                      = "calalang.net"
 vpc_id                            = "vpc-0bb527f5634f025fa"
 
 # AWS BIG-IP variables
@@ -25,6 +26,7 @@ external_secondary_ip_count = 1
 internal_secondary_ip_count = 0
 instance_type               = "m5.xlarge"
 key_name                    = "calalang_west2_key"
+route53_multivalue_name     = "multivalue-aws"
 
 # Azure variables
 
