@@ -23,11 +23,11 @@ resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances-terraform" {
   allow_nat              = "yes"
 }
 resource "bigip_ltm_pool_attachment" "attach_node" {
-  for_each = toset([bigip_ltm_node.node-10-0-3-5-terraform.name])
+  for_each = toset([bigip_ltm_node.node-10-0-3-4-terraform.name])
   pool     = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
   node     = "${each.key}:80"
 }
-resource "bigip_ltm_node" "node-10-0-3-5-terraform" {
-  name    = "/Common/node-10-0-3-5-terraform"
-  address = "10.0.3.5"
+resource "bigip_ltm_node" "node-10-0-3-4-terraform" {
+  name    = "/Common/node-10-0-3-4-terraform"
+  address = "10.0.3.4"
 }
