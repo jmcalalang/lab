@@ -106,7 +106,6 @@ Configuration and Infrastructure management of BIG-IP resources
 |----------------------------------|
 | AWS_ACCESS_KEY_ID                |
 | AWS_SECRET_ACCESS_KEY            |
-| AWS_SESSION_TOKEN                |
 
 ### certs
 
@@ -214,7 +213,6 @@ Infrastructure management of AWS and Azure networks
 |----------------------------------|
 | AWS_ACCESS_KEY_ID                |
 | AWS_SECRET_ACCESS_KEY            |
-| AWS_SESSION_TOKEN                |
 
 - Terraform (Azure Infrastructure)
   - Azure Resource Group
