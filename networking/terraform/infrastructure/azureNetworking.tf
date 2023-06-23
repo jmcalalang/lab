@@ -58,36 +58,25 @@ resource "azurerm_network_security_group" "management-nsg" {
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
   security_rule {
-    name                       = "management-https"
+    name                       = "management-ssh"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_ips
+    destination_port_range     = "22"
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "management-ssh"
+    name                       = "management-https"
     priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefixes    = var.allowed_ips
-    destination_address_prefix = "*"
-  }
-  security_rule {
-    name                       = "github-actions"
-    priority                   = 110
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_github_ips
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
   tags = {
@@ -103,17 +92,6 @@ resource "azurerm_network_security_group" "external-nsg" {
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
   security_rule {
-    name                       = "http"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefixes    = var.allowed_ips
-    destination_address_prefix = "*"
-  }
-  security_rule {
     name                       = "https"
     priority                   = 105
     direction                  = "Inbound"
@@ -121,10 +99,9 @@ resource "azurerm_network_security_group" "external-nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_ips
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -136,7 +113,6 @@ resource "azurerm_network_security_group" "internal-nsg" {
   name                = "internal-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -148,7 +124,6 @@ resource "azurerm_network_security_group" "kubernetes-nsg" {
   name                = "kubernetes-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -161,11 +136,15 @@ resource "azurerm_route_table" "external-rt" {
   name                = "external-rt"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
-
   route {
     name           = "default"
     address_prefix = "0.0.0.0/0"
     next_hop_type  = "Internet"
+  }
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
   }
 }
 
@@ -179,6 +158,11 @@ resource "azurerm_nat_gateway" "internal-ng" {
   name                = "internal-ng"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
 }
 
 resource "azurerm_public_ip" "internal-ng-pip" {
@@ -187,6 +171,11 @@ resource "azurerm_public_ip" "internal-ng-pip" {
   resource_group_name = azurerm_resource_group.networking-resource-group.name
   allocation_method   = "Static"
   sku                 = "Standard"
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "internal-ng" {

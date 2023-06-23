@@ -1,13 +1,5 @@
 # Shared variables
 
-variable "allowed_ips" {
-  type        = list(any)
-  description = "Allowed IP addresses form management access"
-}
-variable "allowed_github_ips" {
-  type        = list(any)
-  description = "Allowed IP addresses form management access"
-}
 variable "tag_owner" {
   type        = string
   description = "Owner Tag"

@@ -42,6 +42,7 @@ resource "aws_network_interface" "nic-external-az1" {
   count             = sum([var.big_ip_per_az_count])
   subnet_id         = var.existing_subnet_az1_external_id
   private_ips_count = var.external_secondary_ip_count
+  security_groups   = [aws_security_group.big_ip_external_security_group.id]
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -98,6 +99,7 @@ resource "aws_network_interface" "nic-external-az2" {
   count             = sum([var.big_ip_per_az_count])
   subnet_id         = var.existing_subnet_az2_external_id
   private_ips_count = var.external_secondary_ip_count
+  security_groups   = [aws_security_group.big_ip_external_security_group.id]
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -119,19 +121,26 @@ resource "aws_network_interface" "nic-internal-az2" {
 resource "aws_security_group" "big_ip_mgmt_security_group" {
   description = "Management interface security rules"
   vpc_id      = var.vpc_id
-  # Allows SSH access
+  # Allows SSH management access
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = 6
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.allowed_ips
   }
-  # Allows HTTPS access
+  # Allows HTTPS management access
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = 6
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.allowed_ips
+  }
+  # Allows HTTPS management access (github)
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = 6
+    cidr_blocks = var.allowed_github_ips
   }
   egress {
     from_port   = 0
@@ -149,12 +158,12 @@ resource "aws_security_group" "big_ip_mgmt_security_group" {
 resource "aws_security_group" "big_ip_external_security_group" {
   description = "External interface security rules"
   vpc_id      = var.vpc_id
-  # Allows HTTPS access
+  # Allows HTTPS external access
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = 6
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.allowed_ips
   }
   egress {
     from_port   = 0

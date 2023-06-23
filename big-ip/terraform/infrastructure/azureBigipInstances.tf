@@ -164,25 +164,36 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
   security_rule {
-    name                       = "management-https"
+    name                       = "management-ssh"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
+    destination_port_range     = "22"
+    source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "management-ssh"
+    name                       = "management-https"
     priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
+    destination_port_range     = "443"
+    source_address_prefixes    = var.allowed_ips
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "management-https"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefixes    = var.allowed_github_ips
     destination_address_prefix = "*"
   }
   tags = {
@@ -210,7 +221,7 @@ resource "azurerm_network_security_group" "big-ip-external-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = "*"
+    source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
   }
   tags = {

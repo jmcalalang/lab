@@ -98,8 +98,24 @@ resource "aws_subnet" "internal-az2" {
 resource "aws_network_acl" "management-nsg" {
   vpc_id = aws_vpc.aws-10-0-0-0-16-vnet.id
   ingress {
-    protocol   = "all"
+    protocol   = "ssh"
     rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 22
+    to_port    = 22
+  }
+  ingress {
+    protocol   = "https"
+    rule_no    = 105
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 443
+    to_port    = 443
+  }
+  ingress {
+    protocol   = "all"
+    rule_no    = 1000
     action     = "allow"
     cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
     from_port  = 0
@@ -109,7 +125,7 @@ resource "aws_network_acl" "management-nsg" {
     protocol   = "all"
     rule_no    = 100
     action     = "allow"
-    cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
+    cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
   }
@@ -133,8 +149,16 @@ resource "aws_network_acl_association" "management-az2-nsg" {
 resource "aws_network_acl" "external-nsg" {
   vpc_id = aws_vpc.aws-10-0-0-0-16-vnet.id
   ingress {
-    protocol   = "all"
+    protocol   = "https"
     rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 443
+    to_port    = 443
+  }
+  ingress {
+    protocol   = "all"
+    rule_no    = 1000
     action     = "allow"
     cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
     from_port  = 0
@@ -144,7 +168,7 @@ resource "aws_network_acl" "external-nsg" {
     protocol   = "all"
     rule_no    = 100
     action     = "allow"
-    cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
+    cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
   }
@@ -169,7 +193,7 @@ resource "aws_network_acl" "internal-nsg" {
   vpc_id = aws_vpc.aws-10-0-0-0-16-vnet.id
   ingress {
     protocol   = "all"
-    rule_no    = 100
+    rule_no    = 1000
     action     = "allow"
     cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
     from_port  = 0
@@ -179,7 +203,7 @@ resource "aws_network_acl" "internal-nsg" {
     protocol   = "all"
     rule_no    = 100
     action     = "allow"
-    cidr_block = aws_vpc.aws-10-0-0-0-16-vnet.cidr_block
+    cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
   }
@@ -288,7 +312,11 @@ resource "aws_route_table_association" "internal-az2-rt" {
 
 resource "aws_eip" "internal-az1-ng-eip" {
   domain = "vpc"
-
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.aws-10-0-0-0-16-vnet-igw]
@@ -302,7 +330,6 @@ resource "aws_nat_gateway" "internal-az1-ng" {
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
-
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.aws-10-0-0-0-16-vnet-igw]
@@ -310,7 +337,11 @@ resource "aws_nat_gateway" "internal-az1-ng" {
 
 resource "aws_eip" "internal-az2-ng-eip" {
   domain = "vpc"
-
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.aws-10-0-0-0-16-vnet-igw]
@@ -324,7 +355,6 @@ resource "aws_nat_gateway" "internal-az2-ng" {
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
-
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.aws-10-0-0-0-16-vnet-igw]
