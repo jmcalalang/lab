@@ -131,13 +131,6 @@ resource "aws_security_group" "big_ip_mgmt_security_group" {
     protocol    = "tcp"
     cidr_blocks = var.allowed_ips
   }
-  # Allows HTTPS management access (github)
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = var.allowed_github_ips
-  }
   egress {
     from_port   = 0
     to_port     = 0
