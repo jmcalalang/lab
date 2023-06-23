@@ -98,7 +98,7 @@ resource "aws_subnet" "internal-az2" {
 resource "aws_network_acl" "management-nsg" {
   vpc_id = aws_vpc.aws-10-0-0-0-16-vnet.id
   ingress {
-    protocol   = "ssh"
+    protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
@@ -106,7 +106,7 @@ resource "aws_network_acl" "management-nsg" {
     to_port    = 22
   }
   ingress {
-    protocol   = "https"
+    protocol   = "tcp"
     rule_no    = 105
     action     = "allow"
     cidr_block = "0.0.0.0/0"
@@ -149,7 +149,7 @@ resource "aws_network_acl_association" "management-az2-nsg" {
 resource "aws_network_acl" "external-nsg" {
   vpc_id = aws_vpc.aws-10-0-0-0-16-vnet.id
   ingress {
-    protocol   = "https"
+    protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
