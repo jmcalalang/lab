@@ -186,7 +186,7 @@ resource "azurerm_network_security_group" "big-ip-management-sg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "management-https"
+    name                       = "github-actions-https"
     priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"

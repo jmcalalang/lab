@@ -6,7 +6,6 @@
 
 resource "aws_eip" "eip_mgmt_az1" {
   count             = sum([var.big_ip_per_az_count])
-  vpc               = true
   network_interface = aws_network_interface.nic-management-az1[count.index].id
   tags = {
     environment = var.tag_environment
@@ -30,7 +29,6 @@ resource "aws_eip" "eip_external_vip_01_az1" {
   count                     = sum([var.big_ip_per_az_count])
   network_interface         = aws_network_interface.nic-external-az1[count.index].id
   associate_with_private_ip = element(compact([for x in tolist(aws_network_interface.nic-external-az1[count.index].private_ip_list) : x == aws_network_interface.nic-external-az1[count.index].private_ip ? "" : x]), 0)
-  vpc                       = true
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -63,7 +61,6 @@ resource "aws_network_interface" "nic-internal-az1" {
 
 resource "aws_eip" "eip_mgmt_az2" {
   count             = sum([var.big_ip_per_az_count])
-  vpc               = true
   network_interface = aws_network_interface.nic-management-az2[count.index].id
   tags = {
     environment = var.tag_environment
@@ -87,7 +84,6 @@ resource "aws_eip" "eip_external_vip_01_az2" {
   count                     = sum([var.big_ip_per_az_count])
   network_interface         = aws_network_interface.nic-external-az2[count.index].id
   associate_with_private_ip = element(compact([for x in tolist(aws_network_interface.nic-external-az2[count.index].private_ip_list) : x == aws_network_interface.nic-external-az2[count.index].private_ip ? "" : x]), 0)
-  vpc                       = true
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -125,21 +121,21 @@ resource "aws_security_group" "big_ip_mgmt_security_group" {
   ingress {
     from_port   = 22
     to_port     = 22
-    protocol    = 6
+    protocol    = "ssh"
     cidr_blocks = var.allowed_ips
   }
   # Allows HTTPS management access
   ingress {
     from_port   = 443
     to_port     = 443
-    protocol    = 6
+    protocol    = "https"
     cidr_blocks = var.allowed_ips
   }
   # Allows HTTPS management access (github)
   ingress {
     from_port   = 443
     to_port     = 443
-    protocol    = 6
+    protocol    = "https"
     cidr_blocks = var.allowed_github_ips
   }
   egress {
@@ -162,7 +158,7 @@ resource "aws_security_group" "big_ip_external_security_group" {
   ingress {
     from_port   = 443
     to_port     = 443
-    protocol    = 6
+    protocol    = "https"
     cidr_blocks = var.allowed_ips
   }
   egress {
