@@ -33,7 +33,7 @@ EOF
 cat << EOF | sudo tee -a /etc/nginx-agent/agent-dynamic.conf
 
 tags:
-    - azure-instance
+    - azure-instances
 
 EOF
 
