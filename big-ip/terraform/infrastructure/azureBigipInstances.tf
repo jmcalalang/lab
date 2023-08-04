@@ -152,12 +152,6 @@ resource "azurerm_network_interface" "nic-external" {
     private_ip_address_allocation = "Dynamic"
     primary                       = false
   }
-  ip_configuration {
-    name                          = "if-config-external-06"
-    subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
-    private_ip_address_allocation = "Dynamic"
-    primary                       = false
-  }
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
