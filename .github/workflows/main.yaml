@@ -244,7 +244,6 @@ jobs:
     
     # Environment Variables
     env:
-      TF_VAR_f5xc-cloud-credential: ${{ secrets.F5XC_CLOUD_CREDENTIAL }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
