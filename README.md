@@ -140,6 +140,7 @@ Configuration and Infrastructure management of F5XC resources
 
 | **Infrastructure Env Variables** |
 |----------------------------------|
+| F5XC_CLOUD_CREDENTIAL            |
 | VES_P12_PASSWORD                 |
 
 ### godaddy
