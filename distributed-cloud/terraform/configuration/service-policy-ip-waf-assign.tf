@@ -1,7 +1,7 @@
 # Service Policy for WAF monitoring
 
-resource "volterra_service_policy_rule" "service_policy_rule_waf_monitoring" {
-  name      = "service-policy-rule-waf-monitoring"
+resource "volterra_service_policy" "service_policy_waf_monitoring" {
+  name      = "service-policy-waf-monitoring"
   namespace = var.namespace
   labels = {
     owner         = var.label-owner
