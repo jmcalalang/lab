@@ -11,15 +11,11 @@ resource "volterra_service_policy_rule" "service_policy_rule_waf_monitoring" {
 
   // One of the arguments from this list "any_asn asn_list asn_matcher" must be set
   any_asn          = true
-  challenge_action = ["disable challenge"]
+  challenge_action = ["DEFAULT_CHALLENGE"]
 
   // One of the arguments from this list "any_client client_name ip_threat_category_list client_selector client_name_matcher" must be set
 
-  client_name_matcher {
-    exact_values = ["['new york', 'london', 'sydney', 'tokyo', 'cairo']"]
-
-    regex_values = ["['^new .*$', 'san f.*', '.* del .*']"]
-  }
+  any_client = true
 
   // One of the arguments from this list "any_ip ip_prefix_list ip_matcher" must be set
 
