@@ -8,10 +8,10 @@ resource "volterra_service_policy_rule" "service_policy_rule_waf_monitoring" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
-
+  action = "ALLOW"
   // One of the arguments from this list "any_asn asn_list asn_matcher" must be set
   any_asn          = true
-  challenge_action = ["DEFAULT_CHALLENGE"]
+  challenge_action = "DEFAULT_CHALLENGE"
 
   // One of the arguments from this list "any_client client_name ip_threat_category_list client_selector client_name_matcher" must be set
 
