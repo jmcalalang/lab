@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Install the NGINX Agent and bind to instance group api
-curl -k https://${nms-hostname}/install/nginx-agent > install.sh && sudo sh install.sh -g azure-api-gateways-cluster && sudo systemctl start nginx-agent
+curl -k https://${nms-hostname}/install/nginx-agent > install.sh && sudo sh install.sh -g azure-api-gateways && sudo systemctl start nginx-agent
 
 # install nginx modules
 
@@ -33,7 +33,7 @@ EOF
 cat << EOF | sudo tee -a /etc/nginx-agent/agent-dynamic.conf
 
 tags:
-    - azure-api-gateways-cluster
+    - azure-api-gateways
 
 EOF
 

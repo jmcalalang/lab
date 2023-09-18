@@ -26,4 +26,4 @@ nginx-instance-count   = 1
 nginx-api-gw-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-api-gw-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2004"
 nginx-api-gw-version = "6.1.0"
-nginx-api-gw-count   = 1
+nginx-api-gw-count   = 2
