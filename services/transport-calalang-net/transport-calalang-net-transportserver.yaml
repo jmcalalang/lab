@@ -1,0 +1,27 @@
+apiVersion: k8s.nginx.org/v1alpha1
+kind: TransportServer
+metadata:
+  name: transport.calalang.net
+spec:
+  listener:
+    name: tls-passthrough
+    protocol: TLS_PASSTHROUGH
+  host: transport.calalang.net
+  streamSnippets: limit_conn_zone $binary_remote_addr zone=addr:10m;
+  serverSnippets: |
+    deny  192.168.1.1;
+    allow 168.63.129.16;  
+    limit_conn addr 5;
+  upstreams:
+    - name: www-nginx-org-externalname
+      service: www-nginx-org-externalname
+      port: 443
+      healthCheck:
+        enable: true
+        port: 443
+        interval: 20s
+        jitter: 3s
+        fails: 5
+        passes: 5
+  action:
+    pass: www-nginx-org-externalname

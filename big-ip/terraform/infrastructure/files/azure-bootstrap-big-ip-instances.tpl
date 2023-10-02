@@ -68,14 +68,23 @@ bigip_ready_enabled: []
 extension_packages:
   install_operations:
     - extensionType: do
-      extensionVersion: 1.35.0
-      extensionHash: 44df23fab10547d5cb0999689b2f9b2a01d7a82e616898b5ccd57172876d2793
+      extensionVersion: 1.39.0
+      extensionHash: 4a67449195a53683a159b42857edd49a757da1a5a2029ccf94c4d6aa11ae4cda
+    - extensionType: as3
+      extensionVersion: 3.46.0
+      extensionHash: 9550bcdcd1ffe1f002fa5e3c71b8818877d9c7e161f5c68027c82ad85e56e924
+    - extensionType: ts
+      extensionVersion: 1.33.0
+      extensionHash: 573d8cf589d545b272250ea19c9c124cf8ad5bcdd169dbe2139e82ce4d51a449
+    - extensionType: fast
+      extensionVersion: 1.25.0
+      extensionHash: 434309179af405e6b663e255d4d3c0a1fd45cac9b561370e350bb8dd8b39761f
 extension_services:
   service_operations:
     - extensionType: do
       type: inline
       value:
-        schemaVersion: 1.35.0
+        schemaVersion: 1.39.0
         class: Device
         async: true
         label: BIG-IP with Runtime-Init

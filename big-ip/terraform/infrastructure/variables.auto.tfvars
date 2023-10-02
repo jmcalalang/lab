@@ -4,7 +4,7 @@ tag_owner                      = "j.calalang@f5.com"
 tag_resource_type              = "big-ip"
 tag_environment                = "lab"
 bigip_ready                    = "300s"
-bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.5.2/dist/f5-bigip-runtime-init-1.5.2-1.gz.run"
+bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.6.2/dist/f5-bigip-runtime-init-1.6.2.gz.run"
 
 allowed_ips = ["208.100.170.10/32", "66.175.245.6/32"]
 # Pull from https://api.github.com/meta
