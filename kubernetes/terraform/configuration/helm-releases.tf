@@ -186,7 +186,7 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.globalConfiguration.spec"
+    name  = "controller.globalConfiguration.spec.listener"
     value = "[\n  {\n    \"name\": \"8080-listener\",\n    \"port\": 8080,\n    \"protocol\": \"TCP\"\n  },\n  {\n    \"name\": \"4433-listener\",\n    \"port\": 4433,\n    \"protocol\": \"TCP\"\n  }\n]"
   }
 
