@@ -187,14 +187,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name = "controller.globalConfiguration.spec"
-    value = [
-      <<EOT
-      listeners:
-      - name: tcp-listener
-        port: 8888
-        protocol: TCP
-      EOT
-    ]
+    value = "{\"listeners\":[{\"port\":\"8888\",\"protocol\":\"TCP\",\"name\":\"tcp-listener\"}]}"
   }
 
   set {
