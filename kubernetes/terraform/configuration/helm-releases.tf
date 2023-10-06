@@ -196,7 +196,7 @@ resource "helm_release" "nginx-plus-ingress" {
         }
       ]
     }
-    type = string
+    type = "string"
   }
 
   set {
