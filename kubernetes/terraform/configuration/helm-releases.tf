@@ -286,7 +286,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
   }
 
   set {
-    name = "controller.globalConfiguration.spec"
+    name  = "controller.globalConfiguration.spec"
     value = {}
   }
 
