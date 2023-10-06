@@ -286,6 +286,11 @@ resource "helm_release" "nginx-plus-ingressLink" {
   }
 
   set {
+    name = "controller.globalConfiguration.spec"
+    value = {}
+  }
+
+  set {
     name  = "controller.enableSnippets"
     value = "true"
   }
