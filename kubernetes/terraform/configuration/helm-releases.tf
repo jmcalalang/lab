@@ -194,6 +194,7 @@ resource "helm_release" "nginx-plus-ingress" {
         "protocol" : "TCP"
       }
     ]
+    type = "string"
   }
 
   set {
