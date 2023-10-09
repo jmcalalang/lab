@@ -12,7 +12,7 @@ resource "bigip_ltm_virtual_server" "apm-calalang-net" {
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
   profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc"]
-  pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
+  pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances.name
 }
 resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances" {
   name                   = "/Common/pool-ip-nginx-azure-instances-terraform"
@@ -23,11 +23,15 @@ resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances" {
   allow_nat              = "yes"
 }
 resource "bigip_ltm_pool_attachment" "apm-calalang-net-pool-attachment" {
-  for_each = toset([bigip_ltm_node.node-10-0-3-100-terraform.name])
-  pool     = bigip_ltm_pool.pool-ip-nginx-azure-instances-terraform.name
+  for_each = toset([bigip_ltm_node.node-nginx-org-terraform.name])
+  pool     = bigip_ltm_pool.pool-ip-nginx-azure-instances.name
   node     = "${each.key}:80"
 }
-resource "bigip_ltm_node" "node-10-0-3-100-terraform" {
-  name    = "/Common/node-10-0-3-100-terraform"
-  address = "10.0.3.100"
+resource "bigip_ltm_node" "node-nginx-org-terraform" {
+  name    = "/Common/node-nginx-org-terraform"
+  address = "nginx.org"
+  fqdn {
+    address_family = "ipv4"
+    interval       = "3000"
+  }
 }
