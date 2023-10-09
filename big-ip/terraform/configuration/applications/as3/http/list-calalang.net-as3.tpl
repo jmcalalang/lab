@@ -39,22 +39,22 @@
                         "8080"
                     ]
                 },
-                "pool": "webPool",
-                "webPool": {
-                    "class": "Pool",
-                    "monitors": [
-                        "http"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 80,
-                            "serverAddresses": [
-                                "192.0.6.10",
-                                "192.0.6.11"
-                            ]
-                        }
-                    ]
-                }
+                "pool": "webPool"
+            },
+            "webPool": {
+                "class": "Pool",
+                "monitors": [
+                    "http"
+                ],
+                "members": [
+                    {
+                        "servicePort": 80,
+                        "serverAddresses": [
+                            "192.0.6.10",
+                            "192.0.6.11"
+                        ]
+                    }
+                ]
             }
         }
     }

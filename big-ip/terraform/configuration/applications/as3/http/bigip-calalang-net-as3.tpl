@@ -10,7 +10,7 @@
             "class": "Tenant",
             "bigip.calalang.net": {
                 "class": "Application",
-                "https-10-0-2-6-as3": {
+                "http-as3": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "10.0.2.6"
