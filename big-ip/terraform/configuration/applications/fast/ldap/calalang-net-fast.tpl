@@ -1,6 +1,6 @@
 {
     "tenant_name": "ldap",
-    "app_name": "ldap-10-0-2-5-fast",
+    "app_name": "ldap-fast",
     "virtual_address": "10.0.2.5",
     "virtual_port": 389,
     "enable_snat": true,

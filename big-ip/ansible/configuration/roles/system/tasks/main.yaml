@@ -14,7 +14,7 @@
 - name: Set the ui.advisory.text DB variable on the BIG-IP
   bigip_sys_db:
     key: ui.advisory.text
-    value: "/Common/hostname changed at {{ ansible_date_time.iso8601 }}"
+    value: "Instance changed at {{ ansible_date_time.iso8601 }}"
     provider: "{{ bigip_provider }}"
   with_items:
     - "{{ bigips }}"

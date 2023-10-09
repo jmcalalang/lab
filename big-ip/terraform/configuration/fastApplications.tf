@@ -3,5 +3,5 @@
 # LDAP Application
 resource "bigip_fast_application" "ldap-10-0-2-5-fast" {
   template  = "bigip-fast-templates/ldap"
-  fast_json = templatefile("${path.module}/applications/fast/ldap-10-0-2-5-fast.tpl", { monitor_passphrase = var.ad_service_ldap_password })
+  fast_json = templatefile("${path.module}/applications/fast/ldap/ldap-10-0-2-5-fast.tpl", { monitor_passphrase = var.ad_service_ldap_password })
 }
