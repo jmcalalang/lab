@@ -17,7 +17,7 @@ resource "bigip_as3" "https-declarations" {
 # WIP declarations
 resource "bigip_as3" "wip-declarations" {
   for_each        = fileset(path.module, "applications/as3/wip/**.tpl")
-  as3_json        = templatefile("${path.module}/${each.key}")
+  as3_json        = templatefile("${path.module}/${each.key}", { subscriptionId = var.ARM_SUBSCRIPTION_ID })
   ignore_metadata = true
   depends_on      = [bigip_as3.http-declarations, bigip_as3.https-declarations]
 }
