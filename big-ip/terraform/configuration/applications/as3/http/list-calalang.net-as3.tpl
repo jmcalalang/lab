@@ -23,7 +23,10 @@
                     "profileHTTP": "basic",
                     "persistenceMethods": [
                         "cookie"
-                    ]
+                    ],
+                    "pool": {
+                        "use": "pool"
+                    }
                 },
                 "addressList": {
                     "class": "Net_Address_List",
@@ -39,22 +42,20 @@
                         "8080"
                     ]
                 },
-                "pool": "webPool"
-            },
-            "webPool": {
-                "class": "Pool",
-                "monitors": [
-                    "http"
-                ],
-                "members": [
-                    {
-                        "servicePort": 80,
-                        "serverAddresses": [
-                            "192.0.6.10",
-                            "192.0.6.11"
-                        ]
-                    }
-                ]
+                "pool": {
+                    "class": "Pool",
+                    "members": [
+                        {
+                            "serverAddresses": [
+                                "192.0.2.100"
+                            ],
+                            "servicePort": 8080
+                        }
+                    ],
+                    "monitors": [
+                        "http"
+                    ]
+                }
             }
         }
     }
