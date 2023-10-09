@@ -4,43 +4,32 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.47.0",
+        "schemaVersion": "3.43.0",
         "id": "bigipCalalangNetAS3",
         "bigipCalalangNet": {
             "class": "Tenant",
             "bigip.calalang.net": {
                 "class": "Application",
-                "http-as3": {
+                "https-10-0-2-6-as3": {
                     "class": "Service_HTTP",
-                    "virtualAddresses": {
-                        "use": "addressList"
-                    },
-                    "virtualPort": {
-                        "use": "portList"
-                    },
-                    "layer4": "tcp",
-                    "profileTCP": "normal",
-                    "profileHTTP": "basic",
-                    "persistenceMethods": [
-                        "cookie"
+                    "virtualAddresses": [
+                        "10.0.2.6"
+                    ],
+                    "securityLogProfiles": [
+                        {
+                            "bigip": "/Common/Shared/secLogRemote"
+                        }
                     ],
                     "policyEndpoint": "nginxOrgForwardPolicy",
                     "policyWAF": {
                         "use": "bigipCalalangNet_OWASP_Auto_Tune"
-                    }
-                },
-                "addressList": {
-                    "class": "Net_Address_List",
-                    "addresses": [
-                        "10.0.2.6",
-                        "10.0.20.6"
-                    ]
-                },
-                "portList": {
-                    "class": "Net_Port_List",
-                    "ports": [
-                        "80"
-                    ]
+                    },
+                    "persistenceMethods": [
+                        "cookie"
+                    ],
+                    "profileHTTP": "basic",
+                    "layer4": "tcp",
+                    "profileTCP": "normal"
                 },
                 "pool-dns-nginx-org": {
                     "class": "Pool",
