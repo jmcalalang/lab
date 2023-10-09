@@ -17,6 +17,16 @@
                     },
                     "virtualPort": {
                         "use": "portList"
+                    },
+                    "layer4": "tcp",
+                    "profileTCP": "normal",
+                    "profileHTTP": "basic",
+                    "persistenceMethods": [
+                        "cookie"
+                    ],
+                    "policyEndpoint": "nginxOrgForwardPolicy",
+                    "policyWAF": {
+                        "use": "bigipCalalangNet_OWASP_Auto_Tune"
                     }
                 },
                 "addressList": {
@@ -32,73 +42,63 @@
                         "80"
                     ]
                 },
-                "policyEndpoint": "nginxOrgForwardPolicy",
-                "policyWAF": {
-                    "use": "bigipCalalangNet_OWASP_Auto_Tune"
+                "pool-dns-nginx-org": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "fqdn",
+                            "autoPopulate": true,
+                            "hostname": "nginx.org"
+                        }
+                    ]
                 },
-                "persistenceMethods": [
-                    "cookie"
-                ],
-                "profileHTTP": "basic",
-                "layer4": "tcp",
-                "profileTCP": "normal"
-            },
-            "pool-dns-nginx-org": {
-                "class": "Pool",
-                "monitors": [
-                    "tcp"
-                ],
-                "members": [
-                    {
-                        "servicePort": 80,
-                        "addressDiscovery": "fqdn",
-                        "autoPopulate": true,
-                        "hostname": "nginx.org"
-                    }
-                ]
-            },
-            "nginxOrgForwardPolicy": {
-                "class": "Endpoint_Policy",
-                "rules": [
-                    {
-                        "name": "forward_to_pool",
-                        "conditions": [
-                            {
-                                "type": "httpUri",
-                                "path": {
-                                    "operand": "contains",
-                                    "values": [
-                                        "/"
-                                    ]
-                                }
-                            }
-                        ],
-                        "actions": [
-                            {
-                                "type": "forward",
-                                "event": "request",
-                                "select": {
-                                    "pool": {
-                                        "use": "pool-dns-nginx-org"
+                "nginxOrgForwardPolicy": {
+                    "class": "Endpoint_Policy",
+                    "rules": [
+                        {
+                            "name": "forward_to_pool",
+                            "conditions": [
+                                {
+                                    "type": "httpUri",
+                                    "path": {
+                                        "operand": "contains",
+                                        "values": [
+                                            "/"
+                                        ]
                                     }
                                 }
-                            },
-                            {
-                                "type": "httpHeader",
-                                "event": "request",
-                                "replace": {
-                                    "name": "HOST",
-                                    "value": "nginx.org"
+                            ],
+                            "actions": [
+                                {
+                                    "type": "forward",
+                                    "event": "request",
+                                    "select": {
+                                        "pool": {
+                                            "use": "pool-dns-nginx-org"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "httpHeader",
+                                    "event": "request",
+                                    "replace": {
+                                        "name": "HOST",
+                                        "value": "nginx.org"
+                                    }
                                 }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "bigipCalalangNet_OWASP_Auto_Tune": {
-                "class": "WAF_Policy",
-                "url": "https://raw.githubusercontent.com/f5devcentral/f5-asm-policy-templates/master/owasp_ready_template/owasp-auto-tune-v1.1.xml",
-                "ignoreChanges": true
+                            ]
+                        }
+                    ]
+                },
+                "bigipCalalangNet_OWASP_Auto_Tune": {
+                    "class": "WAF_Policy",
+                    "url": "https://raw.githubusercontent.com/f5devcentral/f5-asm-policy-templates/master/owasp_ready_template/owasp-auto-tune-v1.1.xml",
+                    "ignoreChanges": true
+                }
             }
         }
     }
