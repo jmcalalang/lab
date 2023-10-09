@@ -187,8 +187,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.globalConfiguration.spec"
-    value = base64decode("bGlzdGVuZXJzOgotIG5hbWU6IDgwODAtbGlzdGVuZXIKICBwb3J0OiA4MDgwCiAgcHJvdG9jb2w6IFRDUAotIG5hbWU6IDg4ODgtbGlzdGVuZXIKICBwb3J0OiA4ODg4CiAgcHJvdG9jb2w6IFRDUA==")
-    type = "string"
+    value = "[{name: 8080-listener, port: 8080, protocol: TCP}, {name: 8888-listener, port: 8888, protocol: TCP}]"
   }
 
   set {
