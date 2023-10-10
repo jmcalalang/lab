@@ -2,11 +2,11 @@
 
 # Virtual server apm-calalang-net
 resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
-  name                       = "/Common/https-terraform"
-  client_profiles            = ["/Common/clientssl"]
-  destination                = "10.0.2.7"
-  description                = "apm.calalang.net"
-#  irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
+  name            = "/Common/https-terraform"
+  client_profiles = ["/Common/clientssl"]
+  destination     = "10.0.2.7"
+  description     = "apm.calalang.net"
+  #  irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
   pool                       = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
   port                       = 443
   profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile"]

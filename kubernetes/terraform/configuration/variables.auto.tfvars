@@ -1,5 +1,5 @@
 # ArgoCD Values
-argo-chart-version = "5.36.1"
+argo-chart-version = "5.46.7"
 
 # BIG-IP Container Ingress Services Values
 big-ip-cis-chart-version      = "0.0.24"
