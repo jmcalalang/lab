@@ -11,7 +11,7 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile"]
   pool                       = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
 }
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
