@@ -1,7 +1,7 @@
 # This resource will create and manage imperative applications on BIG-IP.
 
-# Virtual server https-10-0-2-7-terraform
-resource "bigip_ltm_virtual_server" "apm-calalang-net" {
+# Virtual server apm-calalang-net
+resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   name                       = "/Common/https-terraform"
   destination                = "10.0.2.7"
   description                = "apm.calalang.net"
@@ -12,19 +12,19 @@ resource "bigip_ltm_virtual_server" "apm-calalang-net" {
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
   profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc"]
-  pool                       = bigip_ltm_pool.pool-ip-nginx-azure-instances.name
+  pool                       = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
 }
-resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances" {
-  name                   = "/Common/pool-ip-nginx-azure-instances-terraform"
+resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
+  name                   = "/Common/pool-apm-calalang-net-terraform"
   load_balancing_mode    = "round-robin"
   minimum_active_members = 1
-  monitors               = ["/Common/https"]
+  monitors               = ["/Common/tcp"]
   allow_snat             = "yes"
   allow_nat              = "yes"
 }
 resource "bigip_ltm_pool_attachment" "apm-calalang-net-pool-attachment" {
   for_each = toset([bigip_ltm_node.node-nginx-com-terraform.name])
-  pool     = bigip_ltm_pool.pool-ip-nginx-azure-instances.name
+  pool     = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
   node     = "${each.key}:443"
 }
 resource "bigip_ltm_node" "node-nginx-com-terraform" {

@@ -1,6 +1,6 @@
 {
     "tenant_name": "ldap",
-    "app_name": "ldap-fast",
+    "app_name": "calalang.net",
     "virtual_address": "10.0.2.5",
     "virtual_port": 389,
     "enable_snat": true,

@@ -20,9 +20,9 @@
                             "bigip": "/Common/Shared/secLogRemote"
                         }
                     ],
-                    "policyEndpoint": "nginxOrgForwardPolicy",
+                    "policyEndpoint": "endpoint-policy-bigip-calalang-net",
                     "policyWAF": {
-                        "use": "bigipCalalangNet_OWASP_Auto_Tune"
+                        "use": "waf-bigip-calalang-net"
                     },
                     "persistenceMethods": [
                         "cookie"
@@ -31,7 +31,7 @@
                     "layer4": "tcp",
                     "profileTCP": "normal"
                 },
-                "pool-dns-nginx-org": {
+                "pool-bigip-calalang-net": {
                     "class": "Pool",
                     "monitors": [
                         "tcp"
@@ -45,7 +45,7 @@
                         }
                     ]
                 },
-                "nginxOrgForwardPolicy": {
+                "endpoint-policy-bigip-calalang-net": {
                     "class": "Endpoint_Policy",
                     "rules": [
                         {
@@ -67,7 +67,7 @@
                                     "event": "request",
                                     "select": {
                                         "pool": {
-                                            "use": "pool-dns-nginx-org"
+                                            "use": "pool-bigip-calalang-net"
                                         }
                                     }
                                 },
@@ -83,7 +83,7 @@
                         }
                     ]
                 },
-                "bigipCalalangNet_OWASP_Auto_Tune": {
+                "waf-bigip-calalang-net": {
                     "class": "WAF_Policy",
                     "url": "https://raw.githubusercontent.com/f5devcentral/f5-asm-policy-templates/master/owasp_ready_template/owasp-auto-tune-v1.1.xml",
                     "ignoreChanges": true

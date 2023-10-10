@@ -13,10 +13,10 @@
                 "http-as3": {
                     "class": "Service_HTTP",
                     "virtualAddresses": {
-                        "use": "addressList"
+                        "use": "address-list"
                     },
                     "virtualPort": {
-                        "use": "portList"
+                        "use": "port-list"
                     },
                     "layer4": "tcp",
                     "profileTCP": "normal",
@@ -25,24 +25,24 @@
                         "cookie"
                     ],
                     "pool": {
-                        "use": "pool"
+                        "use": "pool-list-calalang-net"
                     }
                 },
-                "addressList": {
+                "address-list-list-calalang-net": {
                     "class": "Net_Address_List",
                     "addresses": [
                         "10.0.10.6",
                         "10.0.20.6"
                     ]
                 },
-                "portList": {
+                "port-list-list-calalang-net": {
                     "class": "Net_Port_List",
                     "ports": [
                         "80",
                         "8080"
                     ]
                 },
-                "pool": {
+                "pool-list-calalang-net": {
                     "class": "Pool",
                     "members": [
                         {
