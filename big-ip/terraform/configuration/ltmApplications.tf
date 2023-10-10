@@ -18,18 +18,18 @@ resource "bigip_ltm_pool" "pool-ip-nginx-azure-instances" {
   name                   = "/Common/pool-ip-nginx-azure-instances-terraform"
   load_balancing_mode    = "round-robin"
   minimum_active_members = 1
-  monitors               = ["/Common/http"]
+  monitors               = ["/Common/https"]
   allow_snat             = "yes"
   allow_nat              = "yes"
 }
 resource "bigip_ltm_pool_attachment" "apm-calalang-net-pool-attachment" {
-  for_each = toset([bigip_ltm_node.node-nginx-org-terraform.name])
+  for_each = toset([bigip_ltm_node.node-nginx-com-terraform.name])
   pool     = bigip_ltm_pool.pool-ip-nginx-azure-instances.name
-  node     = "${each.key}:80"
+  node     = "${each.key}:443"
 }
-resource "bigip_ltm_node" "node-nginx-org-terraform" {
-  name    = "/Common/node-nginx-org-terraform"
-  address = "nginx.org"
+resource "bigip_ltm_node" "node-nginx-com-terraform" {
+  name    = "/Common/node-nginx-com-terraform"
+  address = "nginx.com"
   fqdn {
     address_family = "ipv4"
     interval       = "3000"
