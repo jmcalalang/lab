@@ -13,10 +13,10 @@
                 "http-as3": {
                     "class": "Service_HTTP",
                     "virtualAddresses": {
-                        "use": "address-list"
+                        "use": "address-list-list-calalang-net"
                     },
                     "virtualPort": {
-                        "use": "port-list"
+                        "use": "port-list-list-calalang-net"
                     },
                     "layer4": "tcp",
                     "profileTCP": "normal",
