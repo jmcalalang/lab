@@ -3,30 +3,34 @@
 # Virtual server apm-calalang-net
 resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   name                       = "/Common/https-terraform"
+  client_profiles            = ["/Common/clientssl"]
   destination                = "10.0.2.7"
   description                = "apm.calalang.net"
+  irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
+  pool                       = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
   port                       = 443
-  client_profiles            = ["/Common/clientssl"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile"]
   server_profiles            = ["/Common/serverssl-insecure-compatible"]
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile"]
-  pool                       = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
 }
+
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
   name                   = "/Common/pool-apm-calalang-net-terraform"
+  allow_snat             = "yes"
+  allow_nat              = "yes"
   load_balancing_mode    = "round-robin"
   minimum_active_members = 1
   monitors               = ["/Common/tcp"]
-  allow_snat             = "yes"
-  allow_nat              = "yes"
 }
+
 resource "bigip_ltm_pool_attachment" "apm-calalang-net-pool-attachment" {
   for_each = toset([bigip_ltm_node.node-nginx-com-terraform.name])
-  pool     = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
   node     = "${each.key}:443"
+  pool     = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
 }
+
 resource "bigip_ltm_node" "node-nginx-com-terraform" {
   name    = "/Common/node-nginx-com-terraform"
   address = "nginx.com"
