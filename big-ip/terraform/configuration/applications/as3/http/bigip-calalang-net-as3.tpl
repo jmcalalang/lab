@@ -29,7 +29,10 @@
                     ],
                     "profileHTTP": "basic",
                     "layer4": "tcp",
-                    "profileTCP": "normal"
+                    "profileTCP": "normal",
+                    "profileTrafficLog": {
+                        "bigip": "/Common/Shared/telemetry_traffic_log_profile"
+                    }
                 },
                 "pool-bigip-calalang-net": {
                     "class": "Pool",

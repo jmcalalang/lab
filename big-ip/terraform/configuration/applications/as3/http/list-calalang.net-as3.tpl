@@ -32,7 +32,7 @@
                     "class": "Net_Address_List",
                     "addresses": [
                         "10.0.10.6",
-                        "10.0.20.6"
+                        "10.0.11.6"
                     ]
                 },
                 "port-list-list-calalang-net": {
