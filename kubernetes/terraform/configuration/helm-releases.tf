@@ -182,7 +182,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.globalConfiguration.create"
-    value = "true"
+    value = "false"
   }
 
   set {
