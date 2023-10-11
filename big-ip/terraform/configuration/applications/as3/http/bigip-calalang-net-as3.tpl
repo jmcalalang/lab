@@ -27,26 +27,14 @@
                     "persistenceMethods": [
                         "cookie"
                     ],
-                    "profileHTTP": "basic",
+                    "profileHTTP": {
+                        "use": "http-profile-bigip-calalang-net"
+                    },
                     "layer4": "tcp",
                     "profileTCP": "normal",
                     "profileTrafficLog": {
                         "bigip": "/Common/Shared/telemetry_traffic_log_profile"
                     }
-                },
-                "pool-bigip-calalang-net": {
-                    "class": "Pool",
-                    "monitors": [
-                        "tcp"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 80,
-                            "addressDiscovery": "fqdn",
-                            "autoPopulate": true,
-                            "hostname": "nginx.org"
-                        }
-                    ]
                 },
                 "endpoint-policy-bigip-calalang-net": {
                     "class": "Endpoint_Policy",
@@ -83,6 +71,28 @@
                                     }
                                 }
                             ]
+                        }
+                    ]
+                },
+                "http-profile-bigip-calalang-net": {
+                    "class": "HTTP_Profile",
+                    "insertHeader": {
+                        "name": "X-Forwarded-IP-Custom",
+                        "value": "[expr { [IP::client_addr] }]:[?\"]"
+                    },
+                    "xForwardedFor": true
+                },
+                "pool-bigip-calalang-net": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "fqdn",
+                            "autoPopulate": true,
+                            "hostname": "nginx.org"
                         }
                     ]
                 },
