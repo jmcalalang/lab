@@ -272,3 +272,4 @@ Configuration of Kubernetes services
 - NGINX Management Suite
 - nms.calalang.net
 - syslog
+- transport.calalang.net
