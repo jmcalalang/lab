@@ -10,6 +10,15 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
     ttl  = var.ttl
   }
 
+  # Records for Discovery
+
+  record {
+    name = "discovery"
+    type = var.record-type-cname
+    data = var.http-lb-discovery-ves-hostname
+    ttl  = var.ttl
+  }
+
   # Records for Kubernetes
 
   record {
@@ -69,13 +78,6 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   }
 
   # Records for NGINX
-
-  record {
-    name = "_acme-challenge.nginx"
-    type = var.record-type-cname
-    data = "e76d11948da25ae1ad73a0f99eb9c058.autocerts.ves.volterra.io"
-    ttl  = var.ttl
-  }
 
   record {
     name = "nginx"
