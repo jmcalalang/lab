@@ -12,21 +12,21 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   domains                         = ["discovery.calalang.net"]
   advertise_on_public_default_vip = true
   round_robin                     = true
-  #  http {
-  #    dns_volterra_managed = false
-  #    port                 = 80
-  #  }
-  https {
-    http_redirect = true
-    add_hsts      = true
-    port          = 443
-    tls_cert_params {
-      certificates {
-        namespace = var.namespace
-        name      = volterra_certificate.wildcard-calalang-net.name
-      }
-    }
+  http {
+    dns_volterra_managed = false
+    port                 = 80
   }
+  #  https {
+  #    http_redirect = true
+  #    add_hsts      = true
+  #    port          = 443
+  #    tls_cert_params {
+  #      certificates {
+  #        namespace = var.namespace
+  #        name      = volterra_certificate.wildcard-calalang-net.name
+  #      }
+  #    }
+  #  }
   routes {
     direct_response_route {
       http_method = "ANY"
@@ -55,7 +55,7 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   disable_api_discovery            = true
   disable_bot_defense              = true
   enable_api_discovery {
-    disable_learn_from_redirect_traffic = false
+    enable_learn_from_redirect_traffic = true
   }
   disable_ip_reputation = true
   no_challenge          = true
