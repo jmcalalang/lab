@@ -11,6 +11,20 @@
             "Shared": {
                 "class": "Application",
                 "template": "shared",
+                "pool-discovery-calalang-net": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 443,
+                            "addressDiscovery": "fqdn",
+                            "autoPopulate": true,
+                            "hostname": "discovery.calalang.net"
+                        }
+                    ]
+                },
                 "telemetry_local_rule": {
                     "remark": "Required for TS local listener",
                     "class": "iRule",
