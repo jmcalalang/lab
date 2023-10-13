@@ -50,10 +50,12 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   disable_malicious_user_detection = true
   disable_api_discovery            = true
   disable_bot_defense              = true
-  disable_api_definition           = true
-  disable_ip_reputation            = true
-  no_challenge                     = true
-  add_location                     = true
+  enable_api_discovery {
+    disable_learn_from_redirect_traffic = true
+  }
+  disable_ip_reputation = true
+  no_challenge          = true
+  add_location          = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {
