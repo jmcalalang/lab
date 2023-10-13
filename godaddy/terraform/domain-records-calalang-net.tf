@@ -6,7 +6,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "_acme-challenge"
     type = var.record-type-txt
-    data = "DWMH84BEKqdw1TEQtgmdubjdMjLYGT1bIXVFrrlfqGo"
+    data = "qW8pYgz1o0gCcHeZS3GVLn1mCJs7tFCL76jRf_Ql3E0"
     ttl  = var.ttl
   }
 
