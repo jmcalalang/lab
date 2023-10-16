@@ -57,9 +57,7 @@
                     "remark": "Only required when TS is a local listener",
                     "class": "Service_TCP",
                     "virtualAddresses": [
-                        {
-                            "use": "telemetry_local_address"
-                        }
+                        "255.255.255.254"
                     ],
                     "virtualPort": 6514,
                     "iRules": [
@@ -72,11 +70,6 @@
                     "iRule": {
                         "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQge25vZGUgMTI3LjAuMC4xIDY1MTR9"
                     }
-                },
-                "telemetry_local_address": {
-                    "class": "Service_Address",
-                    "virtualAddress": "255.255.255.254",
-                    "trafficGroup": "/Common/traffic-group-local-only"
                 },
                 "telemetry_local_pool": {
                     "class": "Pool",
@@ -265,7 +258,7 @@
                 },
                 "http-as3": {
                     "class": "Service_HTTP",
-                    "remark": "Discovery Virtual",
+                    "remark": "F5XC Traffic Discovery Virtual",
                     "virtualAddresses": [
                         "255.255.255.254"
                     ],

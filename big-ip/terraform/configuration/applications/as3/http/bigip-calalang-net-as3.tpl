@@ -33,7 +33,7 @@
                     "layer4": "tcp",
                     "clonePools": {
                         "egress": {
-                            "bigip": "/Common/Shared/pool-discovery-calalang-net"
+                            "bigip": "/Common/Shared/clone-pool-f5-distributed-cloud-discovery"
                         }
                     },
                     "profileTCP": "normal",
