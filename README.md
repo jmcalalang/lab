@@ -1,6 +1,6 @@
-# F5 Lab
+# Jon's C.R.U.D (Create, Read, Update, and Delete.)
 
-Congratulations you've made it to Jon's F5 lab. This lab environment is used daily to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
+Congratulations you've made it to Jon's lab. This lab environment is used daily to demonstrate various F5 products (F5XC, BIG-IP, and NGINX).
 
 All the components of this lab are maintained through GitOps (Argo) and CI with GitHub Actions (Terraform and Ansible). The components are loosely coupled, meaning there is no carryover from one GitHub Action to another, or between Terraform and Ansible. This was done on purpose to be able to consume/copy just the needed components.
 
@@ -8,7 +8,7 @@ All the components of this lab are maintained through GitOps (Argo) and CI with 
 
 ## Configuration vs Infrastructure
 
-My belief is these code-managed resources should be split. This aligns nicely with day 0-1, and day 2 operations concepts. As the two resources are used, they are loosely coupled, you may have an infrastructure with different configurations or vice versa. Each product will have a breakdown of the tool used Terraform/Ansible, and then within that folder what the tool is managing configuration or infrastructure.
+My belief is these code-managed resources should be split. This aligns nicely with day 0-1, and day 2+ operation concepts. As the two resources are used, they are loosely coupled, you may have an infrastructure with different configurations or vice versa. Each product will have a breakdown of the tool used Terraform/Ansible, and then within that folder what the tool is managing configuration or infrastructure.
 
 Terraform state is setup as remote, with app.terraform.io (Terraform Cloud).
 

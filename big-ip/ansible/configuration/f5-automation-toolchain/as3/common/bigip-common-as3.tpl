@@ -11,27 +11,6 @@
             "Shared": {
                 "class": "Application",
                 "template": "shared",
-                "pool-discovery-calalang-net": {
-                    "class": "Pool",
-                    "monitors": [
-                        "tcp"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 443,
-                            "addressDiscovery": "fqdn",
-                            "autoPopulate": true,
-                            "hostname": "discovery.calalang.net"
-                        }
-                    ]
-                },
-                "telemetry_local_rule": {
-                    "remark": "Required for TS local listener",
-                    "class": "iRule",
-                    "iRule": {
-                        "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQge25vZGUgMTI3LjAuMC4xIDY1MTR9"
-                    }
-                },
                 "Proxy_Protocol_iRule": {
                     "remark": "Used for F5 IngressLink",
                     "class": "iRule",
@@ -79,7 +58,7 @@
                     "class": "Service_TCP",
                     "virtualAddresses": [
                         {
-                            "use": "localServiceAddress"
+                            "use": "telemetry_local_address"
                         }
                     ],
                     "virtualPort": 6514,
@@ -87,12 +66,19 @@
                         "telemetry_local_rule"
                     ]
                 },
-                "localServiceAddress": {
+                "telemetry_local_rule": {
+                    "remark": "Required for TS local listener",
+                    "class": "iRule",
+                    "iRule": {
+                        "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQge25vZGUgMTI3LjAuMC4xIDY1MTR9"
+                    }
+                },
+                "telemetry_local_address": {
                     "class": "Service_Address",
                     "virtualAddress": "255.255.255.254",
                     "trafficGroup": "/Common/traffic-group-local-only"
                 },
-                "telemetry": {
+                "telemetry_local_pool": {
                     "class": "Pool",
                     "members": [
                         {
@@ -114,7 +100,7 @@
                     "type": "remote-high-speed-log",
                     "protocol": "tcp",
                     "pool": {
-                        "use": "telemetry"
+                        "use": "telemetry_local_pool"
                     }
                 },
                 "telemetry_formatted": {
@@ -138,7 +124,7 @@
                         "requestEnabled": true,
                         "requestProtocol": "mds-tcp",
                         "requestPool": {
-                            "use": "telemetry"
+                            "use": "telemetry_local_pool"
                         },
                         "requestTemplate": "event_source=\"request_logging\",hostname=\"$BIGIP_HOSTNAME\",bigip_blade_id=\"$BIGIP_BLADE_ID\",bigip_cached=\"$BIGIP_CACHED\",bigip_hostname=\"$BIGIP_HOSTNAME\",client_ip=\"$CLIENT_IP\",client_port=\"$CLIENT_PORT\",date_d=\"$DATE_D\",date_day=\"$DATE_DAY\",date_dd=\"$DATE_DD\",date_dy=\"$DATE_DY\",event_timestamp=\"$DATE_HTTP\",date_mm=\"$DATE_MM\",date_mon=\"$DATE_MON\",date_month=\"$DATE_MONTH\",date_ncsa=\"$DATE_NCSA\",date_yy=\"$DATE_YY\",date_yyyy=\"$DATE_YYYY\",http_class=\"$HTTP_CLASS\",http_keepalive=\"$HTTP_KEEPALIVE\",http_method=\"$HTTP_METHOD\",http_path=\"$HTTP_PATH\",http_query=\"$HTTP_QUERY\",http_request=\"$HTTP_REQUEST\",http_statcode=\"$HTTP_STATCODE\",http_status=\"$HTTP_STATUS\",http_uri=\"$HTTP_URI\",http_version=\"$HTTP_VERSION\",ncsa_combined=\"$NCSA_COMBINED\",ncsa_common=\"$NCSA_COMMON\",response_msecs=\"$RESPONSE_MSECS\",response_size=\"$RESPONSE_SIZE\",response_usecs=\"$RESPONSE_USECS\",server_ip=\"$SERVER_IP\",server_port=\"$SERVER_PORT\",snat_ip=\"$SNAT_IP\",snat_port=\"$SNAT_PORT\",time_ampm=\"$TIME_AMPM\",time_h12=\"$TIME_H12\",time_hrs=\"$TIME_HRS\",time_hh12=\"$TIME_HH12\",time_hms=\"$TIME_HMS\",time_hh24=\"$TIME_HH24\",time_mm=\"$TIME_MM\",time_msecs=\"$TIME_MSECS\",time_offset=\"$TIME_OFFSET\",time_ss=\"$TIME_SS\",time_unix=\"$TIME_UNIX\",time_usecs=\"$TIME_USECS\",time_zone=\"$TIME_ZONE\",virtual_ip=\"$VIRTUAL_IP\",virtual_name=\"$VIRTUAL_NAME\",virtual_pool_name=\"$VIRTUAL_POOL_NAME\",virtual_port=\"$VIRTUAL_PORT\",virtual_snatpool_name=\"$VIRTUAL_SNATPOOL_NAME\",wam_application_nam=\"$WAM_APPLICATION_NAM\",wam_x_wa_info=\"$WAM_X_WA_INFO\",null=\"$NULL\""
                     }
@@ -228,13 +214,13 @@
                     "receive": "",
                     "ciphers": "DEFAULT:!EXPORT"
                 },
-                "Azure": {
+                "GSLB_Data_Center_Azure": {
                     "class": "GSLB_Data_Center"
                 },
                 "calalang-azure-0": {
                     "class": "GSLB_Server",
                     "dataCenter": {
-                        "use": "Azure"
+                        "use": "GSLB_Data_Center_Azure"
                     },
                     "devices": [
                         {
@@ -253,7 +239,7 @@
                     "class": "GSLB_Server",
                     "serverType": "generic-host",
                     "dataCenter": {
-                        "use": "Azure"
+                        "use": "GSLB_Data_Center_Azure"
                     },
                     "devices": [
                         {
@@ -276,6 +262,88 @@
                             ]
                         }
                     ]
+                },
+                "f5-distributed-cloud-discovery": {
+                    "class": "Application",
+                    "http-as3": {
+                        "class": "Service_HTTP",
+                        "virtualAddresses": [
+                            "255.255.255.254"
+                        ],
+                        "virtualPort": 9000,
+                        "layer4": "tcp",
+                        "profileTCP": "normal",
+                        "profileHTTP": "basic",
+                        "persistenceMethods": [
+                            "cookie"
+                        ]
+                    },
+                    "endpoint-f5-distributed-cloud-discovery": {
+                        "class": "Endpoint_Policy",
+                        "rules": [
+                            {
+                                "name": "forward_to_pool",
+                                "conditions": [
+                                    {
+                                        "type": "httpUri",
+                                        "path": {
+                                            "operand": "contains",
+                                            "values": [
+                                                "/"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "actions": [
+                                    {
+                                        "type": "forward",
+                                        "event": "request",
+                                        "select": {
+                                            "pool": {
+                                                "use": "pool-f5-distributed-cloud-discovery"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "httpHeader",
+                                        "event": "request",
+                                        "replace": {
+                                            "name": "HOST",
+                                            "value": "discovery.calalang.net"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "pool-f5-distributed-cloud-discovery": {
+                        "class": "Pool",
+                        "monitors": [
+                            "tcp"
+                        ],
+                        "members": [
+                            {
+                                "servicePort": 80,
+                                "addressDiscovery": "fqdn",
+                                "autoPopulate": true,
+                                "hostname": "discovery.calalang.net"
+                            }
+                        ]
+                    },
+                    "clone-pool-f5-distributed-cloud-discovery": {
+                        "class": "Pool",
+                        "members": [
+                            {
+                                "serverAddresses": [
+                                    "255.255.255.254"
+                                ],
+                                "servicePort": 9000
+                            }
+                        ],
+                        "monitors": [
+                            "tcp"
+                        ]
+                    }
                 }
             }
         }

@@ -48,11 +48,11 @@
 - name: Prepare the Common AS3 Declaration
   template: 
     src="{{ item }}" 
-    dest="../f5-automation-toolchain/as3/common/{{ item | basename | regex_replace('\.template$', '.json') }}"
+    dest="../f5-automation-toolchain/as3/common/{{ item | basename | regex_replace('\.tpl$', '.json') }}"
   delegate_to: localhost
   when: state == "present"
   with_fileglob:
-    - "../f5-automation-toolchain/as3/common/*.template"
+    - "../f5-automation-toolchain/as3/common/*.tpl"
 
 - name: Create or update {{ BIGIPhost01 }}; Common AS3 Declaration
   delegate_to: localhost
