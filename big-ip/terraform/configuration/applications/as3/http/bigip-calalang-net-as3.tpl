@@ -71,7 +71,7 @@
                                     "type": "httpHeader",
                                     "event": "request",
                                     "replace": {
-                                        "name": "HOST",
+                                        "name": "Host",
                                         "value": "nginx.org"
                                     }
                                 }

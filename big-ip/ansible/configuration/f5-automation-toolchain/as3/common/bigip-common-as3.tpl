@@ -264,6 +264,7 @@
                     ],
                     "virtualPort": 9000,
                     "layer4": "tcp",
+                    "policyEndpoint": "endpoint-f5-distributed-cloud-discovery",
                     "profileTCP": "normal",
                     "profileHTTP": "basic",
                     "persistenceMethods": [
@@ -300,7 +301,7 @@
                                     "type": "httpHeader",
                                     "event": "request",
                                     "replace": {
-                                        "name": "HOST",
+                                        "name": "Host",
                                         "value": "discovery.calalang.net"
                                     }
                                 }
