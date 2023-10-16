@@ -59,20 +59,20 @@
                             ],
                             "actions": [
                                 {
+                                    "type": "httpHeader",
+                                    "event": "request",
+                                    "replace": {
+                                        "name": "Host",
+                                        "value": "nginx.org"
+                                    }
+                                },
+                                {
                                     "type": "forward",
                                     "event": "request",
                                     "select": {
                                         "pool": {
                                             "use": "pool-bigip-calalang-net"
                                         }
-                                    }
-                                },
-                                {
-                                    "type": "httpHeader",
-                                    "event": "request",
-                                    "replace": {
-                                        "name": "Host",
-                                        "value": "nginx.org"
                                     }
                                 }
                             ]

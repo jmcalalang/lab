@@ -289,20 +289,20 @@
                             ],
                             "actions": [
                                 {
+                                    "type": "httpHeader",
+                                    "event": "request",
+                                    "replace": {
+                                        "name": "Host",
+                                        "value": "discovery.calalang.net"
+                                    }
+                                },
+                                {
                                     "type": "forward",
                                     "event": "request",
                                     "select": {
                                         "pool": {
                                             "use": "pool-f5-distributed-cloud-discovery"
                                         }
-                                    }
-                                },
-                                {
-                                    "type": "httpHeader",
-                                    "event": "request",
-                                    "replace": {
-                                        "name": "Host",
-                                        "value": "discovery.calalang.net"
                                     }
                                 }
                             ]
