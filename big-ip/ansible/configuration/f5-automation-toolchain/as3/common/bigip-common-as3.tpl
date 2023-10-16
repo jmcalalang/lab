@@ -265,6 +265,9 @@
                     "virtualPort": 9000,
                     "layer4": "tcp",
                     "policyEndpoint": "endpoint-f5-distributed-cloud-discovery",
+                    "pool": {
+                        "use": "pool-f5-distributed-cloud-discovery"
+                    },
                     "profileTCP": "normal",
                     "profileHTTP": "basic",
                     "persistenceMethods": [
@@ -294,15 +297,6 @@
                                     "replace": {
                                         "name": "Host",
                                         "value": "discovery.calalang.net"
-                                    }
-                                },
-                                {
-                                    "type": "forward",
-                                    "event": "request",
-                                    "select": {
-                                        "pool": {
-                                            "use": "pool-f5-distributed-cloud-discovery"
-                                        }
                                     }
                                 }
                             ]
