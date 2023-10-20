@@ -6,6 +6,10 @@ All the components of this lab are maintained through GitOps (Argo) and CI with 
 
 [![Lab Pipeline](https://github.com/jmcalalang/lab/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/jmcalalang/lab/actions/workflows/main.yaml)
 
+## Video Overview
+
+[![Video](https://img.youtube.com/vi/azYSNIG_jhc/maxresdefault.jpg)](https://www.youtube.com/watch?v=azYSNIG_jhc)
+
 ## Configuration vs Infrastructure
 
 My belief is these code-managed resources should be split. This aligns nicely with day 0-1, and day 2+ operation concepts. As the two resources are used, they are loosely coupled, you may have an infrastructure with different configurations or vice versa. Each product will have a breakdown of the tool used Terraform/Ansible, and then within that folder what the tool is managing configuration or infrastructure.
