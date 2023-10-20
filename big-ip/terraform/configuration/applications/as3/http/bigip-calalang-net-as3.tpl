@@ -31,11 +31,6 @@
                         "use": "http-profile-bigip-calalang-net"
                     },
                     "layer4": "tcp",
-                    "clonePools": {
-                        "egress": {
-                            "bigip": "/Common/Shared/clone-pool-f5-distributed-cloud-discovery"
-                        }
-                    },
                     "profileTCP": "normal",
                     "profileTrafficLog": {
                         "bigip": "/Common/Shared/telemetry_traffic_log_profile"
