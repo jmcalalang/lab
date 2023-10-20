@@ -9,7 +9,7 @@ All the components of this lab are maintained through GitOps (Argo) and CI with 
 ## Video Overview
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=azYSNIG_jhc" target="_blank">
- <img src="http://img.youtube.com/vi/azYSNIG_jhc/mqdefault.jpg" alt="Repository Overview" width="859" height="285" border="5" />
+ <img src="http://img.youtube.com/vi/azYSNIG_jhc/mqdefault.jpg" alt="Repository Overview" width="640" height="360" border="5" />
 </a>
 
 ## Configuration vs Infrastructure
