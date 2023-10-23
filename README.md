@@ -62,7 +62,7 @@ Configuration and Infrastructure management of BIG-IP resources
 
 - Ansible (Configuration)
   - Access Profile Import
-  - AS3 Common Declaration
+  - AS3 Common Declaration (Video: https://youtu.be/rrjrcnwAe1g)
   - Automation Toolchain Installation
   - Create Partitions
   - Provision BIG-IP Modules
@@ -130,7 +130,7 @@ Configuration and Infrastructure management of F5XC resources
 - Terraform (Configuration)
   - F5XC Application Firewall
   - F5XC Clusters
-  - F5XC Certificate / Key
+  - F5XC Certificate / Key (Video: https://youtu.be/QEDl1drj-BI)
   - F5XC Endpoints
   - F5XC Health Checks
   - F5XC Http Load-Balancers
