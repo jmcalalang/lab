@@ -133,6 +133,8 @@ jobs:
             --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
             --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
             --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
+            --extra-vars "otel_host=${{ secrets.OTEL_HOST }}"
+            --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
           # --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"

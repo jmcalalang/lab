@@ -76,6 +76,8 @@ Configuration and Infrastructure management of BIG-IP resources
 | BIGIP_HOSTNAME                  |
 | BIGIP_PASSWORD                  |
 | BIGIP_USER                      |
+| OTEL_HOST                       |
+| OTEL_TOKEN                      |
 
 - Terraform (Configuration)
   - AS3 Application Declarations

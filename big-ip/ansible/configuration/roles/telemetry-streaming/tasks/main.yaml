@@ -46,7 +46,7 @@
   when: state == "present"
 
 - name: Prepare the TS declaration
-  template: src="../f5-automation-toolchain/ts/telemetryStreaming.template" dest="../f5-automation-toolchain/ts/telemetryStreaming.json"
+  template: src="../f5-automation-toolchain/ts/telemetryStreaming.tpl" dest="../f5-automation-toolchain/ts/telemetryStreaming.json"
   delegate_to: localhost
   when: state == "present"
 

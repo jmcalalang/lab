@@ -35,12 +35,19 @@
             "Poller"
         ]
     },
-    "Azure_Consumer": {
+    "OpenTelemetry_Protobuf_secure": {
         "class": "Telemetry_Consumer",
-        "type": "Azure_Log_Analytics",
-        "workspaceId": "9436f742-069a-4e29-aac0-e1258f7b1f87",
-        "passphrase": {
-            "cipherText": "lYJMCOrZ7cXOAuGNroHRaAnd6eJ65MoZvxRl6x4pZGyDPhcomX5sTraOzj8+45MzaecJ2yynBjQ2/zaHA9XyMw=="
-        }
+        "type": "OpenTelemetry_Exporter",
+        "host": "{{ otel_host }}",
+        "port": 55681,
+        "protocol": "https",
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "{{ otel_token }}"
+            }
+        ],
+        "convertBooleansToMetrics": false,
+        "exporter": "protobuf"
     }
 }
