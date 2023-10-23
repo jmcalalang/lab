@@ -255,6 +255,88 @@
                             ]
                         }
                     ]
+                },
+                "http-as3": {
+                    "class": "Service_HTTP",
+                    "remark": "F5XC Traffic Discovery Virtual",
+                    "virtualAddresses": [
+                        "255.255.255.254"
+                    ],
+                    "virtualPort": 9000,
+                    "layer4": "tcp",
+                    "policyEndpoint": "endpoint-f5-distributed-cloud-discovery",
+                    "pool": {
+                        "use": "pool-f5-distributed-cloud-discovery"
+                    },
+                    "profileTCP": "normal",
+                    "profileHTTP": "basic",
+                    "persistenceMethods": [
+                        "cookie"
+                    ]
+                },
+                "endpoint-f5-distributed-cloud-discovery": {
+                    "class": "Endpoint_Policy",
+                    "rules": [
+                        {
+                            "name": "forward_to_pool",
+                            "conditions": [
+                                {
+                                    "type": "httpUri",
+                                    "path": {
+                                        "operand": "contains",
+                                        "values": [
+                                            "/"
+                                        ]
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "type": "httpHeader",
+                                    "event": "request",
+                                    "replace": {
+                                        "name": "Host",
+                                        "value": "discovery.calalang.net"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "HTTP_Discovey_iRule": {
+                    "remark": "Used for sending HTTP request to F5XC discovery load balancer",
+                    "class": "iRule",
+                    "iRule": {
+                        "base64": "IyBEaXNjb3ZlcnkgaXJ1bGUsIGluIExUTSBsb2dzIHNlYXJjaCBmb3IgImRpc2NvdmVyeSByZXF1ZXN0IgoKd2hlbiBSVUxFX0lOSVQgewogICAgIyBMb2cgZGVidWcgbG9jYWxseSB0byAvdmFyL2xvZy9sdG0/IDE9eWVzLCAwPW5vCiAgICBzZXQgc3RhdGljOjpoc2xfZGVidWcgMQogICAgIyBQb29sIG5hbWUgdG8gY2xvbmUgcmVxdWVzdHMgdG8sIGRpc2NvdmVyeSBVUkwgdG8gc2VuZCB0bwogICAgc2V0IHN0YXRpYzo6ZGlzY292ZXJ5X3Bvb2wgIi9Db21tb24vcG9vbC1mNS1kaXN0cmlidXRlZC1jbG91ZC1kaXNjb3ZlcnkiCiAgICBzZXQgc3RhdGljOjpkaXNjb3ZlcnlfdXJsICJkaXNjb3ZlcnkuY2FsYWxhbmcubmV0Igp9Cgp3aGVuIENMSUVOVF9BQ0NFUFRFRCB7CiAgICBpZiB7W2FjdGl2ZV9tZW1iZXJzICRzdGF0aWM6OmRpc2NvdmVyeV9wb29sXT09MH17CiAgICAgICAgbG9nICJbSVA6OmNsaWVudF9hZGRyXTpbVENQOjpjbGllbnRfcG9ydF06IFt2aXJ0dWFsIG5hbWVdICRzdGF0aWM6OmRpc2NvdmVyeV9wb29sIGRvd24sIG5vdCBsb2dnaW5nIgogICAgICAgIHNldCBieXBhc3MgMQogICAgICAgIHJldHVybgogICAgfQogICAgZWxzZSB7CiAgICAgICAgc2V0IGJ5cGFzcyAwCiAgICB9CiAgICAjIE9wZW4gYSBuZXcgSFNMIGNvbm5lY3Rpb24gaWYgb25lIGlzIG5vdCBhdmFpbGFibGUKICAgIHNldCBoc2wgW0hTTDo6b3BlbiAtcHJvdG8gVENQIC1wb29sICRzdGF0aWM6OmRpc2NvdmVyeV9wb29sXQogICAgaWYgeyRzdGF0aWM6OmhzbF9kZWJ1Z317bG9nIGxvY2FsMC4gIltJUDo6Y2xpZW50X2FkZHJdOltUQ1A6OmNsaWVudF9wb3J0XTogTmV3IGhzbCBoYW5kbGU6ICRoc2wifQp9Cgp3aGVuIEhUVFBfUkVRVUVTVCB7CiAgICAjIElmIHRoZSBIU0wgcG9vbCBpcyBkb3duLCBkbyBub3QgcnVuIG1vcmUgY29kZSBoZXJlCiAgICBpZiB7JGJ5cGFzc317CiAgICAgICAgcmV0dXJuCiAgICB9CiAgICAjIEluc2VydCBhbiBYRkYgaGVhZGVyIGlmIG9uZSBpcyBub3QgaW5zZXJ0ZWQgYWxyZWFkeQogICAgIyBTbyB0aGUgY2xpZW50IElQIGNhbiBiZSB0cmFja2VkIGZvciB0aGUgZHVwbGljYXRlZCB0cmFmZmljCiAgICBIVFRQOjpoZWFkZXIgaW5zZXJ0IFgtRm9yd2FyZGVkLUZvciBbSVA6OmNsaWVudF9hZGRyXQogICAgIyBDaGVjayBmb3IgUE9TVCByZXF1ZXN0cwogICAgaWYge1tIVFRQOjptZXRob2RdIGVxICJQT1NUIn17CiAgICAgICAgIyBDaGVjayBmb3IgQ29udGVudC1MZW5ndGggYmV0d2VlbiAxYiBhbmQgMU1iCiAgICAgICAgaWYgeyBbSFRUUDo6aGVhZGVyIENvbnRlbnQtTGVuZ3RoXSA+PSAxIGFuZCBbSFRUUDo6aGVhZGVyIENvbnRlbnQtTGVuZ3RoXSA8IDEwNDg1NzYgfXsKICAgICAgICAgICAgSFRUUDo6Y29sbGVjdCBbSFRUUDo6aGVhZGVyIENvbnRlbnQtTGVuZ3RoXQogICAgICAgIH0KICAgICAgICBlbHNlaWYge1tIVFRQOjpoZWFkZXIgQ29udGVudC1MZW5ndGhdID09IDB9ewogICAgICAgICAgICAjIFBPU1Qgd2l0aCAwIGNvbnRlbnQtbGVuZ3RoLCBzbyBqdXN0IHNlbmQgdGhlIGhlYWRlcnMKICAgICAgICAgICAgSFNMOjpzZW5kICRoc2wgIltIVFRQOjpyZXF1ZXN0XVxuIgogICAgICAgICAgICBpZiB7JHN0YXRpYzo6aHNsX2RlYnVnfXtsb2cgbG9jYWwwLiAiW0lQOjpjbGllbnRfYWRkcl06W1RDUDo6Y2xpZW50X3BvcnRdOiBQT1NUIGRpc2NvdmVyeSByZXF1ZXN0IFtIVFRQOjpyZXF1ZXN0XSJ9CiAgICAgICAgfQogICAgfQogICAgZWxzZSB7CiAgICAgICAgIyBSZXF1ZXN0IHdpdGggbm8gcGF5bG9hZCwgc28gc2VuZCBqdXN0IHRoZSBIVFRQIGhlYWRlcnMgdG8gdGhlIGNsb25lIHBvb2wKICAgICAgICBIU0w6OnNlbmQgJGhzbCAiW0hUVFA6OnJlcXVlc3RdXG4iCiAgICAgICAgaWYgeyRzdGF0aWM6OmhzbF9kZWJ1Z317bG9nIGxvY2FsMC4gIltJUDo6Y2xpZW50X2FkZHJdOltUQ1A6OmNsaWVudF9wb3J0XTogR0VUIGRpc2NvdmVyeSByZXF1ZXN0IFtIVFRQOjpyZXF1ZXN0XSJ9CiAgICB9Cn0Kd2hlbiBIVFRQX1JFUVVFU1RfREFUQSB7CiAgICAjIFRoZSBwYXJzZXIgZG9lcyBub3QgYWxsb3cgSFRUUDo6cmVxdWVzdCBpbiB0aGlzIGV2ZW50LCBidXQgaXQgd29ya3MKICAgIHNldCByZXF1ZXN0X2NtZCAiSFRUUDo6cmVxdWVzdCIKICAgIGlmIHskc3RhdGljOjpoc2xfZGVidWd9e2xvZyBsb2NhbDAuICJbSVA6OmNsaWVudF9hZGRyXTpbVENQOjpjbGllbnRfcG9ydF06IENvbGxlY3RlZCBbSFRUUDo6cGF5bG9hZCBsZW5ndGhdIGJ5dGVzLFwKICAgICAgICBkaXNjb3ZlcnkgcmVxdWVzdCBzZW5kaW5nIFtleHByIHtbc3RyaW5nIGxlbmd0aCBbZXZhbCAkcmVxdWVzdF9jbWRdXSArIFtIVFRQOjpwYXlsb2FkIGxlbmd0aF19XSBieXRlcyB0b3RhbCJ9CiAgICBIU0w6OnNlbmQgJGhzbCAiW2V2YWwgJHJlcXVlc3RfY21kXVtIVFRQOjpwYXlsb2FkXVxuZiIKfQ=="
+                    }
+                },
+                "pool-f5-distributed-cloud-discovery": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "fqdn",
+                            "autoPopulate": true,
+                            "hostname": "discovery.calalang.net"
+                        }
+                    ]
+                },
+                "clone-pool-f5-distributed-cloud-discovery": {
+                    "class": "Pool",
+                    "members": [
+                        {
+                            "serverAddresses": [
+                                "255.255.255.254"
+                            ],
+                            "servicePort": 9000
+                        }
+                    ],
+                    "monitors": [
+                        "tcp"
+                    ]
                 }
             }
         }
