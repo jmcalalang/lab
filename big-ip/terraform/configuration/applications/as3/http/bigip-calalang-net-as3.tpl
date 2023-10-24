@@ -20,6 +20,11 @@
                             "bigip": "/Common/Shared/secLogRemote"
                         }
                     ],
+                    "iRules": [
+                        {
+                            "bigip": "/Common/Shared/irule-f5-distributed-cloud-discovery"
+                        }
+                    ],
                     "policyEndpoint": "endpoint-policy-bigip-calalang-net",
                     "policyWAF": {
                         "use": "waf-bigip-calalang-net"
