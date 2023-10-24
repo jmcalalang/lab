@@ -135,7 +135,8 @@ Configuration and Infrastructure management of F5XC resources
   - F5XC Certificate / Key (Video: https://youtu.be/QEDl1drj-BI)
   - F5XC Endpoints
   - F5XC Health Checks
-  - F5XC Http Load-Balancers
+  - F5XC Http Application Load-Balancers
+  - F5XC Http Discovery Load-Balancer
   - F5XC Origin Pools
   - F5XC Routes
 
