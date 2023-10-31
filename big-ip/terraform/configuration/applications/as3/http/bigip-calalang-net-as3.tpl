@@ -15,16 +15,12 @@
                     "virtualAddresses": [
                         "10.0.2.6"
                     ],
-                    "securityLogProfiles": [
-                        {
-                            "bigip": "/Common/Shared/secLogRemote"
-                        }
-                    ],
                     "iRules": [
                         {
                             "bigip": "/Common/Shared/irule-f5-distributed-cloud-discovery"
                         }
                     ],
+                    "layer4": "tcp",
                     "policyEndpoint": "endpoint-policy-bigip-calalang-net",
                     "policyWAF": {
                         "use": "waf-bigip-calalang-net"
@@ -35,11 +31,16 @@
                     "profileHTTP": {
                         "use": "http-profile-bigip-calalang-net"
                     },
-                    "layer4": "tcp",
+
                     "profileTCP": "normal",
                     "profileTrafficLog": {
                         "bigip": "/Common/Shared/telemetry_traffic_log_profile"
-                    }
+                    },
+                    "securityLogProfiles": [
+                        {
+                            "bigip": "/Common/Shared/secLogRemote"
+                        }
+                    ]
                 },
                 "endpoint-policy-bigip-calalang-net": {
                     "class": "Endpoint_Policy",

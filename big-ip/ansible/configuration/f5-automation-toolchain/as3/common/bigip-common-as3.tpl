@@ -256,7 +256,7 @@
                         }
                     ]
                 },
-                "http-as3": {
+                "https-as3": {
                     "class": "Service_HTTP",
                     "remark": "F5XC Traffic Discovery Virtual",
                     "virtualAddresses": [
@@ -272,7 +272,10 @@
                     "profileHTTP": "basic",
                     "persistenceMethods": [
                         "cookie"
-                    ]
+                    ],
+                    "serverTLS": {
+                        "bigip": "/Common/serverssl-insecure-compatible"
+                    }
                 },
                 "endpoint-f5-distributed-cloud-discovery": {
                     "class": "Endpoint_Policy",
