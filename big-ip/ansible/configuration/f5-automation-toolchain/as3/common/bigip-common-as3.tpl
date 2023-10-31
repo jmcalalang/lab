@@ -318,7 +318,7 @@
                     ],
                     "members": [
                         {
-                            "servicePort": 80,
+                            "servicePort": 443,
                             "addressDiscovery": "fqdn",
                             "autoPopulate": true,
                             "hostname": "discovery.calalang.net"
