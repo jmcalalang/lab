@@ -257,7 +257,7 @@
                     ]
                 },
                 "https-as3": {
-                    "class": "Service_HTTP",
+                    "class": "Service_HTTPS",
                     "remark": "F5XC Traffic Discovery Virtual",
                     "virtualAddresses": [
                         "255.255.255.254"
