@@ -176,7 +176,7 @@ Configuration management of Kubernetes resources
   - NGINX Ingress Controller in Azure Kubernetes Service
   - NGINX IngressLink Controller in Azure Kubernetes Service
   - F5XC Kubernetes Site in Azure Kubernetes Service
-  - Argo in Azure Kubernetes Service
+  - Argo in Azure Kubernetes Service (Video: https://youtu.be/34jva7uPngg)
   - BIG-IP Container Ingress Services in Azure Kubernetes Service
   - NGINX Unprivileged in F5XC vk8s
 
