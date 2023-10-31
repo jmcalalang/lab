@@ -256,13 +256,14 @@
                         }
                     ]
                 },
-                "https-as3": {
-                    "class": "Service_HTTPS",
+                "http-as3": {
+                    "class": "Service_HTTP",
                     "remark": "F5XC Traffic Discovery Virtual",
                     "virtualAddresses": [
                         "255.255.255.254"
                     ],
                     "virtualPort": 9000,
+                    "clientTLS": "discoveryTLSClient",
                     "layer4": "tcp",
                     "policyEndpoint": "endpoint-f5-distributed-cloud-discovery",
                     "pool": {
@@ -272,10 +273,7 @@
                     "profileHTTP": "basic",
                     "persistenceMethods": [
                         "cookie"
-                    ],
-                    "serverTLS": {
-                        "bigip": "/Common/serverssl-insecure-compatible"
-                    }
+                    ]
                 },
                 "endpoint-f5-distributed-cloud-discovery": {
                     "class": "Endpoint_Policy",
@@ -340,6 +338,19 @@
                     "monitors": [
                         "tcp"
                     ]
+                },
+                "discoveryTLSClient": {
+                    "class": "TLS_Client",
+                    "clientCertificate": "discoveryTLSCert"
+                },
+                "discoveryTLSCert": {
+                    "class": "Certificate",
+                    "certificate": {
+                        "bigip": "/Common/default.crt"
+                    },
+                    "privateKey": {
+                        "bigip": "/Common/default.key"
+                    }
                 }
             }
         }
