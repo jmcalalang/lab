@@ -20,6 +20,11 @@ resource "helm_release" "argocd" {
     value = "ClusterIP"
   }
 
+  set {
+    name  = "server.insecure"
+    value = "true"
+  }
+
 }
 
 # BIG-IP Container Ingress Services
