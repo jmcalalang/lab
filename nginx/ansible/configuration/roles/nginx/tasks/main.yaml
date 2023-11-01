@@ -21,7 +21,7 @@
   when: state == "present"
 
 - name: Prepare the {{ NMShost01 }} NGINX azure-instances Declaration
-  template: src="../config/azure-instances/nginx.template" dest="../config/azure-instances/nginx.json"
+  template: src="../config/azure-instances/nginx.tpl" dest="../config/azure-instances/nginx.json"
   delegate_to: localhost
   when: state == "present"
 
