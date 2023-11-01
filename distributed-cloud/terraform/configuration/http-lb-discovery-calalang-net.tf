@@ -55,7 +55,7 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   disable_api_discovery            = true
   disable_bot_defense              = true
   enable_api_discovery {
-    enable_learn_from_redirect_traffic = true
+    disable_learn_from_redirect_traffic = true
   }
   disable_ip_reputation = true
   no_challenge          = true
