@@ -341,7 +341,8 @@
                 },
                 "discoveryTLSClient": {
                     "class": "TLS_Client",
-                    "clientCertificate": "discoveryTLSCert"
+                    "clientCertificate": "discoveryTLSCert",
+                    "sendSNI": "discovery.calalang.net"
                 },
                 "discoveryTLSCert": {
                     "class": "Certificate",
