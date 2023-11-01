@@ -39,7 +39,11 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
       }
     }
   }
-  user_id_client_ip               = true
+  add_location = true
+  app_firewall {
+    name      = volterra_app_firewall.app-firewall-threat-campaigns.name
+    namespace = var.namespace
+  }
   disable_rate_limit              = true
   service_policies_from_namespace = true
   cookie_stickiness {
@@ -55,7 +59,7 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   }
   disable_ip_reputation = true
   no_challenge          = true
-  add_location          = true
+  user_id_client_ip     = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {

@@ -91,9 +91,7 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
     namespace = var.namespace
   }
-  user_id_client_ip               = true
-  disable_rate_limit              = true
-  service_policies_from_namespace = true
+  add_location = true
   cookie_stickiness {
     name = "bigipStickiness"
   }
@@ -104,8 +102,10 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
   disable_bot_defense              = true
   disable_api_definition           = true
   disable_ip_reputation            = true
+  disable_rate_limit               = true
   no_challenge                     = true
-  add_location                     = true
+  service_policies_from_namespace  = true
+  user_id_client_ip                = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {

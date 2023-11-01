@@ -110,28 +110,27 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
     no_mtls               = true
     enable_path_normalize = true
   }
+  add_location = true
   app_firewall {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
     namespace = var.namespace
   }
-  user_id_client_ip               = true
-  disable_rate_limit              = true
-  service_policies_from_namespace = true
   cookie_stickiness {
     name = "kubernetesStickiness"
   }
+  disable_rate_limit               = true
   disable_trust_client_ip_headers  = true
   disable_ddos_detection           = true
   disable_malicious_user_detection = true
+  disable_bot_defense              = true
+  disable_api_definition           = true
+  disable_ip_reputation            = true
   enable_api_discovery {
     disable_learn_from_redirect_traffic = true
   }
-  disable_bot_defense    = true
-  disable_api_definition = true
-  disable_ip_reputation  = true
-  no_challenge           = true
-  add_location           = true
-
+  no_challenge                    = true
+  service_policies_from_namespace = true
+  user_id_client_ip               = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {
