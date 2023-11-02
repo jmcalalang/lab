@@ -1,5 +1,5 @@
 {
-    "tenant_name": "ldap",
+    "tenant_name": "fast-ldap",
     "app_name": "calalang.net",
     "virtual_address": "10.0.2.5",
     "virtual_port": 389,
