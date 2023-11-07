@@ -81,7 +81,7 @@ Configuration and Infrastructure management of BIG-IP resources
 
 - Terraform (Configuration)
   - AS3 Application Declarations
-  - FAST Application Declarations
+  - FAST Application Declarations (Video: https://youtu.be/eSQDWH4B16g)
   - Application Services in Common
 
 | **Configuration Env Variables** |
