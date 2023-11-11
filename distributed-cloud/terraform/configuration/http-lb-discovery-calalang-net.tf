@@ -59,7 +59,7 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   }
   disable_ip_reputation = true
   enable_trust_client_ip_headers {
-    client_ip_headers = [X-Forwarded-For]
+    client_ip_headers = ["X-Forwarded-For"]
   }
   no_challenge      = true
   user_id_client_ip = true
