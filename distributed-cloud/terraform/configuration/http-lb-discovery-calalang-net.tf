@@ -46,7 +46,6 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   cookie_stickiness {
     name = "discoveryStickiness"
   }
-  disable_api_discovery            = true
   disable_bot_defense              = true
   disable_ddos_detection           = true
   disable_ip_reputation            = true
