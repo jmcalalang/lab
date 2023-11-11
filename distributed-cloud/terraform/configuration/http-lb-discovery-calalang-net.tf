@@ -58,8 +58,11 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
     disable_learn_from_redirect_traffic = true
   }
   disable_ip_reputation = true
-  no_challenge          = true
-  user_id_client_ip     = true
+  enable_trust_client_ip_headers {
+    client_ip_headers = [X-Forwarded-For]
+  }
+  no_challenge      = true
+  user_id_client_ip = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {
