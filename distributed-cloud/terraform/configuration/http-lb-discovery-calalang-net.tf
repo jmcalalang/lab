@@ -11,7 +11,6 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   description                     = "Global HTTPS Load Balancer for discovery.calalang.net"
   domains                         = ["discovery.calalang.net"]
   advertise_on_public_default_vip = true
-  round_robin                     = true
   https {
     http_redirect = true
     add_hsts      = true
@@ -44,25 +43,26 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
     namespace = var.namespace
   }
-  disable_rate_limit              = true
-  service_policies_from_namespace = true
   cookie_stickiness {
     name = "discoveryStickiness"
   }
-  disable_trust_client_ip_headers  = true
-  disable_ddos_detection           = true
-  disable_malicious_user_detection = true
   disable_api_discovery            = true
   disable_bot_defense              = true
+  disable_ddos_detection           = true
+  disable_ip_reputation            = true
+  disable_malicious_user_detection = true
+  disable_rate_limit               = true
+  disable_trust_client_ip_headers  = true
   enable_api_discovery {
     disable_learn_from_redirect_traffic = true
   }
-  disable_ip_reputation = true
   enable_trust_client_ip_headers {
-    client_ip_headers = ["X-Forwarded-For"]
+    client_ip_headers = "X-Forwarded-For"
   }
-  no_challenge      = true
-  user_id_client_ip = true
+  no_challenge                    = true
+  round_robin                     = true
+  service_policies_from_namespace = true
+  user_id_client_ip               = true
 
   // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
   lifecycle {
