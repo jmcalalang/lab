@@ -57,7 +57,7 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
     disable_learn_from_redirect_traffic = true
   }
   enable_trust_client_ip_headers {
-    client_ip_headers = "X-Forwarded-For"
+    client_ip_headers = ["X-Forwarded-For"]
   }
   no_challenge                    = true
   round_robin                     = true
