@@ -83,9 +83,9 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   service_policies_from_namespace  = true
   user_id_client_ip                = true
 
-  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
-  lifecycle {
-    ignore_changes = [labels]
-  }
+  #  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  #  lifecycle {
+  #    ignore_changes = [labels]
+  #  }
 
 }
