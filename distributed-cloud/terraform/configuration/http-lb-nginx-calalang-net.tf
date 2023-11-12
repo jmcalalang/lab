@@ -11,7 +11,6 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   description                     = "Global HTTPS Load Balancer for nginx.calalang.net"
   domains                         = ["nginx.calalang.net"]
   advertise_on_public_default_vip = true
-  round_robin                     = true
   default_route_pools {
     pool {
       name      = volterra_origin_pool.pool-ip-nginx.name
@@ -80,12 +79,13 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   disable_api_definition           = true
   disable_ip_reputation            = true
   no_challenge                     = true
+  round_robin                      = true
   service_policies_from_namespace  = true
   user_id_client_ip                = true
 
-  #  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
-  #  lifecycle {
-  #    ignore_changes = [labels]
-  #  }
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  lifecycle {
+    ignore_changes = [labels]
+  }
 
 }

@@ -11,7 +11,6 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
   domains                         = ["kubernetes.calalang.net", "argo.calalang.net", "nms.calalang.net", "jwt.nms.calalang.net"]
   advertise_on_public_default_vip = true
-  round_robin                     = true
   routes {
     simple_route {
       http_method = "ANY"
@@ -123,18 +122,18 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   disable_ddos_detection           = true
   disable_malicious_user_detection = true
   disable_bot_defense              = true
-  disable_api_definition           = true
   disable_ip_reputation            = true
   enable_api_discovery {
     disable_learn_from_redirect_traffic = true
   }
   no_challenge                    = true
+  round_robin                     = true
   service_policies_from_namespace = true
   user_id_client_ip               = true
 
-  #  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
-  #  lifecycle {
-  #    ignore_changes = [labels]
-  #  }
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  lifecycle {
+    ignore_changes = [labels]
+  }
 
 }

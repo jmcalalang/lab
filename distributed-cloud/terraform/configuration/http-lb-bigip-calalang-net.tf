@@ -11,7 +11,6 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
   description                     = "Global HTTPS Load Balancer for bigip.calalang.net"
   domains                         = ["bigip.calalang.net", "apm.calalang.net", "ingresslink.calalang.net"]
   advertise_on_public_default_vip = true
-  round_robin                     = true
   routes {
     simple_route {
       http_method = "ANY"
@@ -104,12 +103,13 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
   disable_ip_reputation            = true
   disable_rate_limit               = true
   no_challenge                     = true
+  round_robin                      = true
   service_policies_from_namespace  = true
   user_id_client_ip                = true
 
-  #  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
-  #  lifecycle {
-  #    ignore_changes = [labels]
-  #  }
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  lifecycle {
+    ignore_changes = [labels]
+  }
 
 }

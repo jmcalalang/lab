@@ -51,7 +51,6 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   disable_ip_reputation            = true
   disable_malicious_user_detection = true
   disable_rate_limit               = true
-  disable_trust_client_ip_headers  = true
   enable_api_discovery {
     disable_learn_from_redirect_traffic = true
   }
@@ -63,9 +62,9 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
   service_policies_from_namespace = true
   user_id_client_ip               = true
 
-  #  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
-  #  lifecycle {
-  #    ignore_changes = [labels]
-  #  }
+  // Lifecycle because F5XC adds tags/lables/annotations that terraform doesnt know about
+  lifecycle {
+    ignore_changes = [labels]
+  }
 
 }
