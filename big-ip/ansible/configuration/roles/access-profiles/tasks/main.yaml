@@ -14,7 +14,7 @@
 - name: Import System Auth APM policy
   bigip_apm_policy_import:
     name: system-auth
-    source: ../files/access-policies/system-auth.tar.gz
+    source: ../files/access-policies/profile_Common_system-auth.conf.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -33,7 +33,26 @@
 - name: Import Calalang OIDC APM policy
   bigip_apm_policy_import:
     name: system-auth
-    source: ../files/access-policies/calalang-oidc.tar.gz
+    source: ../files/access-policies/profile_Common_calalang-oidc.conf.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "present"
+
+- name: Import Calalang JWT APM policy
+  bigip_apm_policy_import:
+    name: system-auth
+    source: ../files/access-policies/profile_Common_calalang-jwt-psp.conf.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
@@ -74,6 +93,25 @@
   bigip_apm_policy_import:
     name: system-auth
     source: ../files/access-policies/calalang-oidc.tar.gz
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Wait a maximum of 300 seconds for BIG-IP to be ready to take configuration
+  bigip_wait:
+    timeout: 300
+    provider: "{{ bigip_provider }}"
+  delegate_to: localhost
+  with_items:
+    - "{{ bigips }}"
+  when: state == "absent"
+
+- name: Import Calalang JWT APM policy
+  bigip_apm_policy_import:
+    name: system-auth
+    source: ../files/access-policies/profile_Common_calalang-jwt-psp.conf.tar.gz
     provider: "{{ bigip_provider }}"
   delegate_to: localhost
   with_items:
