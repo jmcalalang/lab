@@ -61,7 +61,7 @@ GitHub Actions for the lab environment
 Configuration and Infrastructure management of BIG-IP resources
 
 - Ansible (Configuration)
-  - Access Profile Import
+  - Access Profile Import (Video: https://youtu.be/fRd2B186fcM )
   - AS3 Common Declaration (Video: https://youtu.be/rrjrcnwAe1g)
   - Automation Toolchain Installation
   - Create Partitions
