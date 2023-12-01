@@ -15,3 +15,6 @@ state: 'present'
 # Remove AS3 application tenants; NOT common
 action: 'deploy'
 #action: 'delete'
+
+# AS3 Version Schema
+as3_version: '3.47.0'

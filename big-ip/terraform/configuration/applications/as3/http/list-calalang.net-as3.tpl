@@ -4,7 +4,7 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.47.0",
+        "schemaVersion": "${as3-version}",
         "id": "listCalalangNetAS3",
         "listCalalangNet": {
             "class": "Tenant",

@@ -4,7 +4,7 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.43.0",
+        "schemaVersion": "${as3-version}",
         "id": "serviceDiscovery",
         "serviceDiscovery": {
             "class": "Tenant",

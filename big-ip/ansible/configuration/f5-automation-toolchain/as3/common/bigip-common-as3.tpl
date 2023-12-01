@@ -4,7 +4,7 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.43.0",
+        "schemaVersion": "{{ as3_version }}",
         "id": "BIG-IP-Common-Tenant",
         "Common": {
             "class": "Tenant",
