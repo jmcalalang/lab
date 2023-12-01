@@ -39,6 +39,6 @@ resource "bigip_as3" "udp-declarations" {
 # Pool declarations
 resource "bigip_as3" "pool-declarations" {
   for_each        = fileset(path.module, "applications/as3/pool/**.tpl")
-  as3_json        = templatefile("${path.module}/${each.key}", { subscriptionId = var.ARM_SUBSCRIPTION_ID })
+  as3_json        = templatefile("${path.module}/${each.key}", { as3-version = var.as3-version, subscriptionId = var.ARM_SUBSCRIPTION_ID })
   ignore_metadata = true
 }

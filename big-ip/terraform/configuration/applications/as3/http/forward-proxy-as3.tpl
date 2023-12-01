@@ -13,7 +13,7 @@
                 "http-as3": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "10.0.3.8"
+                        "10.0.3.7"
                     ],
                     "virtualPort": 3128,
                     "layer4": "tcp",
