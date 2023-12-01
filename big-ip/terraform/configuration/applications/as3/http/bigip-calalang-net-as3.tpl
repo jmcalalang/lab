@@ -31,7 +31,6 @@
                     "profileHTTP": {
                         "use": "http-profile-bigip-calalang-net"
                     },
-
                     "profileTCP": "normal",
                     "profileTrafficLog": {
                         "bigip": "/Common/Shared/telemetry_traffic_log_profile"

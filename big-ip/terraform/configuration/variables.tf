@@ -9,3 +9,8 @@ variable "ARM_SUBSCRIPTION_ID" {
   type        = string
   description = "Azure subscription ID"
 }
+
+variable "as3-version" {
+  type        = string
+  description = "AS3 Schema Version Number"
+}
