@@ -26,7 +26,7 @@ resource "volterra_route" "route-discovery-calalang-net" {
       // This is set to trigger learning
       append = false
       name   = "Content-Type"
-      value = "application/json"
+      value  = "application/json"
     }
     disable_location_add = false
     service_policy {
