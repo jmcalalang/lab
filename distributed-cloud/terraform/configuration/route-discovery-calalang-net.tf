@@ -23,10 +23,9 @@ resource "volterra_route" "route-discovery-calalang-net" {
       response_body = "{\r\n    \"message\": \"This is a discovery load balancer\"\r\n}"
     }
     response_headers_to_add {
-      append = true
+      // This is set to trigger learning
+      append = false
       name   = "Content-Type"
-
-      // One of the arguments from this list "value secret_value" must be set
       value = "application/json"
     }
     disable_location_add = false
