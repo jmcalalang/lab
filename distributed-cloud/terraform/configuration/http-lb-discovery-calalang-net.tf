@@ -23,18 +23,10 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
     }
   }
   routes {
-    direct_response_route {
-      http_method = "ANY"
-      path {
-        prefix = "/"
-      }
-      incoming_port {
-        no_port_match = true
-
-      }
-      route_direct_response {
-        response_code = 200
-        response_body = "{\n    \"message\": \"This is a discovery load balancer\"\n}"
+    custom_route_object {
+      route_ref {
+        namespace = var.namespace
+        name      = "route-discovery-calalang-net"
       }
     }
   }
