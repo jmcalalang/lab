@@ -29,6 +29,9 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
+  
+  // SSH Key for CE Access
+  ssh_key = var.f5xc-customer-edge-ssh-key
 
   // Machine Type
   machine_type = "Standard_D3_v2"
@@ -60,7 +63,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
   ingress_gw {
-    azure_certified_hw = var.f5xc-azure-site-offer
+    azure_certified_hw = var.f5xc-azure-ce-site-offer
     az_nodes {
       azure_az  = "1"
       disk_size = "80"

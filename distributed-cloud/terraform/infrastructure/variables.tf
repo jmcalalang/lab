@@ -52,9 +52,13 @@ variable "f5xc-azure-site-resource-group" {
   type        = string
   description = "Created resource group name"
 }
-variable "f5xc-azure-site-offer" {
+variable "f5xc-azure-ce-site-offer" {
   type        = string
-  description = "Offer name for f5xc azure sites"
+  description = "Offer name for f5xc ce azure sites"
+}
+variable "f5xc-azure-combo-site-offer" {
+  type        = string
+  description = "Offer name for f5xc appstack azure sites"
 }
 variable "f5xc-cloud-credential" {
   type        = string

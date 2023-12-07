@@ -63,7 +63,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
 
   // One of the arguments from this list "ingress_egress_gw voltstack_cluster ingress_gw_ar ingress_egress_gw_ar voltstack_cluster_ar ingress_gw" must be set
   voltstack_cluster {
-    azure_certified_hw = var.f5xc-azure-site-offer
+    azure_certified_hw = var.f5xc-azure-combo-site-offer
     k8s_cluster {
       name      = volterra_k8s_cluster.f5xc-managed-kubernetes.name
       namespace = "system"
