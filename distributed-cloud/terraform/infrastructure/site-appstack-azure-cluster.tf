@@ -30,6 +30,9 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     environment   = var.label-environment
   }
 
+  // SSH Key for CE Access
+  ssh_key = [var.f5xc-customer-edge-ssh-key]
+
   // Machine Type
   machine_type = "Standard_D3_v2"
 
