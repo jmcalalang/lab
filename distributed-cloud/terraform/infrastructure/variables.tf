@@ -22,7 +22,7 @@ variable "label-environment" {
 }
 variable "f5xc-customer-edge-ssh-key" {
   type        = string
-  description = "SSH key for accessing the customer edge"
+  description = "SSH public key for accessing the customer edge"
 }
 
 # F5 Distributed Cloud Kubernetes Cluster
