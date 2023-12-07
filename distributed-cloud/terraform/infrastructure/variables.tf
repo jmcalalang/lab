@@ -54,7 +54,7 @@ variable "f5xc-azure-site-offer" {
 }
 variable "f5xc-cloud-credential" {
   type        = string
-  description = "Offer name for f5xc azure sites"
+  description = "f5xc cloud provider credentials"
 }
 variable "location" {
   type        = string
