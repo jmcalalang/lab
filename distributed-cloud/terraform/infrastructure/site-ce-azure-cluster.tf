@@ -29,7 +29,7 @@ resource "volterra_azure_vnet_site" "f5xc-azure-site" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
-  
+
   // SSH Key for CE Access
   ssh_key = var.f5xc-customer-edge-ssh-key
 
