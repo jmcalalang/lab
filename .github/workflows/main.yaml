@@ -88,6 +88,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: cURL ipify.org
+        run: curl 'https://api.ipify.org?format=json'
+
       - name: cURL BIG-IP
         run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} -X GET -k https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
 
@@ -242,6 +245,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
+
+      - name: cURL ipify.org
+        run: curl 'https://api.ipify.org?format=json'
+      
       - name: cURL F5XC
         run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_HOSTNAME }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_HOSTNAME }}/api/web/namespaces/j-calalang 
 
@@ -552,6 +559,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
+
+      - name: cURL ipify.org
+        run: curl 'https://api.ipify.org?format=json'
 
       - name: cURL NMS
         run: curl --max-time 10 -u ${{ secrets.NMS_USER}}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/#instances

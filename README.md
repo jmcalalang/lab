@@ -63,6 +63,7 @@ Configuration and Infrastructure management of BIG-IP resources
 - Ansible (Configuration)
   - Access Profile Import (Video: https://youtu.be/fRd2B186fcM )
   - AS3 Common Declaration (Video: https://youtu.be/rrjrcnwAe1g)
+  - Access Profile JWT Validation (Video: https://youtu.be/fRd2B186fcM)
   - Automation Toolchain Installation
   - Create Partitions
   - Provision BIG-IP Modules
@@ -83,6 +84,7 @@ Configuration and Infrastructure management of BIG-IP resources
   - AS3 Application Declarations
   - FAST Application Declarations (Video: https://youtu.be/eSQDWH4B16g)
   - Application Services in Common
+  - AS3 Forward Proxy (Video: https://youtu.be/m73nQPv0zas)
 
 | **Configuration Env Variables** |
 |---------------------------------|
@@ -139,6 +141,7 @@ Configuration and Infrastructure management of F5XC resources
   - F5XC Http Discovery Load-Balancer
   - F5XC Origin Pools
   - F5XC Routes
+  - F5XC Terraform Provider Testing (Video: https://youtu.be/vuGQlzzcpOY)
 
 | **Configuration Env Variables** |
 |---------------------------------|
