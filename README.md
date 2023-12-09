@@ -133,12 +133,13 @@ Configuration and Infrastructure management of F5XC resources
 
 - Terraform (Configuration)
   - F5XC Application Firewall
-  - F5XC Clusters
+  - F5XC Customer Edge (Video: https://youtu.be/CMatJNVGTsw)
   - F5XC Certificate / Key (Video: https://youtu.be/QEDl1drj-BI)
   - F5XC Endpoints
   - F5XC Health Checks
   - F5XC Http Application Load-Balancers
   - F5XC Http Discovery Load-Balancer
+  - F5XC Kubernetes
   - F5XC Origin Pools
   - F5XC Routes
   - F5XC Terraform Provider Testing (Video: https://youtu.be/vuGQlzzcpOY)
