@@ -564,7 +564,7 @@ jobs:
         run: curl 'https://api.ipify.org?format=json'
 
       - name: cURL NMS
-        run: curl --max-time 10 -u ${{ secrets.NMS_USER}}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/#instances
+        run: curl --max-time 10 -u ${{ secrets.NMS_USER}}:${{ secrets.NMS_PASSWORD }} -H "token:${{ secrets.NMS_TOKEN }}" -X GET https://${{ secrets.NMS_HOSTNAME }}/api/platform/v1/instances
 
   NMS-Ansible-Configuration:
     # The type of runner that the job will run on
