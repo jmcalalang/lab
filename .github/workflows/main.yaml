@@ -301,6 +301,7 @@ jobs:
     # Environment Variables
     env:
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
+      TF_VAR_jwk-calalang-net: ${{ secrets.JWK_CALALANG_NET }}
       TF_VAR_wildcard-calalang-net-certificate: ${{ secrets.CALALANG_NET_CERT }}
       TF_VAR_wildcard-calalang-net-key: ${{ secrets.CALALANG_NET_KEY }}
 

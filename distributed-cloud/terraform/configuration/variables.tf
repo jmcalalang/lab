@@ -24,6 +24,10 @@ variable "domain" {
   type        = string
   description = "domain"
 }
+variable "jwk-calalang-net" {
+  type        = string
+  description = "JWK for validation"
+}
 variable "wildcard-calalang-net-certificate" {
   type        = string
   description = "Certificate base64 encoded"
