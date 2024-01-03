@@ -137,7 +137,7 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       block = true
     }
     jwks_config {
-      cleartext = "string://${var.jwk-calalang-net}"
+      cleartext = "string:///${var.jwk-calalang-net}"
     }
     reserved_claims {
       issuer_disable          = true
