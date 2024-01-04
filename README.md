@@ -26,7 +26,7 @@ To set environment variables:
 
 ``` export EXAMPLE="example" ```
 
-Diagram:
+Common environment diagram (changes slightly for demos):
 
 ![image](lab.png)
 
