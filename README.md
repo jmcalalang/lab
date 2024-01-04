@@ -67,7 +67,7 @@ Configuration and Infrastructure management of BIG-IP resources
   - Automation Toolchain Installation
   - Create Partitions
   - Provision BIG-IP Modules
-  - System BIG-IP Settings
+  - System BIG-IP Settings (Video: https://youtu.be/6bOH_AMO1MA)
   - Telemetry Streaming Declaration
 
 | **Configuration Env Variables** |
@@ -139,6 +139,7 @@ Configuration and Infrastructure management of F5XC resources
   - F5XC Health Checks
   - F5XC Http Application Load-Balancers
   - F5XC Http Discovery Load-Balancer
+  - F5XC Http JWT API Security Load-Balancer
   - F5XC Kubernetes
   - F5XC Origin Pools
   - F5XC Routes
@@ -153,7 +154,7 @@ Configuration and Infrastructure management of F5XC resources
 - Terraform (Infrastructure)
   - F5XC vk8s Site
   - F5XC Azure Site
-  - F5XC Azure AppStack
+  - F5XC Azure AppStack (Video: https://youtu.be/CMatJNVGTsw)
 
 | **Infrastructure Env Variables** |
 |----------------------------------|
