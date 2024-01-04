@@ -4,6 +4,10 @@ variable "http-lb-discovery-ves-hostname" {
   type        = string
   description = "Discovery http load balancer ves hostname"
 }
+variable "http-lb-jwt-ves-hostname" {
+  type        = string
+  description = "JWT http load balancer ves hostname"
+}
 variable "http-lb-kubernetes-ves-hostname" {
   type        = string
   description = "Kubernetes http load balancer ves hostname"

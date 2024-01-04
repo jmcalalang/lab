@@ -19,6 +19,15 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
     ttl  = var.ttl
   }
 
+  # Records for JWT
+
+  record {
+    name = "jwt"
+    type = var.record-type-cname
+    data = var.http-lb-kubernetes-ves-hostname
+    ttl  = var.ttl
+  }
+
   # Records for Kubernetes
 
   record {

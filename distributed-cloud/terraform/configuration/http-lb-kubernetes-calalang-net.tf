@@ -126,25 +126,6 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   enable_api_discovery {
     disable_learn_from_redirect_traffic = true
   }
-  jwt_validation {
-    target {
-      all_endpoint = true
-    }
-    token_location {
-      bearer_token = true
-    }
-    action {
-      block = true
-    }
-    jwks_config {
-      cleartext = "string:///${var.jwk-calalang-net}"
-    }
-    reserved_claims {
-      issuer_disable          = true
-      audience_disable        = true
-      validate_period_disable = true
-    }
-  }
   no_challenge                    = true
   round_robin                     = true
   service_policies_from_namespace = true
