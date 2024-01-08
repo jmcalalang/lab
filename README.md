@@ -139,7 +139,7 @@ Configuration and Infrastructure management of F5XC resources
   - F5XC Health Checks
   - F5XC Http Application Load-Balancers
   - F5XC Http Discovery Load-Balancer
-  - F5XC Http JWT API Security Load-Balancer
+  - F5XC Http JWT API Security Load-Balancer (Video: https://youtu.be/M171ohxK7YY)
   - F5XC Kubernetes
   - F5XC Origin Pools
   - F5XC Routes
