@@ -153,8 +153,8 @@ Configuration and Infrastructure management of F5XC resources
 
 - Terraform (Infrastructure)
   - F5XC vk8s Site
-  - F5XC Azure Site
-  - F5XC Azure AppStack (Video: https://youtu.be/CMatJNVGTsw)
+  - F5XC Azure Site (Video: https://youtu.be/CMatJNVGTsw)
+  - F5XC Azure AppStack
 
 | **Infrastructure Env Variables** |
 |----------------------------------|

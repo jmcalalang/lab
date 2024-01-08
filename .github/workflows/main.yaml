@@ -261,8 +261,6 @@ jobs:
     env:
       TF_VAR_f5xc-cloud-credential: ${{ secrets.F5XC_CLOUD_CREDENTIAL }}
       TF_VAR_f5xc-customer-edge-ssh-key: ${{ secrets.F5XC_CUSTOMER_EDGE_SSH_KEY }}
-      # VOLT_API_CERT: ${{ secrets.VOLT_API_CERT }}
-      # VOLT_API_KEY: ${{ secrets.VOLT_API_KEY }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
@@ -305,8 +303,6 @@ jobs:
       TF_VAR_jwk-calalang-net: ${{ secrets.JWK_CALALANG_NET }}
       TF_VAR_wildcard-calalang-net-certificate: ${{ secrets.CALALANG_NET_CERT }}
       TF_VAR_wildcard-calalang-net-key: ${{ secrets.CALALANG_NET_KEY }}
-      # VOLT_API_CERT: ${{ secrets.VOLT_API_CERT }}
-      # VOLT_API_KEY: ${{ secrets.VOLT_API_KEY }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
