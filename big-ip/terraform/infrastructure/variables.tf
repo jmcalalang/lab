@@ -2,11 +2,11 @@
 
 variable "allowed_ips" {
   type        = list(any)
-  description = "Allowed IP addresses form management access"
+  description = "Allowed Client IP addresses for management access"
 }
 variable "allowed_github_ips" {
   type        = list(any)
-  description = "Allowed IP addresses form management access"
+  description = "Allowed GitHub action IP addresses for management access"
 }
 variable "bigip_ready" {
   type        = string
