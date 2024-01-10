@@ -145,7 +145,7 @@ data:
     ClusterName: ${f5xc_site_name}
     ClusterType: ce
     Config: /etc/vpm/config.yaml
-    DisableModules: ["dictator", "recruiter"]
+    DisableModules: ["recruiter"]
     # CHANGE ME
     Latitude: 44.09133
     # CHANGE ME
