@@ -1,7 +1,7 @@
 # Shared variables
 
 variable "allowed_ips" {
-  type        = list(any)
+  type        = string
   description = "Allowed Client IP addresses for management access"
 }
 variable "allowed_github_ips" {
