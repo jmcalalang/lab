@@ -1,11 +1,11 @@
 # Shared variables
 
 variable "allowed_ips" {
-  type        = string
+  type        = list(string)
   description = "Allowed Client IP addresses for management access"
 }
 variable "allowed_github_ips" {
-  type        = list(any)
+  type        = list(string)
   description = "Allowed GitHub action IP addresses for management access"
 }
 variable "bigip_ready" {
