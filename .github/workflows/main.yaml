@@ -17,8 +17,52 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# jobs for Argo, BIG-IP, F5XC, GoDaddy, Kubernetes, and NGINX
+# jobs for Argo, Active Directory, BIG-IP, F5XC, GoDaddy, Kubernetes, and NGINX
 jobs:
+
+  Active-Directory-Terraform-Infrastructure:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    needs: [Cloud-Network-Terraform-Infrastructure]
+    
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TF_VAR_active-directory-username: ${{ secrets.ACTIVE_DIRECTORY_USER }}
+      TF_VAR_active-directory-password: ${{ secrets.ACTIVE_DIRECTORY_PASSWORD }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: services/active-directory/terraform/infrastructure
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.3
+
+      - name: Terraform Active-Directory-Terraform-Infrastructure fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Active-Directory-Terraform-Infrastructure Init
+        id: init
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+
+      - name: Terraform Active-Directory-Terraform-Infrastructure Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Active-Directory-Terraform-Infrastructure Apply
+        id: apply
+        run: terraform apply --auto-approve
 
 ########################################################################################################
 

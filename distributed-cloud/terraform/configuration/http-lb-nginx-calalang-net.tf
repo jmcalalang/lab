@@ -1,5 +1,6 @@
 # HTTP Load Balancer for NGINX Servers
 
+# Load Balancer
 resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   name      = "http-lb-nginx-calalang-net"
   namespace = var.namespace
@@ -65,6 +66,24 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   app_firewall {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
     namespace = var.namespace
+  }
+  waf_exclusion_rules {
+    metadata {
+      name    = "waf-exclusion-rules"
+      disable = false
+    }
+    exact_value = "nginx.calalang.net"
+    methods     = ["GET"]
+    app_firewall_detection_control {
+      exclude_signature_contexts {
+        signature_id = 000000000
+        context      = "CONTEXT_URL"
+      }
+      exclude_signature_contexts {
+        signature_id = 000000001
+        context      = "CONTEXT_URL"
+      }
+    }
   }
   add_location = true
   cookie_stickiness {
