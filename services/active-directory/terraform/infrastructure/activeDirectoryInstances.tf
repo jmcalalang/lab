@@ -36,7 +36,7 @@ resource "azurerm_network_interface_security_group_association" "active-director
 
 # Active Directory Instances NICs
 resource "azurerm_network_interface" "nic-instances" {
-  name                = "nic-${random_uuid.active-directory-random-uuid[1].result}-${count.index}"
+  name                = "nic-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.active-directory-resource-group.location
   resource_group_name = azurerm_resource_group.active-directory-resource-group.name
   count               = sum([var.active-directory-instance-count])
@@ -57,7 +57,7 @@ resource "azurerm_network_interface" "nic-instances" {
 
 # Active Directory Instances
 resource "azurerm_virtual_machine" "active-directory-instance" {
-  name                             = "active-directory-${random_uuid.active-directory-random-uuid[1].result}-${count.index}"
+  name                             = "active-directory-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
   location                         = azurerm_resource_group.active-directory-resource-group.location
   resource_group_name              = azurerm_resource_group.active-directory-resource-group.name
   network_interface_ids            = [azurerm_network_interface.nic-instances[count.index].id]
@@ -82,14 +82,14 @@ resource "azurerm_virtual_machine" "active-directory-instance" {
   }
 
   storage_os_disk {
-    name              = "os-disk-${random_uuid.active-directory-random-uuid[1].result}-${count.index}"
+    name              = "os-disk-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "active-directory-${random_uuid.active-directory-random-uuid[1].result}-${count.index}"
+    computer_name  = "active-directory-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
     admin_username = var.active-directory-username
     admin_password = var.active-directory-password
     # custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)
@@ -114,7 +114,7 @@ resource "azurerm_virtual_machine" "active-directory-instance" {
 
 ## Availability Set
 resource "azurerm_availability_set" "active-directory-instance" {
-  name                = "aset-${random_uuid.active-directory-random-uuid[1].result}"
+  name                = "aset-${random_uuid.active-directory-random-uuid[0].result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.active-directory-resource-group.name
 
