@@ -68,13 +68,13 @@ resource "azurerm_virtual_machine" "active-directory-instance" {
 
   # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
   plan {
-    publisher = "nginxinc"
+    publisher = var.active-directory-instance-publisher
     product   = var.active-directory-instance-offer
     name      = var.active-directory-instance-sku
   }
 
   storage_image_reference {
-    publisher = "nginxinc"
+    publisher = var.active-directory-instance-publisher
     offer     = var.active-directory-instance-offer
     sku       = var.active-directory-instance-sku
     version   = var.active-directory-instance-version

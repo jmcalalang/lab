@@ -16,7 +16,8 @@ existing_subnet_resource_group = "calalang-networking-rg"
 
 # az vm image list -p MicrosoftWindowsServer --all -f WindowsServer -s 2022-datacenter-g2
 
-active-directory-instance-offer   = "WindowsServer"
-active-directory-instance-sku     = "2022-datacenter-g2"
-active-directory-instance-version = "20348.2227.240104"
-active-directory-instance-count   = 1
+active-directory-instance-offer     = "WindowsServer"
+active-directory-instance-publisher = "MicrosoftWindowsServer"
+active-directory-instance-sku       = "2022-datacenter-g2"
+active-directory-instance-version   = "20348.2227.240104"
+active-directory-instance-count     = 1

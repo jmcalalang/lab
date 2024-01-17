@@ -51,6 +51,10 @@ variable "active-directory-instance-offer" {
   type        = string
   description = "Offer name for Active Directory instance resources"
 }
+variable "active-directory-instance-publisher" {
+  type        = string
+  description = "Publisher name for Active Directory instance resources"
+}
 variable "active-directory-instance-sku" {
   type        = string
   description = "SKU name for Active Directory instance resources"
