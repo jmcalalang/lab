@@ -80,7 +80,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
         context      = "CONTEXT_URL"
       }
       exclude_signature_contexts {
-        signature_id = 10000000
+        signature_id = 10000001
         context      = "CONTEXT_URL"
       }
     }

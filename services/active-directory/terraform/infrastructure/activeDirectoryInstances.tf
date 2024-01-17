@@ -92,7 +92,7 @@ resource "azurerm_virtual_machine" "active-directory-instance" {
     computer_name  = "active-directory-${random_uuid.active-directory-random-uuid[1].result}-${count.index}"
     admin_username = var.active-directory-username
     admin_password = var.active-directory-password
-    custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)
+    # custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)
   }
 
   os_profile_linux_config {
