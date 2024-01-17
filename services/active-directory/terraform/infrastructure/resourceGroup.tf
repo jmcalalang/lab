@@ -1,6 +1,6 @@
-## Resource Group for NGINX resources
+## Resource Group for Active Directory resources
 
-resource "azurerm_resource_group" "nginx-resource-group" {
+resource "azurerm_resource_group" "active-directory-resource-group" {
   name     = var.resource_group_name
   location = var.location
 

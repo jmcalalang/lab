@@ -76,11 +76,11 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     methods     = ["GET"]
     app_firewall_detection_control {
       exclude_signature_contexts {
-        signature_id = 000000000
+        signature_id = 10000000
         context      = "CONTEXT_URL"
       }
       exclude_signature_contexts {
-        signature_id = 000000001
+        signature_id = 10000000
         context      = "CONTEXT_URL"
       }
     }

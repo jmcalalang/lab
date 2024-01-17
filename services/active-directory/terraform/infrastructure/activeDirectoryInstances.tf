@@ -14,7 +14,7 @@ data "azurerm_subnet" "existing" {
 
 ################################# Active Directory Azure Instance Group #################################
 
-# Active Directory API Gateway Security Groups
+# Active Directory Instance Security Groups
 
 resource "azurerm_network_security_group" "active-directory-instances-sg" {
   name                = "active-directory-instances-sg"

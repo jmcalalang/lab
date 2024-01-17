@@ -191,7 +191,7 @@ jobs:
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [Cloud-Network-Terraform-Infrastructure]    
+    needs: [Active-Directory-Terraform-Infrastructure]    
 
     # Environment Variables
     env:
@@ -663,7 +663,7 @@ jobs:
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    needs: [Cloud-Network-Terraform-Infrastructure]
+    needs: [Active-Directory-Terraform-Infrastructure]
     
     # Environment Variables
     env:
