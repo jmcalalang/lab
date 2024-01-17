@@ -51,7 +51,6 @@ resource "azurerm_network_interface" "nic-instances" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
-    windows     = var.active-directory-instance-sku
   }
 }
 
@@ -103,7 +102,6 @@ resource "azurerm_virtual_machine" "active-directory-instance" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
-    windows     = var.active-directory-instance-sku
   }
 }
 
@@ -122,7 +120,6 @@ resource "azurerm_availability_set" "active-directory-instance" {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
-    windows     = var.active-directory-instance-sku
   }
 }
 
