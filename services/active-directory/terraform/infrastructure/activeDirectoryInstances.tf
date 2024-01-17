@@ -2,7 +2,7 @@
 
 # Random uuid generator
 resource "random_uuid" "active-directory-random-uuid" {
-  count = sum([var.active-directory-instance-count])
+  count = var.active-directory-instance-count
 }
 
 # Data of an existing subnet
