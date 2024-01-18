@@ -98,6 +98,13 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   # Records for BIG-IP
 
   record {
+    name = "apm"
+    type = "A"
+    data = "20.69.161.167"
+    ttl  = var.ttl
+  }
+
+  record {
     name = "_acme-challenge.bigip"
     type = var.record-type-cname
     data = "3a038a23d2d94ab48964811d58ffbfeb.autocerts.ves.volterra.io"
@@ -106,20 +113,6 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
 
   record {
     name = "bigip"
-    type = var.record-type-cname
-    data = var.http-lb-big-ip-ves-hostname
-    ttl  = var.ttl
-  }
-
-  record {
-    name = "_acme-challenge.apm"
-    type = var.record-type-cname
-    data = "c60067fcb06b401298a1de227c436c26.autocerts.ves.volterra.io"
-    ttl  = var.ttl
-  }
-
-  record {
-    name = "apm"
     type = var.record-type-cname
     data = var.http-lb-big-ip-ves-hostname
     ttl  = var.ttl
