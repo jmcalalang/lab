@@ -3,7 +3,7 @@
 # Random id generator
 resource "random_id" "active-directory-random-id" {
   byte_length = 16
-  count       = sum([var.active-directory-instance-count])
+  count       = var.active-directory-instance-count
 }
 
 # Data of an existing subnet
