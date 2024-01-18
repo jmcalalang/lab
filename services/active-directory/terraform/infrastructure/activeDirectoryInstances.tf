@@ -3,7 +3,7 @@
 # Random id generator
 resource "random_id" "active-directory-random-id" {
   byte_length = 16
-  count       = var.active-directory-instance-count
+  count       = sum([var.active-directory-instance-count])
 }
 
 # Data of an existing subnet
@@ -37,7 +37,7 @@ resource "azurerm_network_interface_security_group_association" "active-director
 
 # Active Directory Instances NICs
 resource "azurerm_network_interface" "nic-instances" {
-  name                = "nic-${random_id.active-directory-random-[0].result}-${count.index}"
+  name                = "nic-${random_id.active-directory-random-id[0].result}-${count.index}"
   location            = azurerm_resource_group.active-directory-resource-group.location
   resource_group_name = azurerm_resource_group.active-directory-resource-group.name
   count               = sum([var.active-directory-instance-count])
@@ -57,7 +57,7 @@ resource "azurerm_network_interface" "nic-instances" {
 
 # Active Directory Instances
 resource "azurerm_windows_virtual_machine" "active-directory-instance" {
-  name                  = "ad-${random_id.active-directory-random-id[0].result}-${count.index}"
+  name                  = "win-${random_id.active-directory-random-id[0].result}-${count.index}"
   admin_username        = var.active-directory-username
   admin_password        = var.active-directory-password
   location              = azurerm_resource_group.active-directory-resource-group.location
