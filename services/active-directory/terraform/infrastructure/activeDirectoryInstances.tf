@@ -55,47 +55,28 @@ resource "azurerm_network_interface" "nic-instances" {
 }
 
 # Active Directory Instances
-resource "azurerm_virtual_machine" "active-directory-instance" {
-  name                             = "active-directory-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
-  location                         = azurerm_resource_group.active-directory-resource-group.location
-  resource_group_name              = azurerm_resource_group.active-directory-resource-group.name
-  network_interface_ids            = [azurerm_network_interface.nic-instances[count.index].id]
-  vm_size                          = "Standard_B1s"
-  delete_data_disks_on_termination = true
-  delete_os_disk_on_termination    = true
-  availability_set_id              = azurerm_availability_set.active-directory-instance.id
-  count                            = sum([var.active-directory-instance-count])
+resource "azurerm_windows_virtual_machine" "active-directory-instance" {
+  name                  = "active-directory-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
+  admin_username        = var.active-directory-username
+  admin_password        = var.active-directory-password
+  location              = azurerm_resource_group.active-directory-resource-group.location
+  resource_group_name   = azurerm_resource_group.active-directory-resource-group.name
+  network_interface_ids = [azurerm_network_interface.nic-instances[count.index].id]
+  size                  = "Standard_B1s"
+  availability_set_id   = azurerm_availability_set.active-directory-instance.id
+  count                 = sum([var.active-directory-instance-count])
 
-  # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
-  plan {
-    publisher = var.active-directory-instance-publisher
-    product   = var.active-directory-instance-offer
-    name      = var.active-directory-instance-sku
-  }
-
-  storage_image_reference {
+  source_image_reference {
     publisher = var.active-directory-instance-publisher
     offer     = var.active-directory-instance-offer
     sku       = var.active-directory-instance-sku
     version   = var.active-directory-instance-version
   }
 
-  storage_os_disk {
-    name              = "os-disk-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-
-  os_profile {
-    computer_name  = "active-directory-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
-    admin_username = var.active-directory-username
-    admin_password = var.active-directory-password
-    # custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = false
+  os_disk {
+    name                 = "os-disk-${random_uuid.active-directory-random-uuid[0].result}-${count.index}"
+    caching              = "ReadWrite"
+    storage_account_type = "Premium_LRS"
   }
 
   tags = {
@@ -125,7 +106,7 @@ resource "azurerm_availability_set" "active-directory-instance" {
 
 # Active Directory Instances Shutdown Schedule
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
-  virtual_machine_id    = azurerm_virtual_machine.active-directory-instance[count.index].id
+  virtual_machine_id    = azurerm_windows_virtual_machine.active-directory-instance[count.index].id
   location              = var.location
   enabled               = true
   daily_recurrence_time = "1900"
