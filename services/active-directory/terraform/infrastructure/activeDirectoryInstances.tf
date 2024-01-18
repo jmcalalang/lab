@@ -83,7 +83,7 @@ resource "azurerm_windows_virtual_machine" "active-directory-instance" {
   os_disk {
     name                 = "os-disk-${random_string.active-directory-random-string[0].result}-${count.index}"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   tags = {
