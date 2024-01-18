@@ -93,10 +93,9 @@ resource "azurerm_windows_virtual_machine" "active-directory-instance" {
 
 ## Availability Set
 resource "azurerm_availability_set" "active-directory-instance" {
-  name                = "a-set-${random_string.active-directory-random-string[0].result}-${count.index}"
+  name                = "a-set-${random_string.active-directory-random-string[0].result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.active-directory-resource-group.name
-  count               = sum([var.active-directory-instance-count])
 
   tags = {
     environment = var.tag_environment
