@@ -14,11 +14,10 @@ existing_subnet_resource_group = "calalang-networking-rg"
 
 # Active Directory variables
 
-# az vm image list -p microsoftwindowsserver --all -f windowsserver -s 2022-datacenter-azure-edition-core-smalldisk
-# az vm image accept-terms --urn microsoftwindowsserver:windowsserver:2022-datacenter-azure-edition-core-smalldisk:20348.2227.240104
+# az vm image list -p microsoftwindowsserver --all -f windowsserver -s 2022-datacenter-azure-edition-hotpatch-smalldisk
 
 active-directory-instance-offer     = "WindowsServer"
 active-directory-instance-publisher = "MicrosoftWindowsServer"
-active-directory-instance-sku       = "2022-datacenter-azure-edition-core-smalldisk"
+active-directory-instance-sku       = "2022-datacenter-azure-edition-hotpatch-smalldisk"
 active-directory-instance-version   = "20348.2227.240104"
 active-directory-instance-count     = 1
