@@ -12,7 +12,7 @@
     "pool_members": [
         {
             "serverAddresses": [
-                "10.0.3.8"
+                "10.0.3.15"
             ],
             "servicePort": 389,
             "connectionLimit": 0,
