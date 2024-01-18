@@ -18,7 +18,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.57.0"
+      version = ">= 3.87.0"
     }
     time = {
       source  = "hashicorp/time"
@@ -26,7 +26,7 @@ terraform {
     }
     random = {
       source  = "hashicorp/random"
-      version = ">= 3.5.1"
+      version = ">= 3.6.0"
     }
   }
 }
