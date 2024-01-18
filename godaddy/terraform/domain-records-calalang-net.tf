@@ -100,7 +100,7 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
   record {
     name = "apm"
     type = "A"
-    data = "20.69.161.167"
+    data = "20.114.0.23"
     ttl  = var.ttl
   }
 
