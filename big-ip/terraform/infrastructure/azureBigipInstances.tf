@@ -53,6 +53,20 @@ resource "azurerm_public_ip" "public-ip-address-management" {
   }
 }
 
+resource "azurerm_public_ip" "public-ip-address-apm" {
+  name                = "pip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  location            = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
+  allocation_method   = "Dynamic"
+  count               = sum([var.big-ip-instance-count])
+  domain_name_label   = "apm-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
 resource "azurerm_network_interface" "nic-management" {
   name                = "nic-management-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.big-ip-resource-group.location
