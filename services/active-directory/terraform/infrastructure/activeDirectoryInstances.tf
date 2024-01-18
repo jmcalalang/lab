@@ -99,7 +99,7 @@ resource "azurerm_virtual_machine_extension" "ad-domain-services" {
   virtual_machine_id         = azurerm_windows_virtual_machine.active-directory-instance[count.index].id
   publisher                  = "Microsoft.Compute"
   type                       = "CustomScriptExtension"
-  type_handler_version       = "2.0"
+  type_handler_version       = "1.8"
   auto_upgrade_minor_version = true
   count                      = sum([var.active-directory-instance-count])
 
