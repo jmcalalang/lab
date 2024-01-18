@@ -65,9 +65,11 @@ resource "azurerm_windows_virtual_machine" "active-directory-instance" {
   admin_username        = var.active-directory-username
   admin_password        = var.active-directory-password
   location              = azurerm_resource_group.active-directory-resource-group.location
+  patch_mode            = "AutomaticByPlatform"
+  hotpatching_enabled   = true
   resource_group_name   = azurerm_resource_group.active-directory-resource-group.name
   network_interface_ids = [azurerm_network_interface.nic-instances[count.index].id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_D2_v2"
   availability_set_id   = azurerm_availability_set.active-directory-instance.id
   count                 = sum([var.active-directory-instance-count])
 
