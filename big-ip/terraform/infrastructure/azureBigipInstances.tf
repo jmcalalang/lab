@@ -159,7 +159,7 @@ resource "azurerm_network_interface" "nic-external" {
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = false
-    public_ip_address_id          = azurerm_public_ip.public-ip-address-apm[count.index]
+    public_ip_address_id          = azurerm_public_ip.public-ip-address-apm[count.index].id
   }
   ip_configuration {
     name                          = "if-config-external-05"
