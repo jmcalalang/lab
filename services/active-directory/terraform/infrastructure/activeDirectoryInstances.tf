@@ -94,7 +94,7 @@ resource "azurerm_windows_virtual_machine" "active-directory-instance" {
 
 ## Availability Set
 resource "azurerm_availability_set" "active-directory-instance" {
-  name                = "aset-${random_id.active-directory-random-id[0].result}"
+  name                = "a-set-${random_id.active-directory-random-id[0].result}-${count.index}"
   location            = var.location
   resource_group_name = azurerm_resource_group.active-directory-resource-group.name
 
