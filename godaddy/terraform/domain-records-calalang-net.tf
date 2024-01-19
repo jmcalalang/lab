@@ -99,8 +99,8 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
 
   record {
     name = "apm"
-    type = "A"
-    data = "20.114.0.23"
+    type = var.record-type-cname
+    data = "apm-28908875-e6ac-7887-3236-cf9c7d84c57c-0.westus2.cloudapp.azure.com"
     ttl  = var.ttl
   }
 
