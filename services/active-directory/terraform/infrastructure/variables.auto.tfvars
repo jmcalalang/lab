@@ -20,4 +20,4 @@ active-directory-instance-offer     = "WindowsServer"
 active-directory-instance-publisher = "MicrosoftWindowsServer"
 active-directory-instance-sku       = "2022-datacenter-azure-edition-hotpatch-smalldisk"
 active-directory-instance-version   = "20348.2227.240104"
-active-directory-instance-count     = 2
+active-directory-instance-count     = 1
