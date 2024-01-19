@@ -46,7 +46,7 @@ resource_group_name             = "calalang-bigip-rg"
 
 # Azure BIG-IP variables
 
-big-ip-instance-count = 1
+big-ip-instance-count = 2
 big-ip-instance-offer = "f5-big-ip-best"
 big-ip-instance-size  = "Standard_DS3_v2"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
