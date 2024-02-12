@@ -10,7 +10,6 @@ resource "azurerm_resource_group" "big-ip-resource-group" {
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
-
 }
 
 ## Azure Network Objects
