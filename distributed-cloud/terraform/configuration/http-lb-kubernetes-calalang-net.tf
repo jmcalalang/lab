@@ -119,7 +119,6 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
   }
   disable_rate_limit               = true
   disable_trust_client_ip_headers  = true
-  disable_ddos_detection           = true
   disable_malicious_user_detection = true
   disable_bot_defense              = true
   disable_ip_reputation            = true

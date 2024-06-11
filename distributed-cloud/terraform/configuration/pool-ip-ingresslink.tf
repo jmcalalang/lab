@@ -11,6 +11,8 @@ resource "volterra_origin_pool" "pool-ip-ingresslink" {
   }
   origin_servers {
     private_ip {
+      segment {
+      }
       ip              = "10.0.2.8"
       outside_network = true
       site_locator {

@@ -39,7 +39,6 @@ resource "volterra_http_loadbalancer" "http-lb-discovery-calalang-net" {
     name = "discoveryStickiness"
   }
   disable_bot_defense              = true
-  disable_ddos_detection           = true
   disable_ip_reputation            = true
   disable_malicious_user_detection = true
   disable_rate_limit               = true

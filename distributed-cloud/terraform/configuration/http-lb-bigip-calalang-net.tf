@@ -72,7 +72,6 @@ resource "volterra_http_loadbalancer" "http-lb-bigip-calalang-net" {
     name = "bigipStickiness"
   }
   disable_trust_client_ip_headers  = true
-  disable_ddos_detection           = true
   disable_malicious_user_detection = true
   disable_api_discovery            = true
   disable_bot_defense              = true
