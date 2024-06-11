@@ -14,7 +14,7 @@ terraform {
   required_providers {
     helm = {
       source  = "hashicorp/helm"
-      version = ">= 2.9.0"
+      version = ">= 2.13.2"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -22,7 +22,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.20.0"
+      version = ">= 2.30.0"
     }
   }
 }
