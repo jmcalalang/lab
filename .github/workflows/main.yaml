@@ -673,6 +673,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
       TF_VAR_nginx_username: ${{ secrets.NGINX_USER }}
       TF_VAR_nginx_password: ${{ secrets.NGINX_PASSWORD }}
+      TF_VAR_nginx_one_dataplane_key: ${{ secrets.NGINX_ONE_DATAPLANE_KEY }}
 
     # Where are the Terraform files
     defaults:

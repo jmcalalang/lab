@@ -47,6 +47,10 @@ variable "notification_email" {
 
 # NGINX variables
 
+variable "nginx_one_dataplane_key" {
+  type        = string
+  description = "NGINX ONE Dataplane Key"
+}
 variable "nginx-instance-offer" {
   type        = string
   description = "Offer name for NGINX instance resources"
