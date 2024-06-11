@@ -1,7 +1,9 @@
 #! /bin/bash
 
 # Install the NGINX Agent and bind to instance group api
-curl -k https://${nms-hostname}/install/nginx-agent > install.sh && sudo sh install.sh -g azure-instances && sudo systemctl start nginx-agent
+# curl -k https://${nms-hostname}/install/nginx-agent > install.sh && sudo sh install.sh -g azure-api-gateways && sudo systemctl start nginx-agent
+
+curl https://agent.connect.nginx.com/nginx-agent/install | DATA_PLANE_KEY="hsa2dnJ7yW3IdQ70qmPm7fwWhB4dh9ofw3LwsKllttM=" sh -s -- -y
 
 # install nginx modules
 
