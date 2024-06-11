@@ -69,7 +69,7 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
   }
   waf_exclusion_rules {
     metadata {
-      name    = "waf-exclusion-rules"
+      name = "waf-exclusion-rules"
     }
     exact_value = "nginx.calalang.net"
     methods     = ["GET"]
