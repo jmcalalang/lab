@@ -6,9 +6,9 @@
   delegate_to: localhost
   uri:
     headers:
-      Authorization: "{{ nginx-one-f5xc-api-token }}"
+      Authorization: "{{ nginx_one_f5xc_api_token }}"
     method: GET
-    url: "https://{{ nginx-one-f5xc-tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary"
+    url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary"
     status_code: 200
     validate_certs: yes
   register: nginx_one_instances_summary_response
@@ -28,15 +28,14 @@
     body: "{{ lookup('ansible.builtin.file','../config/azure-instances/nginx.json') }}"
     body_format: json
     headers:
-      Authorization: "{{ nginx-one-f5xc-api-token }}"
+      Authorization: "{{ nginx_one_f5xc_api_token }}"
     method: PUT
-    url: "https://{{ nginx-one-f5xc-tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/{{ item }}/config"
+    url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/{{ item.instance }}/config"
     status_code: [200, 202]
     validate_certs: yes
   register: nginx_one_instance_group_put_response
   retries: 30
   delay: 5
-  until: "(result.status == 200) or (result.status == 202)"
   with_items:
-    - azure_instances
+    - "{{ azure_instances }}"
   when: state == "present"

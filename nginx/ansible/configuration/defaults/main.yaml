@@ -4,5 +4,9 @@
 state: "present"
 #state: 'absent'
 
+# Ansible Date Time
+ansible_date_time: "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
+
 # List of NGINX One Instance IDs
-azure_instances: [inst_jI92KpLMSSuqDyDmSvyU0A]
+azure_instances: 
+  - instance: inst_jI92KpLMSSuqDyDmSvyU0A
