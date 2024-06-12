@@ -52,7 +52,7 @@ GitHub Actions for the lab environment
     - Terraform
   - Kubernetes
     - Terraform
-  - NGINX / NGINX Management System
+  - NGINX / NGINX One
     - Terraform
     - Ansible
 
@@ -252,15 +252,12 @@ Infrastructure management of AWS and Azure networks
 Configuration and Infrastructure management of NGINX resources
 
 - Ansible (Configuration)
-  - NGINX Management Suite Configuration of NGINX
+  - NGINX One Configuration of NGINX
 
 | **Configuration Env Variables** |
 |---------------------------------|
-| NMS_HOSTNAME                    |
-| NMS_INSTANCE_GROUP              |
-| NMS_PASSWORD                    |
-| NMS_TOKEN                       |
-| NMS_USER                        |
+| NGINX_ONE_F5XC_TENANT           |
+| NGINX_ONE_F5XC_API_TOKEN        |
 
 - Terraform (Infrastructure)
   - NGINX(s)
@@ -275,6 +272,7 @@ Configuration and Infrastructure management of NGINX resources
 | AZURE_TENANT                     |
 | NGINX_PASSWORD                   |
 | NGINX_USER                       |
+| NGINX_ONE_DATAPLANE_KEY          |
 
 ### services
 
@@ -283,7 +281,5 @@ Configuration of Kubernetes services
 - argo
 - ingresslink.calalang.net
 - kubernetes.calalang.net
-- NGINX Management Suite
-- nms.calalang.net
 - syslog
 - transport.calalang.net
