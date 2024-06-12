@@ -9,7 +9,7 @@ resource "volterra_cluster" "cluster-nginx-instances" {
   disable = false
   endpoints {
     namespace = var.namespace
-    name      = volterra_endpoint.endpoint-nginx-10-0-3-5.name
+    name      = volterra_endpoint.endpoint-nginx-10-0-3-11.name
   }
   health_checks {
     name      = volterra_healthcheck.health-check-http.name

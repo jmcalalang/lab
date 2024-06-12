@@ -13,7 +13,7 @@ resource "volterra_origin_pool" "pool-ip-nginx" {
     private_ip {
       segment {
       }
-      ip              = "10.0.3.5"
+      ip              = "10.0.3.11"
       outside_network = true
       site_locator {
         site {

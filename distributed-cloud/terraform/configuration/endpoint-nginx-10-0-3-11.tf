@@ -1,5 +1,5 @@
-resource "volterra_endpoint" "endpoint-nginx-10-0-3-5" {
-  name      = "endpoint-nginx-10-0-3-5"
+resource "volterra_endpoint" "endpoint-nginx-10-0-3-11" {
+  name      = "endpoint-nginx-10-0-3-11"
   namespace = var.namespace
   labels = {
     owner         = var.label-owner
@@ -10,7 +10,7 @@ resource "volterra_endpoint" "endpoint-nginx-10-0-3-5" {
   protocol          = "TCP"
   port              = 80
   health_check_port = 80
-  ip                = "10.0.3.5"
+  ip                = "10.0.3.11"
   where {
     site {
       ref {
