@@ -153,7 +153,7 @@ data:
     MauriceEndpoint: https://register.ves.volterra.io
     MauricePrivateEndpoint: https://register-tls.ves.volterra.io
     PrivateNIC: eth0
-    SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
+    SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload", "csi"]
     # CHANGE ME
     Token: ${f5xc_site_token}
     CertifiedHardware: k8s-minikube-voltmesh
