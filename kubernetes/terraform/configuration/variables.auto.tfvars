@@ -18,4 +18,4 @@ nginx-ingress-controller-image         = "3.1.1"
 # vk8s Terraform Variable Values
 namespace                  = "j-calalang"
 owner                      = "j-calalang"
-nginx-unprivileged-version = "mainline-alpine-perl"
+nginx-unprivileged-version = ""
