@@ -597,7 +597,7 @@ jobs:
       - uses: actions/checkout@v3
  
       - name: cURL NGINX-One
-        run: curl --max-time 10 -H "Authorization:${{ secrets.NGINX_ONE_F5XC_API_TOKEN }}" -X GET https://${{ secrets.NGINX_ONE_F5XC_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
+        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
  
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
@@ -629,8 +629,8 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "nginx_one_f5xc_api_token='${{ secrets.NGINX_ONE_F5XC_API_TOKEN }}'" 
-            --extra-vars "nginx_one_f5xc_tenant='${{ secrets.NGINX_ONE_F5XC_TENANT }}'"             
+            --extra-vars "nginx_one_f5xc_api_token='${{ secrets.VES_P12_PASSWORD }}'" 
+            --extra-vars "nginx_one_f5xc_tenant='${{ secrets.VES_TENANT }}'"             
           # --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
