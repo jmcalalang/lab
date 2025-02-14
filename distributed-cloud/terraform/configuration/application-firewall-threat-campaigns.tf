@@ -24,6 +24,5 @@ resource "volterra_app_firewall" "app-firewall-threat-campaigns" {
   monitoring               = true
   allow_all_response_codes = true
   default_anonymization    = true
-  default_bot_setting      = true
   blocking                 = true
 }
