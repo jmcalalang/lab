@@ -256,8 +256,8 @@ Configuration and Infrastructure management of NGINX resources
 
 | **Configuration Env Variables** |
 |---------------------------------|
-| NGINX_ONE_F5XC_TENANT           |
-| NGINX_ONE_F5XC_API_TOKEN        |
+| VES_TENANT                      |
+| VES_P12_PASSWORD                |
 
 - Terraform (Infrastructure)
   - NGINX(s)

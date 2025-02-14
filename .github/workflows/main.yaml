@@ -629,8 +629,8 @@ jobs:
           # Optional, additional flags to pass to ansible-playbook
           options: |
             --extra-vars "@../defaults/main.yaml" 
-            --extra-vars "nginx_one_f5xc_api_token='${{ secrets.NGINX_ONE_F5XC_API_TOKEN }}'" 
-            --extra-vars "nginx_one_f5xc_tenant='${{ secrets.NGINX_ONE_F5XC_TENANT }}'"             
+            --extra-vars "nginx_one_f5xc_api_token='${{ secrets.VES_API_TOKEN }}'"
+            --extra-vars "nginx_one_f5xc_tenant='${{ secrets.VES_TENANT }}'"
           # --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
