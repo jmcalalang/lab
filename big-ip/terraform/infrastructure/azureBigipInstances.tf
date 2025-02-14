@@ -42,7 +42,7 @@ resource "azurerm_public_ip" "public-ip-address-management" {
   name                = "pip-${random_uuid.pip-mgmt-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   count               = sum([var.big-ip-instance-count])
   domain_name_label   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   tags = {
@@ -56,7 +56,7 @@ resource "azurerm_public_ip" "public-ip-address-apm" {
   name                = "pip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   location            = azurerm_resource_group.big-ip-resource-group.location
   resource_group_name = azurerm_resource_group.big-ip-resource-group.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   count               = sum([var.big-ip-instance-count])
   domain_name_label   = "apm-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   tags = {
