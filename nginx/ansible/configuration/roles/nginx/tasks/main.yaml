@@ -6,7 +6,7 @@
   delegate_to: localhost
   uri:
     headers:
-      Authorization: "{{ nginx_one_f5xc_api_token }}"
+      Authorization: "APIToken {{ nginx_one_f5xc_api_token }}"
     method: GET
     url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary"
     status_code: 200
@@ -28,7 +28,7 @@
     body: "{{ lookup('ansible.builtin.file','../config/azure-instances/nginx.json') }}"
     body_format: json
     headers:
-      Authorization: "{{ nginx_one_f5xc_api_token }}"
+      Authorization: "APIToken {{ nginx_one_f5xc_api_token }}"
     method: PUT
     url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/{{ item.instance }}/config"
     status_code: [200, 202]

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx-unprivileged
-          image: reg.edgecnf.com/apps/nginx-unpriv:${nginx-unprivileged-version}
+          image: nginxinc/nginx-unprivileged:${nginx-unprivileged-version}
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
