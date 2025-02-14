@@ -22,6 +22,6 @@ terraform {
 # Provider Options
 
 provider "volterra" {
-  api_p12_file = "../../../certs/f5-sa.api-creds.p12"
-  url          = "https://f5-sa.console.ves.volterra.io/api"
+  api_p12_file = "../../../certs/wwt.api-creds.p12"
+  url          = "https://wwt.console.ves.volterra.io/api"
 }
