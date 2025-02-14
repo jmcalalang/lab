@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx-unprivileged
-          image: nginxinc/nginx-unprivileged:${nginx-unprivileged-version}
+          image: nginxinc/nginx-unprivileged
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
