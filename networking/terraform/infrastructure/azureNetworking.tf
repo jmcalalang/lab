@@ -139,7 +139,7 @@ resource "azurerm_route_table" "external-rt" {
   route {
     name           = "default"
     address_prefix = "0.0.0.0/0"
-    next_hop_type  = "Internet"
+    next_hop_type  = "VirtualNetworkGateway"
   }
   tags = {
     environment = var.tag_environment
@@ -186,4 +186,39 @@ resource "azurerm_nat_gateway_public_ip_association" "internal-ng" {
 resource "azurerm_subnet_nat_gateway_association" "internal-ng" {
   subnet_id      = azurerm_subnet.internal.id
   nat_gateway_id = azurerm_nat_gateway.internal-ng.id
+}
+
+## Azure Nat Gateway
+resource "azurerm_nat_gateway" "external-ng" {
+  name                = "external-ng"
+  location            = azurerm_resource_group.networking-resource-group.location
+  resource_group_name = azurerm_resource_group.networking-resource-group.name
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_public_ip" "external-ng-pip" {
+  name                = "external-ng-pip"
+  location            = azurerm_resource_group.networking-resource-group.location
+  resource_group_name = azurerm_resource_group.networking-resource-group.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  tags = {
+    environment = var.tag_environment
+    resource    = var.tag_resource_type
+    Owner       = var.tag_owner
+  }
+}
+
+resource "azurerm_nat_gateway_public_ip_association" "external-ng" {
+  nat_gateway_id       = azurerm_nat_gateway.external-ng.id
+  public_ip_address_id = azurerm_public_ip.external-ng-pip.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "external-ng" {
+  subnet_id      = azurerm_subnet.external.id
+  nat_gateway_id = azurerm_nat_gateway.external-ng.id
 }
