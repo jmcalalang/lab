@@ -131,29 +131,7 @@ resource "azurerm_network_security_group" "kubernetes-nsg" {
   }
 }
 
-## Azure Network Route Table
-resource "azurerm_route_table" "external-rt" {
-  name                = "external-rt"
-  location            = azurerm_resource_group.networking-resource-group.location
-  resource_group_name = azurerm_resource_group.networking-resource-group.name
-  route {
-    name           = "default"
-    address_prefix = "0.0.0.0/0"
-    next_hop_type  = "VirtualNetworkGateway"
-  }
-  tags = {
-    environment = var.tag_environment
-    resource    = var.tag_resource_type
-    Owner       = var.tag_owner
-  }
-}
-
-resource "azurerm_subnet_route_table_association" "external-rt" {
-  subnet_id      = azurerm_subnet.external.id
-  route_table_id = azurerm_route_table.external-rt.id
-}
-
-## Azure Nat Gateway
+## Azure Internal Subnet Nat Gateway
 resource "azurerm_nat_gateway" "internal-ng" {
   name                = "internal-ng"
   location            = azurerm_resource_group.networking-resource-group.location
@@ -188,7 +166,7 @@ resource "azurerm_subnet_nat_gateway_association" "internal-ng" {
   nat_gateway_id = azurerm_nat_gateway.internal-ng.id
 }
 
-## Azure Nat Gateway
+## Azure External Subnet Nat Gateway
 resource "azurerm_nat_gateway" "external-ng" {
   name                = "external-ng"
   location            = azurerm_resource_group.networking-resource-group.location
