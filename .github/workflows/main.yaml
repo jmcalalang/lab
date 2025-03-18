@@ -467,6 +467,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
       TF_VAR_f5xc_site_token: ${{ secrets.F5XC_SITE_TOKEN }}
       TF_VAR_nginx_repo_jwt: ${{ secrets.NGINX_REPO_JWT }}
+      TF_VAR_ai_gateway_repo_jwt: ${{ secrets.AI_GATEWAY_REPO_JWT }}
       TF_VAR_bigip_aks_username: ${{ secrets.BIGIP_AKS_USER }}
       TF_VAR_bigip_aks_password: ${{ secrets.BIGIP_AKS_PASSWORD }}
       TF_VAR_ves_vk8s_context: ${{ secrets.VES_VK8S_CONTEXT }}
