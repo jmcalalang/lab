@@ -3,7 +3,7 @@
 # AI Gateway
 resource "helm_release" "ai-gateway" {
   name       = "aigw"
-  repository = "oci://private-registry.f5.com/aigw"
+  repository = "oci://private-registry.f5.com"
   chart      = "aigw"
   depends_on = [
     kubectl_manifest.f5-ai-gateway
