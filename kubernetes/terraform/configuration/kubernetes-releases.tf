@@ -1,3 +1,15 @@
+# F5 AI Gateway manifest
+
+data "kubectl_path_documents" "f5-ai-gateway" {
+  pattern = "./files/manifests/f5-ai-gateway/f5-ai-gateway-*.yaml"
+}
+
+resource "kubectl_manifest" "f5-ai-gateway" {
+  for_each  = toset(data.kubectl_path_documents.f5-ai-gateway.documents)
+  yaml_body = each.value
+  provider  = kubectl.kubectl-vk8s
+}
+
 # Kubernetes f5xc manifest resources
 
 data "kubectl_path_documents" "f5xc" {
