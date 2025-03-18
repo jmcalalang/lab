@@ -3,6 +3,6 @@ kind: Secret
 metadata:
   name: f5-license
   namespace: ${namespace}
-type: kubernetes.io/dockerconfigjson
+type: Opaque
 data:
-  .dockerconfigjson: ${f5_license_secret_jwt}
+  token: ${f5_license_secret_jwt}
