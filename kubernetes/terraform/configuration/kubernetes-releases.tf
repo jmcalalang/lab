@@ -4,6 +4,8 @@ data "kubectl_path_documents" "f5-ai-gateway" {
   pattern = "./files/manifests/f5-ai-gateway/f5-ai-gateway-*.yaml"
   vars = {
     namespace = var.namespace
+    f5_license_secret_jwt = var.f5_license_secret_jwt
+    f5_registry_secret_jwt = var.f5_registry_secret_jwt
   }
 }
 
