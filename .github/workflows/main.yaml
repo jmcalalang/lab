@@ -519,7 +519,7 @@ jobs:
 
       - name: Login to F5 private repository
         id: f5-repository-login
-        run: helm registry login private-registry.f5.com/aigw -u '${{ secrets.F5_LICENSE_SECRET_JWT }}' -p none
+        run: helm registry login private-registry.f5.com/aigw -u '${{ secrets.F5_JWT }}' -p none
         continue-on-error: false
 
       - name: Update charts
