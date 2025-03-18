@@ -1,5 +1,40 @@
 # Helm releases
 
+# AI Gateway
+resource "helm_release" "ai-gateway" {
+  name       = "aigw"
+  repository = "oci://private-registry.f5.com/aigw/aigw"
+  chart      = "aigw"
+  version    = var.argo-chart-version
+  depends_on = [
+    kubectl_manifest.argo
+  ]
+
+  values = [
+  ]
+
+  set {
+    name  = "imagePullSecrets"
+    value = "f5-registry-secret"
+  }
+
+  set {
+    name  = "aigw.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "aigw.service.type"
+    value = "ClusterIP"
+  }
+
+  set {
+    name  = "aigw.image.tag"
+    value = "v1.0.0"
+  }
+  provider = kubectl.kubectl-vk8s
+}
+
 # Argo
 resource "helm_release" "argocd" {
   name       = "argo"

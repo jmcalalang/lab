@@ -465,16 +465,17 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TF_VAR_f5_license_secret_jwt: ${{ secrets.F5_LICENSE_SECRET_JWT }}
+      TF_VAR_f5_registry_secret_jwt: ${{ secrets.F5_REGISTRY_SECRET_JWT }}
       TF_VAR_f5xc_site_token: ${{ secrets.F5XC_SITE_TOKEN }}
       TF_VAR_nginx_repo_jwt: ${{ secrets.NGINX_REPO_JWT }}
-      TF_VAR_ai_gateway_repo_jwt: ${{ secrets.AI_GATEWAY_REPO_JWT }}
       TF_VAR_bigip_aks_username: ${{ secrets.BIGIP_AKS_USER }}
       TF_VAR_bigip_aks_password: ${{ secrets.BIGIP_AKS_PASSWORD }}
       TF_VAR_ves_vk8s_context: ${{ secrets.VES_VK8S_CONTEXT }}
       TF_VAR_ves_vk8s_client_certificate: ${{ secrets.VES_VK8S_CLIENT_CERTIFICATE }}
       TF_VAR_ves_vk8s_client_key: ${{ secrets.VES_VK8S_CLIENT_KEY }}
       TF_VAR_ves_vk8s_cluster_ca_certificate: ${{ secrets.VES_VK8S_CLUSTER_CA_CERTIFICATE }}
-      TF_VAR_ves_vk8s_server: ${{ secrets.VES_VK8S_SERVER }}  
+      TF_VAR_ves_vk8s_server: ${{ secrets.VES_VK8S_SERVER }}
 
     # Where are the Terraform files
     defaults:
