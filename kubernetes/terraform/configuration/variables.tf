@@ -52,6 +52,14 @@ variable "nginx_repo_jwt" {
 }
 
 # vk8s Terraform Variable Values
+variable "f5_license_secret_jwt" {
+  type        = string
+  description = "F5 AI Gateway License"
+}
+variable "f5_registry_secret_jwt" {
+  type        = string
+  description = "F5 AI Gateway Registry"
+}
 variable "f5xc_site_token" {
   type        = string
   description = "F5XC Site Token"
