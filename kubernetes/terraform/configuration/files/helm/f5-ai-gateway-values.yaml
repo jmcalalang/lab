@@ -1,0 +1,12 @@
+## F5 AI Gateway configuration
+## Ref: https://aigateway.clouddocs.f5.com/installation/install-with-helm.html#configuration
+##
+
+# Enable the core (aigw) application
+aigw.enabled: true
+
+# Type of services for the service
+aigw.service.type: "ClusterIP"
+
+# Version tag for the aigw-processors-f5 image
+aigw.image.tag: "v1.0.0"
