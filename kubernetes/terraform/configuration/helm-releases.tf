@@ -14,7 +14,7 @@ resource "helm_release" "ai-gateway" {
   ]
 
   set {
-    name  = "imagePullSecrets[0].name"
+    name  = "imagePullSecrets"
     value = "f5-registry-secret"
   }
 
