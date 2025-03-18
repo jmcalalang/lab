@@ -3,7 +3,7 @@
 # AI Gateway
 resource "helm_release" "ai-gateway" {
   name       = "aigw"
-  repository = "oci://private-registry.f5.com/aigw/aigw"
+  repository = "oci://private-registry.f5.com/aigw"
   chart      = "aigw"
   version    = var.argo-chart-version
   depends_on = [
@@ -32,7 +32,7 @@ resource "helm_release" "ai-gateway" {
     name  = "aigw.image.tag"
     value = "v1.0.0"
   }
-  provider = kubectl.kubectl-vk8s
+  provider = helm.helm-vk8s
 }
 
 # Argo
