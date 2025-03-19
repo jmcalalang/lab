@@ -7,6 +7,3 @@ aigw.enabled: true
 
 # Type of services for the service
 aigw.service.type: "ClusterIP"
-
-# Version tag for the aigw-processors-f5 image
-aigw.image.tag: "v1.0.0"
