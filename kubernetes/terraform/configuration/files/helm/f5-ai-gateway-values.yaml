@@ -3,10 +3,10 @@
 ##
 
 # Port for the service
-aigw.service.port: 8000
+aigw.service.port: 80
 
 # Port for the service
-processors.f5.service.port: 8001
+processors.f5.service.port: 80
 
 # Enable the core (aigw) application
 aigw.enabled: true
@@ -15,10 +15,17 @@ aigw.enabled: true
 aigw.service.type: "ClusterIP"
 
 # Security context for the aigw deployment
-
 aigw.securityContext:
-  # fsGroup: 1001
-  # runAsGroup: 1001
+  fsGroup: 1001
+  runAsGroup: 1001
   runAsNonRoot: true
-  # runAsUser: 1001
-  # seccompProfile: { "type": "RuntimeDefault" }
+  runAsUser: 1001
+  seccompProfile: { "type": "RuntimeDefault" }
+
+# Security context for the aigw-processors-f5 deployment
+processors.f5.securityContext:
+  fsGroup: 1001
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+  seccompProfile: { "type": "RuntimeDefault" }
