@@ -3,7 +3,7 @@
 # AI Gateway
 resource "helm_release" "ai-gateway" {
   name       = "aigw"
-  repository = "oci://private-registry.f5.com"
+  repository = "oci://private-registry.f5.com/aigw/aigw"
   chart      = "aigw"
   depends_on = [
     kubectl_manifest.f5-ai-gateway
@@ -14,7 +14,7 @@ resource "helm_release" "ai-gateway" {
   ]
 
   set {
-    name  = "imagePullSecrets"
+    name  = "imagePullSecrets[0].name"
     value = "f5-registry-secret"
   }
 
