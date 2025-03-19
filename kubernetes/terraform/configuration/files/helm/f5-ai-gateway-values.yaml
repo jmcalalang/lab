@@ -2,6 +2,12 @@
 ## Ref: https://aigateway.clouddocs.f5.com/installation/install-with-helm.html#configuration
 ##
 
+# Port for the service
+aigw.service.port: 8000
+
+# Port for the service
+processors.f5.service.port: 8001
+
 # Enable the core (aigw) application
 aigw.enabled: true
 
@@ -12,9 +18,6 @@ aigw.service.type: "ClusterIP"
 
 aigw.securityContext:
   {
-    "fsGroup": 1001,
-    #"runAsGroup": 1001,
-    #"runAsNonRoot": true,
-    #"runAsUser": 1001,
+    "runAsNonRoot": true,
     "seccompProfile": { "type": "RuntimeDefault" },
   }
