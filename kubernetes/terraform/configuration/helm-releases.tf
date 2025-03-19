@@ -25,30 +25,30 @@ resource "helm_release" "ai-gateway" {
     value = "true"
   }
 
-  set {
-    name  = "aigw.securityContext.runAsUser"
-    value = 1001
-  }
-
-  set {
-    name  = "aigw.securityContext.runAsGroup"
-    value = 1001
-  }
+#  set {
+#    name  = "aigw.securityContext.runAsUser"
+#    value = 1001
+#  }
+#
+#  set {
+#    name  = "aigw.securityContext.runAsGroup"
+#    value = 1001
+#  }
 
   set {
     name  = "processors.f5.securityContext.runAsNonRoot"
     value = "true"
   }
 
-  set {
-    name  = "processors.f5.securityContext.runAsUser"
-    value = 1001
-  }
-
-  set {
-    name  = "processors.f5.securityContext.runAsGroup"
-    value = 1001
-  }
+#  set {
+#    name  = "processors.f5.securityContext.runAsUser"
+#    value = 1001
+#  }
+#
+#  set {
+#    name  = "processors.f5.securityContext.runAsGroup"
+#    value = 1001
+#  }
 
   provider = helm.helm-vk8s
 }
