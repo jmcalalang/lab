@@ -3,9 +3,10 @@
 # AI Gateway
 resource "helm_release" "ai-gateway" {
   name       = "aigw"
+  namespace  = var.namespace
   repository = "oci://private-registry.f5.com/aigw/"
   chart      = "aigw"
-  timeout    = 3000
+  timeout    = 600
   depends_on = [
     kubectl_manifest.f5-ai-gateway
   ]
