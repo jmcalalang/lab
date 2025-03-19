@@ -14,18 +14,18 @@ aigw.enabled: true
 # Type of services for the service
 aigw.service.type: "ClusterIP"
 
-# Security context for the aigw deployment
-aigw.securityContext:
-  # fsGroup: 1001
-  # runAsGroup: 1001
-  runAsNonRoot: true
-  # runAsUser: 1001
-  seccompProfile: { "type": "RuntimeDefault" }
-
-# Security context for the aigw-processors-f5 deployment
-processors.f5.securityContext:
-  # fsGroup: 1001
-  # runAsGroup: 1001
-  runAsNonRoot: true
-  # runAsUser: 1001
-  seccompProfile: { "type": "RuntimeDefault" }
+# # Security context for the aigw deployment
+# aigw.securityContext:
+#   fsGroup: 1001
+#   runAsGroup: 1001
+#   runAsNonRoot: true
+#   runAsUser: 1001
+#   seccompProfile: { "type": "RuntimeDefault" }
+# 
+# # Security context for the aigw-processors-f5 deployment
+# processors.f5.securityContext:
+#   fsGroup: 1001
+#   runAsGroup: 1001
+#   runAsNonRoot: true
+#   runAsUser: 1001
+#   seccompProfile: { "type": "RuntimeDefault" }
