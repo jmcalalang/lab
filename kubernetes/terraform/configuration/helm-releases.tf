@@ -1,27 +1,27 @@
 # Helm releases
 
-# AI Gateway
-resource "helm_release" "ai-gateway" {
-  name       = "aigw"
-  namespace  = var.namespace
-  repository = "oci://private-registry.f5.com/aigw/"
-  chart      = "aigw"
-  timeout    = 600
-  depends_on = [
-    kubectl_manifest.f5-ai-gateway
-  ]
-
-  values = [
-    "${file("./files/helm/f5-ai-gateway-values.yaml")}"
-  ]
-
-  set {
-    name  = "imagePullSecrets[0].name"
-    value = "f5-registry-secret"
-  }
-
-  provider = helm.helm-vk8s
-}
+# # AI Gateway
+# resource "helm_release" "ai-gateway" {
+#   name       = "aigw"
+#   namespace  = var.namespace
+#   repository = "oci://private-registry.f5.com/aigw/"
+#   chart      = "aigw"
+#   timeout    = 600
+#   depends_on = [
+#     kubectl_manifest.f5-ai-gateway
+#   ]
+# 
+#   values = [
+#     "${file("./files/helm/f5-ai-gateway-values.yaml")}"
+#   ]
+# 
+#   set {
+#     name  = "imagePullSecrets[0].name"
+#     value = "f5-registry-secret"
+#   }
+# 
+#   provider = helm.helm-vk8s
+# }
 
 # Argo
 resource "helm_release" "argocd" {
