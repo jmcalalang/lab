@@ -45,7 +45,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform Active-Directory-Terraform-Infrastructure fmt
         id: fmt
@@ -208,7 +208,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: cURL ipify.org
         run: curl 'https://api.ipify.org?format=json'
@@ -254,7 +254,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform BIG-IP-Terraform-Configuration fmt
         id: fmt
@@ -309,7 +309,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -351,7 +351,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -392,7 +392,7 @@ jobs:
 #      
 #      - uses: hashicorp/setup-terraform@v2
 #        with:
-#          terraform_version: 1.10.5
+#          terraform_version: 1.12.2
 #
 #      - name: Terraform GoDaddy-Terraform fmt
 #        id: fmt
@@ -573,7 +573,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform Cloud-Network-Terraform-Infrastructure fmt
         id: fmt
@@ -670,7 +670,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.5
+          terraform_version: 1.12.2
 
       - name: Terraform NGINX-Terraform-Infrastructure fmt
         id: fmt
