@@ -285,19 +285,12 @@ jobs:
       VES_TENANT: ${{ secrets.VES_TENANT }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Update cURL
-        run: sudo apt-get install --only-upgrade curl
-
-      - name: cURL Version
-        run: curl --version | head -n 1 | awk '{ print $2 }'
 
       - name: cURL F5XC
-        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
+        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:Harrison123! https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
