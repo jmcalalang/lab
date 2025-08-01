@@ -133,7 +133,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: cURL BIG-IP
-        run: curl --max-time 10 \
+        run: |
+          curl --max-time 10 \
           -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
           https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
 
