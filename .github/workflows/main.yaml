@@ -133,7 +133,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: cURL BIG-IP
-        run: curl --max-time 10 -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
+        run: curl --max-time 10 \
+          -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
+          https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
 
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
@@ -211,7 +213,8 @@ jobs:
           terraform_version: latest
 
       - name: cURL ipify.org
-        run: curl 'https://api.ipify.org?format=json'
+        run: curl \
+          https://api.ipify.org?format=json
 
       - name: Terraform BIG-IP-Terraform-Infrastructure fmt
         id: fmt
@@ -616,7 +619,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Make authenticated F5XC API request
+      - name: Make authenticated NGINX One API request
         run: |
           curl --max-time 10 \
             -H "Authorization: APIToken ${{ secrets.VES_API_TOKEN }}" \
