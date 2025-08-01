@@ -289,8 +289,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Specify Node Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: cURL F5XC
-        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:Harrison123! https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
+        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -607,7 +612,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
- 
+
+      - name: Specify Node Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: cURL NGINX-One
         run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
  
