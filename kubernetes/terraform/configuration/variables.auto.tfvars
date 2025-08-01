@@ -12,7 +12,7 @@ bigip_aks_partition           = "calalang-aks-cluster"
 
 # Nginx Ingress Controller Values
 # Versions: https://github.com/nginxinc/kubernetes-ingress/tree/main/charts/nginx-ingress
-nginx-ingress-controller-chart-version = "2.3.0"
+nginx-ingress-controller-chart-version = "2.2.1"
 nginx-ingress-controller-image         = "5.2.0"
 
 # vk8s Terraform Variable Values
