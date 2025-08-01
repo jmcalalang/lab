@@ -291,7 +291,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Update cURL
-        run: apt-get install --only-upgrade curl
+        run: sudo apt-get install --only-upgrade curl
 
       - name: cURL Version
         run: curl --version | head -n 1 | awk '{ print $2 }'
