@@ -213,8 +213,9 @@ jobs:
           terraform_version: latest
 
       - name: cURL ipify.org
-        run: curl \
-          https://api.ipify.org?format=json
+        run: |
+          curl --max-time 10 \
+            'https://api.ipify.org?format=json'
 
       - name: Terraform BIG-IP-Terraform-Infrastructure fmt
         id: fmt
