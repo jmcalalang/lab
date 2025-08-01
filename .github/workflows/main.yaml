@@ -297,7 +297,7 @@ jobs:
         run: curl --version | head -n 1 | awk '{ print $2 }'
 
       - name: cURL F5XC
-        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET -k https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
+        run: curl --openssl-legacy-provider --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -616,7 +616,7 @@ jobs:
       - uses: actions/checkout@v3
  
       - name: cURL NGINX-One
-        run: curl --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET -k https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
+        run: curl --openssl-legacy-provider --max-time 10 --cert-type P12 --cert certs/${{ secrets.VES_TENANT }}.api-creds.p12:${{ secrets.VES_P12_PASSWORD }} -X GET https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
  
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
