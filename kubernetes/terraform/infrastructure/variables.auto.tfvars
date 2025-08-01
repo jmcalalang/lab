@@ -13,5 +13,5 @@ existing_subnet_resource_group  = "calalang-networking-rg"
 
 aks-instance-count = 1
 aks-node-count     = 2
-kubernetes_version = "latest"
+kubernetes_version = "1.30.14"
 vm_size            = "Standard_D3_v2"
