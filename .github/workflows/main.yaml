@@ -290,6 +290,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      - name: Update cURL
+        run: apt-get install --only-upgrade curl
+
       - name: cURL Version
         run: curl --version | head -n 1 | awk '{ print $2 }'
 
