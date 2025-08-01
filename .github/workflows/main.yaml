@@ -289,8 +289,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: cURL F5XC
-        run: curl --max-time 10 https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang -H 'Authorization APIToken ${{ secrets.VES_API_TOKEN }}'
+      - name: Make authenticated F5XC API request
+        run: |
+          curl --max-time 10 \
+            -H "Authorization: APIToken ${{ secrets.VES_API_TOKEN }}" \
+            https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -613,8 +616,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: cURL NGINX-One
-        run: curl --max-time 10 https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/web/namespaces/j-calalang -H 'Authorization APIToken ${{ secrets.VES_API_TOKEN }}'
+      - name: Make authenticated F5XC API request
+        run: |
+          curl --max-time 10 \
+            -H "Authorization: APIToken ${{ secrets.VES_API_TOKEN }}" \
+            https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
  
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
