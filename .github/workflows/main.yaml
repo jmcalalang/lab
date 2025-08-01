@@ -134,7 +134,7 @@ jobs:
     steps:
       - name: cURL BIG-IP
         run: |
-          curl --max-time 10 \
+          curl -k --max-time 10 \
             -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
             https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/        
 
