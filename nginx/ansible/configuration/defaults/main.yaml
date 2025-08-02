@@ -9,5 +9,5 @@ ansible_date_time: "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
 
 # List of NGINX One Instance IDs
 azure_instances: 
-  - instance: inst_pBw1xbmTT7CKnqGh5p5kzA
-  - instance: inst_mDlsy9LlQ8mRaXleuJuN0w
+  - instance: inst_gxuNnnS1S7OwJQaUXvltiQ
+  - instance: inst_n3TwXbtcSGWISkaZ7hienQ
