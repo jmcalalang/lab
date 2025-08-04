@@ -169,7 +169,7 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.ingressClass"
+    name  = "controller.ingressClass.name"
     value = "nginx"
   }
 
@@ -261,7 +261,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
   }
 
   set {
-    name  = "controller.ingressClass"
+    name  = "controller.ingressClass.name"
     value = "ingresslink-nginx"
   }
 
