@@ -226,7 +226,7 @@ resource "helm_release" "nginx-plus-ingress" {
   set {
     name  = "controller.loglevel"
     value = "warning"
-  }  
+  }
 
 }
 
@@ -318,6 +318,6 @@ resource "helm_release" "nginx-plus-ingressLink" {
   set {
     name  = "controller.loglevel"
     value = "warning"
-  }  
+  }
 
 }
