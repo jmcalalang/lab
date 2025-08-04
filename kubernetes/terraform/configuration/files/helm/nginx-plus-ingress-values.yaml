@@ -209,10 +209,13 @@ controller:
   ## The Ingress Controller only processes resources that belong to its class - i.e. have the "ingressClassName" field resource equal to the class.
 
   ## The Ingress Controller processes all the resources that do not have the "ingressClassName" field for all versions of kubernetes.
-  ingressClass: nginx
+  ingressClass.name: nginx
 
   ## New Ingresses without an ingressClassName field specified will be assigned the class specified in `controller.ingressClass`.
   setAsDefaultIngress: false
+
+  ## A class of the NGINX Ingress Controller. An IngressClass resource with the name equal to the class must be deployed. Otherwise, the NGINX Ingress Controller will fail to start. the NGINX Ingress Controller only processes resources that belong to its class - i.e. have the "ingressClassName" field resource equal to the class. the NGINX Ingress Controller processes all the VirtualServer/VirtualServerRoute/TransportServer resources that do not have the "ingressClassName" field for all versions of Kubernetes.
+  controller.ingressClass.create: true
 
   ## Comma separated list of namespaces to watch for Ingress resources. By default the Ingress Controller watches all namespaces. Mutually exclusive with "controller.watchNamespaceLabel".
   watchNamespace: ""

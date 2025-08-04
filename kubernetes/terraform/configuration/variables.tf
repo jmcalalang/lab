@@ -46,6 +46,13 @@ variable "nginx-ingress-controller-image" {
   type        = string
   description = "NGINX Ingress Controller Image"
 }
+# This data is the dockerconfigjson of a manually created secret 
+    # kubectl create secret \
+    # docker-registry regcred \
+    # --docker-server=private-registry.nginx.com \
+    # --docker-username= "clear nginx jwt" \
+    # --docker-password=none
+
 variable "nginx_regcred_data" {
   type        = string
   description = "NGINX Generated regcred data"
