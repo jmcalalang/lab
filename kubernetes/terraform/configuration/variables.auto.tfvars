@@ -11,9 +11,9 @@ big-ip-gtm-management-address = "10.0.1.4"
 bigip_aks_partition           = "calalang-aks-cluster"
 
 # Nginx Ingress Controller Values
-# Versions: https://github.com/nginxinc/kubernetes-ingress/tree/main/charts/nginx-ingress
+# Versions: https://github.com/nginxinc/helm-charts/tree/master/stable
 nginx-ingress-controller-chart-version = "2.2.1"
-nginx-ingress-controller-image         = "5.2.0"
+nginx-ingress-controller-image         = "5.1.0"
 
 # vk8s Terraform Variable Values
 namespace                  = "j-calalang"
