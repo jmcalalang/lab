@@ -80,7 +80,7 @@ resource "kubectl_manifest" "argo" {
 data "kubectl_path_documents" "nginx-ingress" {
   pattern = "./files/manifests/nginx-ingress/nginx-ingress-*.yaml"
   vars = {
-    nginx_repo_jwt = var.nginx_repo_jwt
+    nginx_regcred_data = var.nginx_regcred_data
   }
 }
 
@@ -94,7 +94,7 @@ resource "kubectl_manifest" "nginx-ingress" {
 data "kubectl_path_documents" "nginx-ingresslink" {
   pattern = "./files/manifests/nginx-ingresslink/nginx-ingresslink-*.yaml"
   vars = {
-    nginx_repo_jwt = var.nginx_repo_jwt
+    nginx_regcred_data = var.nginx_regcred_data
   }
 }
 

@@ -194,7 +194,7 @@ Configuration management of Kubernetes resources
 | BIGIP_AKS_PASSWORD              |
 | BIGIP_AKS_USER                  |
 | F5XC_SITE_TOKEN                 |
-| NGINX_REPO_JWT                  |
+| NGINX_REGCRED_DATA               |
 | VES_VK8S_CLIENT_CERTIFICATE     |
 | VES_VK8S_CLIENT_KEY             |
 | VES_VK8S_CLUSTER_CA_CERTIFICATE |

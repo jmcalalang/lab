@@ -5,6 +5,4 @@ metadata:
   namespace: nginx-ingress
 type: kubernetes.io/dockerconfigjson
 data:
-  username: ${nginx_repo_jwt}
-  password: none
-  server: private-registry.nginx.com
+  .dockerconfigjson: ${nginx_regcred_data}

@@ -46,9 +46,9 @@ variable "nginx-ingress-controller-image" {
   type        = string
   description = "NGINX Ingress Controller Image"
 }
-variable "nginx_repo_jwt" {
+variable "nginx_regcred_data" {
   type        = string
-  description = "NGINX JWT"
+  description = "NGINX Generated regcred data"
 }
 
 # vk8s Terraform Variable Values
