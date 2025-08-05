@@ -331,23 +331,21 @@ resource "helm_release" "nginx-plus-ingressLink" {
   set {
     name = "controller.globalConfiguration.spec.listeners"
     value = [
-      yamlencode(
-        {
-          "name" : "dns-udp",
-          "port" : 5353,
-          "protocol" : "UDP"
-        },
-        {
-          "name" : "dns-tcp",
-          "port" : 5353,
-          "protocol" : "TCP"
-        },
-        {
-          "name" : "tcp-listener",
-          "port" : 8888,
-          "protocol" : "TCP"
-        }
-      )
+      {
+        "name" : "dns-udp",
+        "port" : 5353,
+        "protocol" : "UDP"
+      },
+      {
+        "name" : "dns-tcp",
+        "port" : 5353,
+        "protocol" : "TCP"
+      },
+      {
+        "name" : "tcp-listener",
+        "port" : 8888,
+        "protocol" : "TCP"
+      }
     ]
   }
 
