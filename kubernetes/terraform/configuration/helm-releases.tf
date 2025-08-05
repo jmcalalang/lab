@@ -213,7 +213,7 @@ resource "helm_release" "nginx-plus-ingress" {
     value = "true"
   }
 
-  set_list {
+  set {
     name = "controller.globalConfiguration.spec.listeners"
     value = [
       {
