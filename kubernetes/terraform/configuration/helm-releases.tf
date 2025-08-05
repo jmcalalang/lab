@@ -210,7 +210,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.globalConfiguration.create"
-    value = "false"
+    value = "true"
   }
 
   set {
@@ -228,20 +228,30 @@ resource "helm_release" "nginx-plus-ingress" {
     value = "warning"
   }
 
-  set {
-    name  = "controller[0].globalConfiguration.spec.listeners.name"
-    value = tcp-listener
+  set_list {
+    name = "controller.globalConfiguration.spec.listeners.name.dns-udp"
+    value = [
+      "port=5353",
+      "protocol=UDP"
+    ]
   }
 
-  set {
-    name  = "controller[0].globalConfiguration.spec.listeners.port"
-    value = 8888
+  set_list {
+    name = "controller.globalConfiguration.spec.listeners.name.dns-tcp"
+    value = [
+      "port=5353",
+      "protocol=TCP"
+    ]
   }
 
-  set {
-    name  = "controller[0].globalConfiguration.spec.protocol"
-    value = TCP
+  set_list {
+    name = "controller.globalConfiguration.spec.listeners.name.transport-8888"
+    value = [
+      "port=8888",
+      "protocol=TCP"
+    ]
   }
+
 }
 
 # NGINX plus ingressLink controller
