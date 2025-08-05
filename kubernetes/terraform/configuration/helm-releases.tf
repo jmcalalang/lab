@@ -214,26 +214,13 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name = "controller.globalConfiguration.spec.listeners"
-    value = [yamlencode({
-      "listeners" : [
-        {
-          "name" : "dns-udp",
-          "port" : 5353,
-          "protocol" : "UDP"
-        },
-        {
-          "name" : "dns-tcp",
-          "port" : 5353,
-          "protocol" : "TCP"
-        },
-        {
-          "name" : "tcp-listener",
-          "port" : 8888,
-          "protocol" : "TCP"
-        }
-      ]
-    })]
+    name = "controller.globalConfiguration.spec.listeners.name.tcp-listener"
+    value = [
+      jsonencode([
+        { name = "tcp-port", value = "8888" },
+        { name = "protocol", value = "TCP" }
+      ])
+    ]
   }
 
   set {
@@ -325,28 +312,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
 
   set {
     name  = "controller.globalConfiguration.create"
-    value = "true"
-  }
-
-  set_list {
-    name = "controller.globalConfiguration.spec.listeners"
-    value = [
-      {
-        "name" : "dns-udp",
-        "port" : 5353,
-        "protocol" : "UDP"
-      },
-      {
-        "name" : "dns-tcp",
-        "port" : 5353,
-        "protocol" : "TCP"
-      },
-      {
-        "name" : "tcp-listener",
-        "port" : 8888,
-        "protocol" : "TCP"
-      }
-    ]
+    value = "false"
   }
 
   set {
