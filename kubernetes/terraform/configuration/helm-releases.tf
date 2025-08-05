@@ -228,6 +228,10 @@ resource "helm_release" "nginx-plus-ingress" {
     value = "warning"
   }
 
+  set {
+    name  = "controller.globalConfiguration.spec.listeners"
+    value = "name: tcp-listener\nport: 8888\nprotocol: TCP"
+  }
 }
 
 # NGINX plus ingressLink controller
