@@ -215,7 +215,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set_list {
     name  = "controller.globalConfiguration.spec.listeners"
-    value = "[{name = \"name\", value = \"tcp-transport-listner-8888\"}, {name = \"port\", value = \"8888\"}, {name = \"protocol\", value = \"TCP\"}]"
+    value = "{name = \"name\", value = \"tcp-transport-listner-8888\"}, {name = \"port\", value = \"8888\"}, {name = \"protocol\", value = \"TCP\"}"
   }
 
   set {
