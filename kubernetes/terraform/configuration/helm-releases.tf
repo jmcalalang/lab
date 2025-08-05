@@ -213,9 +213,13 @@ resource "helm_release" "nginx-plus-ingress" {
     value = "true"
   }
 
-  set {
+  set_list {
     name  = "controller.globalConfiguration.spec.listeners"
-    value = "[{\"name\":\"dns-udp\",\"port\":5353,\"protocol\":\"UDP\"},{\"name\":\"dns-tcp\",\"port\":5353,\"protocol\":\"TCP\"},{\"name\":\"8888-tcp\",\"port\":8888,\"protocol\":\"TCP\"}]"
+    value = [
+      "{\"name\":\"dns-udp\",\"port\":5353,\"protocol\":\"UDP\"}",
+      "{\"name\":\"dns-tcp\",\"port\":5353,\"protocol\":\"TCP\"}",
+      "{\"name\":\"8888-tcp\",\"port\":8888,\"protocol\":\"TCP\"}"
+    ]
   }
 
   set {
