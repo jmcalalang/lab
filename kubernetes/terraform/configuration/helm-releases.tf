@@ -214,8 +214,8 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.globalConfiguration.spec.listeners"
-    value = "{\n    \"name\": \"tcp-listener\",\n    \"port\": 8888,\n    \"protocol\": \"TCP\"\n  }"
+    name  = "controller.globalConfiguration.spec.listeners.name.tcp-listener-8888"
+    value = "{\n    \"port\": 8888,\n    \"protocol\": \"TCP\"\n  }"
   }
 
   set {
