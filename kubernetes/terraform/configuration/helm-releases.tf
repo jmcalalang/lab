@@ -214,7 +214,7 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set_list {
-    name  = "controller.globalConfiguration.spec.listeners"
+    name = "controller.globalConfiguration.spec.listeners"
     value = [
       "{\"name\":\"dns-udp\",\"port\":5353,\"protocol\":\"UDP\"}",
       "{\"name\":\"dns-tcp\",\"port\":5353,\"protocol\":\"TCP\"}",
