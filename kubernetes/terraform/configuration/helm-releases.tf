@@ -239,7 +239,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
 
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
-    "${file("./files/manifests/ingresslink/nginx-ingresslink-custom-values.helm")}"
+    "${file("./files/manifests/nginx-ingresslink/nginx-ingresslink-custom-values.helm")}"
   ]
 
   set {
