@@ -215,7 +215,12 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.globalConfiguration.spec.listeners"
-    value = file("./files/manifests/nginx-ingress/nginx-ingress-globalconfiguration.helm")
+    value = "{\"name\":\"dns-udp\",\"port\":5353,\"protocol\":\"UDP\"},{\"name\":\"dns-tcp\",\"port\":5353,\"protocol\":\"TCP\"},{\"name\":\"8888-tcp\",\"port\":8888,\"protocol\":\"TCP\"}"
+  }
+
+  set {
+    name  = "controller.pod.annotations.status\\.kubernetes\\.io/restart-on-failure"
+    value = "{\"timeout\": \"30s\"}"
   }
 
   set {
