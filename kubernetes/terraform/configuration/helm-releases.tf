@@ -151,7 +151,7 @@ resource "helm_release" "nginx-plus-ingress" {
 
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
-    "${file("./files/manifests/nginx-ingress/nginx-ingress-globalconfiguration.helm")}"
+    "${file("./files/manifests/nginx-ingress/nginx-ingress-custom-values.helm")}"
   ]
 
   set {
@@ -210,11 +210,6 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.globalConfiguration.create"
-    value = "true"
-  }
-
-  set {
     name  = "controller.enableSnippets"
     value = "true"
   }
@@ -243,7 +238,8 @@ resource "helm_release" "nginx-plus-ingressLink" {
   ]
 
   values = [
-    "${file("./files/helm/nginx-plus-ingress-values.yaml")}"
+    "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
+    "${file("./files/manifests/ingresslink/nginx-ingresslink-custom-values.helm")}"
   ]
 
   set {
@@ -299,11 +295,6 @@ resource "helm_release" "nginx-plus-ingressLink" {
   set {
     name  = "controller.replicaCount"
     value = "1"
-  }
-
-  set {
-    name  = "controller.globalConfiguration.create"
-    value = "true"
   }
 
   set {
