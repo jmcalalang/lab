@@ -214,21 +214,6 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.globalConfiguration.spec.listeners"
-    value = <<-EOT
-- name: dns-udp
-  port: 5353
-  protocol: UDP
-- name: dns-tcp
-  port: 5353
-  protocol: TCP
-- name: 8888-tcp
-  port: 8888
-  protocol: TCP
-EOT
-  }
-
-  set {
     name  = "controller.pod.annotations.status\\.kubernetes\\.io/restart-on-failure"
     value = "{\"timeout\": \"30s\"}"
   }
@@ -262,7 +247,8 @@ resource "helm_release" "nginx-plus-ingressLink" {
   ]
 
   values = [
-    "${file("./files/helm/nginx-plus-ingress-values.yaml")}"
+    "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
+    "${file("./files/manifests/nginx-ingress/nginx-ingress-globalconfiguration.helm")}"
   ]
 
   set {
@@ -322,7 +308,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
 
   set {
     name  = "controller.globalConfiguration.create"
-    value = "true"
+    value = "false"
   }
 
   set {
