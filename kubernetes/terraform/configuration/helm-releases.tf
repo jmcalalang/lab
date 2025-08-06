@@ -215,7 +215,17 @@ resource "helm_release" "nginx-plus-ingress" {
 
   set {
     name  = "controller.globalConfiguration.spec.listeners"
-    value = "{\"name\":\"8888-tcp\",\"port\":8888,\"protocol\":\"TCP\"}"
+    value = <<-EOT
+- name: dns-udp
+  port: 5353
+  protocol: UDP
+- name: dns-tcp
+  port: 5353
+  protocol: TCP
+- name: 8888-tcp
+  port: 8888
+  protocol: TCP
+EOT
   }
 
   set {
@@ -312,7 +322,7 @@ resource "helm_release" "nginx-plus-ingressLink" {
 
   set {
     name  = "controller.globalConfiguration.create"
-    value = "false"
+    value = "true"
   }
 
   set {
