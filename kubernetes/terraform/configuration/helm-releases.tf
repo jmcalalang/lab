@@ -214,8 +214,8 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.globalConfiguration.spec"
-    value = "string(${file("./files/manifests/nginx-ingress/nginx-ingress-globalconfiguration.helm")})"
+    name  = "controller.globalConfiguration.spec.listeners"
+    value = file("/files/manifests/nginx-ingress/nginx-ingress-globalconfiguration.helm")
   }
 
   set {

@@ -1,10 +1,9 @@
-listeners:
-  - name: dns-udp
-    port: 5353
-    protocol: UDP
-  - name: dns-tcp
-    port: 5353
-    protocol: TCP
-  - name: tcp-8888
-    port: 8888
-    protocol: TCP
+- name: dns-udp
+  port: 5353
+  protocol: UDP
+- name: dns-tcp
+  port: 5353
+  protocol: TCP
+- name: tcp-8888
+  port: 8888
+  protocol: TCP
