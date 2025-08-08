@@ -46,13 +46,17 @@ variable "nginx-ingress-controller-image" {
   type        = string
   description = "NGINX Ingress Controller Image"
 }
+# kubectl create secret generic license-token --from-file=license.jwt=<path-to-your-jwt> --type=nginx.com/license -n <your-namespace>
+variable "nginx_license_jwt_base64" {
+  type        = string
+  description = "NGINX License JWT Base64"
+}
 # This data is the dockerconfigjson of a manually created secret 
 # kubectl create secret \
 # docker-registry regcred \
 # --docker-server=private-registry.nginx.com \
 # --docker-username= "clear nginx jwt" \
 # --docker-password=none
-
 variable "nginx_regcred_data" {
   type        = string
   description = "NGINX Generated regcred data"

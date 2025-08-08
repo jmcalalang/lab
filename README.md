@@ -187,19 +187,20 @@ Configuration management of Kubernetes resources
 
 | **Configuration Env Variables** |
 |---------------------------------|
-| AZURE_APPID                     |
-| AZURE_PASSWORD                  |
-| AZURE_SUBSCRIPTION              |
-| AZURE_TENANT                    |
-| BIGIP_AKS_PASSWORD              |
-| BIGIP_AKS_USER                  |
-| F5XC_SITE_TOKEN                 |
+| AZURE_APPID                      |
+| AZURE_PASSWORD                   |
+| AZURE_SUBSCRIPTION               |
+| AZURE_TENANT                     |
+| BIGIP_AKS_PASSWORD               |
+| BIGIP_AKS_USER                   |
+| F5XC_SITE_TOKEN                  |
 | NGINX_REGCRED_DATA               |
-| VES_VK8S_CLIENT_CERTIFICATE     |
-| VES_VK8S_CLIENT_KEY             |
-| VES_VK8S_CLUSTER_CA_CERTIFICATE |
-| VES_VK8S_CONTEXT                |
-| VES_VK8S_SERVER                 |
+| VES_VK8S_CLIENT_CERTIFICATE      |
+| VES_VK8S_NGINX_LICENSE_JWT_BASE64|
+| VES_VK8S_CLIENT_KEY              |
+| VES_VK8S_CLUSTER_CA_CERTIFICATE  |
+| VES_VK8S_CONTEXT                 |
+| VES_VK8S_SERVER                  |
 
 - Terraform (Infrastructure)
   - Azure Kubernetes Service(s)
