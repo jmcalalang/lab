@@ -12,9 +12,9 @@ controller:
       # - name: dns-tcp
       #   port: 5353
       #   protocol: TCP
-      - name: 8888-tcp
-        port: 8888
-        protocol: TCP
+    - name: 8888-tcp
+      port: 8888
+      protocol: TCP
 
   ## It is recommended to use your own TLS certificates and keys
   defaultTLS:

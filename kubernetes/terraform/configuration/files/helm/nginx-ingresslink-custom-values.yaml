@@ -1,18 +1,4 @@
 controller:
-  globalConfiguration:
-    ## Creates the GlobalConfiguration custom resource. Requires controller.enableCustomResources.
-    create: true
-
-    ## The spec of the GlobalConfiguration for defining the global configuration parameters of the Ingress Controller.
-    spec: ## {} ## Ensure both curly brackets are removed when adding listeners in YAML format.
-    listeners:
-      # - name: dns-udp
-      #   port: 5353
-      #   protocol: UDP
-      # - name: dns-tcp
-      #   port: 5353
-      #   protocol: TCP
-
   ## It is recommended to use your own TLS certificates and keys
   defaultTLS:
     ## The base64-encoded TLS certificate for the default HTTPS server.
