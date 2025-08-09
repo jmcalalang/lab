@@ -3,6 +3,5 @@ kind: Secret
 metadata:
   name: license-token
   namespace: nginx-ingress
-type: generic
 data:
   license.jwt: ${nginx_license_jwt_base64}
