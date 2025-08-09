@@ -180,16 +180,6 @@ resource "helm_release" "nginx-plus-ingress" {
   }
 
   set {
-    name  = "controller.customConfigMap"
-    value = "nginx-config"
-  }
-
-  set {
-    name  = "controller.defaultTLS.secret"
-    value = "nginx-ingress/default-server-secret"
-  }
-
-  set {
     name  = "controller.appprotect.enable"
     value = "true"
   }
@@ -265,16 +255,6 @@ resource "helm_release" "nginx-plus-ingressLink" {
   set {
     name  = "controller.image.tag"
     value = var.nginx-ingress-controller-image
-  }
-
-  set {
-    name  = "controller.customConfigMap"
-    value = "ingresslink-nginx-config"
-  }
-
-  set {
-    name  = "controller.defaultTLS.secret"
-    value = "ingresslink/default-server-secret"
   }
 
   set {
