@@ -54,7 +54,7 @@ controller:
             listen 12345;
             listen [::]:12345;
             zone_sync;
-            zone_sync_server nginx-ingress-headless.nginx-ingress.svc.cluster.local:12345 resolve;
+            zone_sync_server nginx-ingress-controller-headless.nginx-ingress.svc.cluster.local:12345 resolve;
         }
       resolver-addresses: 10.0.8.10
       resolver-valid: 5s
