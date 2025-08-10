@@ -2,6 +2,9 @@ controller:
   ## Deploys the Ingress Controller for NGINX Plus.
   nginxplus: true
 
+  ## Enable OIDC policies.
+  enableOIDC: true
+
   ## Enable custom NGINX configuration snippets in Ingress, VirtualServer, VirtualServerRoute and TransportServer resources.
   enableSnippets: true
 
