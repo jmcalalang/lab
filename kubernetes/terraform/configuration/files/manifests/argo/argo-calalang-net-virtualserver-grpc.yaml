@@ -17,7 +17,5 @@ spec:
       enable: true
   routes:
   - path: /
-    location-snippets: |
-      status_zone argo-calalang-net-grpc;
     action:
       pass: argo-argocd-server

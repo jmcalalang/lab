@@ -9,3 +9,4 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: ingresslink
+      app.kubernetes.io/name: nginx-ingress
