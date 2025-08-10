@@ -6,4 +6,5 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app: nginx-ingress-controller
+    app.kubernetes.io/instance: nginx-ingress
+    app.kubernetes.io/name: nginx-ingress
