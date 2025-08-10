@@ -20,4 +20,4 @@ spec:
         - responseHeader: HTTP/1.1 403 forbidden
           responseActionType: custom
           responsePageType: default
-          responseContent: "<html><head><title>Custom Reject Page</title></head><body><h1>I EAT THE COOKIE</h1><br><img src=\'https://longislandweekly.com/wp-content/uploads/2019/11/Cookie-Monster-cookie-crumbs.jpg\' width=200 height=150><br><br>Your support ID is: <%TS.request.ID()%><br><br><a href=\'javascript:history.back();\'>[Go Back]</a></body></html>"
+          responseContent: "<html><head><title>Custom Reject Page</title></head><body><h1>I EAT THE COOKIE</h1><br><img src='https://longislandweekly.com/wp-content/uploads/2019/11/Cookie-Monster-cookie-crumbs.jpg' width=200 height=150><br><br>Your support ID is: <%TS.request.ID()%><br><br><a href='javascript:history.back();'>[Go Back]</a></body></html>"
