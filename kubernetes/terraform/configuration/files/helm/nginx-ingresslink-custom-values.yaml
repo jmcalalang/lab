@@ -12,9 +12,6 @@ controller:
   ## Useful for external health-checking of the Ingress Controller.
   healthStatus: true
 
-  ## The log level of the Ingress Controller. Options include: trace, debug, info, warning, error, fatal
-  logLevel: warning
-
   service:
     ## Creates a service to expose the Ingress Controller pods.
     create: true

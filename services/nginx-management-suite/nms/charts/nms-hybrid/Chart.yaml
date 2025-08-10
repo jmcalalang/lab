@@ -1,6 +1,0 @@
-apiVersion: v2
-appVersion: 2.11.0
-description: A Helm chart for Kubernetes
-name: nms-hybrid
-type: application
-version: 2.11.0
