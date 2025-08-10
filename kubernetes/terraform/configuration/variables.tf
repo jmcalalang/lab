@@ -36,15 +36,10 @@ variable "bigip_aks_partition" {
   description = "BIG-IP AKS Partition"
 }
 
-
 # Nginx Ingress Controller Values
 variable "nginx-ingress-controller-chart-version" {
   type        = string
   description = "NGINX Ingress Controller Chart Version"
-}
-variable "nginx-ingress-controller-image" {
-  type        = string
-  description = "NGINX Ingress Controller Image"
 }
 # kubectl create secret generic license-token --from-file=license.jwt=<path-to-your-jwt> --type=nginx.com/license -n <your-namespace>
 variable "nginx_license_jwt_base64" {
@@ -61,7 +56,6 @@ variable "nginx_regcred_data" {
   type        = string
   description = "NGINX Generated regcred data"
 }
-
 # vk8s Terraform Variable Values
 variable "f5_license_secret_jwt" {
   type        = string
