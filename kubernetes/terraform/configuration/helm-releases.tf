@@ -153,67 +153,6 @@ resource "helm_release" "nginx-plus-ingress" {
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
     "${file("./files/helm/nginx-ingress-custom-values.yaml")}"
   ]
-
-  set {
-    name  = "controller.serviceAccount.imagePullSecretName"
-    value = "regcred"
-  }
-
-  set {
-    name  = "controller.nginxplus"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.image.repository"
-    value = "private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress"
-  }
-
-  set {
-    name  = "controller.ingressClass.name"
-    value = "nginx"
-  }
-
-  set {
-    name  = "controller.image.tag"
-    value = var.nginx-ingress-controller-image
-  }
-
-  set {
-    name  = "controller.appprotect.enable"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.enableOIDC"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.service.type"
-    value = "ClusterIP"
-  }
-
-  set {
-    name  = "controller.replicaCount"
-    value = "1"
-  }
-
-  set {
-    name  = "controller.enableSnippets"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.healthStatus"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.loglevel"
-    value = "warning"
-  }
-
 }
 
 # NGINX plus ingressLink controller

@@ -39,5 +39,5 @@ controller:
       proxy-protocol: "True"
       real-ip-header: "proxy_protocol"
       set-real-ip-from: "10.0.0.0/16"
-      # resolver-addresses: 10.0.8.10
+      resolver-addresses: 10.0.8.10
       resolver-valid: 5s
