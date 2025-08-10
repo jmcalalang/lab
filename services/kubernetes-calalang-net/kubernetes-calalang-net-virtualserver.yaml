@@ -33,8 +33,6 @@ spec:
       port: 8001
   routes:
     - path: /
-      location-snippets: |
-        status_zone kubernetes-calalang-net-root;
       policies:
         - name: kubernetes-calalang-net-oidc-policy
       action:
@@ -56,7 +54,6 @@ spec:
                 always: true
     - path: /api
       location-snippets: |
-        status_zone kubernetes-calalang-net-api;
         set $custom_variable $binary_remote_addr;
       policies:
         - name: brewz-rate-limit-policy
@@ -75,8 +72,6 @@ spec:
               - name: x-debug-original-status
                 value: ${upstream_status}
     - path: /api/inventory
-      location-snippets: |
-        status_zone kubernetes-calalang-net-inventory;
       policies:
         - name: brewz-api-policy
       action:

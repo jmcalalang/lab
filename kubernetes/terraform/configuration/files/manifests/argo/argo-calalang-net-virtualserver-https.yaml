@@ -19,8 +19,6 @@ spec:
       enable: true
   routes:
   - path: /
-    location-snippets: |
-      status_zone argo-calalang-net-root;
     policies:
     - name: oidc-policy
     action:
