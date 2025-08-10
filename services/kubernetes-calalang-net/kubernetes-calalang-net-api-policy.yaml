@@ -5,13 +5,13 @@ metadata:
 spec:
   waf:
     enable: true
-    apPolicy: "calalang-net/brewz-api-security-policy"
+    apPolicy: calalang-net/brewz-api-security-policy
     securityLogs:
       - 
         enable: true
-        apLogConf: "calalang-net/brewz-logconf"
-        logDest: "syslog:server=syslog.syslog-svc.default:514"
+        apLogConf: calalang-net/brewz-logconf
+        logDest: syslog:server=syslog.syslog-svc.default:514
       - 
         enable: true
-        apLogConf: "calalang-net/brewz-logconf"
-        logDest: "stderr"
+        apLogConf: calalang-net/brewz-logconf
+        logDest: stderr
