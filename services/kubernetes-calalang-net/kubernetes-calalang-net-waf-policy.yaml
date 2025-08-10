@@ -7,11 +7,9 @@ spec:
     enable: true
     apPolicy: "calalang-net/brewz-waf-security-policy"
     securityLogs:
-      - 
-        enable: true
+      - enable: true
         apLogConf: "calalang-net/brewz-logconf"
         logDest: "syslog:server=syslog.syslog-svc.default:514"
-      - 
-        enable: true
+      - enable: true
         apLogConf: "calalang-net/brewz-logconf"
         logDest: "stderr"
