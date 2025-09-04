@@ -13,7 +13,7 @@ spec:
         - ../../gha-runner-scale-set-controller/files/values.yaml
       ignoreMissingValueFiles: false
   destination:
-    name: 'https://kubernetes.default.svc'
+    name: "in-cluster"
     namespace: gha-runner-scale-set-controller
   syncPolicy:
     automated:
