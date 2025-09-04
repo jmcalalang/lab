@@ -43,6 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
