@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "gha-runner-scale-set-controller"
+  namespace: gha-runner-scale-set-controller
+spec:
+  project: default
+  source:
+    chart: gha-runner-scale-set-controller
+    repoURL: ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+    helm:
+      valueFiles:
+        - ../../gha-runner-scale-set-controller/files/values.yaml
+      ignoreMissingValueFiles: false
+  destination:
+    name: "https://kubernetes.default.svc"
+    namespace: gha-runner-scale-set-controller
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true
+      - CreateNamespace=true
