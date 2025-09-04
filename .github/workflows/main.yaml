@@ -74,7 +74,7 @@ jobs:
 
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Configuration]
 
     # Environment Variables
@@ -92,7 +92,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - name: Azure login
         uses: azure/login@v1
@@ -134,7 +140,7 @@ jobs:
 
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -147,13 +153,18 @@ jobs:
 
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Resources-Available]
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - name: Install PIP
         run: sudo apt-get install -y python3-pip
@@ -190,7 +201,7 @@ jobs:
 
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Active-Directory-Terraform-Infrastructure]    
 
     # Environment Variables
@@ -214,7 +225,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -244,7 +261,7 @@ jobs:
 
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
     
     # Environment Variables
@@ -262,7 +279,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -289,7 +312,7 @@ jobs:
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]    
 
     # Environment Variables
@@ -299,7 +322,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - name: Make authenticated F5XC API request
         run: |
@@ -309,7 +338,7 @@ jobs:
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available]
     
     # Environment Variables
@@ -325,7 +354,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -350,7 +385,7 @@ jobs:
 
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available, F5XC-Terraform-Infrastructure]
     
     # Environment Variables
@@ -367,7 +402,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -394,7 +435,7 @@ jobs:
 #
 #  GoDaddy-Terraform-Configuration:
 #    # The type of runner that the job will run on
-#    runs-on: ubuntu-latest
+#    runs-on: calalang-aks-runners
 #    
 #    # Environment Variables
 #    env:
@@ -435,7 +476,7 @@ jobs:
 
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -476,7 +517,7 @@ jobs:
 
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Infrastructure]
 
     # Environment Variables
@@ -572,7 +613,7 @@ jobs:
 
   Cloud-Network-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     
     # Environment Variables
     env:
@@ -617,7 +658,7 @@ jobs:
  
   NGINX-One-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, NGINX-Terraform-Infrastructure]
 
     # Environment Variables
@@ -637,7 +678,7 @@ jobs:
  
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, NGINX-One-Resources-Available]
     
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -675,7 +716,7 @@ jobs:
  
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Active-Directory-Terraform-Infrastructure]
     
     # Environment Variables
