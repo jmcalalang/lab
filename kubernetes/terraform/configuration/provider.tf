@@ -35,12 +35,14 @@ provider "helm" {
 provider "helm" {
   # Configuration options
   alias = "helm-vk8s"
-  kubernetes {
-    host                   = var.ves_vk8s_server
-    client_certificate     = base64decode(var.ves_vk8s_client_certificate)
-    client_key             = base64decode(var.ves_vk8s_client_key)
-    cluster_ca_certificate = base64decode(var.ves_vk8s_cluster_ca_certificate)
-  }
+  kubernetes = [
+    {
+      host                   = var.ves_vk8s_server
+      client_certificate     = base64decode(var.ves_vk8s_client_certificate)
+      client_key             = base64decode(var.ves_vk8s_client_key)
+      cluster_ca_certificate = base64decode(var.ves_vk8s_cluster_ca_certificate)
+    }
+  ]
 }
 provider "kubectl" {
   # Configuration options

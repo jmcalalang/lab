@@ -38,16 +38,16 @@ resource "helm_release" "argocd" {
     "${file("./files/helm/argocd-values.yaml")}"
   ]
 
-  set {
-    name  = "service.type"
-    value = "ClusterIP"
-  }
-
-  set {
-    name  = "server.insecure"
-    value = "true"
-  }
-
+  set = [
+    {
+      name  = "service.type"
+      value = "ClusterIP"
+    },
+    {
+      name  = "server.insecure"
+      value = "true"
+    }
+  ]
 }
 
 # BIG-IP Container Ingress Services
@@ -61,81 +61,68 @@ resource "helm_release" "cis" {
     "${file("./files/helm/f5-bigip-ctlr-values.yaml")}"
   ]
 
-  set {
-    name  = "ingressClass.isDefaultIngressController"
-    value = "false"
-  }
-
-  set {
-    name  = "bigip_secret.create"
-    value = "true"
-  }
-
-  set {
-    name  = "bigip_secret.username"
-    value = var.bigip_aks_username
-  }
-
-  set {
-    name  = "bigip_secret.password"
-    value = var.bigip_aks_password
-  }
-
-  set {
-    name  = "version"
-    value = var.big-ip-cis-image
-  }
-
-  set {
-    name  = "args.bigip_partition"
-    value = var.bigip_aks_partition
-  }
-
-  set {
-    name  = "args.bigip_url"
-    value = var.big-ip-ltm-management-address
-  }
-
-  set {
-    name  = "args.insecure"
-    value = "true"
-  }
-
-  set {
-    name  = "args.custom-resource-mode"
-    value = "true"
-  }
-
-  set {
-    name  = "args.log-as3-response"
-    value = "true"
-  }
-
-  set {
-    name  = "args.gtm-bigip-username"
-    value = var.bigip_aks_username
-  }
-
-  set {
-    name  = "args.gtm-bigip-password"
-    value = var.bigip_aks_password
-  }
-
-  set {
-    name  = "args.gtm-bigip-url"
-    value = var.big-ip-gtm-management-address
-  }
-
-  set {
-    name  = "args.pool_member_type"
-    value = "cluster"
-  }
-
-  set {
-    name  = "args.log_level"
-    value = "DEBUG"
-  }
-
+  set = [
+    {
+      name  = "ingressClass.isDefaultIngressController"
+      value = "false"
+    },
+    {
+      name  = "bigip_secret.create"
+      value = "true"
+    },
+    {
+      name  = "bigip_secret.username"
+      value = var.bigip_aks_username
+    },
+    {
+      name  = "bigip_secret.password"
+      value = var.bigip_aks_password
+    },
+    {
+      name  = "version"
+      value = var.big-ip-cis-image
+    },
+    {
+      name  = "args.bigip_partition"
+      value = var.bigip_aks_partition
+    },
+    {
+      name  = "args.bigip_url"
+      value = var.big-ip-ltm-management-address
+    },
+    {
+      name  = "args.insecure"
+      value = "true"
+    },
+    {
+      name  = "args.custom-resource-mode"
+      value = "true"
+    },
+    {
+      name  = "args.log-as3-response"
+      value = "true"
+    },
+    {
+      name  = "args.gtm-bigip-username"
+      value = var.bigip_aks_username
+    },
+    {
+      name  = "args.gtm-bigip-password"
+      value = var.bigip_aks_password
+    },
+    {
+      name  = "args.gtm-bigip-url"
+      value = var.big-ip-gtm-management-address
+    },
+    {
+      name  = "args.pool_member_type"
+      value = "cluster"
+    },
+    {
+      name  = "args.log_level"
+      value = "DEBUG"
+    }
+  ]
 }
 
 # NGINX plus ingress controller
