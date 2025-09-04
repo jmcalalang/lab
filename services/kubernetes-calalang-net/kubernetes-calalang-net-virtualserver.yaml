@@ -55,9 +55,9 @@ spec:
     - path: /api
       location-snippets: |
         set $custom_variable $binary_remote_addr;
-        policies:
-          - name: brewz-rate-limit-policy
-          - name: brewz-api-policy
+      policies:
+        - name: brewz-rate-limit-policy
+        - name: brewz-api-policy
       action:
         proxy:
           upstream: api
