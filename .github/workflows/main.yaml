@@ -6,25 +6,24 @@ on:
   push:
     branches: ["main"]
     paths-ignore:
-      - '**/**.md'
-      - '**/**.png'
+      - "**/**.md"
+      - "**/**.png"
   pull_request:
     branches: ["main"]
     paths-ignore:
-      - '**/**.md'
-      - '**/**.png'
+      - "**/**.md"
+      - "**/**.png"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # jobs for Argo, Active Directory, BIG-IP, F5XC, GoDaddy, Kubernetes, and NGINX
 jobs:
-
   Active-Directory-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]
-    
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -47,7 +46,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -70,12 +69,16 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-########################################################################################################
+  ########################################################################################################
 
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Configuration]
+    needs:
+      [
+        Cloud-Network-Terraform-Infrastructure,
+        Kubernetes-Terraform-Configuration,
+      ]
 
     # Environment Variables
     env:
@@ -98,7 +101,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Azure login
         uses: azure/login@v1
@@ -109,8 +112,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
-          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
+          resource-group: "${{ secrets.AZURE_AKS_RG }}"
+          cluster-name: "${{ secrets.AZURE_AKS_NAME }}"
 
       - name: Setup kubectl
         id: install-kubectl
@@ -136,12 +139,13 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-########################################################################################################
+  ########################################################################################################
 
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure]
+    needs:
+      [Cloud-Network-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -149,13 +153,13 @@ jobs:
         run: |
           curl -k --max-time 10 \
             -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
-            https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/        
+            https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
 
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Resources-Available]
-    
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v5
@@ -164,7 +168,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install PIP
         run: sudo apt-get install -y python3-pip
@@ -202,7 +206,7 @@ jobs:
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure]    
+    needs: [Active-Directory-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -231,7 +235,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -262,8 +266,9 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
-    
+    needs:
+      [Cloud-Network-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
+
     # Environment Variables
     env:
       BIGIP_USER: ${{ secrets.BIGIP_USER }}
@@ -285,7 +290,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -308,12 +313,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-########################################################################################################
+  ########################################################################################################
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure]    
+    needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -328,7 +333,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Make authenticated F5XC API request
         run: |
@@ -340,7 +345,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available]
-    
+
     # Environment Variables
     env:
       TF_VAR_f5xc-cloud-credential: ${{ secrets.F5XC_CLOUD_CREDENTIAL }}
@@ -360,7 +365,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -386,8 +391,13 @@ jobs:
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available, F5XC-Terraform-Infrastructure]
-    
+    needs:
+      [
+        Cloud-Network-Terraform-Infrastructure,
+        F5XC-Resources-Available,
+        F5XC-Terraform-Infrastructure,
+      ]
+
     # Environment Variables
     env:
       TF_VAR_jwk-calalang-net: ${{ secrets.JWK_CALALANG_NET }}
@@ -408,7 +418,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -431,48 +441,54 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-########################################################################################################
-#
-#  GoDaddy-Terraform-Configuration:
-#    # The type of runner that the job will run on
-#    runs-on: calalang-aks-runners
-#    
-#    # Environment Variables
-#    env:
-#      GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
-#      GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
-#
-#    # Where are the Terraform files
-#    defaults:
-#      run:
-#        working-directory: godaddy/terraform/
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v3
-#      
-#      - uses: hashicorp/setup-terraform@v2
-#        with:
-#          terraform_version: latest
-#
-#      - name: Terraform GoDaddy-Terraform fmt
-#        id: fmt
-#        run: terraform fmt -check
-#        continue-on-error: false
-#
-#      - name: Terraform GoDaddy-Terraform Init
-#        id: init
-#        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.#TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
-#
-#      - name: Terraform GoDaddy-Terraform Validate
-#        id: validate
-#        run: terraform validate -no-color
-#
-#      - name: Terraform GoDaddy-Terraform Apply
-#        id: apply
-#        run: terraform apply --auto-approve
-#
-########################################################################################################
+  ########################################################################################################
+  #
+  #  GoDaddy-Terraform-Configuration:
+  #    # The type of runner that the job will run on
+  #    runs-on: calalang-aks-runners
+  #
+  #    # Environment Variables
+  #    env:
+  #      GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
+  #      GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
+  #
+  #    # Where are the Terraform files
+  #    defaults:
+  #      run:
+  #        working-directory: godaddy/terraform/
+  #
+  #    # Steps represent a sequence of tasks that will be executed as part of the job
+  #    steps:
+  #     - uses: actions/checkout@v5
+  #
+  #     # When running on self-hosted GitHub Actions runners,
+  #     # NodeJS must be previously installed with the version specified in the action.yml.
+  #     - uses: actions/setup-node@v5
+  #       with:
+  #         node-version: '20'
+  #
+  #      - uses: hashicorp/setup-terraform@v2
+  #        with:
+  #          terraform_version: latest
+  #
+  #      - name: Terraform GoDaddy-Terraform fmt
+  #        id: fmt
+  #        run: terraform fmt -check
+  #        continue-on-error: false
+  #
+  #      - name: Terraform GoDaddy-Terraform Init
+  #        id: init
+  #        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.#TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+  #
+  #      - name: Terraform GoDaddy-Terraform Validate
+  #        id: validate
+  #        run: terraform validate -no-color
+  #
+  #      - name: Terraform GoDaddy-Terraform Apply
+  #        id: apply
+  #        run: terraform apply --auto-approve
+  #
+  ########################################################################################################
 
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -493,7 +509,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -518,7 +540,11 @@ jobs:
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, Kubernetes-Terraform-Infrastructure]
+    needs:
+      [
+        Cloud-Network-Terraform-Infrastructure,
+        Kubernetes-Terraform-Infrastructure,
+      ]
 
     # Environment Variables
     env:
@@ -546,7 +572,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
 
       - name: Azure login
         uses: azure/login@v1
@@ -557,8 +589,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ secrets.AZURE_AKS_RG }}' 
-          cluster-name: '${{ secrets.AZURE_AKS_NAME }}'
+          resource-group: "${{ secrets.AZURE_AKS_RG }}"
+          cluster-name: "${{ secrets.AZURE_AKS_NAME }}"
 
       - name: Setup kubectl
         id: install-kubectl
@@ -586,7 +618,7 @@ jobs:
 
       - name: Update charts
         id: charts-update
-        run: helm repo update 
+        run: helm repo update
         continue-on-error: false
 
       - name: HashiCorp Terraform Setup
@@ -609,12 +641,12 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-######################################################################################################
+  ######################################################################################################
 
   Cloud-Network-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -631,7 +663,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -654,12 +692,13 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-######################################################################################################
- 
+  ######################################################################################################
+
   NGINX-One-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, NGINX-Terraform-Infrastructure]
+    needs:
+      [Cloud-Network-Terraform-Infrastructure, NGINX-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -668,38 +707,51 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
 
       - name: Make authenticated NGINX One API request
         run: |
           curl --max-time 10 \
             -H "Authorization: APIToken ${{ secrets.VES_API_TOKEN }}" \
             https://${{ secrets.VES_TENANT }}.console.ves.volterra.io/api/nginx/one/namespaces/default/instances/summary
- 
+
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, NGINX-One-Resources-Available]
-    
+    needs:
+      [Cloud-Network-Terraform-Infrastructure, NGINX-One-Resources-Available]
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
- 
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
       - name: Install PIP
         run: sudo apt-get install -y python3-pip
- 
+
       - name: Install apt-get dependencies
         run: sudo pip3 install jmespath
- 
+
       - name: Setup ansible
         run: |
           ansible --version
           pipx inject ansible-core jmespath
- 
+
       - name: Working directory
         run: pwd
- 
+
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
@@ -713,12 +765,12 @@ jobs:
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
           directory: "./nginx/ansible/configuration/playbooks"
- 
+
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
     needs: [Active-Directory-Terraform-Infrastructure]
-    
+
     # Environment Variables
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
@@ -736,7 +788,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
 
       - uses: hashicorp/setup-terraform@v2
         with:
