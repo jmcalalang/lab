@@ -1,7 +1,11 @@
 # Argo variables
 
-# 
-variable "app-gha-runner-scale-set-controller-version" {
+# GitHub Actions Runner
+variable "app_gha_runner_version" {
   type        = string
-  description = "Argo App GHA Runner Scale Set Controller Version Number"
+  description = "GitHub Actions Runner Version"
+}
+variable "gha_runner_github_token" {
+  type        = string
+  description = "GitHub Token for Actions Runner"
 }

@@ -1,21 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "gha-runner-scale-set-controller"
+  name: "gha-runner-scale-set"
   namespace: argocd
 spec:
   project: default
   source:
-    chart: gha-runner-scale-set-controller
+    chart: gha-runner-scale-set
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     helm:
       valueFiles:
-        - https://raw.githubusercontent.com/actions/actions-runner-controller/refs/heads/master/charts/gha-runner-scale-set-controller/values.yaml
+        - https://raw.githubusercontent.com/actions/actions-runner-controller/refs/heads/master/charts/gha-runner-scale-set/values.yaml
       ignoreMissingValueFiles: false
+      parameters:
+        - name: "githubConfigSecret.github_token"
+          value: ${gha_runner_github_token}
     targetRevision: ${app_gha_runner_version}
   destination:
     name: "in-cluster"
-    namespace: gha-runner-scale-set-controller
+    namespace: gha-runner-scale-set
   syncPolicy:
     automated:
       prune: true

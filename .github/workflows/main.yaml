@@ -77,7 +77,8 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-  
+      TF_VAR_gha_runner_github_token: ${{ secrets.GHA_RUNNER_GITHUB_TOKEN }}
+
     # Where are the Terraform files
     defaults:
       run:
