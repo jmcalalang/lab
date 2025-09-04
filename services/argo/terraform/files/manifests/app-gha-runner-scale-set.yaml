@@ -15,6 +15,14 @@ spec:
       parameters:
         - name: "githubConfigSecret.github_token"
           value: ${gha_runner_github_token}
+        - name: "githubConfigUrl"
+          value: "https://github.com/jmcalalang/lab"
+        - name: "runnerScaleSetName"
+          value: "calalang-aks-runners"
+        - name: "controllerServiceAccount.namespace"
+          value: "gha-runner-scale-set-controller"
+        - name: "controllerServiceAccount.name"
+          value: "gha-runner-scale-set-controller-gha-rs-controller"
     targetRevision: ${app_gha_runner_version}
   destination:
     name: "in-cluster"
