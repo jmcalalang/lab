@@ -12,7 +12,7 @@ spec:
       valueFiles:
         - ../../gha-runner-scale-set-controller/files/values.yaml
       ignoreMissingValueFiles: false
-    targetRevision: ${var.app-gha-runner-scale-set-controller-version}
+    targetRevision: ${app-gha-runner-scale-set-controller-version}
   destination:
     name: "in-cluster"
     namespace: gha-runner-scale-set-controller

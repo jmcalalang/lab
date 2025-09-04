@@ -3,6 +3,7 @@
 data "kubectl_path_documents" "argo" {
   pattern = "./files/manifests/app-*.yaml"
   vars = {
+    app-gha-runner-scale-set-controller-version = var.app-gha-runner-scale-set-controller-version
   }
 }
 

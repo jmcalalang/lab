@@ -10,7 +10,7 @@ spec:
     path: services/transport-calalang-net
     targetRevision: HEAD
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: "in-cluster"
     namespace: transport
   syncPolicy:
     automated:

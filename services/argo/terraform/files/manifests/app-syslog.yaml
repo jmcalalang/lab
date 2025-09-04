@@ -10,7 +10,7 @@ spec:
     path: services/syslog
     targetRevision: HEAD
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: "in-cluster"
     namespace: syslog
   syncPolicy:
     automated:

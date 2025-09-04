@@ -10,7 +10,7 @@ spec:
     path: services/ingresslink-calalang-net
     targetRevision: HEAD
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: "in-cluster"
     namespace: ingresslink
   syncPolicy:
     automated:
