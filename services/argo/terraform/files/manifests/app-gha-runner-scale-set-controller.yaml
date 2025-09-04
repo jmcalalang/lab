@@ -10,7 +10,7 @@ spec:
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     helm:
       valueFiles:
-        - ../../gha-runner-scale-set-controller/files/values.yaml
+        - https://raw.githubusercontent.com/actions/actions-runner-controller/refs/heads/master/charts/gha-runner-scale-set-controller/values.yaml
       ignoreMissingValueFiles: false
     targetRevision: ${app-gha-runner-scale-set-controller-version}
   destination:
