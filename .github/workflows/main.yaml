@@ -46,7 +46,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -101,7 +101,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - name: Azure login
         uses: azure/login@v1
@@ -110,14 +110,14 @@ jobs:
 
       - name: Azure Kubernetes Context
         id: set-context
-        uses: azure/aks-set-context@v3
+        uses: azure/aks-set-context@v4
         with:
           resource-group: "${{ secrets.AZURE_AKS_RG }}"
           cluster-name: "${{ secrets.AZURE_AKS_NAME }}"
 
       - name: Setup kubectl
         id: install-kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -164,15 +164,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # When running on self-hosted GitHub Actions runners,
-      # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "20"
-
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          check-latest: true
 
       - name: Install jmespath
         run: sudo apt-get install -y python3-jmespath
@@ -236,7 +230,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -291,7 +285,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -330,12 +324,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # When running on self-hosted GitHub Actions runners,
-      # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "20"
-
       - name: Make authenticated F5XC API request
         run: |
           curl --max-time 10 \
@@ -366,7 +354,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -419,7 +407,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -466,7 +454,7 @@ jobs:
   #     # NodeJS must be previously installed with the version specified in the action.yml.
   #     - uses: actions/setup-node@v5
   #       with:
-  #         node-version: '20'
+  #         node-version: 'latest'
   #
   #      - uses: hashicorp/setup-terraform@v2
   #        with:
@@ -516,7 +504,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - name: HashiCorp Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -579,23 +567,23 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - name: Azure login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: '{"clientId":"${{ secrets.AZURE_APPID }}","clientSecret":"${{ secrets.AZURE_PASSWORD }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION }}","tenantId":"${{ secrets.AZURE_TENANT }}"}'
 
       - name: Azure Kubernetes Context
         id: set-context
-        uses: azure/aks-set-context@v3
+        uses: azure/aks-set-context@v4
         with:
           resource-group: "${{ secrets.AZURE_AKS_RG }}"
           cluster-name: "${{ secrets.AZURE_AKS_NAME }}"
 
       - name: Setup kubectl
         id: install-kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Add argo-cd charts
         id: argo-cd-add
@@ -670,7 +658,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
@@ -710,12 +698,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # When running on self-hosted GitHub Actions runners,
-      # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "20"
-
       - name: Make authenticated NGINX One API request
         run: |
           curl --max-time 10 \
@@ -732,12 +714,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v5
-
-      # When running on self-hosted GitHub Actions runners,
-      # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "20"
 
       - name: Install PIP
         run: sudo apt-get install -y python3-pip
@@ -795,7 +771,7 @@ jobs:
       # NodeJS must be previously installed with the version specified in the action.yml.
       - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "latest"
 
       - uses: hashicorp/setup-terraform@v2
         with:
