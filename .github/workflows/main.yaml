@@ -181,17 +181,10 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           ansible --version
 
-      #      - name: Install Ansible
-      #        run: |
-      #          sudo apt update && sudo apt upgrade -y
-      #          sudo apt install software-properties-common -y
-      #          sudo add-apt-repository --yes --update ppa:ansible/ansible
-      #          sudo apt install ansible -y
-      #          sudo apt install python3-pip -y
-      #          sudo apt install pipx -y
-      #          sudo pip3 install jmespath
-      #          pipx inject ansible-core jmespath
-      #          ansible --version
+      - name: Working Directory
+        run: |
+          echo "Current working directory:"
+          pwd
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -749,17 +742,10 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           ansible --version
 
-      #      - name: Install Ansible
-      #        run: |
-      #          sudo apt update && sudo apt upgrade -y
-      #          sudo apt install software-properties-common -y
-      #          sudo add-apt-repository --yes --update ppa:ansible/ansible
-      #          sudo apt install ansible -y
-      #          sudo apt install python3-pip -y
-      #          sudo apt install pipx -y
-      #          sudo pip3 install jmespath
-      #          pipx inject ansible-core jmespath
-      #          ansible --version
+      - name: Working Directory
+        run: |
+          echo "Current working directory:"
+          pwd
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
