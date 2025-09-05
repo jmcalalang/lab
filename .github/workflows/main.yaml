@@ -174,13 +174,10 @@ jobs:
       - name: Install Ansible
         run: |
           sudo apt update && sudo apt upgrade -y
-          sudo apt install python3-pip -y
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
+          sudo apt install python3-pip pipx -y
           sudo pip3 install jmespath
           pipx install ansible-core
           pipx inject ansible-core jmespath
-          pipx ensurepath
           export PATH="$HOME/.local/bin:$PATH"
           ansible --version
 
@@ -745,13 +742,10 @@ jobs:
       - name: Install Ansible
         run: |
           sudo apt update && sudo apt upgrade -y
-          sudo apt install python3-pip -y
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
+          sudo apt install python3-pip pipx -y
           sudo pip3 install jmespath
           pipx install ansible-core
           pipx inject ansible-core jmespath
-          pipx ensurepath
           export PATH="$HOME/.local/bin:$PATH"
           ansible --version
 
