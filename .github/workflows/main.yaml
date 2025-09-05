@@ -171,11 +171,11 @@ jobs:
         with:
           check-latest: true
 
-      - name: Install ansible-core and jmespathwith pipx
+      - name: Install ansible-core jmespath pipx
         run: |
-          apt-get install -y ansible-core
-          apt-get install -y install jmespath
-          apt-get install -y install pipx
+          sudo apt-get install -y ansible-core
+          sudo apt-get install -y jmespath
+          sudo apt-get install -y pipx
 
       - name: Setup ansible
         run: |
@@ -728,8 +728,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v5
 
-      - name: Install PIP
-        run: sudo apt-get install -y python3-pip
+      - name: Install ansible-core jmespath pipx
+        run: |
+          sudo apt-get install -y ansible-core
+          sudo apt-get install -y jmespath
+          sudo apt-get install -y pipx
 
       - name: Install apt-get dependencies
         run: sudo pip3 install jmespath
