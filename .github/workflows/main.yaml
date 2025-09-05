@@ -171,15 +171,13 @@ jobs:
         with:
           check-latest: true
 
-      - name: Install Ansible
-        run: |
-          sudo apt update && sudo apt upgrade -y
-          sudo apt install python3-pip pipx -y
-          sudo pip3 install jmespath
-          pipx install ansible-core
-          pipx inject ansible-core jmespath
-          export PATH="$HOME/.local/bin:$PATH"
-          ansible --version
+          run: |
+            sudo apt update
+            sudo apt install -y python3-pip pipx
+            pipx install --include-deps ansible-core
+            pipx inject ansible-core jmespath
+            pipx ensurepath
+            ansible --version
 
       - name: Working Directory
         run: |
@@ -735,15 +733,14 @@ jobs:
         with:
           check-latest: true
 
-      - name: Install Ansible
+      - name: Install Ansible (Faster)
         run: |
-          sudo apt update && sudo apt upgrade -y
-          sudo apt install python3-pip pipx -y
-          sudo pip3 install jmespath
-          pipx install ansible-core
+          sudo apt update
+          sudo apt install -y python3-pip pipx
+          pipx install --include-deps ansible-core
           pipx inject ansible-core jmespath
-          export PATH="$HOME/.local/bin:$PATH"
-          ansible --version
+          pipx ensurepath
+          ansible --version 
 
       - name: Working Directory
         run: |
