@@ -173,7 +173,10 @@ jobs:
 
       - name: Install ansible-core jmespath pipx
         run: |
-          sudo apt-get install -y ansible-core
+          sudo apt update
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sudo apt install -y ansible
           sudo apt-get install -y jmespath
           sudo apt-get install -y pipx
 
@@ -730,7 +733,10 @@ jobs:
 
       - name: Install ansible-core jmespath pipx
         run: |
-          sudo apt-get install -y ansible-core
+          sudo apt update
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sudo apt install -y ansible
           sudo apt-get install -y jmespath
           sudo apt-get install -y pipx
 
