@@ -205,7 +205,7 @@ jobs:
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
-          directory: "/big-ip/ansible/configuration/playbooks"
+          directory: "/home/runner/_work/lab/lab/big-ip/ansible/configuration/playbooks"
 
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
@@ -763,7 +763,7 @@ jobs:
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
-          directory: "/nginx/ansible/configuration/playbooks"
+          directory: "/home/runner/_work/lab/lab/nginx/ansible/configuration/playbooks"
 
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
