@@ -179,7 +179,7 @@ jobs:
           sudo pip3 install jmespath
           pipx install ansible-core
           pipx inject ansible-core jmespath
-          python3 -m pipx ensurepath
+          pipx ensurepath
           ansible --version
 
       #      - name: Install Ansible
@@ -748,7 +748,7 @@ jobs:
           sudo pip3 install jmespath
           pipx install ansible-core
           pipx inject ansible-core jmespath
-          python3 -m pipx ensurepath
+          pipx ensurepath
           ansible --version
 
       #      - name: Install Ansible
