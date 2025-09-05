@@ -185,6 +185,8 @@ jobs:
         run: |
           echo "Current working directory:"
           pwd
+          echo "folder contents:"
+          ls -al
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -746,6 +748,8 @@ jobs:
         run: |
           echo "Current working directory:"
           pwd
+          echo "folder contents:"
+          ls -al
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
