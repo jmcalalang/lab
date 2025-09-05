@@ -172,7 +172,9 @@ jobs:
 #          check-latest: true
 
       - name: "Install Ansible"
-        uses: alex-oleshkevich/setup-ansible@v1.0.1 
+        uses: alex-oleshkevich/setup-ansible@v1.0.1
+        with:
+          version: "latest"
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -721,7 +723,9 @@ jobs:
 #          check-latest: true
 
       - name: "Install Ansible"
-        uses: alex-oleshkevich/setup-ansible@v1.0.1 
+        uses: alex-oleshkevich/setup-ansible@v1.0.1
+        with:
+          version: "latest"
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
