@@ -179,13 +179,9 @@ jobs:
           pipx inject ansible-core jmespath
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Working Directory
+      - name: Ansible Modules
         run: |
-          echo "Current working directory:"
-          pwd
-          echo "folder contents:"
-          ls -al
-          echo $PATH
+          ansible-galaxy collection install f5networks.f5_modules
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -741,13 +737,9 @@ jobs:
           pipx inject ansible-core jmespath
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Working Directory
+      - name: Ansible Modules
         run: |
-          echo "Current working directory:"
-          pwd
-          echo "folder contents:"
-          ls -al
-          echo $PATH
+          ansible-galaxy collection install f5networks.f5_modules
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
