@@ -573,6 +573,8 @@ jobs:
         uses: azure/cli@v2
         with:
           azcliversion: "latest"
+          inlineScript: |
+            az version
 
       - name: Azure login
         uses: azure/login@v2
