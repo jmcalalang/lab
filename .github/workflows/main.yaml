@@ -187,10 +187,6 @@ jobs:
           ls -al
           echo $PATH
 
-      - name: Ansible Version
-        run: |
-          ansible
-
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
         with:
@@ -752,10 +748,6 @@ jobs:
           echo "folder contents:"
           ls -al
           echo $PATH
-
-      - name: Ansible Version
-        run: |
-          ansible --version
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
