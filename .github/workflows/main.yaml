@@ -169,7 +169,7 @@ jobs:
           check-latest: true
 
       - name: Install jmespath
-        run: sudo apt-get install -y python3-jmespath
+        run: pip install jmespath
 
       - name: Setup ansible
         run: |
@@ -568,13 +568,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "latest"
-
-      - name: Azure CLI
-        uses: azure/cli@v2
-        with:
-          azcliversion: "latest"
-          inlineScript: |
-            az version
 
       - name: Azure login
         uses: azure/login@v2
