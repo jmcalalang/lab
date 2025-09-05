@@ -180,7 +180,7 @@ jobs:
       - name: "Install packages"
         shell: bash
         run: |
-          python -m pip install ansible
+          python -m pip install ansible-core
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -737,7 +737,7 @@ jobs:
       - name: "Install packages"
         shell: bash
         run: |
-          python -m pip install ansible
+          python -m pip install ansible-core
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
