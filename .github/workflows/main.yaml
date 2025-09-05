@@ -588,6 +588,10 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v4
 
+      - name: Install helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
       - name: Add argo-cd charts
         id: argo-cd-add
         run: helm repo add argo https://argoproj.github.io/argo-helm
