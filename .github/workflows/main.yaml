@@ -170,14 +170,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           check-latest: true
+          cache: "pip" # caching pip dependencies
 
       - name: Install ansible
-        shell: bash
         run: |
-          python -m pip install ansible
-
-      - name: Working directory
-        run: pwd
+          pip install ansible
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -719,17 +716,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v5
 
       - uses: actions/setup-python@v5
         with:
           check-latest: true
+          cache: "pip" # caching pip dependencies
 
       - name: Install ansible
-        shell: bash
         run: |
-          python -m pip install ansible
+          pip install ansible
 
       - name: Working directory
         run: pwd
