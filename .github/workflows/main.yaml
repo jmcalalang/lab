@@ -178,7 +178,6 @@ jobs:
           pipx install --include-deps ansible-core
           pipx inject ansible-core jmespath
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          ansible --version 
 
       - name: Working Directory
         run: |
@@ -187,6 +186,10 @@ jobs:
           echo "folder contents:"
           ls -al
           echo $PATH
+
+      - name: Ansible Version
+        run: |
+          ansible
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -741,7 +744,6 @@ jobs:
           pipx install --include-deps ansible-core
           pipx inject ansible-core jmespath
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          ansible --version 
 
       - name: Working Directory
         run: |
@@ -750,6 +752,10 @@ jobs:
           echo "folder contents:"
           ls -al
           echo $PATH
+
+      - name: Ansible Version
+        run: |
+          ansible --version
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
