@@ -171,13 +171,14 @@ jobs:
         with:
           check-latest: true
 
-          run: |
-            sudo apt update
-            sudo apt install -y python3-pip pipx
-            pipx install --include-deps ansible-core
-            pipx inject ansible-core jmespath
-            pipx ensurepath
-            ansible --version
+      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip pipx
+          pipx install --include-deps ansible-core
+          pipx inject ansible-core jmespath
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          ansible --version 
 
       - name: Working Directory
         run: |
@@ -733,13 +734,13 @@ jobs:
         with:
           check-latest: true
 
-      - name: Install Ansible (Faster)
+      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
         run: |
           sudo apt update
           sudo apt install -y python3-pip pipx
           pipx install --include-deps ansible-core
           pipx inject ansible-core jmespath
-          pipx ensurepath
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           ansible --version 
 
       - name: Working Directory
