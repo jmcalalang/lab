@@ -569,6 +569,11 @@ jobs:
         with:
           node-version: "latest"
 
+      - name: Azure CLI
+        uses: azure/cli@v2
+        with:
+          azcliversion: "latest"
+
       - name: Azure login
         uses: azure/login@v2
         with:
