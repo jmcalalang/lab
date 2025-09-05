@@ -168,9 +168,9 @@ jobs:
         with:
           check-latest: true
 
-      - name: Install jmespath
-        run: pip install jmespath
-
+#      - name: Install jmespath
+#        run: pip install jmespath
+#
       - name: Setup ansible
         run: |
           ansible --version
@@ -568,6 +568,11 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "latest"
+
+       # need CLI as Azure Login requires it,  in self-hosted runners
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
       - name: Azure login
         uses: azure/login@v2
