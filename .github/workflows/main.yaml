@@ -103,6 +103,9 @@ jobs:
         with:
           node-version: "latest"
 
+      # Install azure-cli https://github.com/elstudio/action-install-azure-cli/tree/main
+      - uses: elstudio/action-install-azure-cli@v1
+
       - name: Azure login
         uses: azure/login@v1
         with:
@@ -168,9 +171,11 @@ jobs:
         with:
           check-latest: true
 
-      #      - name: Install jmespath
-      #        run: pip install jmespath
-      #
+      - name: Install ansible-core and jmespathwith pipx
+        run: |
+          pipx install ansible-core
+          pipx install jmespath
+
       - name: Setup ansible
         run: |
           ansible --version
