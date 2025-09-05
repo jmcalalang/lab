@@ -172,10 +172,10 @@ jobs:
 #          check-latest: true
 
       - name: "Install Ansible"
-        uses: alex-oleshkevich/setup-ansible@v1
+        uses: alex-oleshkevich/setup-ansible
 
       - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v2
+        uses: dawidd6/action-ansible-playbook@v4
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
@@ -721,10 +721,10 @@ jobs:
 #          check-latest: true
 
       - name: "Install Ansible"
-        uses: alex-oleshkevich/setup-ansible@v1
+        uses: alex-oleshkevich/setup-ansible
 
       - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v2
+        uses: dawidd6/action-ansible-playbook@v4
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
