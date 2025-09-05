@@ -187,8 +187,7 @@ jobs:
           pwd
           echo "folder contents:"
           ls -al
-          echo "PATH:"
-          $PATH
+          echo $PATH
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -752,8 +751,7 @@ jobs:
           pwd
           echo "folder contents:"
           ls -al
-          echo "PATH:"
-          $PATH
+          echo $PATH
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
