@@ -528,11 +528,7 @@ jobs:
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [
-        Cloud-Network-Terraform-Infrastructure,
-        Kubernetes-Terraform-Infrastructure,
-      ]
+    needs: [Kubernetes-Terraform-Infrastructure]
 
     # Environment Variables
     env:
