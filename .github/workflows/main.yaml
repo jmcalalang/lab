@@ -74,11 +74,7 @@ jobs:
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [
-        Cloud-Network-Terraform-Infrastructure,
-        Kubernetes-Terraform-Configuration,
-      ]
+    needs: [Kubernetes-Terraform-Configuration]
 
     # Environment Variables
     env:
@@ -147,8 +143,7 @@ jobs:
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [Cloud-Network-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure]
+    needs: [BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -161,7 +156,11 @@ jobs:
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure, BIG-IP-Resources-Available]
+    needs:
+      [
+        Active-Directory-Terraform-Infrastructure,
+        BIG-IP-Terraform-Infrastructure,
+      ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -207,7 +206,7 @@ jobs:
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure]
+    needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -267,8 +266,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [Cloud-Network-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
+    needs: [BIG-IP-Ansible-Configuration]
 
     # Environment Variables
     env:
@@ -319,7 +317,6 @@ jobs:
   F5XC-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -386,12 +383,7 @@ jobs:
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [
-        Cloud-Network-Terraform-Infrastructure,
-        F5XC-Resources-Available,
-        F5XC-Terraform-Infrastructure,
-      ]
+    needs: [F5XC-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -718,8 +710,7 @@ jobs:
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [NGINX-One-Resources-Available]
+    needs: [NGINX-One-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
