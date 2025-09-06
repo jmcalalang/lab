@@ -54,6 +54,21 @@
     force: true
   check_mode: false
 
+- name: Check if AS3 RPM file exists
+  ansible.builtin.stat:
+    path: "{{ tmp_dir }}/{{ as3_file }}"
+  register: file_status
+
+- name: Display message if file exists
+  ansible.builtin.debug:
+    msg: "The file {{ tmp_dir }}/{{ as3_file }} exists."
+  when: file_status.stat.exists
+
+- name: Display message if file does not exist
+  ansible.builtin.debug:
+    msg: "The file {{ tmp_dir }}/{{ as3_file }} does not exist."
+  when: not file_status.stat.exists
+
 - name: Add an iAppLX Package for Application Services 3
   bigip_lx_package:
     package: "{{ tmp_dir }}/{{ as3_file }}"
