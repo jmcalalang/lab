@@ -160,6 +160,7 @@ jobs:
       [
         Active-Directory-Terraform-Infrastructure,
         BIG-IP-Terraform-Infrastructure,
+        BIG-IP-Resources-Available,
       ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -266,7 +267,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [BIG-IP-Ansible-Configuration]
+    needs: [BIG-IP-Ansible-Configuration, BIG-IP-Resources-Available]
 
     # Environment Variables
     env:
@@ -740,7 +741,7 @@ jobs:
             --extra-vars "@../defaults/main.yaml" 
             --extra-vars "nginx_one_f5xc_api_token='${{ secrets.VES_API_TOKEN }}'"
             --extra-vars "nginx_one_f5xc_tenant='${{ secrets.VES_TENANT }}'"
-          # --verbose -vvvv
+            --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live

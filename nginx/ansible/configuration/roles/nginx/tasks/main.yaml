@@ -19,7 +19,7 @@
 
 # Create Config Sync Group in NGINX One
 
-- name: Create or update NGINX One azure-instances Config Sync Group
+- name: Create or update NGINX One calalang_nginx_azure_instances Config Sync Group
   delegate_to: localhost
   uri:
     body: "{\"name\":\"calalang_nginx_azure_instances\"}"
@@ -38,14 +38,14 @@
 
 # Create Config Sync Group in NGINX One Configuration
 
-- name: Template NGINX One azure-instances Cluster Declaration
+- name: Template NGINX One calalang_nginx_azure_instances Cluster Declaration
   template: src="../config/azure-instances/nginx.tpl" dest="../config/azure-instances/nginx.json"
   delegate_to: localhost
   when: state == "present"
 
 # Send Config Sync Group in NGINX One Configuration
 
-- name: Create or update NGINX One azure-instances Cluster Declaration
+- name: Create or update NGINX One calalang_nginx_azure_instances Cluster Declaration
   delegate_to: localhost
   uri:
     body: "{{ lookup('ansible.builtin.file','../config/azure-instances/nginx.json') }}"
