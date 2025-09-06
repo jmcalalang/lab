@@ -352,19 +352,6 @@
                     "privateKey": {
                         "bigip": "/Common/default.key"
                     }
-                },
-                "calalangTLSServer": {
-                    "class": "TLS_Server",
-                    "certificates": [
-                        {
-                            "certificate": "calalangTLSCert"
-                        }
-                    ]
-                },
-                "calalangTLSCert": {
-                    "class": "Certificate",
-                    "certificate": "{{ calalang_net_cert }}",
-                    "privateKey": "{{ calalang_net_key }}"
                 }
             }
         }

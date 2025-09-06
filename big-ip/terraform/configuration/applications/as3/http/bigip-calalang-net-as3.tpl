@@ -84,7 +84,7 @@
                     "class": "HTTP_Profile",
                     "insertHeader": {
                         "name": "X-Forwarded-IP-Custom",
-                        "value": "[expr { [IP::client_addr] }]:[?\"]"
+                        "value": "[IP::client_addr]"
                     },
                     "xForwardedFor": true
                 },
