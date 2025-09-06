@@ -46,14 +46,14 @@
   when: state == "present"
 
 - name: Prepare the TS declaration
-  template: src="../f5-automation-toolchain/ts/telemetryStreaming.tpl" dest="../f5-automation-toolchain/ts/telemetryStreaming.json"
+  template: src="../common/ts/telemetryStreaming.tpl" dest="../common/ts/telemetryStreaming.json"
   delegate_to: localhost
   when: state == "present"
 
 - name: Create or update {{ BIGIPhost01 }}; TS Declaration
   delegate_to: localhost
   uri:
-    body: "{{ lookup('file','../f5-automation-toolchain/ts/' + 'telemetryStreaming.json') }}"
+    body: "{{ lookup('file','../common/ts/' + 'telemetryStreaming.json') }}"
     body_format: json
     headers:
       X-F5-Auth-Token: "{{ bigip1_auth_token }}"

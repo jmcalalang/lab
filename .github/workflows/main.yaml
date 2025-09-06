@@ -196,6 +196,8 @@ jobs:
             --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
             --extra-vars "otel_host=${{ secrets.OTEL_HOST }}"
             --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
+            --extra-vars "calalang_net_cert=${{ secrets.CALALANG_NET_CERT }}"
+            --extra-vars "calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
             --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
