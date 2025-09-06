@@ -22,11 +22,11 @@
 - name: Create or update NGINX One azure-instances Config Sync Group
   delegate_to: localhost
   uri:
-    body: "{\"name\":\"my-nginx-config-sync-group\"}"
+    body: "{\"name\":\"calalang\"}"
     body_format: json
     headers:
       Authorization: "APIToken {{ nginx_one_f5xc_api_token }}"
-    method: PUT
+    method: POST
     url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/default/config-sync-groups"
     status_code: [200, 202]
     validate_certs: yes

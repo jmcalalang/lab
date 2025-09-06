@@ -699,8 +699,6 @@ jobs:
   NGINX-One-Resources-Available:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs:
-      [Cloud-Network-Terraform-Infrastructure, NGINX-Terraform-Infrastructure]
 
     # Environment Variables
     env:
@@ -721,7 +719,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
     needs:
-      [Cloud-Network-Terraform-Infrastructure, NGINX-One-Resources-Available]
+      [NGINX-One-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -741,7 +739,7 @@ jobs:
 
       - name: Ansible Modules
         run: |
-          ansible-galaxy collection install f5networks.f5_modules community.general
+          ansible-galaxy collection install community.general
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -760,7 +758,7 @@ jobs:
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure]
+    needs: [NGINX-One-Ansible-Configuration]
 
     # Environment Variables
     env:
