@@ -365,7 +365,7 @@
                     "class": "Certificate",
                     "certificate": "{{ calalang_net_cert }}",
                     "privateKey": "{{ calalang_net_key }}"
-                }                
+                }
             }
         }
     }
