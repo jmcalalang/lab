@@ -353,8 +353,8 @@
                         "bigip": "/Common/default.key"
                     }
                 },
-                "calalangTLSClient": {
-                    "class": "TLS_Client",
+                "calalangTLSServer": {
+                    "class": "TLS_Server",
                     "certificates": [
                         {
                             "certificate": "calalangTLSCert"
