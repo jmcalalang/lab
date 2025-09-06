@@ -58,7 +58,7 @@
   ansible.builtin.find:
     paths: "{{ tmp_dir }}" # The directory to search within
     file_type: any # Can be 'file', 'directory', or 'any'
-    recurse: yes # Set to 'yes' to search subdirectories recursively
+    recurse: no # Set to 'yes' to search subdirectories recursively
   register: directory_contents
 
 - name: Display the found files and directories
@@ -67,7 +67,7 @@
 
 - name: Add an iAppLX Package for Application Services 3
   bigip_lx_package:
-    package: "{{ tmp_dir }}/{{ as3_file }}"
+    package: "/home/runner/as3.rpm"
     provider: "{{ bigip_provider }}"
     state: present
   delegate_to: localhost
