@@ -1,5 +1,5 @@
 # automation toolchain specific parameters
-tmp_dir: "/github/home"
+tmp_dir: "~"
 f5_networks_github_base_url: "https://api.github.com/repos/F5Networks"
 
 as3_file: "as3.rpm"
