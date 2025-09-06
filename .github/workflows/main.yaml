@@ -174,7 +174,7 @@ jobs:
       - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
         run: |
           sudo apt update
-          sudo apt install -y python3-pip pipx
+          sudo apt install -y python3-pip pipx alien
           pipx install --include-deps ansible-core
           pipx inject ansible-core jmespath
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
