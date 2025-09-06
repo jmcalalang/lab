@@ -70,8 +70,6 @@
     package: "/home/runner/as3.rpm"
     provider: "{{ bigip_provider }}"
     state: present
-    no_f5_teem: true
-    retain_package_file: true
   delegate_to: localhost
   with_items:
     - "{{ bigips }}"

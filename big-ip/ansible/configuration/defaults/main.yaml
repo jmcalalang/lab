@@ -7,6 +7,7 @@ bigip_provider:
   user: "{{ BIGIPadminUsername }}"
   password: "{{ BIGIPadminPassword }}"
   validate_certs: false
+  no_f5_teem: true
 
 # Use Ansible module or skip
 state: 'present'
