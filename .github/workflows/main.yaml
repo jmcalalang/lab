@@ -181,7 +181,7 @@ jobs:
 
       - name: Ansible Modules
         run: |
-          ansible-galaxy collection install f5networks.f5_modules
+          ansible-galaxy collection install f5networks.f5_modules community.general
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
@@ -739,7 +739,7 @@ jobs:
 
       - name: Ansible Modules
         run: |
-          ansible-galaxy collection install f5networks.f5_modules
+          ansible-galaxy collection install f5networks.f5_modules community.general
 
       - name: Run Ansible Playbooks
         uses: dawidd6/action-ansible-playbook@v4
