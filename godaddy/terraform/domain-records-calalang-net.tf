@@ -58,34 +58,6 @@ resource "godaddy_domain_record" "domain-records-calalang-net" {
     ttl  = var.ttl
   }
 
-  record {
-    name = "_acme-challenge.nms"
-    type = var.record-type-cname
-    data = "e979678f91c74c5f83d909055bb970f7.autocerts.ves.volterra.io"
-    ttl  = var.ttl
-  }
-
-  record {
-    name = "nms"
-    type = var.record-type-cname
-    data = var.http-lb-kubernetes-ves-hostname
-    ttl  = var.ttl
-  }
-
-  record {
-    name = "_acme-challenge.jwt.nms"
-    type = var.record-type-cname
-    data = "77fcf4a2b99f4acfa91a9923ce33a594.autocerts.ves.volterra.io"
-    ttl  = var.ttl
-  }
-
-  record {
-    name = "jwt.nms"
-    type = var.record-type-cname
-    data = var.http-lb-kubernetes-ves-hostname
-    ttl  = var.ttl
-  }
-
   # Records for NGINX
 
   record {
