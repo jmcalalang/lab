@@ -24,15 +24,15 @@ resource "bigip_ssl_key_cert" "virtual-apm-calalang-net-ssl" {
   cert_content = base64decode(var.calalang_net_cert)
 }
 
-resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
-  name          = "/Common/https-terraform-calalang-net-ssl-profile"
-  cert          = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.cert_name}"
-  key           = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.key_name}"
-  partition     = "Common"
-  defaults_from = "/Common/clientssl"
-  authenticate  = "always"
-  ciphers       = "DEFAULT"
-}
+#resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
+#  name          = "/Common/https-terraform-calalang-net-ssl-profile"
+#  cert          = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.cert_name}"
+#  key           = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.key_name}"
+#  partition     = "Common"
+#  defaults_from = "/Common/clientssl"
+#  authenticate  = "always"
+#  ciphers       = "DEFAULT"
+#}
 
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
   name                   = "/Common/pool-apm-calalang-net-terraform"
