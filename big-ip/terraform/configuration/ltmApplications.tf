@@ -3,7 +3,7 @@
 # Virtual server apm-calalang-net
 resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   name            = "/Common/https-terraform"
-  client_profiles = [bigip_ltm_profile_client_ssl.virtual-apm-calalang-net-ssl-profile.name]
+  client_profiles = ["Common/clientssl"]
   destination     = "10.0.2.7"
   description     = "apm.calalang.net"
   #  irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
