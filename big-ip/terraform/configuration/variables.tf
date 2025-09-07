@@ -14,3 +14,13 @@ variable "as3-version" {
   type        = string
   description = "AS3 Schema Version Number"
 }
+
+variable "calalang_net_cert" {
+  type        = string
+  description = "SSL Certificate for calalang.net"
+}
+
+variable "calalang_net_key" {
+  type        = string
+  description = "SSL Key for calalang.net"
+}

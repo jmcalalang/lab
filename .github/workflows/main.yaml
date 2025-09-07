@@ -191,9 +191,7 @@ jobs:
             --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
             --extra-vars "otel_host=${{ secrets.OTEL_HOST }}"
             --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
-            --extra-vars "calalang_net_cert=${{ secrets.CALALANG_NET_CERT }}"
-            --extra-vars "calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
-            --verbose -vvvv
+          #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
@@ -217,6 +215,8 @@ jobs:
       TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
       TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
       TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
+      TF_VAR_calalang_net_cert: ${{ secrets.CALALANG_NET_CERT }}
+      TF_VAR_calalang_net_key: ${{ secrets.CALALANG_NET_KEY }}
 
     # Where are the Terraform files
     defaults:
