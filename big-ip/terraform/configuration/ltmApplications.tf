@@ -26,8 +26,8 @@ resource "bigip_ssl_key_cert" "virtual-apm-calalang-net-ssl" {
 
 resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
   name          = "/Common/https-terraform-calalang-net-ssl-profile"
-  cert          = bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.cert_name
-  key           = bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.key_name
+  cert          = "/Common/" + bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.cert_name
+  key           = "/Common/" + bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.key_name
   partition     = "Common"
   defaults_from = "/Common/clientssl"
   authenticate  = "always"
