@@ -15,12 +15,12 @@ variable "as3-version" {
   description = "AS3 Schema Version Number"
 }
 
-variable "calalang_net_cert" {
+variable "wildcard-calalang-net-certificate" {
   type        = string
   description = "SSL Certificate for calalang.net"
 }
 
-variable "calalang_net_key" {
+variable "wildcard-calalang-net-key" {
   type        = string
   description = "SSL Key for calalang.net"
 }

@@ -269,8 +269,8 @@ jobs:
       BIGIP_HOST: ${{ secrets.BIGIP_HOSTNAME }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
-      TF_VAR_calalang_net_cert: ${{ secrets.CALALANG_NET_CERT }}
-      TF_VAR_calalang_net_key: ${{ secrets.CALALANG_NET_KEY }}
+      TF_VAR_wildcard-calalang-net-certificate: ${{ secrets.CALALANG_NET_CERT }}
+      TF_VAR_wildcard-calalang-net-key: ${{ secrets.CALALANG_NET_KEY }}
 
     # Where are the Terraform files
     defaults:
