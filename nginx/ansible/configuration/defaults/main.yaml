@@ -12,4 +12,4 @@ namespace: jmcalalang
 
 # List of NGINX One Instance IDs
 config_sync_group_nginx_azure_instances: 
-  - config_sync_group: csg_pALNrq95RJeyBTYedIBbpA
+  - config_sync_group: csg_7CrclNk0TDeOezQsJZvYqQ

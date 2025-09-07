@@ -17,24 +17,24 @@
   until: "(nginx_one_config_sync_groups_response is successful) and (nginx_one_config_sync_groups_response.status == 200)"
   when: state == "present"
 
-# Create Config Sync Group in NGINX One
-
-- name: Create or update NGINX One calalang_nginx_azure_instances Config Sync Group
-  delegate_to: localhost
-  uri:
-    body: "{\"name\":\"calalang_nginx_azure_instances\"}"
-    body_format: json
-    headers:
-      Authorization: "APIToken {{ nginx_one_f5xc_api_token }}"
-    method: POST
-    url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/{{ namespace }}/config-sync-groups"
-    status_code: 200
-    validate_certs: yes
-  register: nginx_one_config_sync_create_response
-  retries: 30
-  delay: 5
-  until: "(nginx_one_config_sync_create_response is successful) and (nginx_one_config_sync_create_response.status == 200)"
-  when: state == "present"
+# # Create Config Sync Group in NGINX One
+# 
+# - name: Create or update NGINX One calalang_nginx_azure_instances Config Sync Group
+#   delegate_to: localhost
+#   uri:
+#     body: "{\"name\":\"calalang_nginx_azure_instances\"}"
+#     body_format: json
+#     headers:
+#       Authorization: "APIToken {{ nginx_one_f5xc_api_token }}"
+#     method: POST
+#     url: "https://{{ nginx_one_f5xc_tenant }}.console.ves.volterra.io/api/nginx/one/namespaces/{{ namespace }}/config-sync-groups"
+#     status_code: 200
+#     validate_certs: yes
+#   register: nginx_one_config_sync_create_response
+#   retries: 30
+#   delay: 5
+#   until: "(nginx_one_config_sync_create_response is successful) and (nginx_one_config_sync_create_response.status == 200)"
+#   when: state == "present"
 
 # Create Config Sync Group in NGINX One Configuration
 
