@@ -18,13 +18,13 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
 
 resource "bigip_ssl_certificate" "calalang-net-cert" {
   name      = "calalang-net.crt"
-  content   = string(base64decode(var.wildcard-calalang-net-certificate))
+  content   = tostring(base64decode(var.wildcard-calalang-net-certificate))
   partition = "Common"
 }
 
 resource "bigip_ssl_key" "calalang-net-key" {
   name      = "calalang-net.key"
-  content   = string(base64decode(var.wildcard-calalang-net-key))
+  content   = tostring(base64decode(var.wildcard-calalang-net-key))
   partition = "Common"
 }
 
