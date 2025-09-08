@@ -260,7 +260,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [BIG-IP-Ansible-Configuration, BIG-IP-Resources-Available]
+    needs: [BIG-IP-Terraform-Infrastructure, BIG-IP-Ansible-Configuration, BIG-IP-Resources-Available]
 
     # Environment Variables
     env:

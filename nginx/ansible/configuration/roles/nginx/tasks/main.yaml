@@ -61,5 +61,5 @@
   delay: 5
   with_items:
     - "{{ config_sync_group_nginx_azure_instances }}"
-  until: "(nginx_one_config_sync_update_response is successful) and (nginx_one_config_sync_update_response.status == 200)"
+  until: "(nginx_one_config_sync_update_response is successful) and (nginx_one_config_sync_update_response.status == 200 or nginx_one_config_sync_update_response.status == 202)"
   when: state == "present"
