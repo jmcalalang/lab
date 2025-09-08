@@ -16,39 +16,23 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   vlans_enabled              = "true"
 }
 
-resource "local_file" "calalang-net-cert" {
-  content  = base64decode(var.wildcard-calalang-net-certificate)
-  filename = "${path.module}/calalang-net-cert.pem"
+resource "bigip_ssl_key_cert" "calalang-net-bundle" {
+  partition    = "Common"
+  key_name     = "calalang-net"
+  key_content  = base64decode(var.wildcard-calalang-net-key)
+  cert_name    = "calalang-net"
+  cert_content = base64decode(var.wildcard-calalang-net-certificate)
 }
 
-resource "bigip_ssl_certificate" "calalang-net-cert" {
-  name       = "calalang-net.crt"
-  content    = file("${path.module}/calalang-net-cert.pem")
-  partition  = "Common"
-  depends_on = [local_file.calalang-net-cert]
+resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
+  name          = "/Common/https-terraform-calalang-net-ssl-profile"
+  cert          = "/Common/${bigip_ssl_key_cert.calalang-net-bundle.cert_name}"
+  key           = "/Common/${bigip_ssl_key_cert.calalang-net-bundle.key_name}"
+  partition     = "Common"
+  defaults_from = "/Common/clientssl"
+  authenticate  = "always"
+  ciphers       = "DEFAULT"
 }
-
-resource "local_file" "calalang-net-key" {
-  content  = base64decode(var.wildcard-calalang-net-key)
-  filename = "${path.module}/calalang-net-key.pem"
-}
-
-resource "bigip_ssl_key" "calalang-net-key" {
-  name       = "calalang-net.key"
-  content    = file("${path.module}/calalang-net-key.pem")
-  partition  = "Common"
-  depends_on = [local_file.calalang-net-key]
-}
-
-#resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
-#  name          = "/Common/https-terraform-calalang-net-ssl-profile"
-#  cert          = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.cert_name}"
-#  key           = "/Common/${bigip_ssl_key_cert.virtual-apm-calalang-net-ssl.key_name}"
-#  partition     = "Common"
-#  defaults_from = "/Common/clientssl"
-#  authenticate  = "always"
-#  ciphers       = "DEFAULT"
-#}
 
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
   name                   = "/Common/pool-apm-calalang-net-terraform"
