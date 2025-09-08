@@ -19,9 +19,9 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
 resource "bigip_ssl_key_cert" "calalang-net-bundle" {
   partition    = "Common"
   cert_name    = "calalang-net"
-  cert_content = base64decode(var.wildcard_calalang_net_certificate)
+  cert_content = textdecodebase64(var.wildcard_calalang_net_certificate)
   key_name     = "calalang-net"
-  key_content  = base64decode(var.wildcard_calalang_net_key)
+  key_content  = textdecodebase64(var.wildcard_calalang_net_key)
 }
 
 resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
