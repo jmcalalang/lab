@@ -358,6 +358,7 @@
                     "remark": "Wildcard cert and key for *.calalang.net",
                     "certificate": "{{ wildcard_calalang_net_certificate | b64decode }}",
                     "privateKey": "{{ wildcard_calalang_net_key | b64decode }}"
+                }
             }
         }
     }
