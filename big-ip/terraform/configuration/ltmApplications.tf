@@ -22,9 +22,10 @@ resource "local_file" "calalang-net-cert" {
 }
 
 resource "bigip_ssl_certificate" "calalang-net-cert" {
-  name      = "calalang-net.crt"
-  content   = file("${path.module}/calalang-net-cert.pem")
-  partition = "Common"
+  name       = "calalang-net.crt"
+  content    = file("${path.module}/calalang-net-cert.pem")
+  partition  = "Common"
+  depends_on = [local_file.calalang-net-cert]
 }
 
 resource "local_file" "calalang-net-key" {
@@ -33,9 +34,10 @@ resource "local_file" "calalang-net-key" {
 }
 
 resource "bigip_ssl_key" "calalang-net-key" {
-  name      = "calalang-net.key"
-  content   = file("${path.module}/calalang-net-key.pem")
-  partition = "Common"
+  name       = "calalang-net.key"
+  content    = file("${path.module}/calalang-net-key.pem")
+  partition  = "Common"
+  depends_on = [local_file.calalang-net-key]
 }
 
 #resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-ssl-profile" {
