@@ -16,15 +16,25 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   vlans_enabled              = "true"
 }
 
+resource "local_file" "calalang-net-cert" {
+  content  = base64decode(var.wildcard-calalang-net-certificate)
+  filename = "${path.module}/calalang-net-cert.pem"
+}
+
 resource "bigip_ssl_certificate" "calalang-net-cert" {
   name      = "calalang-net.crt"
-  content   = tostring(base64decode(var.wildcard-calalang-net-certificate))
+  content   = file("${path.module}/calalang-net-cert.pem")
   partition = "Common"
+}
+
+resource "local_file" "calalang-net-key" {
+  content  = base64decode(var.wildcard-calalang-net-key)
+  filename = "${path.module}/calalang-net-key.pem"
 }
 
 resource "bigip_ssl_key" "calalang-net-key" {
   name      = "calalang-net.key"
-  content   = tostring(base64decode(var.wildcard-calalang-net-key))
+  content   = file("${path.module}/calalang-net-key.pem")
   partition = "Common"
 }
 

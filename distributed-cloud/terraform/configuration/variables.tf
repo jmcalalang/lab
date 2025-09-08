@@ -31,8 +31,10 @@ variable "jwk-calalang-net" {
 variable "wildcard-calalang-net-certificate" {
   type        = string
   description = "Certificate base64 encoded"
+  sensitive   = true
 }
 variable "wildcard-calalang-net-key" {
   type        = string
   description = "Key base64 encoded"
+  sensitive   = true
 }

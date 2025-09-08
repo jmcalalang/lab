@@ -18,9 +18,11 @@ variable "as3-version" {
 variable "wildcard-calalang-net-certificate" {
   type        = string
   description = "SSL Certificate for calalang.net"
+  sensitive   = true
 }
 
 variable "wildcard-calalang-net-key" {
   type        = string
   description = "SSL Key for calalang.net"
+  sensitive   = true
 }
