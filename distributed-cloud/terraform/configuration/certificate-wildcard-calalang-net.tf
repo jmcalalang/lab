@@ -6,10 +6,10 @@ resource "volterra_certificate" "wildcard-calalang-net" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
-  certificate_url = "string:///${var.wildcard-calalang-net-certificate}"
+  certificate_url = "string:///${var.wildcard_calalang_net_certificate}"
   private_key {
     clear_secret_info {
-      url = "string:///${var.wildcard-calalang-net-key}"
+      url = "string:///${var.wildcard_calalang_net_key}"
     }
   }
   use_system_defaults   = true

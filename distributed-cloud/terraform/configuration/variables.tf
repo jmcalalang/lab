@@ -24,16 +24,16 @@ variable "domain" {
   type        = string
   description = "domain"
 }
-variable "jwk-calalang-net" {
+variable "jwk_calalang_net" {
   type        = string
   description = "JWK for validation"
 }
-variable "wildcard-calalang-net-certificate" {
+variable "wildcard_calalang_net_certificate" {
   type        = string
   description = "Certificate base64 encoded"
   sensitive   = true
 }
-variable "wildcard-calalang-net-key" {
+variable "wildcard_calalang_net_key" {
   type        = string
   description = "Key base64 encoded"
   sensitive   = true
