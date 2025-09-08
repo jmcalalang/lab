@@ -8,8 +8,8 @@ state: "present"
 ansible_date_time: "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
 
 # NGINX One Variables
-namespace: jmcalalang
+namespace: j-calalang
 
 # List of NGINX One Instance IDs
 config_sync_group_nginx_azure_instances: 
-  - config_sync_group: csg_pALNrq95RJeyBTYedIBbpA
+  - config_sync_group: csg_Sxszyig-SE2ONl7O-gXxAA
