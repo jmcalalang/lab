@@ -732,7 +732,7 @@ jobs:
             --extra-vars "@../defaults/main.yaml" 
             --extra-vars "nginx_one_f5xc_api_token='${{ secrets.VES_API_TOKEN }}'"
             --extra-vars "nginx_one_f5xc_tenant='${{ secrets.VES_TENANT }}'"
-          # --verbose -vvvv
+            --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
