@@ -383,9 +383,9 @@ jobs:
 
     # Environment Variables
     env:
-      TF_VAR_jwk-calalang-net: ${{ secrets.JWK_CALALANG_NET }}
-      TF_VAR_wildcard-calalang-net-certificate: ${{ secrets.CALALANG_NET_CERT }}
-      TF_VAR_wildcard-calalang-net-key: ${{ secrets.CALALANG_NET_KEY }}
+      TF_VAR_jwk_calalang_net: ${{ secrets.JWK_CALALANG_NET }}
+      TF_VAR_wildcard_calalang_net_certificate: ${{ secrets.CALALANG_NET_CERT }}
+      TF_VAR_wildcard_calalang_net_key: ${{ secrets.CALALANG_NET_KEY }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
