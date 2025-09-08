@@ -193,7 +193,7 @@ jobs:
             --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
             --extra-vars "wildcard_calalang_net_certificate=${{ secrets.CALALANG_NET_CERT }}"
             --extra-vars "wildcard_calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
-          #  --verbose -vvvv
+            --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
@@ -732,7 +732,7 @@ jobs:
             --extra-vars "@../defaults/main.yaml" 
             --extra-vars "nginx_one_f5xc_api_token='${{ secrets.VES_API_TOKEN }}'"
             --extra-vars "nginx_one_f5xc_tenant='${{ secrets.VES_TENANT }}'"
-            --verbose -vvvv
+          #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "nginx.yaml"
           # Optional, directory where playbooks live
