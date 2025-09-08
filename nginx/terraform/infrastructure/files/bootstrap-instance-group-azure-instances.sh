@@ -6,7 +6,7 @@
 sudo apt-get install nginx-plus-module-njs
 
 # Add NGINX instance to NGINX One
-curl https://agent.connect.nginx.com/nginx-agent/install | DATA_PLANE_KEY="${nginx_one_dataplane_key}" sh -s -- -y
+curl https://agent.connect.nginx.com/nginx-agent/install | DATA_PLANE_KEY="${nginx_one_dataplane_key}" sh -s -- -y -c calalang_nginx_azure_instances
 
 ## Append to nginx-agent.conf the app-protect monitoring
 #cat << EOF | sudo tee -a /etc/nginx-agent/nginx-agent.conf
