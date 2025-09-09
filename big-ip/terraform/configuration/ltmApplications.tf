@@ -20,6 +20,7 @@ resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-client-ssl-pro
   name          = "/Common/https-terraform-apm-calalang-net-client-ssl-profile"
   cert          = "/Common/Shared/calalangTLSCert.crt"
   key           = "/Common/Shared/calalangTLSCert.key"
+  chain         = "/Common/Shared/calalangTLSCert.crt"
   defaults_from = "/Common/clientssl"
   authenticate  = "always"
   ciphers       = "DEFAULT"
