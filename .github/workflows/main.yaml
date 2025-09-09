@@ -263,7 +263,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Resources-Available, BIG-IP-Ansible-Configuration]
+    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
 
     # Environment Variables
     env:
@@ -424,55 +424,6 @@ jobs:
       - name: Terraform F5XC-Terraform Apply
         id: apply
         run: terraform apply --auto-approve
-
-  ########################################################################################################
-  #
-  #  GoDaddy-Terraform-Configuration:
-  #    # The type of runner that the job will run on
-  #    runs-on: calalang-aks-runners
-  #
-  #    # Environment Variables
-  #    env:
-  #      GODADDY_API_KEY: ${{ secrets.GODADDY_API_KEY }}
-  #      GODADDY_API_SECRET: ${{ secrets.GODADDY_API_SECRET }}
-  #
-  #    # Where are the Terraform files
-  #    defaults:
-  #      run:
-  #        working-directory: godaddy/terraform/
-  #
-  #    # Steps represent a sequence of tasks that will be executed as part of the job
-  #    steps:
-  #     - uses: actions/checkout@v5
-  #
-  #     # When running on self-hosted GitHub Actions runners,
-  #     # NodeJS must be previously installed with the version specified in the action.yml.
-  #     - uses: actions/setup-node@v5
-  #       with:
-  #         node-version: 'latest'
-  #
-  #      - uses: hashicorp/setup-terraform@v2
-  #        with:
-  #          terraform_version: latest
-  #
-  #      - name: Terraform GoDaddy-Terraform fmt
-  #        id: fmt
-  #        run: terraform fmt -check
-  #        continue-on-error: false
-  #
-  #      - name: Terraform GoDaddy-Terraform Init
-  #        id: init
-  #        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.#TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
-  #
-  #      - name: Terraform GoDaddy-Terraform Validate
-  #        id: validate
-  #        run: terraform validate -no-color
-  #
-  #      - name: Terraform GoDaddy-Terraform Apply
-  #        id: apply
-  #        run: terraform apply --auto-approve
-  #
-  ########################################################################################################
 
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
