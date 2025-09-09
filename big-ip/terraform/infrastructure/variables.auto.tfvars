@@ -1,10 +1,11 @@
 # Shared variables
+# https://github.com/F5Networks/f5-bigip-runtime-init?tab=readme-ov-file#downloads
 
 tag_owner                      = "j.calalang@f5.com"
 tag_resource_type              = "big-ip"
 tag_environment                = "lab"
 bigip_ready                    = "300s"
-bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.6.2/dist/f5-bigip-runtime-init-1.6.2.gz.run"
+bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v2.0.3/dist/f5-bigip-runtime-init-2.0.3-1.gz.run"
 
 # Pull from https://api.github.com/meta, remove space than ctrl + j
 allowed_github_ips = ["40.91.87.219"]
@@ -46,7 +47,7 @@ resource_group_name             = "calalang-bigip-rg"
 
 big-ip-instance-count = 1
 big-ip-instance-offer = "f5-big-ip-best"
-big-ip-instance-size  = "Standard_DS3_v2"
-# az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
+big-ip-instance-size  = "Standard_D4_v5"
+# az vm image list -p f5-networks --all -f f5-big-ip-best -s f5-big-best-plus-hourly-1gbps-po-f5
 big-ip-instance-sku = "f5-bigip-virtual-edition-1g-best-hourly-po-f5"
-big-ip-version      = "16.1.304000"
+big-ip-version      = "17.5.100080"
