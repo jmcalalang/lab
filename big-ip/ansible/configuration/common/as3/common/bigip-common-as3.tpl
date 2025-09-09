@@ -354,16 +354,6 @@
                         "bigip": "/Common/default.key"
                     }
                 },
-                "calalangTLSClientProfile": {
-                    "class": "TLS_Server",
-                    "label": "Client TLS Profile for calalang.net",
-                    "certificates": [
-                        {
-                            "certificate": "calalangTLSCert"
-                        }
-                    ],
-                    "renegotiationEnabled": true
-                },
                 "calalangTLSCert": {
                     "class": "Certificate",
                     "remark": "Wildcard cert and key for *.calalang.net",
