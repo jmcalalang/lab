@@ -157,7 +157,7 @@ jobs:
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Resources-Available]
+    needs: [BIG-IP-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -263,7 +263,7 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [BIG-IP-Resources-Available]
+    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Resources-Available, BIG-IP-Ansible-Configuration]
 
     # Environment Variables
     env:
