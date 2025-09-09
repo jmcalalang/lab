@@ -19,9 +19,7 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
 resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-client-ssl-profile" {
   name = "/Common/virtual-apm-calalang-net-client-ssl-profile"
   cert_key_chain {
-    cert  = "/Common/Shared/calalangTLSCert.crt"
-    key   = "/Common/Shared/calalangTLSCert.key"
-    chain = "/Common/Shared/calalangTLSCert.crt"
+    cert = "/Common/Shared/calalangTLSCert.crt"
   }
   defaults_from = "/Common/clientssl"
   authenticate  = "always"
