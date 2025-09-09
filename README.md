@@ -79,6 +79,8 @@ Configuration and Infrastructure management of BIG-IP resources
 | BIGIP_USER                      |
 | OTEL_HOST                       |
 | OTEL_TOKEN                      |
+| CALALANG_NET_CERT               |
+| CALALANG_NET_KEY                |
 
 - Terraform (Configuration)
   - AS3 Application Declarations
@@ -160,18 +162,6 @@ Configuration and Infrastructure management of F5XC resources
 |----------------------------------|
 | F5XC_CLOUD_CREDENTIAL            |
 | VES_P12_PASSWORD                 |
-
-### godaddy
-
-Configuration management of GoDaddy resources
-
-| **Configuration Env Variables** |
-|---------------------------------|
-| GODADDY_API_KEY                 |
-| GODADDY_API_SECRET              |
-
-- Terraform
-  - Records Management
 
 ### kubernetes
 

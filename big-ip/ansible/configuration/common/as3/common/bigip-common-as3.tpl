@@ -362,7 +362,7 @@
                             "certificate": "calalangTLSCert"
                         }
                     ],
-                    "renegotiationEnabled": "true"
+                    "renegotiationEnabled": true
                 },
                 "calalangTLSCert": {
                     "class": "Certificate",
