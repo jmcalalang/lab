@@ -21,8 +21,8 @@ resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-clientssl" {
   defaults_from = "/Common/clientssl"
   authenticate  = "always"
   ciphers       = "DEFAULT"
-  cert          = "/Common/Shared/calalangTLSClientProfile.crt"
-  key           = "/Common/Shared/calalangTLSClientProfile.key"
+  cert          = "/Common/Shared/calalangTLSCert.crt"
+  key           = "/Common/Shared/calalangTLSCert.key"
 }
 
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
