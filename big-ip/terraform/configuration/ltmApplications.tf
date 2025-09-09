@@ -3,7 +3,7 @@
 # Virtual server apm-calalang-net
 resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   name            = "/Common/https-terraform"
-  client_profiles = ["/Common/Shared/calalangTLSClientProfile"]
+  client_profiles = [bigip_ltm_profile_client_ssl.virtual-apm-calalang-net-clientssl.name]
   destination     = "10.0.2.7"
   description     = "apm.calalang.net"
   # irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
@@ -14,6 +14,15 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
   vlans_enabled              = "true"
+}
+
+resource "bigip_ltm_profile_client_ssl" "virtual-apm-calalang-net-clientssl" {
+  name          = "/Common/virtual-apm-calalang-net-clientssl"
+  defaults_from = "/Common/clientssl"
+  authenticate  = "always"
+  ciphers       = "DEFAULT"
+  cert          = "/Common/Shared/calalangTLSClientProfile.crt"
+  key           = "/Common/Shared/calalangTLSClientProfile.key"
 }
 
 resource "bigip_ltm_pool" "pool-apm-calalang-net-terraform" {
