@@ -74,7 +74,14 @@ jobs:
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Kubernetes-Terraform-Configuration]
+    needs:
+      [
+        Cloud-Network-Terraform-Infrastructure,
+        BIG-IP-Terraform-Infrastructure,
+        BIG-IP-Resources-Available,
+        BIG-IP-Terraform-Infrastructure,
+        Kubernetes-Terraform-Configuration,
+      ]
 
     # Environment Variables
     env:
@@ -156,7 +163,13 @@ jobs:
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Terraform-Infrastructure, BIG-IP-Resources-Available]
+    needs:
+      [
+        Cloud-Network-Terraform-Infrastructure,
+        BIG-IP-Terraform-Infrastructure,
+        BIG-IP-Resources-Available,
+        Active-Directory-Terraform-Infrastructure,
+      ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -193,7 +206,7 @@ jobs:
             --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
             --extra-vars "wildcard_calalang_net_certificate=${{ secrets.CALALANG_NET_CERT }}"
             --extra-vars "wildcard_calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
-            --verbose -vvvv
+          #  --verbose -vvvv
           # Required, playbook filepath
           playbook: "big-ip-playbook.yaml"
           # Optional, directory where playbooks live
@@ -202,7 +215,14 @@ jobs:
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Cloud-Network-Terraform-Infrastructure]
+    needs:
+      [
+        Active-Directory-Terraform-Infrastructure,
+        Cloud-Network-Terraform-Infrastructure,
+        BIG-IP-Terraform-Infrastructure,
+        BIG-IP-Resources-Available,
+        BIG-IP-Ansible-Configuration,
+      ]
 
     # Environment Variables
     env:
@@ -262,7 +282,12 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [BIG-IP-Terraform-Infrastructure, BIG-IP-Ansible-Configuration, BIG-IP-Resources-Available]
+    needs:
+      [
+        BIG-IP-Terraform-Infrastructure,
+        BIG-IP-Ansible-Configuration,
+        BIG-IP-Resources-Available,
+      ]
 
     # Environment Variables
     env:
