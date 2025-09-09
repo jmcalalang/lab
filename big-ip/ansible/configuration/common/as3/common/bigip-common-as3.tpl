@@ -360,7 +360,7 @@
                         "base64": "{{ wildcard_calalang_net_certificate }}"
                     },
                     "privateKey": {
-                        "base64": "{{ wildcard_calalang_net_private_key }}"
+                        "base64": "{{ wildcard_calalang_net_key }}"
                     }
                 }
             }
