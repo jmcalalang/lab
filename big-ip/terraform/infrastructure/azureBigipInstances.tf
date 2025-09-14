@@ -301,10 +301,6 @@ resource "azurerm_virtual_machine" "big-ip-instance" {
   }
   os_profile_linux_config {
     disable_password_authentication = false
-    ssh_keys {
-      path     = "/home/${var.big-ip-username}/.ssh/authorized_keys"
-      key_data = base64decode(var.bigip_ssh_public_key)
-    }
   }
   identity {
     type = "SystemAssigned"
