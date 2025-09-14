@@ -218,6 +218,7 @@ jobs:
       TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
       TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
       TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
+      TF_VAR_bigip_ssh_public_key: ${{ secrets.BIGIP_SSH_PUBLIC_KEY }}
 
     # Where are the Terraform files
     defaults:
@@ -272,7 +273,6 @@ jobs:
       BIGIP_HOST: ${{ secrets.BIGIP_HOSTNAME }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
-      TF_VAR_bigip_ssh_public_key: ${{ secrets.BIGIP_SSH_PUBLIC_KEY }}
 
     # Where are the Terraform files
     defaults:
