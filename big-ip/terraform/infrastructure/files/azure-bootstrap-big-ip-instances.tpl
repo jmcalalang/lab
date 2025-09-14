@@ -16,8 +16,12 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 2048
-/usr/bin/setdb restjavad.useextramb true
+/usr/bin/setdb provision.extramb 1000 || true
+/usr/bin/setdb provision.restjavad.extramb 1384 || /usr/bin/setdb restjavad.useextramb true || true
+/usr/bin/setdb iapplxrpm.timeout 300 || true
+/usr/bin/setdb icrd.timeout 180 || true
+/usr/bin/setdb restjavad.timeout 180 || true
+/usr/bin/setdb restnoded.timeout 180 || true
 
 # Download or Render BIG-IP Runtime Init Config
 cat << 'EOF' > /config/cloud/runtime-init-conf.yaml
@@ -28,42 +32,42 @@ controls:
   extensionInstallDelayInMs: 10000
 pre_onboard_enabled: []
 runtime_parameters:
-  - name: HOST_NAME
-    type: metadata
-    metadataProvider:
-      environment: azure
-      type: compute
-      field: name
-  - name: SELF_IP_EXTERNAL
-    type: metadata
-    metadataProvider:
-      environment: azure
-      type: network
-      field: ipv4
-      index: 1
-  - name: SELF_IP_INTERNAL
-    type: metadata
-    metadataProvider:
-      environment: azure
-      type: network
-      field: ipv4
-      index: 2
-  - name: DEFAULT_GW
-    type: metadata
-    metadataProvider:
-      environment: azure
-      type: network
-      field: ipv4
-      index: 1
-      ipcalc: first
-  - name: MGMT_GW
-    type: metadata
-    metadataProvider:
-      environment: azure
-      type: network
-      field: ipv4
-      index: 0
-      ipcalc: first
+    - name: HOST_NAME
+      type: metadata
+      metadataProvider:
+        environment: azure
+        type: compute
+        field: name
+    - name: SELF_IP_EXTERNAL
+      type: metadata
+      metadataProvider:
+        environment: azure
+        type: network
+        field: ipv4
+        index: 1
+    - name: SELF_IP_INTERNAL
+      type: metadata
+      metadataProvider:
+        environment: azure
+        type: network
+        field: ipv4
+        index: 2
+    - name: DEFAULT_GW
+      type: metadata
+      metadataProvider:
+        environment: azure
+        type: network
+        field: ipv4
+        index: 1
+        ipcalc: first
+    - name: MGMT_GW
+      type: metadata
+      metadataProvider:
+        environment: azure
+        type: network
+        field: ipv4
+        index: 0
+        ipcalc: first
 bigip_ready_enabled: []
 extension_packages:
   install_operations:
