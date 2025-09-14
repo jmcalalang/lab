@@ -8,6 +8,10 @@ variable "allowed_github_ips" {
   type        = list(any)
   description = "Allowed GitHub action IP addresses for management access"
 }
+variable "bigip_ssh_public_key" {
+  type        = string
+  description = "BIG-IP SSH public key"
+}
 variable "bigip_ready" {
   type        = string
   description = "BIG-IP Wait time for ready"
