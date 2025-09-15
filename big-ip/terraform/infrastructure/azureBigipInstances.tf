@@ -270,7 +270,7 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   count                           = sum([var.big-ip-instance-count])
   admin_username                  = var.big-ip-username
   admin_password                  = var.big-ip-password
-  disable_password_authentication = true
+  disable_password_authentication = false
   plan {
     publisher = "f5-networks"
     product   = var.big-ip-instance-offer
