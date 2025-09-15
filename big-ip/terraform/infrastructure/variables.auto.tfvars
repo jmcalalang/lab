@@ -50,4 +50,4 @@ big-ip-instance-offer = "f5-big-ip-best"
 big-ip-instance-size  = "Standard_D8_v5"
 # az vm image list -p f5-networks --all -f f5-big-ip-best -s f5-big-best-plus-hourly-1gbps-po-f5
 big-ip-instance-sku = "f5-big-best-plus-hourly-1gbps-po-f5"
-big-ip-version      = "17.5.000000"
+big-ip-version      = "16.1.600027"
