@@ -343,7 +343,7 @@ resource "azurerm_role_definition" "bigip-role-definition" {
 }
 
 resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
-  principal_id                     = azurerm_virtual_machine.big-ip-instance[count.index].identity[0].principal_id
+  principal_id                     = azurerm_linux_virtual_machine.big-ip-instance[count.index].identity[0].principal_id
   role_definition_name             = azurerm_role_definition.bigip-role-definition.name
   scope                            = data.azurerm_subscription.primary.id
   skip_service_principal_aad_check = true
@@ -352,7 +352,7 @@ resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
 
 ## Shutdown Schedule
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
-  virtual_machine_id    = azurerm_virtual_machine.big-ip-instance[count.index].id
+  virtual_machine_id    = azurerm_linux_virtual_machine.big-ip-instance[count.index].id
   location              = var.azure_location
   enabled               = true
   daily_recurrence_time = "1900"
@@ -367,6 +367,6 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
 
 ## Wait for BIG-IP
 resource "time_sleep" "azure_bigip_ready" {
-  depends_on      = [azurerm_virtual_machine.big-ip-instance]
+  depends_on      = [azurerm_linux_virtual_machine.big-ip-instance]
   create_duration = var.bigip_ready
 }
