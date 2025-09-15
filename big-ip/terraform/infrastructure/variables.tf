@@ -9,9 +9,9 @@ variable "allowed_github_ips" {
   description = "Allowed GitHub action IP addresses for management access"
 }
 variable "bigip_ssh_public_key" {
-  type        = string
-  default     = "../../../certs/id_ed25519.pem.pub"
-  sensitive   = true
+  type      = string
+  default   = "../../../certs/id_ed25519.pem.pub"
+  sensitive = true
 }
 variable "bigip_ready" {
   type        = string
