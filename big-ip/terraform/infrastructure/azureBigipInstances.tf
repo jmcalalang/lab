@@ -256,59 +256,48 @@ resource "random_uuid" "big-ip-random-uuid" {
   count = sum([var.big-ip-instance-count])
 }
 
-resource "azurerm_virtual_machine" "big-ip-instance" {
-  name                         = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-  location                     = azurerm_resource_group.big-ip-resource-group.location
-  resource_group_name          = azurerm_resource_group.big-ip-resource-group.name
-  primary_network_interface_id = azurerm_network_interface.nic-management[count.index].id
+resource "azurerm_linux_virtual_machine" "big-ip-instance" {
+  name                = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  location            = azurerm_resource_group.big-ip-resource-group.location
+  resource_group_name = azurerm_resource_group.big-ip-resource-group.name
   network_interface_ids = [
     azurerm_network_interface.nic-management[count.index].id,
     azurerm_network_interface.nic-external[count.index].id,
     azurerm_network_interface.nic-internal[count.index].id
   ]
-  vm_size                          = var.big-ip-instance-size
-  delete_data_disks_on_termination = true
-  delete_os_disk_on_termination    = true
-  availability_set_id              = azurerm_availability_set.big-ip-instance.id
-  count                            = sum([var.big-ip-instance-count])
-
-  # az vm image list -p f5-networks --all -f f5-big-ip-best -s 1g-best-hourly
+  size                            = var.big-ip-instance-size
+  availability_set_id             = azurerm_availability_set.big-ip-instance.id
+  count                           = sum([var.big-ip-instance-count])
+  admin_username                  = var.big-ip-username
+  admin_password                  = var.big-ip-password
+  disable_password_authentication = false
   plan {
     publisher = "f5-networks"
     product   = var.big-ip-instance-offer
     name      = var.big-ip-instance-sku
   }
-  storage_image_reference {
+  source_image_reference {
     publisher = "f5-networks"
     offer     = var.big-ip-instance-offer
     sku       = var.big-ip-instance-sku
     version   = var.big-ip-version
   }
-  storage_os_disk {
-    name              = "os-disk-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "StandardSSD_LRS"
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
   }
-  os_profile {
-    computer_name  = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  computer_name = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
+    package_url    = var.bigip_runtime_init_package_url
     admin_username = var.big-ip-username
-    admin_password = var.big-ip-password
-    custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
-      package_url    = var.bigip_runtime_init_package_url
-      admin_username = var.big-ip-username
-    }))
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
-  }
-  identity {
-    type = "SystemAssigned"
-  }
+  }))
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
+  }
+  identity {
+    type = "SystemAssigned"
   }
 }
 
