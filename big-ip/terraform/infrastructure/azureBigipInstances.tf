@@ -270,7 +270,7 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   count                           = sum([var.big-ip-instance-count])
   admin_username                  = var.big-ip-username
   admin_password                  = var.big-ip-password
-  disable_password_authentication = true
+  disable_password_authentication = false
   computer_name                   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
     package_url    = var.bigip_runtime_init_package_url
