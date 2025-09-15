@@ -276,6 +276,9 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
     package_url    = var.bigip_runtime_init_package_url
     admin_username = var.big-ip-username
   }))
+  identity {
+    type = "SystemAssigned"
+  }
   source_image_reference {
     publisher = "f5-networks"
     offer     = var.big-ip-instance-offer
