@@ -269,8 +269,16 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   availability_set_id             = azurerm_availability_set.big-ip-instance.id
   count                           = sum([var.big-ip-instance-count])
   admin_username                  = var.big-ip-username
-  admin_password                  = var.big-ip-password
-  disable_password_authentication = false
+  disable_password_authentication = true
+  computer_name                   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
+  custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
+    package_url    = var.bigip_runtime_init_package_url
+    admin_username = var.big-ip-username
+  }))
+  admin_ssh_key {
+    username   = var.big-ip-username
+    public_key = base64encode(var.bigip_ssh_public_key)
+  }
   plan {
     publisher = "f5-networks"
     product   = var.big-ip-instance-offer
@@ -286,18 +294,13 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
   }
-  computer_name = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
-  custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
-    package_url    = var.bigip_runtime_init_package_url
-    admin_username = var.big-ip-username
-  }))
+  identity {
+    type = "SystemAssigned"
+  }
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
-  }
-  identity {
-    type = "SystemAssigned"
   }
 }
 
