@@ -218,7 +218,6 @@ jobs:
       TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
       TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
       TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
-      TF_VAR_bigip_ssh_public_key: ${{ secrets.BIGIP_SSH_PUBLIC_KEY }}
 
     # Where are the Terraform files
     defaults:

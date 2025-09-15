@@ -269,7 +269,6 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   availability_set_id             = azurerm_availability_set.big-ip-instance.id
   count                           = sum([var.big-ip-instance-count])
   admin_username                  = var.big-ip-username
-  admin_password                  = var.big-ip-password
   disable_password_authentication = false
   computer_name                   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
@@ -293,6 +292,10 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   }
   identity {
     type = "SystemAssigned"
+  }
+  admin_ssh_key {
+    username   = var.big-ip-username
+    public_key = file(var.bigip_ssh_public_key)
   }
   tags = {
     environment = var.tag_environment

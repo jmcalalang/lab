@@ -10,7 +10,8 @@ variable "allowed_github_ips" {
 }
 variable "bigip_ssh_public_key" {
   type        = string
-  description = "BIG-IP SSH public key"
+  default     = "../../../certs/id_ed25519.pem.pub"
+  sensitive   = true
 }
 variable "bigip_ready" {
   type        = string
