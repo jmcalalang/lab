@@ -276,11 +276,6 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
     package_url    = var.bigip_runtime_init_package_url
     admin_username = var.big-ip-username
   }))
-  plan {
-    publisher = "f5-networks"
-    product   = var.big-ip-instance-offer
-    name      = var.big-ip-instance-sku
-  }
   source_image_reference {
     publisher = "f5-networks"
     offer     = var.big-ip-instance-offer
@@ -290,9 +285,6 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
-  }
-  identity {
-    type = "SystemAssigned"
   }
   tags = {
     environment = var.tag_environment
