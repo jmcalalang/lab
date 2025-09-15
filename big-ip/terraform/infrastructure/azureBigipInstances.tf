@@ -277,7 +277,7 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   }))
   admin_ssh_key {
     username   = var.big-ip-username
-    public_key = base64encode(var.bigip_ssh_public_key)
+    public_key = file(base64encode(var.bigip_ssh_public_key))
   }
   plan {
     publisher = "f5-networks"
