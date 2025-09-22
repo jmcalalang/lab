@@ -5,6 +5,10 @@ variable "argo-chart-version" {
   type        = string
   description = "ArgoCD Chart Version"
 }
+variable "calalang_oidc_app_value" {
+  type        = string
+  description = "Calalang OIDC App Value"
+}
 
 # BIG-IP Container Ingress Services Values
 variable "big-ip-cis-chart-version" {

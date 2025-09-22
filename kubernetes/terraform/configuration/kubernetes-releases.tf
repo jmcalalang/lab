@@ -51,6 +51,7 @@ resource "kubectl_manifest" "f5xc" {
 data "kubectl_path_documents" "argo" {
   pattern = "./files/manifests/argo/argo-*.yaml"
   vars = {
+    calalang_oidc_app_value = var.calalang_oidc_app_value
   }
 }
 

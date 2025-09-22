@@ -483,6 +483,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      TF_VAR_calalang_oidc_app_value: ${{ secrets.CALALANG_OIDC_APP_VALUE }}
       TF_VAR_f5_license_secret_jwt: ${{ secrets.F5_LICENSE_SECRET_JWT }}
       TF_VAR_f5_registry_secret_jwt: ${{ secrets.F5_REGISTRY_SECRET_JWT }}
       TF_VAR_f5xc_site_token: ${{ secrets.F5XC_SITE_TOKEN }}
