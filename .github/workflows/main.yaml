@@ -139,177 +139,177 @@ jobs:
         id: apply
         run: terraform apply --auto-approve
 
-#  ########################################################################################################
-#
-#  BIG-IP-Resources-Available:
-#    # The type of runner that the job will run on
-#    runs-on: calalang-aks-runners
-#    needs: [BIG-IP-Terraform-Infrastructure]
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - name: cURL BIG-IP
-#        run: |
-#          curl -k --max-time 10 \
-#            -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
-#            https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
-#
-#  BIG-IP-Ansible-Configuration:
-#    # The type of runner that the job will run on
-#    runs-on: calalang-aks-runners
-#    needs: [BIG-IP-Resources-Available]
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v5
-#
-#      - uses: actions/setup-python@v5
-#        with:
-#          check-latest: true
-#
-#      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
-#        run: |
-#          sudo apt update
-#          sudo apt install -y python3-pip pipx alien
-#          pipx install --include-deps ansible-core
-#          pipx inject ansible-core jmespath
-#          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-#
-#      - name: Ansible Modules
-#        run: |
-#          ansible-galaxy collection install f5networks.f5_modules community.general
-#
-#      - name: Run Ansible Playbooks
-#        uses: dawidd6/action-ansible-playbook@v4
-#        with:
-#          # Optional, additional flags to pass to ansible-playbook
-#          options: |
-#            --extra-vars "@../defaults/main.yaml" 
-#            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOSTNAME }}"
-#            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}"
-#            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
-#            --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
-#            --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
-#            --extra-vars "otel_host=${{ secrets.OTEL_HOST }}"
-#            --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
-#            --extra-vars "wildcard_calalang_net_certificate=${{ secrets.CALALANG_NET_CERT }}"
-#            --extra-vars "wildcard_calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
-#          #  --verbose -vvvv
-#          # Required, playbook filepath
-#          playbook: "big-ip-playbook.yaml"
-#          # Optional, directory where playbooks live
-#          directory: big-ip/ansible/configuration/playbooks
-#
-#  BIG-IP-Terraform-Infrastructure:
-#    # The type of runner that the job will run on
-#    runs-on: calalang-aks-runners
-#    needs: [Cloud-Network-Terraform-Infrastructure]
-#
-#    # Environment Variables
-#    env:
-#      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
-#      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
-#      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-#      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
-#      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#      BIGIP_USER: ${{ secrets.BIGIP_USER }}
-#      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-#      TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
-#      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
-#      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
-#
-#    # Where are the Terraform files
-#    defaults:
-#      run:
-#        working-directory: big-ip/terraform/infrastructure
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v5
-#
-#      # When running on self-hosted GitHub Actions runners,
-#      # NodeJS must be previously installed with the version specified in the action.yml.
-#      - uses: actions/setup-node@v5
-#        with:
-#          node-version: "latest"
-#
-#      - uses: hashicorp/setup-terraform@v2
-#        with:
-#          terraform_version: latest
-#
-#      - name: cURL ipify.org
-#        run: |
-#          curl --max-time 10 \
-#            'https://api.ipify.org?format=json'
-#
-#      - name: Terraform BIG-IP-Terraform-Infrastructure fmt
-#        id: fmt
-#        run: terraform fmt -check
-#        continue-on-error: false
-#
-#      - name: Terraform BIG-IP-Terraform-Infrastructure Init
-#        id: init
-#        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
-#
-#      - name: Terraform BIG-IP-Terraform-Infrastructure Validate
-#        id: validate
-#        run: terraform validate -no-color
-#
-#      - name: Terraform BIG-IP-Terraform-Infrastructure Apply
-#        id: apply
-#        run: terraform apply --auto-approve
-#
-#  BIG-IP-Terraform-Configuration:
-#    # The type of runner that the job will run on
-#    runs-on: calalang-aks-runners
-#    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
-#
-#    # Environment Variables
-#    env:
-#      BIGIP_USER: ${{ secrets.BIGIP_USER }}
-#      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
-#      BIGIP_HOST: ${{ secrets.BIGIP_HOSTNAME }}
-#      TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
-#      TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
-#
-#    # Where are the Terraform files
-#    defaults:
-#      run:
-#        working-directory: big-ip/terraform/configuration
-#
-#    # Steps represent a sequence of tasks that will be executed as part of the job
-#    steps:
-#      - uses: actions/checkout@v5
-#
-#      # When running on self-hosted GitHub Actions runners,
-#      # NodeJS must be previously installed with the version specified in the action.yml.
-#      - uses: actions/setup-node@v5
-#        with:
-#          node-version: "latest"
-#
-#      - uses: hashicorp/setup-terraform@v2
-#        with:
-#          terraform_version: latest
-#
-#      - name: Terraform BIG-IP-Terraform-Configuration fmt
-#        id: fmt
-#        run: terraform fmt -check
-#        continue-on-error: false
-#
-#      - name: Terraform BIG-IP-Terraform-Configuration Init
-#        id: init
-#        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
-#
-#      - name: Terraform BIG-IP-Terraform-Configuration Validate
-#        id: validate
-#        run: terraform validate -no-color
-#
-#      - name: Terraform BIG-IP-Terraform-Configuration Apply
-#        id: apply
-#        run: terraform apply --auto-approve
-#
-#  ########################################################################################################
+  ########################################################################################################
+
+  BIG-IP-Resources-Available:
+    # The type of runner that the job will run on
+    runs-on: calalang-aks-runners
+    needs: [BIG-IP-Terraform-Infrastructure]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: cURL BIG-IP
+        run: |
+          curl -k --max-time 10 \
+            -u ${{ secrets.BIGIP_USER }}:${{ secrets.BIGIP_PASSWORD }} \
+            https://${{ secrets.BIGIP_HOSTNAME }}/mgmt/tm/sys/ready/
+
+  BIG-IP-Ansible-Configuration:
+    # The type of runner that the job will run on
+    runs-on: calalang-aks-runners
+    needs: [BIG-IP-Resources-Available]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          check-latest: true
+
+      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip pipx alien
+          pipx install --include-deps ansible-core
+          pipx inject ansible-core jmespath
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Ansible Modules
+        run: |
+          ansible-galaxy collection install f5networks.f5_modules community.general
+
+      - name: Run Ansible Playbooks
+        uses: dawidd6/action-ansible-playbook@v4
+        with:
+          # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --extra-vars "@../defaults/main.yaml" 
+            --extra-vars "BIGIPhost01=${{ secrets.BIGIP_HOSTNAME }}"
+            --extra-vars "BIGIPadminUsername=${{ secrets.BIGIP_USER }}"
+            --extra-vars "BIGIPadminPassword=${{ secrets.BIGIP_PASSWORD }}"
+            --extra-vars "BIGIPAKSUsername=${{ secrets.BIGIP_AKS_USER }}"
+            --extra-vars "BIGIPAKSPassword=${{ secrets.BIGIP_AKS_PASSWORD }}"
+            --extra-vars "otel_host=${{ secrets.OTEL_HOST }}"
+            --extra-vars "otel_token=${{ secrets.OTEL_TOKEN }}"
+            --extra-vars "wildcard_calalang_net_certificate=${{ secrets.CALALANG_NET_CERT }}"
+            --extra-vars "wildcard_calalang_net_key=${{ secrets.CALALANG_NET_KEY }}"
+          #  --verbose -vvvv
+          # Required, playbook filepath
+          playbook: "big-ip-playbook.yaml"
+          # Optional, directory where playbooks live
+          directory: big-ip/ansible/configuration/playbooks
+
+  BIG-IP-Terraform-Infrastructure:
+    # The type of runner that the job will run on
+    runs-on: calalang-aks-runners
+    needs: [Cloud-Network-Terraform-Infrastructure]
+
+    # Environment Variables
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      BIGIP_USER: ${{ secrets.BIGIP_USER }}
+      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+      TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
+      TF_VAR_big-ip-username: ${{ secrets.BIGIP_USER }}
+      TF_VAR_big-ip-password: ${{ secrets.BIGIP_PASSWORD }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: big-ip/terraform/infrastructure
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "latest"
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: latest
+
+      - name: cURL ipify.org
+        run: |
+          curl --max-time 10 \
+            'https://api.ipify.org?format=json'
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Init
+        id: init
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform BIG-IP-Terraform-Infrastructure Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+  BIG-IP-Terraform-Configuration:
+    # The type of runner that the job will run on
+    runs-on: calalang-aks-runners
+    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
+
+    # Environment Variables
+    env:
+      BIGIP_USER: ${{ secrets.BIGIP_USER }}
+      BIGIP_PASSWORD: ${{ secrets.BIGIP_PASSWORD }}
+      BIGIP_HOST: ${{ secrets.BIGIP_HOSTNAME }}
+      TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      TF_VAR_ad_service_ldap_password: ${{ secrets.AD_SERVICE_LDAP_PASSWORD }}
+
+    # Where are the Terraform files
+    defaults:
+      run:
+        working-directory: big-ip/terraform/configuration
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v5
+
+      # When running on self-hosted GitHub Actions runners,
+      # NodeJS must be previously installed with the version specified in the action.yml.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "latest"
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: latest
+
+      - name: Terraform BIG-IP-Terraform-Configuration fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform BIG-IP-Terraform-Configuration Init
+        id: init
+        run: terraform init -backend-config="hostname=${{ secrets.TF_CLOUD_HOSTNAME }}" -backend-config="organization=${{ secrets.TF_CLOUD_ORGANIZATION }}" -backend-config="token=${{ secrets.TF_CLOUD_TOKEN }}"
+
+      - name: Terraform BIG-IP-Terraform-Configuration Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform BIG-IP-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
+
+  ########################################################################################################
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
@@ -475,7 +475,7 @@ jobs:
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Kubernetes-Terraform-Infrastructure]
+    needs: [Kubernetes-Terraform-Infrastructure, BIG-IP-Resources-Available]
 
     # Environment Variables
     env:

@@ -33,8 +33,8 @@ spec:
       port: 8001
   routes:
     - path: /
-      #policies:
-      #  - name: kubernetes-calalang-net-oidc-policy
+      policies:
+        - name: kubernetes-calalang-net-oidc-policy
       action:
         proxy:
           upstream: spa
