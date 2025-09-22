@@ -13,12 +13,8 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 2048 || true
-/usr/bin/setdb restjavad.useextramb true || true
-/usr/bin/setdb iapplxrpm.timeout 300 || true
-/usr/bin/setdb icrd.timeout 180 || true
-/usr/bin/setdb restjavad.timeout 180 || true
-/usr/bin/setdb restnoded.timeout 180 || true
+/usr/bin/setdb provision.extramb 2048
+/usr/bin/setdb restjavad.useextramb true
 
 # Download or Render BIG-IP Runtime Init Config
 cat << 'EOF' > /config/cloud/runtime-init-conf.yaml
@@ -76,7 +72,7 @@ extension_services:
     - extensionType: do
       type: inline
       value:
-        schemaVersion: 1.39.1
+        schemaVersion: 1.39.0
         class: Device
         async: true
         label: Example 3NIC BIG-IP with Runtime-Init
