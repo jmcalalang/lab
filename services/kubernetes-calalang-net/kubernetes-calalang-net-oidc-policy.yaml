@@ -4,9 +4,9 @@ metadata:
   name: kubernetes-calalang-net-oidc-policy
 spec:
   oidc:
-    clientID: b2b81189-6a82-4b41-8337-c9a24497f5d1
+    clientID: 397bd34c-54eb-433a-aaa6-a116f869c634
     clientSecret: kubernetes-calalang-net-oidc-secret
-    authEndpoint: https://login.microsoftonline.com/789c326b-1c41-44d9-b399-deb093024461/oauth2/authorize
-    tokenEndpoint: https://login.microsoftonline.com/789c326b-1c41-44d9-b399-deb093024461/oauth2/token
+    authEndpoint: https://login.microsoftonline.com/e569f29e-b098-4cea-b6f0-48fa8532d64a/oauth2/authorize
+    tokenEndpoint: https://login.microsoftonline.com/e569f29e-b098-4cea-b6f0-48fa8532d64a/oauth2/token
     jwksURI: https://login.microsoftonline.com/common/discovery/keys
     scope: openid+profile+email
