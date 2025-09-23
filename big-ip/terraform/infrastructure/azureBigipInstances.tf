@@ -367,6 +367,15 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
 
 ## Wait for BIG-IP
 resource "time_sleep" "azure_bigip_ready" {
-  depends_on      = [azurerm_linux_virtual_machine.big-ip-instance]
+  depends_on      = [azurerm_linux_virtual_machine.big-ip-instance[count.index].id]
   create_duration = var.bigip_ready
+}
+
+## Local Exec to run post-deployment script
+resource "null_resource" "curl_azure_bigip" {
+  depends_on = [time_sleep.azure_bigip_ready]
+  provisioner "local-exec" {
+    command     = "curl -k --max-time 10 https://${azurerm_linux_virtual_machine.big-ip-instance[count.index].public_ip}"
+    interpreter = ["bash", "-c"]
+  }
 }

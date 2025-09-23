@@ -4,7 +4,7 @@
 tag_owner                      = "j.calalang@f5.com"
 tag_resource_type              = "big-ip"
 tag_environment                = "lab"
-bigip_ready                    = "600s"
+bigip_ready                    = "5m"
 bigip_runtime_init_package_url = "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v2.0.3/dist/f5-bigip-runtime-init-2.0.3-1.gz.run"
 
 # Pull from https://api.github.com/meta, remove space than ctrl + j
