@@ -13,8 +13,12 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 2048
-/usr/bin/setdb restjavad.useextramb true
+/usr/bin/setdb provision.extramb 1000 || true
+/usr/bin/setdb provision.restjavad.extramb 1384 || /usr/bin/setdb restjavad.useextramb true || true
+/usr/bin/setdb iapplxrpm.timeout 300 || true
+/usr/bin/setdb icrd.timeout 180 || true
+/usr/bin/setdb restjavad.timeout 180 || true
+/usr/bin/setdb restnoded.timeout 180 || true
 
 # Download or Render BIG-IP Runtime Init Config
 cat << 'EOF' > /config/cloud/runtime-init-conf.yaml
@@ -85,11 +89,6 @@ extension_services:
             ui.advisory.enabled: true
             ui.advisory.color: yellow
             ui.advisory.text: AWS Instance Ready
-            provision.extramb: 2048
-            restjavad.useextramb: true
-            icrd.timeout: 180
-            restjavad.timeout: 180
-            restnoded.timeout: 180
           My_System:
             class: System
             hostname: '{{{ HOST_NAME }}}'
