@@ -107,9 +107,6 @@ extension_services:
             cliInactivityTimeout: 1200
             consoleInactivityTimeout: 1200
             autoPhonehome: true
-          My_Disk:
-            class: Disk
-            applicationData: 44040192
           My_Dns:
             class: DNS
             nameServers:
