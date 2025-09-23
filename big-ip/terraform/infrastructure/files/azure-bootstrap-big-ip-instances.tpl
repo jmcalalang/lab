@@ -98,7 +98,6 @@ extension_services:
             ui.advisory.color: blue
             ui.advisory.text: Azure Instance Ready
             provision.extramb: 2048
-            restjavad.useextramb: true
             icrd.timeout: 180
             restjavad.timeout: 180
             restnoded.timeout: 180
