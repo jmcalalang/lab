@@ -13,7 +13,7 @@ exec 1>$npipe
 exec 2>&1
 
 # Run Immediately Before MCPD starts
-/usr/bin/setdb provision.extramb 1000 || true
+/usr/bin/setdb provision.extramb 2048 || true
 /usr/bin/setdb provision.restjavad.extramb 1384 || /usr/bin/setdb restjavad.useextramb true || true
 /usr/bin/setdb iapplxrpm.timeout 300 || true
 /usr/bin/setdb icrd.timeout 180 || true
