@@ -311,7 +311,7 @@ jobs:
 
       - name: Terraform BIG-IP-Terraform-Configuration Destroy destroy.tfplan
         id: destroy-destroy-tfplan
-        run: terraform plan -destroy -out=destroy.tfplan --auto-approve
+        run: terraform plan -destroy -out=destroy.tfplan
 
       - name: Terraform BIG-IP-Terraform-Configuration Apply destroy.tfplan
         id: apply-destroy-tfplan
