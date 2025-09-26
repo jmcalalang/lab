@@ -1,4 +1,3 @@
-
 name: Lab Pipeline
 
 # Controls when the workflow will run
@@ -263,7 +262,8 @@ jobs:
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
+    needs:
+      [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
 
     # Environment Variables
     env:
@@ -305,13 +305,17 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-#      - name: Terraform BIG-IP-Terraform-Configuration Apply
-#        id: apply
-#        run: terraform apply --auto-approve
+      #      - name: Terraform BIG-IP-Terraform-Configuration Apply
+      #        id: apply
+      #        run: terraform apply --auto-approve
 
-      - name: Terraform BIG-IP-Terraform-Configuration Destroy
-        id: destroy
-        run: terraform destroy --auto-approve
+      - name: Terraform BIG-IP-Terraform-Configuration Destroy destroy.tfplan
+        id: destroy destroy.tfplan
+        run: terraform plan -destroy -out=destroy.tfplan --auto-approve
+
+      - name: Terraform BIG-IP-Terraform-Configuration Apply destroy.tfplan
+        id: apply destroy.tfplan
+        run: terraform apply destroy.tfplan --auto-approve
 
   ########################################################################################################
 

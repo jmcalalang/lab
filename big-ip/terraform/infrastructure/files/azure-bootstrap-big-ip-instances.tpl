@@ -119,6 +119,10 @@ extension_services:
           My_Provisioning:
             class: Provision
             ltm: nominal
+            avr: nominal
+            gtm: nominal
+            asm: nominal
+            apm: nominal
           DNS_Resolver:
             class: DNS_Resolver
             answerDefaultZones: false

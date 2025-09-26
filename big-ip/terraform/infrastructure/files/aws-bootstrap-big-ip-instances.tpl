@@ -107,7 +107,10 @@ extension_services:
           My_Provisioning:
             class: Provision
             ltm: nominal
+            avr: nominal
             gtm: nominal
+            asm: nominal
+            apm: nominal
           external:
             class: VLAN
             tag: 4094
