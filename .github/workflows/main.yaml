@@ -305,17 +305,9 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      #      - name: Terraform BIG-IP-Terraform-Configuration Apply
-      #        id: apply
-      #        run: terraform apply --auto-approve
-
-      - name: Terraform BIG-IP-Terraform-Configuration Destroy destroy.tfplan
-        id: destroy-destroy-tfplan
-        run: terraform plan -destroy -out=destroy.tfplan
-
-      - name: Terraform BIG-IP-Terraform-Configuration Apply destroy.tfplan
-        id: apply-destroy-tfplan
-        run: terraform apply destroy.tfplan --auto-approve
+      - name: Terraform BIG-IP-Terraform-Configuration Apply
+        id: apply
+        run: terraform apply --auto-approve
 
   ########################################################################################################
 
