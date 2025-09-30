@@ -1,3 +1,10 @@
+## Shared variables
+
+variable "allowed_ips" {
+  type        = string
+  description = "Allowed Client IP addresses for management access"
+}
+
 ## F5XC Terraform Variable Definitions
 
 variable "namespace" {
@@ -76,7 +83,27 @@ variable "existing-vnet" {
   type        = string
   description = "Existing vnet name"
 }
-variable "existing-vnet-subnet" {
+variable "existing-vnet-subnet-external" {
   type        = string
   description = "Existing vnet subnet name"
+}
+variable "existing-vnet-subnet-internal" {
+  type        = string
+  description = "Existing vnet subnet name"
+}
+variable "ce-instance-count" {
+  type        = number
+  description = "Number of customer edge instances"
+}
+variable "ce-instance-size" {
+  type        = string
+  description = "Size of customer edge instances"
+}
+variable "f5xc_ce_username" {
+  type        = string
+  description = "Environment Variable for Customer Edge Username"
+}
+variable "f5xc_ce_password" {
+  type        = string
+  description = "Environment Variable for Customer Edge Password"
 }

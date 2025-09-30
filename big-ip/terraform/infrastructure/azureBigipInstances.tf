@@ -314,7 +314,6 @@ resource "azurerm_availability_set" "big-ip-instance" {
 }
 
 ## Roles
-
 resource "azurerm_role_definition" "bigip-role-definition" {
   name        = "bigip-role-${random_uuid.big-ip-random-uuid[0].result}"
   scope       = data.azurerm_subscription.primary.id
