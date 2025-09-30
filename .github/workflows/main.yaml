@@ -337,6 +337,10 @@ jobs:
 
     # Environment Variables
     env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_APPID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_PASSWORD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT }}
       TF_VAR_f5xc-cloud-credential: ${{ secrets.F5XC_CLOUD_CREDENTIAL }}
       TF_VAR_f5xc-customer-edge-ssh-key: ${{ secrets.F5XC_CUSTOMER_EDGE_SSH_KEY }}
       TF_VAR_f5xc_ce_username: ${{ secrets.F5_XC_CE_USERNAME }}
