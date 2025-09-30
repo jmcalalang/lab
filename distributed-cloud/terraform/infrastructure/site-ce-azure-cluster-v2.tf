@@ -99,7 +99,7 @@ resource "azurerm_network_security_group" "ce-external-sg" {
     protocol                   = "ICMP"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   security_rule {
@@ -110,7 +110,7 @@ resource "azurerm_network_security_group" "ce-external-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   security_rule {
@@ -121,7 +121,7 @@ resource "azurerm_network_security_group" "ce-external-sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "65500"
-    source_address_prefixes    = "*"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
   tags = {
