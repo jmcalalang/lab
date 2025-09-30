@@ -128,6 +128,9 @@ resource "volterra_securemesh_site_v2" "azure-site" {
   azure {
     not_managed {}
   }
+  labels = {
+    "ves.io/provider" = "ves-io-AZURE"
+  }
 }
 
 resource "volterra_token" "smsv2_token" {
@@ -209,7 +212,7 @@ data "cloudinit_config" "f5xc_ce_config" {
           permissions = "0644"
           owner       = "root"
           content     = <<-EOT
-            token: ${trimprefix(trimprefix(volterra_token.smsv2_token[count.index].id, "id="), "\"")}
+            token: ${replace(volterra_token.smsv2_token[count.index].id, "id=", "")}
           EOT
         }
       ]
