@@ -341,6 +341,7 @@ jobs:
       TF_VAR_f5xc-customer-edge-ssh-key: ${{ secrets.F5XC_CUSTOMER_EDGE_SSH_KEY }}
       TF_VAR_f5xc_ce_username: ${{ secrets.F5_XC_CE_USERNAME }}
       TF_VAR_f5xc_ce_password: ${{ secrets.F5_XC_CE_PASSWORD }}
+      TF_VAR_allowed_ips: ${{ secrets.ALLOWED_IPS }}
       VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
 
     # Where are the Terraform files
