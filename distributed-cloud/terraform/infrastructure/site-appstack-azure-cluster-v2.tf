@@ -138,11 +138,11 @@ resource "volterra_token" "smsv2_token" {
   count     = var.ce-instance-count
 }
 
-resource "volterra_virtual_site" "vsite" {
+resource "volterra_virtual_site" "azure_vsite" {
   name      = "azure-vsite-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   namespace = "shared"
   site_selector {
-    expressions = ["volterra_known_label_key.vsite_key[count.index].key in (volterra_known_label.vsite_label[count.index].value)"]
+    expressions = { volterra_known_label_key.vsite_key[count.index].key = volterra_known_label.vsite_label[count.index].value }
   }
   site_type = "CUSTOMER_EDGE"
   count     = var.ce-instance-count
