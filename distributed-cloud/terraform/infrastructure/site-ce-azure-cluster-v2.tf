@@ -37,8 +37,8 @@ resource "azurerm_network_interface" "nic-internal" {
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
-  ip_forwarding_enabled          = true
-  accelerated_networking_enabled = true
+  ip_forwarding_enabled          = false
+  accelerated_networking_enabled = false
   ip_configuration {
     name                          = "if-config-internal-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-internal.id
@@ -57,7 +57,8 @@ resource "azurerm_network_interface" "nic-external" {
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
-  accelerated_networking_enabled = true
+  ip_forwarding_enabled          = false
+  accelerated_networking_enabled = false
   ip_configuration {
     name                          = "if-config-external-01"
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
@@ -185,7 +186,7 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-    disk_size_gb         = 80
+    disk_size_gb         = 128
   }
   identity {
     type = "SystemAssigned"

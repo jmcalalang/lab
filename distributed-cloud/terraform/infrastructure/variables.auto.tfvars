@@ -24,4 +24,4 @@ existing-vnet                  = "azure-10-0-0-0-16-vnet"
 existing-vnet-subnet-external  = "external"
 existing-vnet-subnet-internal  = "internal"
 ce-instance-count              = 1
-ce-instance-size               = "Standard_D16_v4"
+ce-instance-size               = "Standard_D8_v4"
