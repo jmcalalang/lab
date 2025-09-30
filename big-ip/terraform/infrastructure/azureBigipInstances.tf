@@ -14,8 +14,8 @@ resource "azurerm_resource_group" "big-ip-resource-group" {
 
 ## Azure SSH Key
 resource "tls_private_key" "big-ip-ssh-key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm = "ECDSA"
+  ecdsa_curve = "P384"
 }
 
 

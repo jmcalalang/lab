@@ -96,7 +96,7 @@ resource "azurerm_network_security_group" "ce-external-sg" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "ICMP"
+    protocol                   = "Icmp"
     source_port_range          = "*"
     destination_port_range     = "*"
     source_address_prefix      = "*"
