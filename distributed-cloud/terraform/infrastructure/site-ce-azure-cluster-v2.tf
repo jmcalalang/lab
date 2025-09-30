@@ -32,6 +32,20 @@ data "azurerm_subnet" "existing-subnet-external" {
   resource_group_name  = var.existing-vnet-resource-group
 }
 
+resource "azurerm_public_ip" "ce-management" {
+  name                = "pip-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  location            = azurerm_resource_group.f5-xc-resource-group.location
+  resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
+  allocation_method   = "Static"
+  count               = sum([var.ce-instance-count])
+  domain_name_label   = "ce-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  tags = {
+    environment = var.label-environment
+    resource    = var.label-resource-type
+    Owner       = var.label-email
+  }
+}
+
 resource "azurerm_network_interface" "nic-internal" {
   name                           = "nic-internal-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   location                       = azurerm_resource_group.f5-xc-resource-group.location
@@ -64,6 +78,7 @@ resource "azurerm_network_interface" "nic-external" {
     subnet_id                     = data.azurerm_subnet.existing-subnet-external.id
     private_ip_address_allocation = "Dynamic"
     primary                       = true
+    public_ip_address_id          = azurerm_public_ip.ce-management[count.index].id
   }
   tags = {
     environment = var.label-environment
@@ -77,14 +92,36 @@ resource "azurerm_network_security_group" "ce-external-sg" {
   location            = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
   security_rule {
-    name                       = "https"
+    name                       = "icmp"
     priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "ICMP"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefixes    = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "ssh"
+    priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefixes    = tolist([var.allowed_ips])
+    destination_port_range     = "22"
+    source_address_prefixes    = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "ce-ui"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "65500"
+    source_address_prefixes    = "*"
     destination_address_prefix = "*"
   }
   tags = {

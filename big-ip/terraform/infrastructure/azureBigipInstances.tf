@@ -12,6 +12,13 @@ resource "azurerm_resource_group" "big-ip-resource-group" {
   }
 }
 
+## Azure SSH Key
+resource "tls_private_key" "big-ip-ssh-key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+
 ## Azure Network Objects
 resource "random_uuid" "pip-mgmt-random-uuid" {
   count = sum([var.big-ip-instance-count])
@@ -276,6 +283,10 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
     package_url    = var.bigip_runtime_init_package_url
     admin_username = var.big-ip-username
   }))
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = tls_private_key.big-ip-ssh-key.public_key_openssh
+  }
   plan {
     publisher = "f5-networks"
     product   = var.big-ip-instance-offer
@@ -361,21 +372,5 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
     enabled         = true
     time_in_minutes = "30"
     email           = var.notification_email
-  }
-}
-
-## Wait for BIG-IP
-resource "time_sleep" "azure_bigip_ready" {
-  depends_on      = [azurerm_linux_virtual_machine.big-ip-instance]
-  create_duration = var.bigip_ready
-}
-
-## Local Exec to run post-deployment script
-resource "null_resource" "curl_azure_bigip" {
-  depends_on = [time_sleep.azure_bigip_ready]
-  count      = sum([var.big-ip-instance-count])
-  provisioner "local-exec" {
-    command     = "curl -k --max-time 10 https://${azurerm_linux_virtual_machine.big-ip-instance[count.index].public_ip_addresses[0]}"
-    interpreter = ["bash", "-c"]
   }
 }
