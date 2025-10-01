@@ -215,7 +215,7 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   custom_data                     = base64encode(data.cloudinit_config.f5xc_ce_config[count.index].rendered)
   admin_ssh_key {
     username   = "cloud-user"
-    public_key = replace(tls_private_key.ce-ssh-key.public_key_openssh, "\n", "")
+    public_key = tls_private_key.ce-ssh-key.public_key_openssh
   }
   plan {
     name      = "volterra-node"
