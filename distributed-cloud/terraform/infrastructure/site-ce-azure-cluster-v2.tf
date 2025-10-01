@@ -259,7 +259,7 @@ data "cloudinit_config" "f5xc_ce_config" {
           permissions = "0644"
           owner       = "root"
           content     = <<-EOT
-            token: ${replace(volterra_token.smsv2_token[count.index].id, "\n", "")}
+            token: ${volterra_token.smsv2_token[count.index].id}
           EOT
         }
       ]
