@@ -27,5 +27,5 @@ ce-instance-count              = 1
 ce-instance-size               = "Standard_D8_v4"
 ce-version                     = "9.2025.17"
 ce-publisher                   = "f5-networks"
-ce-sku                         = "f5xccebyol_2"
+ce-sku                         = "f5xccebyol"
 ce-offer                       = "f5xc_customer_edge"
