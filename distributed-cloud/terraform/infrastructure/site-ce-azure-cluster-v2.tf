@@ -210,7 +210,6 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   availability_set_id             = azurerm_availability_set.ce-instance.id
   count                           = sum([var.ce-instance-count])
   admin_username                  = var.f5xc_ce_username
-  admin_password                  = var.f5xc_ce_password
   disable_password_authentication = true
   computer_name                   = "ce-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   custom_data                     = base64encode(data.cloudinit_config.f5xc_ce_config[count.index].rendered)
@@ -276,5 +275,20 @@ resource "azurerm_availability_set" "ce-instance" {
     environment = var.label-environment
     resource    = var.label-resource-type
     Owner       = var.label-email
+  }
+}
+
+## Shutdown Schedule
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "ce-instance-group-azure-instances" {
+  virtual_machine_id    = azurerm_linux_virtual_machine.ce-instance[count.index].id
+  location              = azurerm_resource_group.f5-xc-resource-group.location
+  enabled               = true
+  daily_recurrence_time = "1900"
+  timezone              = "Pacific Standard Time"
+  count                 = sum([var.ce-instance-count])
+  notification_settings {
+    enabled         = true
+    time_in_minutes = "30"
+    email           = var.label-email
   }
 }

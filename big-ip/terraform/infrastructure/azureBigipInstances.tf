@@ -274,7 +274,6 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   availability_set_id             = azurerm_availability_set.big-ip-instance.id
   count                           = sum([var.big-ip-instance-count])
   admin_username                  = var.big-ip-username
-  admin_password                  = var.big-ip-password
   disable_password_authentication = true
   computer_name                   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
@@ -359,7 +358,7 @@ resource "azurerm_role_assignment" "bigip-role-assignment-principal-id" {
 }
 
 ## Shutdown Schedule
-resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-instances" {
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "big-ip-instance-group-azure-instances" {
   virtual_machine_id    = azurerm_linux_virtual_machine.big-ip-instance[count.index].id
   location              = var.azure_location
   enabled               = true
