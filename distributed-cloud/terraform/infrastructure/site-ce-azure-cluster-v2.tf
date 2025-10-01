@@ -219,9 +219,9 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
     public_key = tls_private_key.ce-ssh-key.public_key_openssh
   }
   plan {
-    name      = var.ce-offer
-    product   = var.ce-offer
     publisher = var.ce-publisher
+    product   = var.ce-offer
+    name      = var.ce-sku
   }
   source_image_reference {
     publisher = var.ce-publisher
