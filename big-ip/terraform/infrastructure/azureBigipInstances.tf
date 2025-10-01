@@ -283,7 +283,7 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   }))
   admin_ssh_key {
     username   = "azureuser"
-    public_key = tls_private_key.big-ip-ssh-key.public_key_openssh
+    public_key = trimsuffix(tls_private_key.big-ip-ssh-key.public_key_openssh, "\n")
   }
   plan {
     publisher = "f5-networks"
