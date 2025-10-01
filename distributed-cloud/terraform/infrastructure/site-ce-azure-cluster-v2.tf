@@ -6,6 +6,11 @@ resource "random_uuid" "ce-random-uuid" {
   count = sum([var.ce-instance-count])
 }
 
+## Azure SSH Key
+resource "tls_private_key" "ce-ssh-key" {
+  algorithm = "ED25519" # Recommended for Azure
+}
+
 ## Azure Resource Group for F5 XC resources
 
 resource "azurerm_resource_group" "f5-xc-resource-group" {
@@ -209,6 +214,10 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   disable_password_authentication = false
   computer_name                   = "ce-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   custom_data                     = base64encode(data.cloudinit_config.f5xc_ce_config[count.index].rendered)
+  admin_ssh_key {
+    username   = "cloud-user"
+    public_key = tls_private_key.ce-ssh-key.public_key_openssh
+  }
   plan {
     name      = "volterra-node"
     product   = "volterra-node"
