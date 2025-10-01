@@ -701,7 +701,8 @@ jobs:
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    needs: [NGINX-One-Ansible-Configuration]
+    needs:
+      [Cloud-Network-Terraform-Infrastructure, NGINX-One-Ansible-Configuration]
 
     # Environment Variables
     env:

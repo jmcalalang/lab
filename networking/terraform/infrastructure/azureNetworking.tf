@@ -113,10 +113,10 @@ resource "azurerm_network_security_group" "external-nsg" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "management-nsg-association" {
-  subnet_id                 = azurerm_subnet.management.id
-  network_security_group_id = azurerm_network_security_group.management-nsg.id
-}
+resource "azurerm_subnet_network_security_group_association" "external-nsg-association" {
+  subnet_id                 = azurerm_subnet.external.id
+  network_security_group_id = azurerm_network_security_group.external-nsg.id
+} 
 
 resource "azurerm_network_security_group" "internal-nsg" {
   name                = "internal-nsg"
