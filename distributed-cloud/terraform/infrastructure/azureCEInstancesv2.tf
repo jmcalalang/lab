@@ -188,8 +188,7 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   availability_set_id             = azurerm_availability_set.ce-instance.id
   count                           = sum([var.ce-instance-count])
   admin_username                  = var.f5xc_ce_username
-  admin_password                  = var.f5xc_ce_password
-  disable_password_authentication = false
+  disable_password_authentication = true
   computer_name                   = "ce-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   custom_data                     = base64encode(data.cloudinit_config.f5xc_ce_config[count.index].rendered)
   admin_ssh_key {
