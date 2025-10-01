@@ -8,7 +8,8 @@ resource "random_uuid" "ce-random-uuid" {
 
 ## Azure SSH Key
 resource "tls_private_key" "ce-ssh-key" {
-  algorithm = "ED25519" # Recommended for Azure
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
 ## Azure Resource Group for F5 XC resources
