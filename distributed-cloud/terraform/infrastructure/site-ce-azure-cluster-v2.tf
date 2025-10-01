@@ -219,15 +219,15 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
     public_key = tls_private_key.ce-ssh-key.public_key_openssh
   }
   plan {
-    name      = "volterra-node"
-    product   = "volterra-node"
-    publisher = "volterraedgeservices"
+    name      = var.ce-offer
+    product   = var.ce-offer
+    publisher = var.ce-publisher
   }
   source_image_reference {
-    publisher = "volterraedgeservices"
-    offer     = "volterra-node"
-    sku       = "volterra-node"
-    version   = "latest"
+    publisher = var.ce-publisher
+    offer     = var.ce-offer
+    sku       = var.ce-sku
+    version   = var.ce-version
   }
   os_disk {
     caching              = "ReadWrite"

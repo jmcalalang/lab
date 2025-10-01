@@ -25,3 +25,7 @@ existing-vnet-subnet-external  = "external"
 existing-vnet-subnet-internal  = "internal"
 ce-instance-count              = 1
 ce-instance-size               = "Standard_D8_v4"
+ce-version                     = "2024.44.2"
+ce-publisher                   = "f5-networks"
+ce-sku                         = "f5xccebyol_2"
+ce-offer                       = "f5xc_customer_edge"

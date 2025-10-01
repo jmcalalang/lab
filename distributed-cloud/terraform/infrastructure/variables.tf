@@ -107,3 +107,19 @@ variable "f5xc_ce_password" {
   type        = string
   description = "Environment Variable for Customer Edge Password"
 }
+variable "ce-version" {
+  type        = string
+  description = "Version of customer edge instances"
+}
+variable "ce-publisher" {
+  type        = string
+  description = "Publisher of customer edge instances"
+}
+variable "ce-sku" {
+  type        = string
+  description = "SKU of customer edge instances"
+}
+variable "ce-offer" {
+  type        = string
+  description = "Offer of customer edge instances"
+}

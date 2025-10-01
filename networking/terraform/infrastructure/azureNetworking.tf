@@ -86,6 +86,10 @@ resource "azurerm_network_security_group" "management-nsg" {
   }
 }
 
+resource "azurerm_subnet_network_security_group_association" "management-nsg-association" {
+  subnet_id                 = azurerm_subnet.management.id
+  network_security_group_id = azurerm_network_security_group.management-nsg.id
+}
 
 resource "azurerm_network_security_group" "external-nsg" {
   name                = "external-nsg"
@@ -109,6 +113,11 @@ resource "azurerm_network_security_group" "external-nsg" {
   }
 }
 
+resource "azurerm_subnet_network_security_group_association" "management-nsg-association" {
+  subnet_id                 = azurerm_subnet.management.id
+  network_security_group_id = azurerm_network_security_group.management-nsg.id
+}
+
 resource "azurerm_network_security_group" "internal-nsg" {
   name                = "internal-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
@@ -120,6 +129,11 @@ resource "azurerm_network_security_group" "internal-nsg" {
   }
 }
 
+resource "azurerm_subnet_network_security_group_association" "internal-nsg-association" {
+  subnet_id                 = azurerm_subnet.internal.id
+  network_security_group_id = azurerm_network_security_group.internal-nsg.id
+}
+
 resource "azurerm_network_security_group" "kubernetes-nsg" {
   name                = "kubernetes-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
@@ -129,6 +143,11 @@ resource "azurerm_network_security_group" "kubernetes-nsg" {
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
+}
+
+resource "azurerm_subnet_network_security_group_association" "kubernetes-nsg-association" {
+  subnet_id                 = azurerm_subnet.kubernetes.id
+  network_security_group_id = azurerm_network_security_group.kubernetes-nsg.id
 }
 
 ## Azure Internal Subnet Nat Gateway
