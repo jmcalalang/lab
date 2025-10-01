@@ -57,28 +57,6 @@ resource "azurerm_network_security_group" "management-nsg" {
   name                = "management-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
-  security_rule {
-    name                       = "management-ssh"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-  security_rule {
-    name                       = "management-https"
-    priority                   = 105
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -95,17 +73,6 @@ resource "azurerm_network_security_group" "external-nsg" {
   name                = "external-nsg"
   location            = azurerm_resource_group.networking-resource-group.location
   resource_group_name = azurerm_resource_group.networking-resource-group.name
-  security_rule {
-    name                       = "https"
-    priority                   = 105
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
