@@ -24,7 +24,7 @@ existing-vnet                  = "azure-10-0-0-0-16-vnet"
 existing-vnet-subnet-external  = "external"
 existing-vnet-subnet-internal  = "internal"
 ce-instance-count              = 1
-ce-instance-size               = "Standard_D8_v4" # 8 vCPU, 32 GiB RAM
+ce-instance-size               = "Standard_D8s_v4" # 8 vCPU, 32 GiB RAM
 #  az vm image list -p f5-networks -f f5xc_customer_edge -s f5xccebyol --all --output table
 ce-version   = "9.2025.17"
 ce-publisher = "f5-networks"

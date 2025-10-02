@@ -123,18 +123,18 @@ resource "azurerm_network_interface_security_group_association" "ce-external-sg"
 
 ## F5 XC resources Tokens, Sites, and Virtual Sites
 
-#resource "volterra_known_label_key" "vsite_key" {
-#  key       = "azure-vsite-key-${random_uuid.ce-random-uuid[0].result}-${count.index}"
-#  namespace = "shared"
-#  count     = var.ce-instance-count
-#}
-#
-#resource "volterra_known_label" "vsite_label" {
-#  key       = volterra_known_label_key.vsite_key[count.index].key
-#  namespace = "shared"
-#  value     = "azure-vsite-label-${random_uuid.ce-random-uuid[0].result}-${count.index}"
-#  count     = var.ce-instance-count
-#}
+resource "volterra_known_label_key" "vsite_key" {
+  key       = "azure-vsite-key-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  namespace = "shared"
+  count     = var.ce-instance-count
+}
+
+resource "volterra_known_label" "vsite_label" {
+  key       = volterra_known_label_key.vsite_key[count.index].key
+  namespace = "shared"
+  value     = "azure-vsite-label-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  count     = var.ce-instance-count
+}
 
 resource "volterra_securemesh_site_v2" "azure-site" {
 
@@ -164,17 +164,17 @@ resource "volterra_token" "smsv2_token" {
   count     = var.ce-instance-count
 }
 
-#resource "volterra_virtual_site" "azure_vsite" {
-#  name      = "azure-vsite-${random_uuid.ce-random-uuid[0].result}-${count.index}"
-#  namespace = "shared"
-#  site_selector {
-#    expressions = [
-#      "${volterra_known_label_key.vsite_key[count.index].key} == ${volterra_known_label.vsite_label[count.index].value}"
-#    ]
-#  }
-#  site_type = "CUSTOMER_EDGE"
-#  count     = var.ce-instance-count
-#}
+resource "volterra_virtual_site" "azure_vsite" {
+  name      = "azure-vsite-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  namespace = "shared"
+  site_selector {
+    expressions = [
+      "${volterra_known_label_key.vsite_key[count.index].key} == ${volterra_known_label.vsite_label[count.index].value}"
+    ]
+  }
+  site_type = "CUSTOMER_EDGE"
+  count     = var.ce-instance-count
+}
 
 ## Azure Instances for F5 XC Customer Edge (CE)
 
@@ -240,7 +240,7 @@ data "cloudinit_config" "f5xc_ce_config" {
           permissions = "0644"
           owner       = "root"
           content     = <<-EOT
-            token: ${replace(volterra_token.smsv2_token[count.index].id, "id=", "")}
+            token: ${trimsuffix(volterra_token.smsv2_token[count.index].id, "\n")}
           EOT
         }
       ]
