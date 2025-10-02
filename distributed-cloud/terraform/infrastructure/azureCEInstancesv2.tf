@@ -141,7 +141,7 @@ resource "volterra_securemesh_site_v2" "azure-site" {
   block_all_services      = false
   logs_streaming_disabled = true
   enable_ha               = false
-  count                   = var.ce-instance-count
+  count                   = sum([var.ce-instance-count])
   tunnel_type             = "SITE_TO_SITE_TUNNEL_SSL"
   re_select {
     geo_proximity = true
@@ -159,7 +159,7 @@ resource "volterra_token" "smsv2_token" {
   namespace = "system"
   type      = 1
   site_name = volterra_securemesh_site_v2.azure-site[count.index].name
-  count     = var.ce-instance-count
+  count     = sum([var.ce-instance-count])
 }
 
 resource "volterra_virtual_site" "azure_vsite" {
@@ -170,6 +170,7 @@ resource "volterra_virtual_site" "azure_vsite" {
       "${volterra_known_label_key.vsite_key.key} == ${volterra_known_label.vsite_label.value}"
     ]
   }
+  count     = sum([var.ce-instance-count])
   site_type = "CUSTOMER_EDGE"
 }
 
@@ -223,7 +224,7 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
 }
 
 data "cloudinit_config" "f5xc_ce_config" {
-  count         = var.ce-instance-count
+  count         = sum([var.ce-instance-count])
   gzip          = false
   base64_encode = false
 
