@@ -140,10 +140,11 @@ resource "volterra_securemesh_site_v2" "azure-site" {
 
   name                    = "azure-site-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   namespace               = "system"
-  block_all_services      = true
+  block_all_services      = false
   logs_streaming_disabled = true
   enable_ha               = false
   count                   = var.ce-instance-count
+  tunnel_type             = "SITE_TO_SITE_TUNNEL_SSL"
   re_select {
     geo_proximity = true
   }
@@ -196,6 +197,8 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
     username   = "cloud-user"
     public_key = trimsuffix(tls_private_key.ce-ssh-key.public_key_openssh, "\n")
   }
+  boot_diagnostics {
+  }
   plan {
     publisher = var.ce-publisher
     product   = var.ce-offer
@@ -237,7 +240,7 @@ data "cloudinit_config" "f5xc_ce_config" {
           permissions = "0644"
           owner       = "root"
           content     = <<-EOT
-            token: ${volterra_token.smsv2_token[count.index].id}
+            token: ${replace(volterra_token.smsv2_token[count.index].id, "id=", "")}
           EOT
         }
       ]

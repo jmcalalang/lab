@@ -25,7 +25,8 @@ existing-vnet-subnet-external  = "external"
 existing-vnet-subnet-internal  = "internal"
 ce-instance-count              = 1
 ce-instance-size               = "Standard_D16_v4"
-ce-version                     = "9.2025.17"
-ce-publisher                   = "f5-networks"
-ce-sku                         = "f5xccebyol"
-ce-offer                       = "f5xc_customer_edge"
+#  az vm image list -p f5-networks -f f5xc_customer_edge -s f5xccebyol --all --output table
+ce-version   = "9.2025.17"
+ce-publisher = "f5-networks"
+ce-sku       = "f5xccebyol"
+ce-offer     = "f5xc_customer_edge"
