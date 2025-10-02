@@ -123,19 +123,7 @@ resource "azurerm_network_interface_security_group_association" "ce-external-sg"
 
 ## F5 XC resources Tokens, Sites, and Virtual Sites
 
-resource "volterra_known_label_key" "vsite_key" {
-  key       = "${var.label-owner}-azure-vsite-key"
-  namespace = "shared"
-}
-
-resource "volterra_known_label" "vsite_label" {
-  key       = volterra_known_label_key.vsite_key.key
-  namespace = "shared"
-  value     = "${var.label-owner}-azure-vsite-label"
-}
-
 resource "volterra_securemesh_site_v2" "azure-site" {
-
   name                    = "azure-site-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   namespace               = "system"
   block_all_services      = false
@@ -153,25 +141,12 @@ resource "volterra_securemesh_site_v2" "azure-site" {
     "ves.io/provider" = "ves-io-AZURE"
   }
 }
-
 resource "volterra_token" "smsv2_token" {
   name      = "smsv2-token-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   namespace = "system"
   type      = 1
   site_name = volterra_securemesh_site_v2.azure-site[count.index].name
   count     = sum([var.ce-instance-count])
-}
-
-resource "volterra_virtual_site" "azure_vsite" {
-  name      = "azure-vsite-${random_uuid.ce-random-uuid[0].result}-${count.index}"
-  namespace = "shared"
-  site_selector {
-    expressions = [
-      "${volterra_known_label_key.vsite_key.key} == ${volterra_known_label.vsite_label.value}"
-    ]
-  }
-  count     = sum([var.ce-instance-count])
-  site_type = "CUSTOMER_EDGE"
 }
 
 ## Azure Instances for F5 XC Customer Edge (CE)
