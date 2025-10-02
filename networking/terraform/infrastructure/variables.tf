@@ -1,5 +1,9 @@
 # Shared variables
 
+variable "allowed_ips" {
+  type        = string
+  description = "Allowed Client IP addresses for management access"
+}
 variable "tag_owner" {
   type        = string
   description = "Owner Tag"
