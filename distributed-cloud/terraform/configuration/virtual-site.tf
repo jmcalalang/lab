@@ -8,7 +8,7 @@ resource "volterra_known_label" "vsite_label" {
   value     = "${var.label-owner}-azure-vsite-label"
 }
 resource "volterra_virtual_site" "azure_vsite" {
-  name      = "azure-vsite-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+  name      = "azure-vsite-${random_uuid.ce-random-uuid}"
   namespace = "shared"
   site_selector {
     expressions = [
