@@ -1,9 +1,13 @@
 ## Terraform Configuration for F5 XC Customer Edge (CE) on Azure
 
 ## Shared Variables
-resource "random_id" "ce-random-id" {
-  byte_length = 4
-  count       = sum([var.ce-instance-count])
+resource "random_string" "ce-string-id" {
+  length  = 4
+  special = false
+  upper   = false
+  numeric = true
+  lower   = true
+  count   = sum([var.ce-instance-count])
 }
 
 ## Azure SSH Key
@@ -39,12 +43,12 @@ data "azurerm_subnet" "existing-subnet-external" {
 }
 
 resource "azurerm_public_ip" "ce-management" {
-  name                = "pip-${random_id.ce-random-id[0].id}-${count.index}"
+  name                = "pip-${random_string.ce-string-id[0].id}-${count.index}"
   location            = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
   allocation_method   = "Static"
   count               = sum([var.ce-instance-count])
-  domain_name_label   = "ce-${random_id.ce-random-id[0].id}-${count.index}"
+  domain_name_label   = "ce-${random_string.ce-string-id[0].id}-${count.index}"
   tags = {
     environment = var.label-environment
     resource    = var.label-resource-type
@@ -53,7 +57,7 @@ resource "azurerm_public_ip" "ce-management" {
 }
 
 resource "azurerm_network_interface" "nic-sli" {
-  name                           = "nic-sli-${random_id.ce-random-id[0].id}-${count.index}"
+  name                           = "nic-sli-${random_string.ce-string-id[0].id}-${count.index}"
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
@@ -73,7 +77,7 @@ resource "azurerm_network_interface" "nic-sli" {
 }
 
 resource "azurerm_network_interface" "nic-slo" {
-  name                           = "nic-slo-${random_id.ce-random-id[0].id}-${count.index}"
+  name                           = "nic-slo-${random_string.ce-string-id[0].id}-${count.index}"
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
@@ -124,7 +128,7 @@ resource "azurerm_network_interface_security_group_association" "ce-external-sg"
 ## F5 XC resources Tokens, Sites, and Virtual Sites
 
 resource "volterra_securemesh_site_v2" "azure-site" {
-  name                    = "azure-site-${random_id.ce-random-id[0].id}-${count.index}"
+  name                    = "azure-site-${random_string.ce-string-id[0].id}-${count.index}"
   namespace               = "system"
   block_all_services      = false
   logs_streaming_disabled = true
@@ -142,7 +146,7 @@ resource "volterra_securemesh_site_v2" "azure-site" {
   }
 }
 resource "volterra_token" "smsv2_token" {
-  name      = "smsv2-token-${random_id.ce-random-id[0].id}-${count.index}"
+  name      = "smsv2-token-${random_string.ce-string-id[0].id}-${count.index}"
   namespace = "system"
   type      = 1
   site_name = volterra_securemesh_site_v2.azure-site[count.index].name
@@ -152,7 +156,7 @@ resource "volterra_token" "smsv2_token" {
 ## Azure Instances for F5 XC Customer Edge (CE)
 
 resource "azurerm_linux_virtual_machine" "ce-instance" {
-  name                = "ce-${random_id.ce-random-id[0].id}-${count.index}"
+  name                = "ce-${random_string.ce-string-id[0].id}-${count.index}"
   location            = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
   network_interface_ids = [
@@ -164,7 +168,7 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   count                           = sum([var.ce-instance-count])
   admin_username                  = var.f5xc_ce_username
   disable_password_authentication = true
-  computer_name                   = "ce-${random_id.ce-random-id[0].id}-${count.index}"
+  computer_name                   = "ce-${random_string.ce-string-id[0].id}-${count.index}"
   custom_data                     = base64encode(data.cloudinit_config.f5xc_ce_config[count.index].rendered)
   admin_ssh_key {
     username   = "cloud-user"
@@ -223,7 +227,7 @@ data "cloudinit_config" "f5xc_ce_config" {
 
 ## Availability Set
 resource "azurerm_availability_set" "ce-instance" {
-  name                = "aset-${random_id.ce-random-id[0].id}"
+  name                = "aset-${random_string.ce-string-id[0].id}"
   location            = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
   tags = {
