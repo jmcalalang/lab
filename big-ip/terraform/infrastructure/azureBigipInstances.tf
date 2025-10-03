@@ -279,7 +279,7 @@ resource "azurerm_linux_virtual_machine" "big-ip-instance" {
   computer_name                   = "big-ip-${random_uuid.big-ip-random-uuid[0].result}-${count.index}"
   custom_data = base64encode(templatefile("${path.module}/files/azure-bootstrap-big-ip-instances.tpl", {
     package_url    = var.bigip_runtime_init_package_url
-    admin_username = var.big-ip-username
+    admin_password = var.big-ip-password
   }))
   admin_ssh_key {
     username   = "azureuser"

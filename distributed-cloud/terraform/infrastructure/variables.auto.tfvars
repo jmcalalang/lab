@@ -26,7 +26,7 @@ existing-vnet-subnet-internal  = "internal"
 ce-instance-count              = 1
 ce-instance-size               = "Standard_D16s_v4" # 8 vCPU, 32 GiB RAM
 #  az vm image list -p f5-networks -f f5xc_customer_edge -s f5xccebyol --all --output table
-ce-version   = "9.2025.17"
+ce-version   = "2024.44.2"
 ce-publisher = "f5-networks"
-ce-sku       = "f5xccebyol"
+ce-sku       = "f5xccebyol_2"
 ce-offer     = "f5xc_customer_edge"
