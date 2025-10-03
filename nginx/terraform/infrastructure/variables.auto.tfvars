@@ -14,7 +14,7 @@ existing_subnet_resource_group = "calalang-networking-rg"
 
 # NGINX variables
 
-# az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer
+# az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
 
 nginx-instance-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-instance-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2204"

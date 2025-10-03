@@ -15,19 +15,16 @@ data "azurerm_subnet" "existing" {
 ################################# NGINX API Gateway Instance Group #################################
 
 # NGINX API Gateway Security Groups
-
 resource "azurerm_network_security_group" "nginx-api-gw-sg" {
   name                = "nginx-api-gw-sg"
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
 }
-
 resource "azurerm_network_interface_security_group_association" "nginx-api-gw-sg" {
   network_interface_id      = azurerm_network_interface.nic-api-gw[count.index].id
   network_security_group_id = azurerm_network_security_group.nginx-api-gw-sg.id
@@ -40,13 +37,11 @@ resource "azurerm_network_interface" "nic-api-gw" {
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
   count               = sum([var.nginx-api-gw-count])
-
   ip_configuration {
     name                          = "if-config"
     subnet_id                     = data.azurerm_subnet.existing.id
     private_ip_address_allocation = "Dynamic"
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -66,39 +61,32 @@ resource "azurerm_virtual_machine" "nginx-api-gw" {
   delete_os_disk_on_termination    = true
   availability_set_id              = azurerm_availability_set.nginx-api-gateway-instance.id
   count                            = sum([var.nginx-api-gw-count])
-
-  # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
   plan {
     publisher = "nginxinc"
     product   = var.nginx-api-gw-offer
     name      = var.nginx-api-gw-sku
   }
-
   storage_image_reference {
     publisher = "nginxinc"
     offer     = var.nginx-api-gw-offer
     sku       = var.nginx-api-gw-sku
     version   = var.nginx-api-gw-version
   }
-
   storage_os_disk {
     name              = "os-disk-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-
   os_profile {
     computer_name  = "nginx-${random_uuid.nginx-random-uuid[0].result}-${count.index}"
     admin_username = var.nginx_username
     admin_password = var.nginx_password
     custom_data    = base64encode(data.template_file.bootstrap-instance-group-api-gw.rendered)
   }
-
   os_profile_linux_config {
     disable_password_authentication = false
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -117,7 +105,6 @@ resource "azurerm_availability_set" "nginx-api-gateway-instance" {
   name                = "aset-api-gateway-${random_uuid.nginx-random-uuid[0].result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -134,7 +121,6 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-api" {
   daily_recurrence_time = "1900"
   timezone              = "Pacific Standard Time"
   count                 = sum([var.nginx-api-gw-count])
-
   notification_settings {
     enabled         = true
     time_in_minutes = "30"
@@ -145,19 +131,16 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-api" {
 ################################# NGINX Azure Instance Group #################################
 
 # NGINX API Gateway Security Groups
-
 resource "azurerm_network_security_group" "nginx-instances-sg" {
   name                = "nginx-instances-sg"
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
     Owner       = var.tag_owner
   }
 }
-
 resource "azurerm_network_interface_security_group_association" "nginx-instances-sg" {
   network_interface_id      = azurerm_network_interface.nic-instances[count.index].id
   network_security_group_id = azurerm_network_security_group.nginx-instances-sg.id
@@ -170,13 +153,11 @@ resource "azurerm_network_interface" "nic-instances" {
   location            = azurerm_resource_group.nginx-resource-group.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
   count               = sum([var.nginx-instance-count])
-
   ip_configuration {
     name                          = "if-config"
     subnet_id                     = data.azurerm_subnet.existing.id
     private_ip_address_allocation = "Dynamic"
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -196,39 +177,32 @@ resource "azurerm_virtual_machine" "nginx-instance" {
   delete_os_disk_on_termination    = true
   availability_set_id              = azurerm_availability_set.nginx-proxy-instance.id
   count                            = sum([var.nginx-instance-count])
-
-  # az vm image list -p nginxinc --all -f nginx_plus_with_nginx_app_protect_developer -s debian
   plan {
     publisher = "nginxinc"
     product   = var.nginx-instance-offer
     name      = var.nginx-instance-sku
   }
-
   storage_image_reference {
     publisher = "nginxinc"
     offer     = var.nginx-instance-offer
     sku       = var.nginx-instance-sku
     version   = var.nginx-instance-version
   }
-
   storage_os_disk {
     name              = "os-disk-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-
   os_profile {
     computer_name  = "nginx-${random_uuid.nginx-random-uuid[1].result}-${count.index}"
     admin_username = var.nginx_username
     admin_password = var.nginx_password
     custom_data    = base64encode(data.template_file.bootstrap-instance-group-azure-instances.rendered)
   }
-
   os_profile_linux_config {
     disable_password_authentication = false
   }
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -247,7 +221,6 @@ resource "azurerm_availability_set" "nginx-proxy-instance" {
   name                = "aset-proxy-${random_uuid.nginx-random-uuid[1].result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.nginx-resource-group.name
-
   tags = {
     environment = var.tag_environment
     resource    = var.tag_resource_type
@@ -264,7 +237,6 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "instance-group-azure-in
   daily_recurrence_time = "1900"
   timezone              = "Pacific Standard Time"
   count                 = sum([var.nginx-instance-count])
-
   notification_settings {
     enabled         = true
     time_in_minutes = "30"
