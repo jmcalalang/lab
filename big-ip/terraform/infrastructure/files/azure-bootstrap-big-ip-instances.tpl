@@ -89,7 +89,7 @@ extension_services:
     - extensionType: do
       type: inline
       value:
-        schemaVersion: 1.39.0
+        schemaVersion: 1.40.0
         class: Device
         async: true
         label: BIG-IP with Runtime-Init
@@ -108,7 +108,16 @@ extension_services:
             cliInactivityTimeout: 1200
             consoleInactivityTimeout: 1200
             autoPhonehome: true
+            guiSecurityBanner: true
+            guiSecurityBannerText: "It's a trap!\n\n- Admiral Ackbar"
+            usernamePrompt: "Hello There"
+            passwordPrompt: "Sith Handshake"
           admin:
+            class: User
+            userType: regular
+            password: "${admin_password}"
+            shell: bash
+          azureuser:
             class: User
             userType: regular
             password: "${admin_password}"
