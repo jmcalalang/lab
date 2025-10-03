@@ -52,8 +52,8 @@ resource "azurerm_public_ip" "ce-management" {
   }
 }
 
-resource "azurerm_network_interface" "nic-internal" {
-  name                           = "nic-internal-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+resource "azurerm_network_interface" "nic-sli" {
+  name                           = "nic-sli-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
@@ -72,8 +72,8 @@ resource "azurerm_network_interface" "nic-internal" {
   }
 }
 
-resource "azurerm_network_interface" "nic-external" {
-  name                           = "nic-external-${random_uuid.ce-random-uuid[0].result}-${count.index}"
+resource "azurerm_network_interface" "nic-slo" {
+  name                           = "nic-slo-${random_uuid.ce-random-uuid[0].result}-${count.index}"
   location                       = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name            = azurerm_resource_group.f5-xc-resource-group.name
   count                          = sum([var.ce-instance-count])
@@ -116,7 +116,7 @@ resource "azurerm_network_security_group" "ce-external-sg" {
 }
 
 resource "azurerm_network_interface_security_group_association" "ce-external-sg" {
-  network_interface_id      = azurerm_network_interface.nic-external[count.index].id
+  network_interface_id      = azurerm_network_interface.nic-slo[count.index].id
   network_security_group_id = azurerm_network_security_group.ce-external-sg.id
   count                     = sum([var.ce-instance-count])
 }
@@ -156,8 +156,8 @@ resource "azurerm_linux_virtual_machine" "ce-instance" {
   location            = azurerm_resource_group.f5-xc-resource-group.location
   resource_group_name = azurerm_resource_group.f5-xc-resource-group.name
   network_interface_ids = [
-    azurerm_network_interface.nic-external[count.index].id,
-    azurerm_network_interface.nic-internal[count.index].id
+    azurerm_network_interface.nic-slo[count.index].id,
+    azurerm_network_interface.nic-sli[count.index].id
   ]
   size                            = var.ce-instance-size
   availability_set_id             = azurerm_availability_set.ce-instance.id
