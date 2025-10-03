@@ -97,6 +97,7 @@ extension_services:
           class: Tenant
           My_DbVariables:
             class: DbVariables
+            auth.password-policy: disabled
             config.allow.rfc3927: enable
             dhclient.mgmt: disable
             ui.advisory.enabled: true
