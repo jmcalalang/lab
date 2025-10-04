@@ -1,12 +1,12 @@
-resource "volterra_known_label_key" "vsite_key" {
-  key       = "${var.label-owner}-azure-vsite-key"
-  namespace = "shared"
-}
 resource "volterra_known_label" "vsite_label" {
-  key        = volterra_known_label_key.vsite_key.key
+  key       = volterra_known_label_key.vsite_key.key
+  namespace = "shared"
+  value     = "${var.label-owner}-azure-vsite-label"
+}
+resource "volterra_known_label_key" "vsite_key" {
+  key        = "${var.label-owner}-azure-vsite-key"
   namespace  = "shared"
-  value      = "${var.label-owner}-azure-vsite-label"
-  depends_on = [volterra_known_label_key.vsite_key]
+  depends_on = [volterra_known_label.vsite_label]
 }
 resource "volterra_virtual_site" "azure_vsite" {
   name      = "${var.label-owner}azure-vsite"
