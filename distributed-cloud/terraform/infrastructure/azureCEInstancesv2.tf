@@ -142,7 +142,8 @@ resource "volterra_securemesh_site_v2" "azure-site" {
     not_managed {}
   }
   labels = {
-    "ves.io/provider" = "ves-io-AZURE"
+    "ves.io/provider"                           = "ves-io-AZURE"
+    "${volterra_known_label_key.vsite_key.key}" = "${volterra_known_label.vsite_label.value}"
   }
 }
 resource "volterra_token" "smsv2_token" {
