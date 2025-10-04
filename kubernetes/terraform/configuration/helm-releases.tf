@@ -1,28 +1,5 @@
 # Helm releases
 
-# # AI Gateway
-# resource "helm_release" "ai-gateway" {
-#   name       = "aigw"
-#   namespace  = var.namespace
-#   repository = "oci://private-registry.f5.com/aigw/"
-#   chart      = "aigw"
-#   timeout    = 600
-#   depends_on = [
-#     kubectl_manifest.f5-ai-gateway
-#   ]
-# 
-#   values = [
-#     "${file("./files/helm/f5-ai-gateway-values.yaml")}"
-#   ]
-# 
-#   set {
-#     name  = "imagePullSecrets[0].name"
-#     value = "f5-registry-secret"
-#   }
-# 
-#   provider = helm.helm-vk8s
-# }
-
 # Argo
 resource "helm_release" "argocd" {
   name       = "argo"
@@ -33,11 +10,9 @@ resource "helm_release" "argocd" {
   depends_on = [
     kubectl_manifest.argo
   ]
-
   values = [
     "${file("./files/helm/argocd-values.yaml")}"
   ]
-
   set = [
     {
       name  = "service.type"
@@ -60,7 +35,6 @@ resource "helm_release" "cis" {
   values = [
     "${file("./files/helm/f5-bigip-ctlr-values.yaml")}"
   ]
-
   set = [
     {
       name  = "ingressClass.isDefaultIngressController"
@@ -135,7 +109,6 @@ resource "helm_release" "nginx-plus-ingress" {
   depends_on = [
     kubectl_manifest.nginx-ingress
   ]
-
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
     "${file("./files/helm/nginx-ingress-custom-values.yaml")}"
@@ -152,7 +125,6 @@ resource "helm_release" "nginx-plus-ingressLink" {
   depends_on = [
     kubectl_manifest.nginx-ingresslink
   ]
-
   values = [
     "${file("./files/helm/nginx-plus-ingress-values.yaml")}",
     "${file("./files/helm/nginx-ingresslink-custom-values.yaml")}"
