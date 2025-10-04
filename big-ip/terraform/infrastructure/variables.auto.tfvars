@@ -45,4 +45,4 @@ big-ip-instance-count = 1
 big-ip-instance-offer = "f5-big-ip-best"
 big-ip-instance-size  = "Standard_D8s_v4" # 8 vCPU, 32 GiB RAM
 big-ip-instance-sku   = "f5-big-best-plus-hourly-1gbps-po-f5"
-big-ip-version        = "17.1.100002"
+big-ip-version        = "17.5.102000"
