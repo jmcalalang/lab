@@ -1,3 +1,3 @@
 # Shared variables
 
-app_gha_runner_version = "0.12.1"
+app_gha_runner_version = "0.13.0"
