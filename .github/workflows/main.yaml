@@ -21,7 +21,8 @@ on:
 jobs:
   Active-Directory-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
