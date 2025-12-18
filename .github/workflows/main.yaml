@@ -493,7 +493,8 @@ jobs:
     # The type of runner that the job will run on
     # runs-on: calalang-aks-runners
     runs-on: ubuntu-latest
-    needs: [Kubernetes-Terraform-Infrastructure, BIG-IP-Resources-Available]
+    # needs: [Kubernetes-Terraform-Infrastructure, BIG-IP-Resources-Available]
+    needs: [Kubernetes-Terraform-Infrastructure]
 
     # Environment Variables
     env:
