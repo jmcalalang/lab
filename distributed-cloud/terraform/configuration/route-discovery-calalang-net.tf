@@ -32,6 +32,8 @@ resource "volterra_route" "route-discovery-calalang-net" {
     service_policy {
       disable = false
     }
+    waf_exclusion_policy {
+    }
     waf_type {
       inherit_waf = true
     }
