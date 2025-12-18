@@ -1,6 +1,6 @@
 # ArgoCD Values
 # Versions: https://github.com/argoproj/argo-helm
-argo-chart-version = "8.2.5"
+argo-chart-version = "9.1.9"
 
 # BIG-IP Container Ingress Services Values
 # Versions: https://github.com/F5Networks/k8s-bigip-ctlr/tree/master/helm-charts/f5-bigip-ctlr
