@@ -21,8 +21,8 @@ on:
 jobs:
   Active-Directory-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -74,8 +74,8 @@ jobs:
 
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Kubernetes-Terraform-Configuration]
 
     # Environment Variables
@@ -144,8 +144,8 @@ jobs:
 
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -205,8 +205,8 @@ jobs:
 
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -266,8 +266,8 @@ jobs:
 
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs:
       [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
 
@@ -319,8 +319,8 @@ jobs:
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
 
     # Environment Variables
     env:
@@ -339,8 +339,8 @@ jobs:
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available]
 
     # Environment Variables
@@ -394,8 +394,8 @@ jobs:
 
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [F5XC-Terraform-Infrastructure]
 
     # Environment Variables
@@ -443,8 +443,8 @@ jobs:
 
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -491,8 +491,8 @@ jobs:
 
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     # needs: [Kubernetes-Terraform-Infrastructure, BIG-IP-Resources-Available]
     needs: [Kubernetes-Terraform-Infrastructure]
 
@@ -603,8 +603,8 @@ jobs:
 
   Cloud-Network-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
 
     # Environment Variables
     env:
@@ -656,8 +656,8 @@ jobs:
 
   NGINX-One-Resources-Available:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
 
     # Environment Variables
     env:
@@ -676,8 +676,8 @@ jobs:
 
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs: [NGINX-One-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -716,8 +716,8 @@ jobs:
 
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     needs:
       [Cloud-Network-Terraform-Infrastructure, NGINX-One-Ansible-Configuration]
 
