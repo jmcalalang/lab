@@ -631,7 +631,7 @@ jobs:
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
 
