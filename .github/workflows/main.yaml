@@ -189,7 +189,7 @@ jobs:
           ansible-galaxy collection install f5networks.f5_modules community.general
 
       - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v4
+        uses: dawidd6/action-ansible-playbook@v5
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
@@ -732,7 +732,7 @@ jobs:
           ansible-galaxy collection install community.general
 
       - name: Run Ansible Playbooks
-        uses: dawidd6/action-ansible-playbook@v4
+        uses: dawidd6/action-ansible-playbook@v5
         with:
           # Optional, additional flags to pass to ansible-playbook
           options: |
