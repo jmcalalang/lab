@@ -73,7 +73,7 @@ extension_packages:
   install_operations:
     - extensionType: do
       extensionVersion: 1.47.0
-      extensionHash: 3b05d9bcafbcf0b5b625ff81d6bab5ad26ed90c0dd202ded51756af3598a97ec
+      extensionHash: 2338ce270d5ee12405e59d4f712b09cd111b24b5f78aee41e90f8e61ee2a36e2
     - extensionType: as3
       extensionVersion: 3.55.0
       extensionHash: 0bbd93f649e5e8207746524ed3bdd6cc519bad1e304ae79c50ae8f05ef5ccf67
