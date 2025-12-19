@@ -21,8 +21,7 @@ on:
 jobs:
   Active-Directory-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -41,17 +40,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform Active-Directory-Terraform-Infrastructure fmt
         id: fmt
@@ -74,8 +78,7 @@ jobs:
 
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Kubernetes-Terraform-Configuration]
 
     # Environment Variables
@@ -93,11 +96,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
@@ -121,7 +124,12 @@ jobs:
         uses: azure/setup-kubectl@v4
 
       - name: HashiCorp Terraform Setup
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform Argo-Terraform-Configuration fmt
         id: fmt
@@ -144,8 +152,7 @@ jobs:
 
   BIG-IP-Resources-Available:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [BIG-IP-Terraform-Infrastructure]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -159,18 +166,17 @@ jobs:
   BIG-IP-Ansible-Configuration:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
     needs: [BIG-IP-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v5
         with:
           check-latest: true
 
-      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
+      - name: Install Modules # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
         run: |
           sudo apt update
           sudo apt install -y python3-pip pipx alien
@@ -205,8 +211,7 @@ jobs:
 
   BIG-IP-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -230,17 +235,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: cURL ipify.org
         run: |
@@ -266,8 +276,7 @@ jobs:
 
   BIG-IP-Terraform-Configuration:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs:
       [Active-Directory-Terraform-Infrastructure, BIG-IP-Ansible-Configuration]
 
@@ -286,17 +295,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform BIG-IP-Terraform-Configuration fmt
         id: fmt
@@ -319,8 +333,7 @@ jobs:
 
   F5XC-Resources-Available:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
 
     # Environment Variables
     env:
@@ -329,7 +342,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Make authenticated F5XC API request
         run: |
@@ -339,8 +352,7 @@ jobs:
 
   F5XC-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure, F5XC-Resources-Available]
 
     # Environment Variables
@@ -363,17 +375,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -394,8 +411,7 @@ jobs:
 
   F5XC-Terraform-Configuration:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [F5XC-Terraform-Infrastructure]
 
     # Environment Variables
@@ -412,17 +428,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform F5XC-Terraform fmt
         id: fmt
@@ -443,8 +464,7 @@ jobs:
 
   Kubernetes-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [Cloud-Network-Terraform-Infrastructure]
 
     # Environment Variables
@@ -461,16 +481,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
       - name: HashiCorp Terraform Setup
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform Kubernetes-Terraform-Infrastructure fmt
         id: fmt
@@ -491,8 +516,7 @@ jobs:
 
   Kubernetes-Terraform-Configuration:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     # needs: [Kubernetes-Terraform-Infrastructure, BIG-IP-Resources-Available]
     needs: [Kubernetes-Terraform-Infrastructure]
 
@@ -523,11 +547,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
@@ -580,7 +604,12 @@ jobs:
         continue-on-error: false
 
       - name: HashiCorp Terraform Setup
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform Kubernetes-Terraform-Configuration fmt
         id: fmt
@@ -604,7 +633,6 @@ jobs:
   Cloud-Network-Terraform-Infrastructure:
     # The type of runner that the job will run on
     runs-on: calalang-aks-runners
-    # runs-on: ubuntu-latest
 
     # Environment Variables
     env:
@@ -661,8 +689,7 @@ jobs:
 
   NGINX-One-Resources-Available:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
 
     # Environment Variables
     env:
@@ -671,7 +698,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Make authenticated NGINX One API request
         run: |
@@ -681,19 +708,18 @@ jobs:
 
   NGINX-One-Ansible-Configuration:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs: [NGINX-One-Resources-Available]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v5
         with:
           check-latest: true
 
-      - name: Install Ansible # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
+      - name: Install Modules # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-system-path
         run: |
           sudo apt update
           sudo apt install -y python3-pip pipx
@@ -721,8 +747,7 @@ jobs:
 
   NGINX-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
     needs:
       [Cloud-Network-Terraform-Infrastructure, NGINX-One-Ansible-Configuration]
 
@@ -743,17 +768,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform NGINX-Terraform-Infrastructure fmt
         id: fmt
