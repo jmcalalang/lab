@@ -623,11 +623,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # When running on self-hosted GitHub Actions runners,
       # NodeJS must be previously installed with the version specified in the action.yml.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "latest"
 
