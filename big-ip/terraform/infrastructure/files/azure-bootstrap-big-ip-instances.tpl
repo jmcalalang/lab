@@ -82,7 +82,7 @@ extension_packages:
       extensionHash: fc95d4968530e7c45eec339e38b005ad4d8064fa0646b3e230afb1299687b171
     - extensionType: fast
       extensionVersion: 1.26.0
-      extensionHash: 2338ce270d5ee12405e59d4f712b09cd111b24b5f78aee41e90f8e61ee2a36e2
+      extensionHash: 3dbfc062796fd51926491195ef9200b93aa756f90ce5534c8262503b0eabea55
 extension_services:
   service_operations:
     - extensionType: do
