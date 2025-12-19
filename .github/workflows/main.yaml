@@ -603,8 +603,8 @@ jobs:
 
   Cloud-Network-Terraform-Infrastructure:
     # The type of runner that the job will run on
-    # runs-on: calalang-aks-runners
-    runs-on: ubuntu-latest
+    runs-on: calalang-aks-runners
+    # runs-on: ubuntu-latest
 
     # Environment Variables
     env:
@@ -634,6 +634,11 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+
+      - name: Install Modules # https://medium.com/@connect.hansaka/why-your-jenkins-pipeline-failed-with-libatomic-so-1-9f817f236c38
+        run: |
+          sudo apt update
+          sudo apt install -y libatomic1
 
       - name: Terraform Cloud-Network-Terraform-Infrastructure fmt
         id: fmt
