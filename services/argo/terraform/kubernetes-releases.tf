@@ -3,8 +3,9 @@
 data "kubectl_path_documents" "argo" {
   pattern = "./files/manifests/app-*.yaml"
   vars = {
-    app_gha_runner_version  = var.app_gha_runner_version
-    gha_runner_github_token = var.gha_runner_github_token
+    app_gha_runner_version   = var.app_gha_runner_version
+    gha_runner_github_token  = var.gha_runner_github_token
+    open_webui_chart_version = var.open_webui_chart_version
   }
 }
 

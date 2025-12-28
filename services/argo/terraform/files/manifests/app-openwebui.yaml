@@ -1,0 +1,29 @@
+# https://github.com/open-webui/helm-charts
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "open-webui"
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: open-webui
+    repoURL: https://helm.openwebui.com/
+    helm:
+      valueFiles:
+        - https://raw.githubusercontent.com/open-webui/helm-charts/refs/heads/main/charts/open-webui/values.yaml
+      ignoreMissingValueFiles: false
+      parameters:
+        - name: "service.type"
+          value: "ClusterIP"
+    targetRevision: ${open_webui_chart_version}
+  destination:
+    name: "in-cluster"
+    namespace: open-webui
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true
+      - CreateNamespace=true

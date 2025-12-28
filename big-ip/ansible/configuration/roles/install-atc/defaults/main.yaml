@@ -19,7 +19,7 @@ ts_requested_tag: "v1.33.0" # a default value that is used if not overidden and 
 
 fast_file: "fast.rpm"
 fast_file_sha256: "{{fast_file}}.sha256"
-fast_use_latest: true
+fast_use_latest: false
 fast_requested_tag: "v1.24.0" # a default value that is used if not overidden and if ts_use_latest = false
 
 cfe_file: "cfe.rpm"
