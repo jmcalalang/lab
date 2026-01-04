@@ -13,7 +13,7 @@ spec:
   routes:
     - path: /
       policies:
-        - name: oidc-policy
+        - name: open-webui-calalang-net-oidc-policy
       action:
         proxy:
           upstream: open-webui
