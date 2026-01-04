@@ -3,7 +3,7 @@ kind: VirtualServer
 metadata:
   name: open-webui.calalang.net
 spec:
-  ingressClassName: open-webui-nginx
+  ingressClassName: nginx
   host: open-webui.calalang.net
   tls:
     secret: open-webui-calalang-net-tls-secret
