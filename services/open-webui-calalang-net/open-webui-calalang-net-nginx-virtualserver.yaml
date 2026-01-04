@@ -1,0 +1,25 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: open-webui.calalang.net
+spec:
+  ingressClassName: open-webui-nginx
+  host: open-webui.calalang.net
+  tls:
+    secret: open-webui-calalang-net-tls-secret
+    redirect:
+      enable: true
+  upstreams:
+  - name: open-webui
+    service: open-webui
+    port: 80
+    type: http
+    tls:
+      enable: true
+  routes:
+  - path: /
+    policies:
+    - name: oidc-policy
+    action:
+      proxy:
+        upstream: open-webui

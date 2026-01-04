@@ -9,8 +9,31 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
     environment   = var.label-environment
   }
   description                     = "Global HTTPS Load Balancer for kubernetes.calalang.net"
-  domains                         = ["kubernetes.calalang.net", "argo.calalang.net"]
+  domains                         = ["kubernetes.calalang.net", "argo.calalang.net", "open-webui.calalang.net"]
   advertise_on_public_default_vip = true
+  routes {
+    simple_route {
+      http_method = "ANY"
+      path {
+        regex = ".*"
+      }
+      origin_pools {
+        pool {
+          namespace = var.namespace
+          name      = volterra_origin_pool.pool-svc-nginx-ingress.name
+        }
+        weight           = 1
+        priority         = 1
+        endpoint_subsets = {}
+      }
+      headers {
+        name         = "HOST"
+        exact        = "argo.calalang.net"
+        invert_match = false
+      }
+      host_rewrite = "argo.calalang.net"
+    }
+  }
   routes {
     simple_route {
       http_method = "ANY"
@@ -51,10 +74,10 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
       }
       headers {
         name         = "HOST"
-        exact        = "argo.calalang.net"
+        exact        = "open-webui.calalang.net"
         invert_match = false
       }
-      host_rewrite = "argo.calalang.net"
+      host_rewrite = "open-webui.calalang.net"
     }
   }
   https_auto_cert {

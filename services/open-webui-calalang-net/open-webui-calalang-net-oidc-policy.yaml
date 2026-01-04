@@ -1,0 +1,12 @@
+apiVersion: k8s.nginx.org/v1
+kind: Policy
+metadata:
+  name: open-webui-calalang-net-oidc-policy
+spec:
+  oidc:
+    clientID: 397bd34c-54eb-433a-aaa6-a116f869c634
+    clientSecret: open-webui-calalang-net-oidc-secret
+    authEndpoint: https://login.microsoftonline.com/e569f29e-b098-4cea-b6f0-48fa8532d64a/oauth2/authorize
+    tokenEndpoint: https://login.microsoftonline.com/e569f29e-b098-4cea-b6f0-48fa8532d64a/oauth2/token
+    jwksURI: https://login.microsoftonline.com/common/discovery/keys
+    scope: openid+profile+email
