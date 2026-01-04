@@ -5,21 +5,15 @@ metadata:
 spec:
   ingressClassName: nginx
   host: open-webui.calalang.net
-  tls:
-    secret: open-webui-calalang-net-tls-secret
-    redirect:
-      enable: true
   upstreams:
-  - name: open-webui
-    service: open-webui
-    port: 80
-    type: http
-    tls:
-      enable: true
+    - name: open-webui
+      service: open-webui
+      port: 80
+      type: http
   routes:
-  - path: /
-    policies:
-    - name: oidc-policy
-    action:
-      proxy:
-        upstream: open-webui
+    - path: /
+      policies:
+        - name: oidc-policy
+      action:
+        proxy:
+          upstream: open-webui
