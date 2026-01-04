@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: open-webui-calalang-net
+    namespace: open-webui
   syncPolicy:
     automated:
       prune: true
