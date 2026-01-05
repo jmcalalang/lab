@@ -3,7 +3,7 @@ title: F5 AI Guardrails (Calypso) Prompt
 author: O'Leary, Calalang, ChatGPT
 description: Open-WebUI function to send prompts to CalypsoAI's /prompts endpoint for scanning and moderation.
 version: 1.0.0
-requirements: httpx
+requirements: Valves for UUID of the CalypsoAI Project, and Project API Key.
 """
 
 from __future__ import annotations

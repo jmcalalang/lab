@@ -3,7 +3,7 @@ title: F5 AI Guardrails (Calypso) Policy Gateway
 author: Calalang, ChatGPT
 description: Open-WebUI function to send prompts to CalypsoAI's /scans endpoint for scanning and moderation.
 version: 1.0.0
-requirements: httpx
+requirements: Valves for UUID of the CalypsoAI Project, and Project API Key.
 """
 
 import json
