@@ -9,8 +9,7 @@ resource "bigip_ltm_virtual_server" "virtual-apm-calalang-net" {
   # irules                     = ["/Common/Shared/BIG-IP_Maintenance_Page_rule"]
   pool = bigip_ltm_pool.pool-apm-calalang-net-terraform.name
   port = 443
-  # profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/calalang-oidc", "/Common/calalang-oidc-connectivity-profile", "/Common/ppp", "/Common/vdi"]
-  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http"]
+  profiles                   = ["/Common/f5-tcp-progressive", "/Common/http", "/Common/apm-calalang-net", "/Common/apm-calalang-net-connectivity-profile"]
   server_profiles            = ["/Common/serverssl-insecure-compatible"]
   source_address_translation = "automap"
   vlans                      = ["/Common/external"]
