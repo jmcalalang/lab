@@ -29,3 +29,12 @@ spec:
       action:
         proxy:
           upstream: open-webui
+    - path: /__whoami
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
+      action:
+        return:
+          code: 200
+          type: text/plain
+          body: "email=$oidc_claim_email\npreferred_username=$oidc_claim_preferred_username\nupn=$oidc_claim_upn\nname=$oidc_claim_name\n"
+
