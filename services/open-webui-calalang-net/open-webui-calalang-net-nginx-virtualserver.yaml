@@ -23,8 +23,8 @@ spec:
         - codes: [302]
           return:
             code: 401
-            type: application/json
-            body: "{\"detail\":\"unauthorized\"}\n"
+            type: text/plain
+            body: "unauthorized\n"
       action:
         proxy:
           upstream: open-webui
@@ -36,8 +36,8 @@ spec:
         - codes: [302]
           return:
             code: 401
-            type: application/json
-            body: "{\"detail\":\"unauthorized\"}\n"
+            type: text/plain
+            body: "unauthorized\n"
       action:
         proxy:
           upstream: open-webui
