@@ -20,18 +20,15 @@ spec:
       policies:
         - name: open-webui-calalang-net-oidc-policy
       errorPages:
-        # When OIDC would redirect to Azure AD (302 HTML), return API-friendly 401 JSON instead
         - codes: [302]
           return:
             code: 401
             type: application/json
-            body: |
-              {"detail":"unauthorized"}
+            body: "{\"detail\":\"unauthorized\"}\n"
       action:
         proxy:
           upstream: open-webui
 
-    # If you see websocket/eventstream calls getting 302, you can do the same here.
     - path: /ws/
       policies:
         - name: open-webui-calalang-net-oidc-policy
@@ -40,8 +37,7 @@ spec:
           return:
             code: 401
             type: application/json
-            body: |
-              {"detail":"unauthorized"}
+            body: "{\"detail\":\"unauthorized\"}\n"
       action:
         proxy:
           upstream: open-webui
