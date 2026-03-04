@@ -16,6 +16,8 @@ spec:
       parameters:
         - name: "service.type"
           value: "ClusterIP"
+        - name: "pipelines.enabled"
+          value: "false"
     targetRevision: ${open_webui_chart_version}
   destination:
     name: "in-cluster"
