@@ -26,6 +26,8 @@ spec:
         # streaming safety
         proxy_set_header Accept-Encoding "";
         gzip off;
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
       action:
         pass: open-webui
     # WebSockets
@@ -35,11 +37,15 @@ spec:
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header X-Forwarded-Proto https;
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
       action:
         pass: open-webui
     # UI + everything else
     - path: /
       location-snippets: |
         proxy_set_header X-Forwarded-Proto https;
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
       action:
         pass: open-webui
