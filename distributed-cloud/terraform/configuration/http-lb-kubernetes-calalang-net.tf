@@ -86,10 +86,17 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
     }
   }
   https_auto_cert {
-    add_hsts              = true
-    http_redirect         = true
-    no_mtls               = true
-    enable_path_normalize = true
+    add_hsts                = true
+    http_redirect           = true
+    no_mtls                 = true
+    enable_path_normalize   = true
+    connection_idle_timeout = 600000
+  }
+  more_option {
+    idle_timeout = 3600000
+    buffer_policy {
+      disabled = true
+    }
   }
   add_location = true
   app_firewall {

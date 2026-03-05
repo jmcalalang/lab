@@ -18,24 +18,27 @@ spec:
       readTimeout: 3600s
       sendTimeout: 3600s
   routes:
+    # API (SSE/streaming)
     - path: /api
       policies:
         - name: open-webui-calalang-net-oidc-policy
       location-snippets: |
         proxy_cache off;
-        proxy_set_header Connection "";
         proxy_set_header X-Forwarded-Proto https;
       action:
         pass: open-webui
+    # WebSockets
     - path: /ws
       policies:
         - name: open-webui-calalang-net-oidc-policy
       location-snippets: |
         proxy_cache off;
-        proxy_set_header Connection "";
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_set_header X-Forwarded-Proto https;
       action:
         pass: open-webui
+    # UI + everything else
     - path: /
       policies:
         - name: open-webui-calalang-net-oidc-policy

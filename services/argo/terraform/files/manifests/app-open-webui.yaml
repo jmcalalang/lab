@@ -1,4 +1,3 @@
-# https://github.com/open-webui/helm-charts
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -9,6 +8,7 @@ spec:
   source:
     chart: open-webui
     repoURL: https://helm.openwebui.com/
+    targetRevision: ${open_webui_chart_version}
     helm:
       valueFiles:
         - https://raw.githubusercontent.com/open-webui/helm-charts/refs/heads/main/charts/open-webui/values.yaml
@@ -18,7 +18,20 @@ spec:
           value: "ClusterIP"
         - name: "pipelines.enabled"
           value: "false"
-    targetRevision: ${open_webui_chart_version}
+      values: |
+        extraEnvVars:
+          - name: WEBUI_URL
+            value: "https://open-webui.calalang.net"
+          - name: CORS_ALLOW_ORIGIN
+            value: "https://open-webui.calalang.net"
+          - name: WEBUI_SESSION_COOKIE_SECURE
+            value: "true"
+          - name: WEBUI_AUTH_COOKIE_SECURE
+            value: "true"
+          - name: WEBUI_SESSION_COOKIE_SAME_SITE
+            value: "lax"
+          - name: WEBUI_AUTH_COOKIE_SAME_SITE
+            value: "lax"
   destination:
     name: "in-cluster"
     namespace: open-webui
