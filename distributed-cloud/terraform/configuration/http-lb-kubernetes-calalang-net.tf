@@ -78,6 +78,11 @@ resource "volterra_http_loadbalancer" "http-lb-kubernetes-calalang-net" {
         invert_match = false
       }
       host_rewrite = "open-webui.calalang.net"
+      advanced_options {
+        web_socket_config {
+          use_websocket = true
+        }
+      }
     }
   }
   https_auto_cert {

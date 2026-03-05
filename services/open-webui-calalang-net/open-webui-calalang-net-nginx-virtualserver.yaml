@@ -19,5 +19,7 @@ spec:
       policies:
         - name: open-webui-calalang-net-oidc-policy
       action:
-        proxy:
-          upstream: open-webui
+        pass: open-webui
+    - path: /ws
+      action:
+        pass: open-webui
