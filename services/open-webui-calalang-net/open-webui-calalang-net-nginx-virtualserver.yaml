@@ -18,12 +18,12 @@ spec:
       readTimeout: 3600s
       sendTimeout: 3600s
   routes:
-    # API (SSE/streaming)
     - path: /api
       location-snippets: |
         proxy_cache off;
         proxy_set_header X-Forwarded-Proto https;
-        # SSE hardening
+        proxy_set_header X-Forwarded-Host $host;
+        # streaming safety
         proxy_set_header Accept-Encoding "";
         gzip off;
       action:
