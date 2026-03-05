@@ -14,12 +14,31 @@ spec:
     - name: open-webui
       service: open-webui
       port: 80
+      buffering: false
+      # optional but recommended for streaming + ws
+      readTimeout: 3600s
+      sendTimeout: 3600s
   routes:
-    - path: /
+    - path: /api
       policies:
         - name: open-webui-calalang-net-oidc-policy
+      location-snippets: |
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
       action:
         pass: open-webui
     - path: /ws
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
+      location-snippets: |
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
+      action:
+        pass: open-webui
+    - path: /
+      policies:
+        - name: open-webui-calalang-net-oidc-policy
       action:
         pass: open-webui
