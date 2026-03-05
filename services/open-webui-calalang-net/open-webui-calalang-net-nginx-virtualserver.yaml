@@ -25,6 +25,9 @@ spec:
       location-snippets: |
         proxy_cache off;
         proxy_set_header X-Forwarded-Proto https;
+        # SSE hardening
+        proxy_set_header Accept-Encoding "";
+        gzip off;
       action:
         pass: open-webui
     # WebSockets
