@@ -78,7 +78,8 @@ jobs:
 
   Argo-Terraform-Configuration:
     # The type of runner that the job will run on
-    runs-on: calalang-aks-runners
+    # runs-on: calalang-aks-runners
+    runs-on: ubuntu-latest
     #    needs: [Kubernetes-Terraform-Configuration]
 
     # Environment Variables
