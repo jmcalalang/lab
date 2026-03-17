@@ -23,8 +23,11 @@ spec:
         proxy_cache off;
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header X-Forwarded-Host $host;
-        # streaming safety
+        # SSE / streaming support
+        proxy_http_version 1.1;
+        proxy_set_header Connection '';
         proxy_set_header Accept-Encoding "";
+        proxy_buffering off;
         gzip off;
       policies:
         - name: open-webui-calalang-net-oidc-policy
