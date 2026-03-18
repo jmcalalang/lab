@@ -239,7 +239,7 @@ controller:
         }
       resolver-addresses: 10.0.8.10
       resolver-valid: 5s
-      http2: "true"
+      http2: "false"
 
   serviceAccount:
     ## The annotations of the service account of the Ingress Controller pods.
