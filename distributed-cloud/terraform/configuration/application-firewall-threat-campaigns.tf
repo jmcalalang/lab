@@ -8,12 +8,10 @@ resource "volterra_app_firewall" "app-firewall-threat-campaigns" {
     resource-type = var.label-resource-type
     environment   = var.label-environment
   }
-  default_detection_settings = true
-  default_bot_setting        = true
-  monitoring                 = true
-  allow_all_response_codes   = true
-  default_anonymization      = true
-  blocking                   = true
+  monitoring               = true
+  allow_all_response_codes = true
+  default_anonymization    = true
+  blocking                 = true
   enable_ai_enhancements {
     mitigate_high_risk_action = true
   }
