@@ -19,8 +19,8 @@ resource "volterra_route" "route-discovery-calalang-net" {
       }
     }
     route_direct_response {
-      response_code = 200
-      response_body = "{\r\n    \"message\": \"This is a discovery load balancer\"\r\n}"
+      response_code         = 200
+      response_body_encoded = "string:///VGhpcyBpcyBhIGRpc2NvdmVyeSBsb2FkIGJhbGFuY2Vy"
     }
     response_headers_to_add {
       // This is set to trigger learning
