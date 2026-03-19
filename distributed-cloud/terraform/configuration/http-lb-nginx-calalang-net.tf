@@ -67,23 +67,6 @@ resource "volterra_http_loadbalancer" "http-lb-nginx-calalang-net" {
     name      = volterra_app_firewall.app-firewall-threat-campaigns.name
     namespace = var.namespace
   }
-  waf_exclusion_rules {
-    metadata {
-      name = "waf-exclusion-rules"
-    }
-    exact_value = "nginx.calalang.net"
-    methods     = ["GET"]
-    app_firewall_detection_control {
-      exclude_signature_contexts {
-        signature_id = 200000001
-        context      = "CONTEXT_URL"
-      }
-      exclude_signature_contexts {
-        signature_id = 200000002
-        context      = "CONTEXT_URL"
-      }
-    }
-  }
   add_location = true
   cookie_stickiness {
     name = "NGINXStickiness"
