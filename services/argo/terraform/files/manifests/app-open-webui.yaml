@@ -14,9 +14,9 @@ spec:
         - https://raw.githubusercontent.com/open-webui/helm-charts/refs/heads/main/charts/open-webui/values.yaml
       ignoreMissingValueFiles: false
       parameters:
-        - name: "service.type"
-          value: "ClusterIP"
         - name: "pipelines.enabled"
+          value: "false"
+        - name: "websocket.enabled"
           value: "false"
       values: |
         extraEnvVars:
@@ -24,14 +24,6 @@ spec:
             value: "https://open-webui.calalang.net"
           - name: CORS_ALLOW_ORIGIN
             value: "https://open-webui.calalang.net"
-          - name: WEBUI_SESSION_COOKIE_SECURE
-            value: "true"
-          - name: WEBUI_AUTH_COOKIE_SECURE
-            value: "true"
-          - name: WEBUI_SESSION_COOKIE_SAME_SITE
-            value: "lax"
-          - name: WEBUI_AUTH_COOKIE_SAME_SITE
-            value: "lax"
   destination:
     name: "in-cluster"
     namespace: open-webui

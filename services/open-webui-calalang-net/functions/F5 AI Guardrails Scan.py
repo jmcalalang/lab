@@ -1,9 +1,9 @@
 """
 title: F5 AI Guardrails (Calypso) Policy Gateway
-author: Calalang, ChatGPT
-description: Open-WebUI function to send prompts to CalypsoAI's /scans endpoint for scanning and moderation.
-version: 1.0.0
-requirements: Valves for UUID of the CalypsoAI Project, and Project API Key.
+author: Claude
+description: Filter that scans both incoming user prompts (inlet) and outgoing model responses (outlet) through CalypsoAI. Blocked or flagged content is intercepted and replaced with a policy message before it reaches the user or the model.
+version: 2.0.0
+requirements: httpx
 """
 
 import json
@@ -17,67 +17,42 @@ class PolicyBlockedError(Exception):
 
 
 class Filter:
+    # Hardcoded defaults (not exposed as valves)
+    _SCANS_PATH = "/backend/v1/scans"
+    _ENDPOINT = "open-webui"
+    _EXTERNAL_METADATA = {"app": "open-webui"}
+    _MESSAGE_FLAGGED = "This message was flagged by F5 AI Guardrails"
+    _MESSAGE_BLOCKED = "This message was blocked by F5 AI Guardrails"
+    _MESSAGE_SEVERITY = "This message was blocked by F5 AI Guardrails"
+    _FAIL_MODE_INLET = "closed"
+    _FAIL_MODE_OUTLET = "open"
+    _BLOCK_ON_SEVERITY = "high"
+    _REQUEST_TIMEOUT_SECONDS = 5.0
+    _MIN_CONTENT_LENGTH = 5
+    _DEBUG_LOG_CALYPSO_FIELDS = True
+
     class Valves(BaseModel):
         CALYPSO_API_KEY: str = Field(
-            default="", description="Calypso Bearer token", repr=False
+            default="",
+            description="Bearer token for Calypso. Can also be set via env CALYPSO_API_KEY.",
+            repr=False,
         )
-        CALYPSO_API_URL: str = Field(
-            default="https://us1.calypsoai.app/backend/v1/scans"
+        BASE_URL: str = Field(
+            default="https://us1.calypsoai.app",
+            description="Calypso base URL. Change to your local instance URL if self-hosting (e.g. http://calypso.internal).",
         )
-
         PROJECT: str = Field(
-            default="", description="REQUIRED: Calypso project identifier (must exist)"
+            default="",
+            description="REQUIRED: Calypso project identifier (must exist in your tenant)",
         )
-        ENDPOINT: str = Field(
-            default="open-webui", description="Calypso endpoint label"
-        )
-
-        EXTERNAL_METADATA_JSON: str = Field(
-            default='{"app":"open-webui"}',
-            description="JSON object string for externalMetadata (must be a dict)",
-        )
-
-        MESSAGE_FLAGGED: str = Field(
-            default="This message was flagged by F5 AI Guardrails"
-        )
-        MESSAGE_BLOCKED: str = Field(
-            default="This message was blocked by F5 AI Guardrails"
-        )
-        MESSAGE_SEVERITY: str = Field(
-            default="This message was blocked by F5 AI Guardrails"
-        )
-
-        FAIL_MODE_INLET: str = Field(
-            default="closed", description="closed|open on Calypso errors"
-        )
-        FAIL_MODE_OUTLET: str = Field(
-            default="open", description="closed|open on Calypso errors"
-        )
-
-        BLOCK_ON_SEVERITY: str = Field(default="high", description="low|medium|high")
-
-        REQUEST_TIMEOUT_SECONDS: float = Field(default=5.0)
-        MIN_CONTENT_LENGTH: int = Field(default=5)
-
-        DEBUG_LOG_CALYPSO_FIELDS: bool = Field(default=True)
 
     def __init__(self):
         self.valves = self.Valves()
 
     def _severity_blocks(self, severity: str) -> bool:
         rank = {"low": 1, "medium": 2, "high": 3}
-        threshold = rank.get(self.valves.BLOCK_ON_SEVERITY, 3)
+        threshold = rank.get(self._BLOCK_ON_SEVERITY, 3)
         return rank.get(severity, 1) >= threshold
-
-    def _parse_external_metadata(self) -> Dict[str, Any]:
-        raw = (self.valves.EXTERNAL_METADATA_JSON or "").strip()
-        if not raw:
-            return {}
-        try:
-            parsed = json.loads(raw)
-            return parsed if isinstance(parsed, dict) else {}
-        except Exception:
-            return {}
 
     def _last_user_message(self, body: dict) -> str:
         messages = body.get("messages", []) or []
@@ -107,16 +82,7 @@ class Filter:
         body["choices"] = choices
         return body
 
-    # -------------------------
-    # Calypso result interpretation (schema-aware)
-    # -------------------------
     def _interpret_result(self, data: Dict[str, Any]) -> Tuple[str, str, List[str]]:
-        """
-        Returns (status, severity, failed_scanners)
-
-        Your tenant returns: { id, result: { scannerResults: [...] }, redactedInput }
-        Where each scannerResults item has outcome: passed|failed|blocked (etc.)
-        """
         severity = data.get("severity") or "low"
         severity = severity.lower() if isinstance(severity, str) else "low"
 
@@ -138,27 +104,21 @@ class Filter:
                 if outcome:
                     outcomes.append(outcome)
 
-                # Capture identifiers for logging/debug/ops (not shown to user)
                 if outcome in ("failed", "block", "blocked"):
                     sid = sr.get("scannerId") or sr.get("scanner_id") or "unknown"
                     failed_scanners.append(str(sid))
 
-        # If we have outcomes, trust them fully (no heuristic guessing)
         if outcomes:
             if any(o in ("blocked", "block") for o in outcomes):
                 return "Blocked", severity, failed_scanners
             if any(o in ("failed", "fail", "flagged") for o in outcomes):
                 return "Flagged", severity, failed_scanners
-            # If every scanner passed, it's cleared
             if all(o in ("passed", "pass", "ok") for o in outcomes):
                 return "Cleared", severity, []
-            # Unknown outcome values -> be conservative but not overly so:
-            # treat unknowns as Flagged only if they are not "passed"
             if any(o not in ("passed", "pass", "ok") for o in outcomes):
                 return "Flagged", severity, failed_scanners
             return "Cleared", severity, []
 
-        # If no outcomes present, fall back to explicit top-level fields only (no guessing)
         for key in ("decision", "status", "outcome", "result"):
             v = data.get(key)
             if isinstance(v, str):
@@ -170,13 +130,12 @@ class Filter:
                 if s in ("cleared", "passed", "ok", "allow", "allowed"):
                     return "Cleared", severity, []
 
-        # Default safe behavior: if Calypso doesn't give a decision, treat as Cleared
         return "Cleared", severity, []
 
     def _normalize(self, data: Dict[str, Any]) -> Dict[str, Any]:
         status, severity, failed_scanners = self._interpret_result(data)
 
-        if self.valves.DEBUG_LOG_CALYPSO_FIELDS:
+        if self._DEBUG_LOG_CALYPSO_FIELDS:
             try:
                 result_preview = json.dumps(data.get("result"))[:600]
             except Exception:
@@ -210,18 +169,18 @@ class Filter:
         payload = {
             "input": content,
             "project": self.valves.PROJECT,
-            "endpoint": self.valves.ENDPOINT,
-            "externalMetadata": self._parse_external_metadata(),
+            "endpoint": self._ENDPOINT,
+            "externalMetadata": self._EXTERNAL_METADATA,
             "verbose": False,
             "disabled": [],
             "forceEnabled": [],
         }
 
         async with httpx.AsyncClient(
-            timeout=httpx.Timeout(self.valves.REQUEST_TIMEOUT_SECONDS)
+            timeout=httpx.Timeout(self._REQUEST_TIMEOUT_SECONDS), verify=False
         ) as client:
             r = await client.post(
-                self.valves.CALYPSO_API_URL,
+                f"{self.valves.BASE_URL.rstrip('/')}{self._SCANS_PATH}",
                 headers={
                     "Authorization": f"Bearer {self.valves.CALYPSO_API_KEY}",
                     "Content-Type": "application/json",
@@ -243,14 +202,11 @@ class Filter:
         r.raise_for_status()
         return r.json()
 
-    # -------------------------
-    # INLET
-    # -------------------------
     async def inlet(
         self, body: dict, __event_emitter__=None, __user__: Optional[dict] = None
     ) -> dict:
         prompt = self._last_user_message(body)
-        if not prompt or len(prompt) < self.valves.MIN_CONTENT_LENGTH:
+        if not prompt or len(prompt) < self._MIN_CONTENT_LENGTH:
             return body
 
         try:
@@ -266,13 +222,13 @@ class Filter:
             )
 
             if norm["status"] == "Blocked":
-                raise PolicyBlockedError(self.valves.MESSAGE_BLOCKED)
+                raise PolicyBlockedError(self._MESSAGE_BLOCKED)
 
             if norm["status"] == "Flagged":
-                raise PolicyBlockedError(self.valves.MESSAGE_FLAGGED)
+                raise PolicyBlockedError(self._MESSAGE_FLAGGED)
 
             if self._severity_blocks(norm["severity"]):
-                raise PolicyBlockedError(self.valves.MESSAGE_SEVERITY)
+                raise PolicyBlockedError(self._MESSAGE_SEVERITY)
 
             return body
 
@@ -281,16 +237,13 @@ class Filter:
                 {
                     "event": "calypso_inlet_error",
                     "error": str(e),
-                    "mode": self.valves.FAIL_MODE_INLET,
+                    "mode": self._FAIL_MODE_INLET,
                 }
             )
-            if self.valves.FAIL_MODE_INLET == "open":
+            if self._FAIL_MODE_INLET == "open":
                 return body
             raise
 
-    # -------------------------
-    # OUTLET
-    # -------------------------
     async def outlet(
         self, body: dict, __event_emitter__=None, __user__: Optional[dict] = None
     ) -> dict:
@@ -302,7 +255,7 @@ class Filter:
             msg = choices[0].get("message", {}) or {}
             text = (msg.get("content") or "").strip()
 
-            if not text or len(text) < self.valves.MIN_CONTENT_LENGTH:
+            if not text or len(text) < self._MIN_CONTENT_LENGTH:
                 return body
 
             data = await self._scan(text)
@@ -317,15 +270,13 @@ class Filter:
             )
 
             if norm["status"] == "Blocked":
-                return self._replace_assistant_output(body, self.valves.MESSAGE_BLOCKED)
+                return self._replace_assistant_output(body, self._MESSAGE_BLOCKED)
 
             if norm["status"] == "Flagged":
-                return self._replace_assistant_output(body, self.valves.MESSAGE_FLAGGED)
+                return self._replace_assistant_output(body, self._MESSAGE_FLAGGED)
 
             if self._severity_blocks(norm["severity"]):
-                return self._replace_assistant_output(
-                    body, self.valves.MESSAGE_SEVERITY
-                )
+                return self._replace_assistant_output(body, self._MESSAGE_SEVERITY)
 
             return body
 
@@ -334,9 +285,9 @@ class Filter:
                 {
                     "event": "calypso_outlet_error",
                     "error": str(e),
-                    "mode": self.valves.FAIL_MODE_OUTLET,
+                    "mode": self._FAIL_MODE_OUTLET,
                 }
             )
-            if self.valves.FAIL_MODE_OUTLET == "open":
+            if self._FAIL_MODE_OUTLET == "open":
                 return body
             raise
