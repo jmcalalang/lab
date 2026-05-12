@@ -27,7 +27,6 @@
       ],
       "name": "/etc/nginx/conf.d"
     },
-    },
     {
       "files": [
         {
