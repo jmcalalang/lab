@@ -18,10 +18,10 @@ existing_subnet_resource_group = "calalang-networking-rg"
 
 nginx-instance-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-instance-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2204"
-nginx-instance-version = "latest"
+nginx-instance-version = "1.2.0"
 nginx-instance-count   = 1
 
 nginx-api-gw-offer   = "nginx_plus_with_nginx_app_protect_developer"
 nginx-api-gw-sku     = "nginx_plus_with_nginx_app_protect_dev_ubuntu2204"
-nginx-api-gw-version = "latest"
+nginx-api-gw-version = "1.2.0"
 nginx-api-gw-count   = 1
