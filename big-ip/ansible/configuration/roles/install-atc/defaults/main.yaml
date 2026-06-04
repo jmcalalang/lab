@@ -14,15 +14,15 @@ do_requested_tag: "v1.49.0" # a default value that is used if not overidden and 
 
 ts_file: "ts.rpm"
 ts_file_sha256: "{{ts_file}}.sha256"
-ts_use_latest: false
+ts_use_latest: true
 ts_requested_tag: "v1.33.0" # a default value that is used if not overidden and if ts_use_latest = false
 
 fast_file: "fast.rpm"
 fast_file_sha256: "{{fast_file}}.sha256"
-fast_use_latest: false
+fast_use_latest: true
 fast_requested_tag: "v1.26.0" # a default value that is used if not overidden and if ts_use_latest = false
 
 cfe_file: "cfe.rpm"
 cfe_file_sha256: "{{cfe_file}}.sha256"
-cfe_use_latest: false
+cfe_use_latest: true
 cfe_requested_tag: "v1.15.0" # a default value that is used if not overidden and if ts_use_latest = false
