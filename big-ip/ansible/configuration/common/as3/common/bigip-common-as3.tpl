@@ -342,6 +342,9 @@
                 },
                 "discoveryTLSClient": {
                     "class": "TLS_Client",
+                    "cipherGroup": {
+                        "bigip": "/Common/f5-default"
+                    },
                     "clientCertificate": "discoveryTLSCert",
                     "sendSNI": "discovery.calalang.net"
                 },
